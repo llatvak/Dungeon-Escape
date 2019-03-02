@@ -31,7 +31,10 @@ public class DungeonEscape extends Game {
 	public void create () {
 		batch = new SpriteBatch();
 		MapScreen mapScreen = new MapScreen(this);
+
+		// Choose which screen you want to show
 		setScreen(mapScreen);
+        //setScreen(movementScreen);
 	}
 
 	@Override
