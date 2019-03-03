@@ -10,9 +10,14 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapGroupLayer;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Array;
 
 
 public class MapScreen implements Screen {
@@ -48,61 +53,89 @@ public class MapScreen implements Screen {
         batch = game.getBatch();
         //moveCamera();
         worldMap = new TmxMapLoader().load("DungeonEscape_Map.tmx");
+       // worldMap = new TmxMapLoader().load("tilemap.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(worldMap);
         camera = new OrthographicCamera();
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
 
-        player = new MapPlayer(this);
+        player = new MapPlayer(worldMap);
     }
 
     public void moveCamera() {
-        camera.position.x = player.getX();
-        camera.position.y = player.getY();
+        camera.position.x = player.getX() + 32f;
+        camera.position.y = player.getY() + 32f;
         camera.update();
     }
 
     public void update() {
 
         //player.gesture();
-        player.verticalMove();
 
 //        if(player.gameEnd) {
 //            pause();
 //            // reset();
 //        }
 
-        player.horizontalMove();
-
-        if(player.upRightCollision && player.downRightCollision) {
-            player.translateX(1 * player.moveAmount);
+        if(player.moving) {
+            player.move();
         }
+
+//        if(player.upRightCollision && player.downRightCollision) {
+//            player.translateX(1 * player.moveAmount);
+//        }
 
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            player.setUpMove(true);
-            player.verticalMove();
-
+            if(!player.moving) {
+                player.setUpMove(true);
+            }
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
-            player.setDownMove(true);
-            player.verticalMove();
-
+            if(!player.moving){
+                player.setDownMove(true);
+            }
         }
 
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-            player.setRightMove(true);
-            player.horizontalMove();
+            if(!player.moving) {
+                player.setRightMove(true);
+            }
 
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
-            player.setLeftMove(true);
-            player.horizontalMove();
-
+            if(!player.moving) {
+                player.setLeftMove(true);
+            }
         }
         //checkCollisions();
+    }
+
+    /**
+     * Checks if player has collided with collectable
+     */
+    private void checkCollisions() {
+        // get the down trap rectangles layer
+        MapLayer collisionObjectLayer = (MapLayer) worldMap.getLayers().get("Down_trap");
+        // All the rectangles of the layer
+        MapObjects mapObjects = collisionObjectLayer.getObjects();
+        // Cast it to RectangleObjects array
+        Array<RectangleMapObject> rectangleObjects = mapObjects.getByType(RectangleMapObject.class);
+        // Iterate all the rectangles
+        for (RectangleMapObject rectangleObject : rectangleObjects) {
+            Rectangle rectangle = rectangleObject.getRectangle();
+            // SCALE given rectangle down if using world dimensions!
+            if (player.getBoundingRectangle().overlaps(rectangle)) {
+                System.out.println("Collect");
+                //clearCollectable();
+            }
+        }
+    }
+
+    public TiledMap getWorldMap(){
+        return worldMap;
     }
 
 
