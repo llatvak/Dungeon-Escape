@@ -32,6 +32,7 @@ public class DungeonEscape extends Game {
 		batch = new SpriteBatch();
 		MapScreen mapScreen = new MapScreen(this);
 		setScreen(mapScreen);
+		System.out.println("hello");
 	}
 
 	@Override
