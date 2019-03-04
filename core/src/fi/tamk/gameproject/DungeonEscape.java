@@ -4,13 +4,20 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class DungeonEscape extends Game {
-    SpriteBatch batch;
+	SpriteBatch batch;
+
+	// Fonts
+	BitmapFont fontRoboto;
+	GlyphLayout layout;
+	FreeTypeFontGenerator fontGenerator;
 
     @Override
     public void create () {
         batch = new SpriteBatch();
         MoveScreen moveScreen = new MoveScreen(this);
+        MapScreen mapScreen = new MapScreen(this);
         setScreen(moveScreen);
+        //setScreen(mapScreen);
     }
 
     @Override
@@ -29,3 +36,5 @@ public class DungeonEscape extends Game {
         batch.dispose();
     }
 }
+
+
