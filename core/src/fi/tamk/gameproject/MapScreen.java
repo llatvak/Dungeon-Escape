@@ -84,6 +84,16 @@ public class MapScreen implements Screen {
         System.out.println("DOWN TRAP!");
         game.setScreen(moveScreen);
     }
+    public void goToUpTrap() {
+        System.out.println("UP TRAP!");
+        // Needs new class UpScreen
+        game.setScreen(moveScreen);
+    }
+    public void goToStoryTile() {
+        System.out.println("STORY TILE!");
+        // Needs new class StoryScreen
+        game.setScreen(moveScreen);
+    }
 
     public TiledMap getWorldMap(){
         return tiledMap;

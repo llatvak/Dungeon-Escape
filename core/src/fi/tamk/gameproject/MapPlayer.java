@@ -24,25 +24,30 @@ public class MapPlayer extends Sprite {
     private TiledMap tiledMap;
     private Texture playerTexture;
 
+    // Map size
     private final int TILE_SIZE = 64;
     private final float MAP_WIDTH = 29 * TILE_SIZE;
     private final float MAP_HEIGHT = 39 * TILE_SIZE;
 
+    // Player size
     private float spriteWidth = 62f ;
     private float spriteHeight = 62f;
 
-    private float startingX = 1f;
-    private float startingY = 24 * TILE_SIZE + 1;
+    // Starting location
+    private float startingX = 2 * TILE_SIZE + 1f;
+    private float startingY = 26 * TILE_SIZE + 1f;
 
     private float spriteX = startingX;
     private float spriteY = startingY;
 
+    // Movement direction
     boolean moving;
     private boolean goUp;
     private boolean goDown;
     private boolean goRight;
     private boolean goLeft;
 
+    // Movement
     private float movementSpeed = 4f;
     private float movedDistance;
     float moveAmount = movementSpeed;
@@ -149,7 +154,7 @@ public class MapPlayer extends Sprite {
     public void checkInput() {
         Gdx.input.setInputProcessor(new InputAdapter() {
 
-            // Move to direction if key is pressed
+            // Keyboard controls
             @Override
             public boolean keyDown (int keycode) {
                 if(!moving && keycode == UP) {
@@ -170,6 +175,7 @@ public class MapPlayer extends Sprite {
                 return true;
             }
 
+            // Touch controls
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 // System.out.println("Touchscreen X: " + screenX);
@@ -255,10 +261,17 @@ public class MapPlayer extends Sprite {
      * Checks if player has collided with event tiles
      */
     public void checkCollisions() {
-        // Get the collectable rectangles layer
-        MapLayer collisionObjectLayer = (MapLayer)tiledMap.getLayers().get("Down_trap");
+        // Can these methods be merged into one single method?
+        checkDownTraps();
+        checkUpTraps();
+        checkStoryTiles();
+    }
+
+    public void checkDownTraps() {
+        // Get the down trap rectangles layer
+        MapLayer downTrapObjectLayer = (MapLayer)tiledMap.getLayers().get("Down_trap");
         // All the rectangles of the layer
-        MapObjects mapObjects = collisionObjectLayer.getObjects();
+        MapObjects mapObjects = downTrapObjectLayer.getObjects();
         // Cast it to RectangleObjects array
         Array<RectangleMapObject> rectangleObjects = mapObjects.getByType(RectangleMapObject.class);
         // Iterate all the rectangles
@@ -267,6 +280,37 @@ public class MapPlayer extends Sprite {
             // SCALE given rectangle down if using world dimensions!
             if (getBoundingRectangle().overlaps(rectangle) && movedDistance == 64) {
                 mapScreen.goToDownTrap();
+            }
+        }
+    }
+
+    public void checkUpTraps() {
+        MapLayer upTrapObjectLayer = (MapLayer)tiledMap.getLayers().get("Up_trap");
+        // All the rectangles of the layer
+        MapObjects mapObjects = upTrapObjectLayer.getObjects();
+        // Cast it to RectangleObjects array
+        Array<RectangleMapObject> rectangleObjects = mapObjects.getByType(RectangleMapObject.class);
+        // Iterate all the rectangles
+        for (RectangleMapObject rectangleObject : rectangleObjects) {
+            Rectangle rectangle = rectangleObject.getRectangle();
+            // SCALE given rectangle down if using world dimensions!
+            if (getBoundingRectangle().overlaps(rectangle) && movedDistance == 64) {
+                mapScreen.goToUpTrap();
+            }
+        }
+    }
+    public void checkStoryTiles() {
+        MapLayer storyTileObjectLayer = (MapLayer)tiledMap.getLayers().get("Story_tiles");
+        // All the rectangles of the layer
+        MapObjects mapObjects = storyTileObjectLayer.getObjects();
+        // Cast it to RectangleObjects array
+        Array<RectangleMapObject> rectangleObjects = mapObjects.getByType(RectangleMapObject.class);
+        // Iterate all the rectangles
+        for (RectangleMapObject rectangleObject : rectangleObjects) {
+            Rectangle rectangle = rectangleObject.getRectangle();
+            // SCALE given rectangle down if using world dimensions!
+            if (getBoundingRectangle().overlaps(rectangle) && movedDistance == 64) {
+                mapScreen.goToStoryTile();
             }
         }
     }
