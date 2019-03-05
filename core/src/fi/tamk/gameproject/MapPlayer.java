@@ -2,6 +2,7 @@ package fi.tamk.gameproject;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.MapLayer;
@@ -11,6 +12,11 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
+
+import static com.badlogic.gdx.Input.Keys.DOWN;
+import static com.badlogic.gdx.Input.Keys.LEFT;
+import static com.badlogic.gdx.Input.Keys.RIGHT;
+import static com.badlogic.gdx.Input.Keys.UP;
 
 public class MapPlayer extends Sprite {
 
@@ -57,6 +63,8 @@ public class MapPlayer extends Sprite {
         super( new Texture("velho.png"));
         this.mapScreen = mapScreen;
         this.tiledMap = mapScreen.tiledMap;
+        MyInputProcessor inputProcessor = new MyInputProcessor();
+        Gdx.input.setInputProcessor(inputProcessor);
 
         setSize(spriteWidth, spriteHeight);
         setPosition(startingX, startingY);
@@ -139,31 +147,37 @@ public class MapPlayer extends Sprite {
     }
 
     public void checkInput() {
-        if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            if(!moving) {
-                setUpMove(true);
+        Gdx.input.setInputProcessor(new InputAdapter() {
+
+            // Move to direction if key is pressed
+            @Override
+            public boolean keyDown (int keycode) {
+                if(!moving && keycode == UP) {
+                    setUpMove(true);
+                }
+
+                if(!moving && keycode == DOWN) {
+                    setDownMove(true);
+                }
+
+                if(!moving && keycode == LEFT) {
+                    setLeftMove(true);
+                }
+
+                if(!moving && keycode == RIGHT) {
+                    setRightMove(true);
+                }
+                return true;
             }
-        }
 
-        if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
-            if(!moving){
-                setDownMove(true);
+            @Override
+            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                System.out.println(screenX);
+                System.out.println(screenY);
+
+                return true;
             }
-        }
-
-
-        if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-            if(!moving) {
-                setRightMove(true);
-            }
-
-        }
-
-        if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
-            if(!moving) {
-                setLeftMove(true);
-            }
-        }
+        });
     }
 
     public void setLeftMove(boolean t) {
