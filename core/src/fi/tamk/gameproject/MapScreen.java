@@ -46,6 +46,7 @@ public class MapScreen implements Screen {
     float fontWidth;
     float fontHeight;
 
+    MoveScreen moveScreen;
     public MapScreen(DungeonEscape game) {
         background = new Texture("brickwall.png");
 
@@ -53,12 +54,13 @@ public class MapScreen implements Screen {
         batch = game.getBatch();
         //moveCamera();
         worldMap = new TmxMapLoader().load("DungeonEscape_Map.tmx");
-       // worldMap = new TmxMapLoader().load("tilemap.tmx");
+        // worldMap = new TmxMapLoader().load("tilemap.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(worldMap);
         camera = new OrthographicCamera();
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
+        moveScreen = new MoveScreen(game);
 
-        player = new MapPlayer(worldMap);
+        player = new MapPlayer(this);
     }
 
     public void moveCamera() {
@@ -79,7 +81,7 @@ public class MapScreen implements Screen {
         if(player.moving) {
             player.move();
         }
-
+        player.checkCollisions();
 //        if(player.upRightCollision && player.downRightCollision) {
 //            player.translateX(1 * player.moveAmount);
 //        }
@@ -113,25 +115,9 @@ public class MapScreen implements Screen {
         //checkCollisions();
     }
 
-    /**
-     * Checks if player has collided with collectable
-     */
-    private void checkCollisions() {
-        // get the down trap rectangles layer
-        MapLayer collisionObjectLayer = (MapLayer) worldMap.getLayers().get("Down_trap");
-        // All the rectangles of the layer
-        MapObjects mapObjects = collisionObjectLayer.getObjects();
-        // Cast it to RectangleObjects array
-        Array<RectangleMapObject> rectangleObjects = mapObjects.getByType(RectangleMapObject.class);
-        // Iterate all the rectangles
-        for (RectangleMapObject rectangleObject : rectangleObjects) {
-            Rectangle rectangle = rectangleObject.getRectangle();
-            // SCALE given rectangle down if using world dimensions!
-            if (player.getBoundingRectangle().overlaps(rectangle)) {
-                System.out.println("Collect");
-                //clearCollectable();
-            }
-        }
+    public void goToTrap() {
+        System.out.println("TRAP!");
+        game.setScreen(moveScreen);
     }
 
     public TiledMap getWorldMap(){
@@ -166,7 +152,7 @@ public class MapScreen implements Screen {
         batch.end();
         moveCamera();
         update();
-       // System.out.println("X: " + player.getX() + " Y: " + player.getY());
+        // System.out.println("X: " + player.getX() + " Y: " + player.getY());
     }
 
     @Override

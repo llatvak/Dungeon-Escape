@@ -3,8 +3,13 @@ package fi.tamk.gameproject;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Array;
 
 public class MapPlayer extends Sprite {
 
@@ -47,10 +52,11 @@ public class MapPlayer extends Sprite {
     private float rightXPos;
 
 
-    public MapPlayer(TiledMap worldMap) {
+    public MapPlayer(MapScreen world) {
         super( new Texture("velho.png"));
-        // this.world = world;
-        this.worldMap = worldMap;
+        this.world = world;
+        this.worldMap = world.worldMap;
+
         setSize(spriteWidth, spriteHeight);
         setPosition(startingX, startingY);
     }
@@ -92,7 +98,7 @@ public class MapPlayer extends Sprite {
         }
 
         if(goLeft) {
-            getMyCorners(spriteX - 1, spriteY);
+            getMyCorners(spriteX - 2, spriteY);
             if(upLeftCollision && downLeftCollision) {
                 if (movedDistance < TILE_SIZE) {
                     spriteX -= movementSpeed;
@@ -125,7 +131,6 @@ public class MapPlayer extends Sprite {
             }
 
         }
-        System.out.println(spriteX);
         setX(spriteX);
         setY(spriteY);
     }
@@ -158,7 +163,6 @@ public class MapPlayer extends Sprite {
 
         int indexX = (int) x / TILE_SIZE;
         int indexY = (int) y / TILE_SIZE;
-        System.out.println(x +" "+y );
         System.out.println(indexX +" "+indexY );
         TiledMapTileLayer wallCells = (TiledMapTileLayer)
                 worldMap.getLayers().get("Walls");
@@ -166,7 +170,8 @@ public class MapPlayer extends Sprite {
         // Is the coordinate / cell free?
         if(wallCells.getCell(indexX, indexY) != null) {
             // There was a cell, it's not free
-            System.out.println("CRASH!");
+            System.out.println("WALL!");
+            movedDistance = 0;
             //gameEnd = true;
             //setAlpha(0);
             return false;
@@ -189,6 +194,26 @@ public class MapPlayer extends Sprite {
         upRightCollision = isFree(rightXPos, upYPos);
         downRightCollision = isFree(rightXPos, downYPos);
         System.out.println();
+    }
+    /**
+     * Checks if player has collided with collectable
+     */
+    public void checkCollisions() {
+        // Let's get the collectable rectangles layer
+        MapLayer collisionObjectLayer = (MapLayer)worldMap.getLayers().get("Down_trap");
+        // All the rectangles of the layer
+        MapObjects mapObjects = collisionObjectLayer.getObjects();
+        // Cast it to RectangleObjects array
+        Array<RectangleMapObject> rectangleObjects = mapObjects.getByType(RectangleMapObject.class);
+        // Iterate all the rectangles
+        for (RectangleMapObject rectangleObject : rectangleObjects) {
+            Rectangle rectangle = rectangleObject.getRectangle();
+            // SCALE given rectangle down if using world dimensions!
+            if (getBoundingRectangle().overlaps(rectangle) && movedDistance == 64) {
+
+                world.goToTrap();
+            }
+        }
     }
 
     public void dispose() {

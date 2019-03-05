@@ -1,7 +1,10 @@
 package fi.tamk.gameproject;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 public class DungeonEscape extends Game {
 	SpriteBatch batch;
@@ -16,8 +19,8 @@ public class DungeonEscape extends Game {
         batch = new SpriteBatch();
         MoveScreen moveScreen = new MoveScreen(this);
         MapScreen mapScreen = new MapScreen(this);
-        setScreen(moveScreen);
-        //setScreen(mapScreen);
+        //setScreen(moveScreen);
+        setScreen(mapScreen);
     }
 
     @Override
