@@ -1,6 +1,7 @@
 package fi.tamk.gameproject;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -10,6 +11,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+
+import static com.badlogic.gdx.Input.Keys.SPACE;
 
 public class MoveScreenPlayer {
     private Body playerBody;
@@ -86,6 +89,25 @@ public class MoveScreenPlayer {
             playerHasNotJumped = true;
         }
         currentFrameTexture = jumpAnimation.getKeyFrame(stateTime, false);
+    }
+
+    public void checkInput() {
+        Gdx.input.setInputProcessor(new InputAdapter() {
+
+            // Keyboard controls
+            @Override
+            public boolean keyDown(int keycode) {
+                if (keycode == SPACE) {
+                    playerBody.applyLinearImpulse(new Vector2(3.7f, 5f),
+                            playerBody.getWorldCenter(), true);
+                    playerHasNotJumped = true;
+                    currentFrameTexture = jumpAnimation.getKeyFrame(stateTime, false);
+                }
+                return true;
+            }
+
+
+        });
     }
 
     public void dispose() {

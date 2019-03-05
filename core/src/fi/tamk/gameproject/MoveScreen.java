@@ -79,10 +79,11 @@ public class MoveScreen implements Screen {
     public void update() {
 
         player.playerJump();
+        player.checkInput();
 
-        // When player sprite moves out of boundaries
+        // When player sprite moves out of boundaries go to map
         if(player.getPlayerY() < -1f) {
-            System.out.println(player.getPlayerY());
+            //System.out.println(player.getPlayerY());
             System.out.println("MapScreen");
             mapScreen = new MapScreen(game);
             game.setScreen(mapScreen);
