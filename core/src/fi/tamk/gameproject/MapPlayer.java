@@ -172,8 +172,21 @@ public class MapPlayer extends Sprite {
 
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                System.out.println(screenX);
-                System.out.println(screenY);
+                // System.out.println("Touchscreen X: " + screenX);
+                // System.out.println("Touchscreen Y: " + screenY);
+
+                if(!moving && screenY < 800f && screenX > 300f  && screenX < 800f  ) {
+                    setUpMove(true);
+                }
+                if(!moving && screenY > 1100f && screenX > 300f  && screenX < 800f  ) {
+                    setDownMove(true);
+                }
+                if(!moving && screenY > 500f && screenY < 1400f && screenX < 400f   ) {
+                    setLeftMove(true);
+                }
+                if(!moving && screenY > 500f && screenY < 1400f  && screenX > 700f  ) {
+                    setRightMove(true);
+                }
 
                 return true;
             }
@@ -207,7 +220,7 @@ public class MapPlayer extends Sprite {
 
         int indexX = (int) x / TILE_SIZE;
         int indexY = (int) y / TILE_SIZE;
-        System.out.println(indexX +" "+indexY );
+        //System.out.println(indexX +" "+indexY );
         TiledMapTileLayer wallCells = (TiledMapTileLayer)
                 tiledMap.getLayers().get("Walls");
 

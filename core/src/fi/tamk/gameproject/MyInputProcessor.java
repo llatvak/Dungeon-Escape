@@ -2,6 +2,10 @@ package fi.tamk.gameproject;
 
 import com.badlogic.gdx.InputProcessor;
 
+//        Insert these to the class you use this InputProcessor
+
+//        MyInputProcessor inputProcessor = new MyInputProcessor();
+//        Gdx.input.setInputProcessor(inputProcessor);
 
 public class MyInputProcessor implements InputProcessor {
     public boolean keyDown (int keycode) {
