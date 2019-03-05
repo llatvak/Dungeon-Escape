@@ -34,7 +34,7 @@ public class MapScreen implements Screen {
     OrthographicCamera camera;
 
     // Map
-    TiledMap worldMap;
+    TiledMap tiledMap;
     OrthogonalTiledMapRenderer tiledMapRenderer;
 
     // Textures
@@ -53,9 +53,9 @@ public class MapScreen implements Screen {
         this.game = game;
         batch = game.getBatch();
         //moveCamera();
-        worldMap = new TmxMapLoader().load("DungeonEscape_Map.tmx");
+        tiledMap = new TmxMapLoader().load("DungeonEscape_Map.tmx");
         // worldMap = new TmxMapLoader().load("tilemap.tmx");
-        tiledMapRenderer = new OrthogonalTiledMapRenderer(worldMap);
+        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         camera = new OrthographicCamera();
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
         moveScreen = new MoveScreen(game);
@@ -71,57 +71,22 @@ public class MapScreen implements Screen {
 
     public void update() {
 
-        //player.gesture();
-
-//        if(player.gameEnd) {
-//            pause();
-//            // reset();
-//        }
-
         if(player.moving) {
             player.move();
         }
         player.checkCollisions();
-//        if(player.upRightCollision && player.downRightCollision) {
-//            player.translateX(1 * player.moveAmount);
-//        }
+        player.checkInput();
+        //player.checkGesture();
 
-
-        if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            if(!player.moving) {
-                player.setUpMove(true);
-            }
-        }
-
-        if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
-            if(!player.moving){
-                player.setDownMove(true);
-            }
-        }
-
-
-        if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-            if(!player.moving) {
-                player.setRightMove(true);
-            }
-
-        }
-
-        if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
-            if(!player.moving) {
-                player.setLeftMove(true);
-            }
-        }
-        //checkCollisions();
     }
 
-    public void goToTrap() {
-        System.out.println("TRAP!");
+    public void goToDownTrap() {
+        System.out.println("DOWN TRAP!");
         game.setScreen(moveScreen);
     }
 
     public TiledMap getWorldMap(){
-        return worldMap;
+        return tiledMap;
     }
 
 
