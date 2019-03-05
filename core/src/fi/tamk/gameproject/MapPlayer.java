@@ -1,15 +1,21 @@
 package fi.tamk.gameproject;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Array;
 
 public class MapPlayer extends Sprite {
 
-    private MapScreen world;
-    private TiledMap worldMap;
+    private MapScreen mapScreen;
+    private TiledMap tiledMap;
     private Texture playerTexture;
 
     private final int TILE_SIZE = 64;
@@ -47,14 +53,17 @@ public class MapPlayer extends Sprite {
     private float rightXPos;
 
 
-    public MapPlayer(TiledMap worldMap) {
+    public MapPlayer(MapScreen mapScreen) {
         super( new Texture("velho.png"));
-        // this.world = world;
-        this.worldMap = worldMap;
+        this.mapScreen = mapScreen;
+        this.tiledMap = mapScreen.tiledMap;
+
         setSize(spriteWidth, spriteHeight);
         setPosition(startingX, startingY);
     }
 
+
+    // Can this method be reduced in size?
     public void move(){
 
         if(goDown) {
@@ -92,7 +101,7 @@ public class MapPlayer extends Sprite {
         }
 
         if(goLeft) {
-            getMyCorners(spriteX - 1, spriteY);
+            getMyCorners(spriteX - 2, spriteY);
             if(upLeftCollision && downLeftCollision) {
                 if (movedDistance < TILE_SIZE) {
                     spriteX -= movementSpeed;
@@ -125,11 +134,37 @@ public class MapPlayer extends Sprite {
             }
 
         }
-        System.out.println(spriteX);
         setX(spriteX);
         setY(spriteY);
     }
 
+    public void checkInput() {
+        if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+            if(!moving) {
+                setUpMove(true);
+            }
+        }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+            if(!moving){
+                setDownMove(true);
+            }
+        }
+
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+            if(!moving) {
+                setRightMove(true);
+            }
+
+        }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+            if(!moving) {
+                setLeftMove(true);
+            }
+        }
+    }
 
     public void setLeftMove(boolean t) {
         goLeft = t;
@@ -158,15 +193,15 @@ public class MapPlayer extends Sprite {
 
         int indexX = (int) x / TILE_SIZE;
         int indexY = (int) y / TILE_SIZE;
-        System.out.println(x +" "+y );
         System.out.println(indexX +" "+indexY );
         TiledMapTileLayer wallCells = (TiledMapTileLayer)
-                worldMap.getLayers().get("Walls");
+                tiledMap.getLayers().get("Walls");
 
         // Is the coordinate / cell free?
         if(wallCells.getCell(indexX, indexY) != null) {
             // There was a cell, it's not free
-            System.out.println("CRASH!");
+            System.out.println("WALL!");
+            movedDistance = 0;
             //gameEnd = true;
             //setAlpha(0);
             return false;
@@ -188,7 +223,25 @@ public class MapPlayer extends Sprite {
         downLeftCollision = isFree(leftXPos, downYPos);
         upRightCollision = isFree(rightXPos, upYPos);
         downRightCollision = isFree(rightXPos, downYPos);
-        System.out.println();
+    }
+    /**
+     * Checks if player has collided with event tiles
+     */
+    public void checkCollisions() {
+        // Get the collectable rectangles layer
+        MapLayer collisionObjectLayer = (MapLayer)tiledMap.getLayers().get("Down_trap");
+        // All the rectangles of the layer
+        MapObjects mapObjects = collisionObjectLayer.getObjects();
+        // Cast it to RectangleObjects array
+        Array<RectangleMapObject> rectangleObjects = mapObjects.getByType(RectangleMapObject.class);
+        // Iterate all the rectangles
+        for (RectangleMapObject rectangleObject : rectangleObjects) {
+            Rectangle rectangle = rectangleObject.getRectangle();
+            // SCALE given rectangle down if using world dimensions!
+            if (getBoundingRectangle().overlaps(rectangle) && movedDistance == 64) {
+                mapScreen.goToDownTrap();
+            }
+        }
     }
 
     public void dispose() {

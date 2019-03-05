@@ -34,7 +34,7 @@ public class MapScreen implements Screen {
     OrthographicCamera camera;
 
     // Map
-    TiledMap worldMap;
+    TiledMap tiledMap;
     OrthogonalTiledMapRenderer tiledMapRenderer;
 
     // Textures
@@ -46,19 +46,21 @@ public class MapScreen implements Screen {
     float fontWidth;
     float fontHeight;
 
+    MoveScreen moveScreen;
     public MapScreen(DungeonEscape game) {
         background = new Texture("brickwall.png");
 
         this.game = game;
         batch = game.getBatch();
         //moveCamera();
-        worldMap = new TmxMapLoader().load("DungeonEscape_Map.tmx");
-       // worldMap = new TmxMapLoader().load("tilemap.tmx");
-        tiledMapRenderer = new OrthogonalTiledMapRenderer(worldMap);
+        tiledMap = new TmxMapLoader().load("DungeonEscape_Map.tmx");
+        // worldMap = new TmxMapLoader().load("tilemap.tmx");
+        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         camera = new OrthographicCamera();
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
+        moveScreen = new MoveScreen(game);
 
-        player = new MapPlayer(worldMap);
+        player = new MapPlayer(this);
     }
 
     public void moveCamera() {
@@ -69,73 +71,22 @@ public class MapScreen implements Screen {
 
     public void update() {
 
-        //player.gesture();
-
-//        if(player.gameEnd) {
-//            pause();
-//            // reset();
-//        }
-
         if(player.moving) {
             player.move();
         }
+        player.checkCollisions();
+        player.checkInput();
+        //player.checkGesture();
 
-//        if(player.upRightCollision && player.downRightCollision) {
-//            player.translateX(1 * player.moveAmount);
-//        }
-
-
-        if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            if(!player.moving) {
-                player.setUpMove(true);
-            }
-        }
-
-        if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
-            if(!player.moving){
-                player.setDownMove(true);
-            }
-        }
-
-
-        if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-            if(!player.moving) {
-                player.setRightMove(true);
-            }
-
-        }
-
-        if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
-            if(!player.moving) {
-                player.setLeftMove(true);
-            }
-        }
-        //checkCollisions();
     }
 
-    /**
-     * Checks if player has collided with collectable
-     */
-    private void checkCollisions() {
-        // get the down trap rectangles layer
-        MapLayer collisionObjectLayer = (MapLayer) worldMap.getLayers().get("Down_trap");
-        // All the rectangles of the layer
-        MapObjects mapObjects = collisionObjectLayer.getObjects();
-        // Cast it to RectangleObjects array
-        Array<RectangleMapObject> rectangleObjects = mapObjects.getByType(RectangleMapObject.class);
-        // Iterate all the rectangles
-        for (RectangleMapObject rectangleObject : rectangleObjects) {
-            Rectangle rectangle = rectangleObject.getRectangle();
-            // SCALE given rectangle down if using world dimensions!
-            if (player.getBoundingRectangle().overlaps(rectangle)) {
-                System.out.println("Collect");
-                //clearCollectable();
-            }
-        }
+    public void goToDownTrap() {
+        System.out.println("DOWN TRAP!");
+        game.setScreen(moveScreen);
     }
 
     public TiledMap getWorldMap(){
-        return worldMap;
+        return tiledMap;
     }
 
 
@@ -166,7 +117,7 @@ public class MapScreen implements Screen {
         batch.end();
         moveCamera();
         update();
-       // System.out.println("X: " + player.getX() + " Y: " + player.getY());
+        // System.out.println("X: " + player.getX() + " Y: " + player.getY());
     }
 
     @Override
