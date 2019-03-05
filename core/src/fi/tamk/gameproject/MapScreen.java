@@ -29,6 +29,7 @@ public class MapScreen implements Screen {
     DungeonEscape game;
     MapPlayer player;
     SpriteBatch batch;
+    MoveScreen moveScreen;
 
     // Camera
     OrthographicCamera camera;
@@ -46,7 +47,8 @@ public class MapScreen implements Screen {
     float fontWidth;
     float fontHeight;
 
-    MoveScreen moveScreen;
+
+
     public MapScreen(DungeonEscape game) {
         background = new Texture("brickwall.png");
 

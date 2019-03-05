@@ -13,6 +13,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
 public class MoveScreen implements Screen {
+    MapScreen mapScreen;
+
     SpriteBatch batch;
     private OrthographicCamera camera;
     private Box2DDebugRenderer debugRenderer;
@@ -69,9 +71,22 @@ public class MoveScreen implements Screen {
         spike.draw(batch);
         batch.end();
 
-        player.playerJump();
+        update();
 
         doPhysicsStep(Gdx.graphics.getDeltaTime());
+    }
+
+    public void update() {
+
+        player.playerJump();
+
+        // When player sprite moves out of boundaries
+        if(player.getPlayerY() < -1f) {
+            System.out.println(player.getPlayerY());
+            System.out.println("MapScreen");
+            mapScreen = new MapScreen(game);
+            game.setScreen(mapScreen);
+        }
     }
 
     @Override

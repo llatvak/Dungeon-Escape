@@ -315,6 +315,7 @@ public class MapPlayer extends Sprite {
         }
     }
 
+
     public void dispose() {
         getTexture().dispose();
 

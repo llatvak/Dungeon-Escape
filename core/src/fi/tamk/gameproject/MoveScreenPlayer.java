@@ -39,6 +39,16 @@ public class MoveScreenPlayer {
         return playerBox;
     }
 
+    public float getPlayerX() {
+        float x = playerBody.getPosition().x;
+        return x;
+    }
+
+    public float getPlayerY() {
+        float y = playerBody.getPosition().y;
+        return y;
+    }
+
     public void draw(Batch b) {
         b.draw(currentFrameTexture, playerBody.getPosition().x - 1f/2, playerBody.getPosition().y - 1.5f/2,
                 1f, 1.5f);
@@ -69,7 +79,7 @@ public class MoveScreenPlayer {
 
     public void playerJump() {
         stateTime += Gdx.graphics.getDeltaTime();
-        System.out.println(Gdx.input.getAccelerometerY());
+        //System.out.println(Gdx.input.getAccelerometerY());
         if(Gdx.input.getAccelerometerY() > 14 && playerHasNotJumped == false) {
             playerBody.applyLinearImpulse(new Vector2(3.7f, 5f),
                     playerBody.getWorldCenter(), true);
