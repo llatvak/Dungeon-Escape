@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import static com.badlogic.gdx.Input.Keys.SPACE;
+import static com.badlogic.gdx.Input.Keys.UP;
 
 public class MoveScreenPlayer {
     private Body playerBody;
@@ -97,7 +98,7 @@ public class MoveScreenPlayer {
             // Keyboard controls
             @Override
             public boolean keyDown(int keycode) {
-                if (keycode == SPACE) {
+                if (keycode == UP) {
                     playerBody.applyLinearImpulse(new Vector2(3.7f, 5f),
                             playerBody.getWorldCenter(), true);
                     playerHasNotJumped = true;

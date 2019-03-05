@@ -60,7 +60,7 @@ public class MapScreen implements Screen {
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         camera = new OrthographicCamera();
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
-        moveScreen = new MoveScreen(game);
+
 
         player = new MapPlayer(this);
     }
@@ -84,16 +84,19 @@ public class MapScreen implements Screen {
 
     public void goToDownTrap() {
         System.out.println("DOWN TRAP!");
+        moveScreen = new MoveScreen(game, this);
         game.setScreen(moveScreen);
     }
     public void goToUpTrap() {
         System.out.println("UP TRAP!");
         // Needs new class UpScreen
+        moveScreen = new MoveScreen(game, this);
         game.setScreen(moveScreen);
     }
     public void goToStoryTile() {
         System.out.println("STORY TILE!");
         // Needs new class StoryScreen
+        moveScreen = new MoveScreen(game, this);
         game.setScreen(moveScreen);
     }
 

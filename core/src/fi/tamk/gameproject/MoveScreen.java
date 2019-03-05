@@ -32,8 +32,9 @@ public class MoveScreen implements Screen {
     private MoveScreenGround ground;
     private MoveScreenSpike spike;
 
-    public MoveScreen(DungeonEscape game) {
+    public MoveScreen(DungeonEscape game, MapScreen mapScreen) {
         this.game = game;
+        this.mapScreen = mapScreen;
         batch = game.getBatch();
         world = new World(new Vector2(0, -9.8f), true);
         debugRenderer = new Box2DDebugRenderer();
@@ -83,9 +84,6 @@ public class MoveScreen implements Screen {
 
         // When player sprite moves out of boundaries go to map
         if(player.getPlayerY() < -1f) {
-            //System.out.println(player.getPlayerY());
-            System.out.println("MapScreen");
-            mapScreen = new MapScreen(game);
             game.setScreen(mapScreen);
         }
     }

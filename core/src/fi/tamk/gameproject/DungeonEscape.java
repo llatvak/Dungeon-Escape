@@ -17,8 +17,9 @@ public class DungeonEscape extends Game {
     @Override
     public void create () {
         batch = new SpriteBatch();
-        MoveScreen moveScreen = new MoveScreen(this);
         MapScreen mapScreen = new MapScreen(this);
+        MoveScreen moveScreen = new MoveScreen(this, mapScreen);
+
         //setScreen(moveScreen);
         setScreen(mapScreen);
     }

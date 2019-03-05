@@ -233,10 +233,7 @@ public class MapPlayer extends Sprite {
         // Is the coordinate / cell free?
         if(wallCells.getCell(indexX, indexY) != null) {
             // There was a cell, it's not free
-            System.out.println("WALL!");
             movedDistance = 0;
-            //gameEnd = true;
-            //setAlpha(0);
             return false;
         } else {
             // There was no cell, it's free
