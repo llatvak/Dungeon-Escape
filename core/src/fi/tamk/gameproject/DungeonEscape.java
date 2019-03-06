@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 public class DungeonEscape extends Game {
 	SpriteBatch batch;
+	int stepCount;
 
 	// Fonts
 	BitmapFont fontRoboto;
@@ -33,6 +34,15 @@ public class DungeonEscape extends Game {
 
     public SpriteBatch getBatch() {
         return batch;
+    }
+
+    public void receiveSteps(int stepCount) {
+        System.out.println("Steps: " + stepCount);
+        this.stepCount = stepCount;
+    }
+
+    public int getStepCount() {
+        return stepCount;
     }
 
     @Override

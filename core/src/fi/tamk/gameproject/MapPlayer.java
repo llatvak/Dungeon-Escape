@@ -20,6 +20,7 @@ import static com.badlogic.gdx.Input.Keys.UP;
 
 public class MapPlayer extends Sprite {
 
+    private DungeonEscape game;
     private MapScreen mapScreen;
     private TiledMap tiledMap;
     private Texture playerTexture;
@@ -48,6 +49,7 @@ public class MapPlayer extends Sprite {
     private boolean goLeft;
 
     // Movement
+    private int stepCount;
     private float movementSpeed = 4f;
     private float movedDistance;
     float moveAmount = movementSpeed;
@@ -149,6 +151,19 @@ public class MapPlayer extends Sprite {
         }
         setX(spriteX);
         setY(spriteY);
+    }
+
+    public void checkSteps(int stepCount) {
+        int stepsNeededToMove = 10;
+        this.stepCount = stepCount;
+        if(!moving && stepCount == stepsNeededToMove) {
+            moveWithSteps();
+
+        }
+    }
+
+    public void moveWithSteps() {
+        setUpMove(true);
     }
 
     public void checkInput() {

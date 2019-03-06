@@ -47,6 +47,8 @@ public class MapScreen implements Screen {
     float fontWidth;
     float fontHeight;
 
+    int stepCount;
+
 
 
     public MapScreen(DungeonEscape game) {
@@ -72,6 +74,9 @@ public class MapScreen implements Screen {
     }
 
     public void update() {
+
+        stepCount = game.getStepCount();
+        player.checkSteps(stepCount);
 
         if(player.moving) {
             player.move();
