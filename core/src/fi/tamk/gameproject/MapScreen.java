@@ -23,8 +23,8 @@ import com.badlogic.gdx.utils.Array;
 public class MapScreen implements Screen {
 
     private final String MAIN_TITLE = "Map screen";
-    final float WORLD_WIDTH = 360;
-    final float WORLD_HEIGHT = 640;
+    final float WORLD_WIDTH = 360f;
+    final float WORLD_HEIGHT = 640f;
 
     DungeonEscape game;
     MapPlayer player;
@@ -132,8 +132,16 @@ public class MapScreen implements Screen {
         tiledMapRenderer.render();
 
         batch.begin();
+        fontRoboto = game.getFont();
+        fontRoboto.draw(batch, MAIN_TITLE, 0, 0);
+
+        layout = game.getLayout();
+        layout.setText(fontRoboto, MAIN_TITLE);
+        fontWidth = layout.width;
+        fontHeight = layout.height;
         //batch.draw(background,0,0, WORLD_WIDTH,WORLD_HEIGHT);
         player.draw(batch);
+
         batch.end();
         moveCamera();
         update();
