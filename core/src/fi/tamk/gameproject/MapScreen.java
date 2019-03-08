@@ -58,16 +58,15 @@ public class MapScreen implements Screen {
 
     public MapScreen(DungeonEscape game) {
         background = new Texture("brickwall.png");
-
         this.game = game;
         batch = game.getBatch();
-        //this.stage = game.getStage();
-        //moveCamera();
         tiledMap = new TmxMapLoader().load("DungeonEscape_Map.tmx");
         // worldMap = new TmxMapLoader().load("tilemap.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         camera = new OrthographicCamera();
+        fontCamera = new OrthographicCamera();
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
+        fontCamera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
 
         //onCreate();
 
@@ -84,8 +83,8 @@ public class MapScreen implements Screen {
 
     public void update() {
 
-        game.stage.act(Gdx.graphics.getDeltaTime());
-        game.stage.draw();
+//        game.stage.act(Gdx.graphics.getDeltaTime());
+//        game.stage.draw();
 
         stepCount = game.getStepCount();
         player.checkSteps(stepCount);
@@ -130,32 +129,34 @@ public class MapScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        batch.setProjectionMatrix(camera.combined);
-
         Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-
-
-        batch.setProjectionMatrix(camera.combined);
         // Which part of the map are we looking? Use camera's viewport
         tiledMapRenderer.setView(camera);
         // Render all layers to screen.
         tiledMapRenderer.render();
 
+        // View font camera
+        batch.setProjectionMatrix(fontCamera.combined);
+
+
         batch.begin();
         //batch.draw(background,0,0, WORLD_WIDTH,WORLD_HEIGHT);
+        fontRoboto = game.getFont();
+        fontRoboto.draw(batch, "Steps: " + stepCount, 10 , WORLD_HEIGHT - 10f);
 
-
-//        fontRoboto = game.getFont();
-//        fontRoboto.draw(batch, MAIN_TITLE, WORLD_WIDTH /2 , WORLD_HEIGHT / 2);
 //        layout = game.getLayout();
 //        layout.setText(fontRoboto, MAIN_TITLE);
 //        fontWidth = layout.width;
 //        fontHeight = layout.height;
 
+        // View game camera
+        batch.setProjectionMatrix(camera.combined);
         player.draw(batch);
+
         batch.end();
+
         moveCamera();
         update();
         // System.out.println("X: " + player.getX() + " Y: " + player.getY());
