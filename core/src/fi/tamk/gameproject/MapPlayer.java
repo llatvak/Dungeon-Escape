@@ -49,6 +49,7 @@ public class MapPlayer extends Sprite {
     private boolean goLeft;
 
     // Movement
+    private int stepTotal;
     private int stepCount;
     private float movementSpeed = 4f;
     private float movedDistance;
@@ -153,19 +154,31 @@ public class MapPlayer extends Sprite {
         setY(spriteY);
     }
 
-    public void checkSteps(int stepCount) {
-        int stepsNeededToMove = 10;
-        this.stepCount = stepCount;
-        if(!moving && stepCount == stepsNeededToMove) {
-            System.out.println("Moving");
-            moveWithSteps();
+    public void getSteps(int stepTotal){
+        this.stepTotal = stepTotal;
+    }
 
+    public void checkSteps() {
+        // Amount of steps to move one tile
+        int stepsNeededToMove = 10;
+
+        // Checks if total step amount is multiple of amount needed to move
+        if(stepTotal > 0) {
+            if(stepTotal % stepsNeededToMove == 0) {
+                moveWithSteps();
+            }
         }
+
     }
 
     public void moveWithSteps() {
-        setUpMove(true);
-        stepCount = 0;
+        if(!moving ) {
+            System.out.println("Moving");
+            stepTotal++;
+            setUpMove(true);
+            stepCount = 0;
+        }
+
     }
 
     public void checkInput() {

@@ -45,31 +45,33 @@ public class MapScreen implements Screen {
     Texture background;
 
     // Fonts
-    BitmapFont fontRoboto;
-    GlyphLayout layout;
-    float fontWidth;
-    float fontHeight;
+    private BitmapFont fontRoboto;
+    private GlyphLayout layout;
+    private float fontWidth;
+    private float fontHeight;
+
+
+    int stepTotal;
+
     private Stage stage;
 
 
-    int stepCount;
-
-
-
     public MapScreen(DungeonEscape game) {
-        background = new Texture("brickwall.png");
         this.game = game;
+        onCreate();
+
+    }
+
+    public void onCreate() {
         batch = game.getBatch();
         tiledMap = new TmxMapLoader().load("DungeonEscape_Map.tmx");
-        // worldMap = new TmxMapLoader().load("tilemap.tmx");
+        background = new Texture("brickwall.png");
+
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         camera = new OrthographicCamera();
         fontCamera = new OrthographicCamera();
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
         fontCamera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
-
-        //onCreate();
-
         player = new MapPlayer(this);
     }
 
@@ -86,8 +88,9 @@ public class MapScreen implements Screen {
 //        game.stage.act(Gdx.graphics.getDeltaTime());
 //        game.stage.draw();
 
-        stepCount = game.getStepCount();
-        player.checkSteps(stepCount);
+        stepTotal = game.getStepTotal();
+        player.getSteps(stepTotal);
+        player.checkSteps();
 
         if(player.moving) {
             player.move();
@@ -140,11 +143,10 @@ public class MapScreen implements Screen {
         // View font camera
         batch.setProjectionMatrix(fontCamera.combined);
 
-
         batch.begin();
         //batch.draw(background,0,0, WORLD_WIDTH,WORLD_HEIGHT);
         fontRoboto = game.getFont();
-        fontRoboto.draw(batch, "Steps: " + stepCount, 10 , WORLD_HEIGHT - 10f);
+        fontRoboto.draw(batch, "Steps: " + stepTotal, 10 , WORLD_HEIGHT - 10f);
 
 //        layout = game.getLayout();
 //        layout.setText(fontRoboto, MAIN_TITLE);

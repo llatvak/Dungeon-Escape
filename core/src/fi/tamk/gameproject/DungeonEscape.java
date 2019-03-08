@@ -15,7 +15,7 @@ import com.badlogic.gdx.utils.Align;
 
 public class DungeonEscape extends Game {
 	SpriteBatch batch;
-	int stepCount;
+	int stepTotal;
 
 	// Fonts
 	BitmapFont fontRoboto;
@@ -58,7 +58,7 @@ public class DungeonEscape extends Game {
 //        Label.LabelStyle largeStyle = new Label.LabelStyle();
 //        largeStyle.font = fontLarge;
 
-        Label small = new Label("Steps: " + stepCount, smallStyle);
+        Label small = new Label("Steps: " + stepTotal, smallStyle);
 //        Label medium = new Label("Medium Font", mediumStyle);
 //        Label large = new Label("Large Font", largeStyle);
 
@@ -87,11 +87,11 @@ public class DungeonEscape extends Game {
 
     public void receiveSteps(int stepCount) {
         System.out.println("Steps: " + stepCount);
-        this.stepCount = stepCount;
+        this.stepTotal = stepCount;
     }
 
-    public int getStepCount() {
-        return stepCount;
+    public int getStepTotal() {
+        return stepTotal;
     }
 
     public BitmapFont getFont() {
