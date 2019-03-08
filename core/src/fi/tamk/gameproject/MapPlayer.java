@@ -1,7 +1,6 @@
 package fi.tamk.gameproject;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -16,6 +15,7 @@ import com.badlogic.gdx.utils.Array;
 import static com.badlogic.gdx.Input.Keys.DOWN;
 import static com.badlogic.gdx.Input.Keys.LEFT;
 import static com.badlogic.gdx.Input.Keys.RIGHT;
+import static com.badlogic.gdx.Input.Keys.SPACE;
 import static com.badlogic.gdx.Input.Keys.UP;
 
 public class MapPlayer extends Sprite {
@@ -50,7 +50,11 @@ public class MapPlayer extends Sprite {
 
     // Movement
     private int stepTotal;
-    private int stepCount;
+    int movementPoints;
+    boolean allowMovement;
+    boolean movementFinished;
+    boolean addedPoint = false;
+    private float stateTime;
     private float movementSpeed = 4f;
     private float movedDistance;
     float moveAmount = movementSpeed;
@@ -81,7 +85,6 @@ public class MapPlayer extends Sprite {
 
     // Can this method be reduced in size?
     public void move(){
-
         if(goDown) {
             getMyCorners(spriteX, spriteY - 1 * moveAmount);
             if(downLeftCollision && downRightCollision) {
@@ -96,6 +99,7 @@ public class MapPlayer extends Sprite {
             } else {
                 goDown = false;
                 moving = false;
+                movementFinished = true;
             }
         }
 
@@ -113,6 +117,7 @@ public class MapPlayer extends Sprite {
             } else {
                 goUp = false;
                 moving = false;
+                movementFinished = true;
             }
         }
 
@@ -154,32 +159,46 @@ public class MapPlayer extends Sprite {
         setY(spriteY);
     }
 
-    public void getSteps(int stepTotal){
+    public void receiveSteps(int stepTotal){
         this.stepTotal = stepTotal;
     }
 
+
     public void checkSteps() {
         // Amount of steps to move one tile
-        int stepsNeededToMove = 10;
-
+        int stepsNeededToMove = 5;
         // Checks if total step amount is multiple of amount needed to move
         if(stepTotal > 0) {
             if(stepTotal % stepsNeededToMove == 0) {
-                moveWithSteps();
+
+                addMovementPoint();
+                mapScreen.addStep();
+
+
             }
         }
-
     }
 
-    public void moveWithSteps() {
-        if(!moving ) {
-            System.out.println("Moving");
-            stepTotal++;
-            setUpMove(true);
-            stepCount = 0;
+    public void addMovementPoint() {
+        movementPoints++;
+    }
+
+    public void subtractMovementPoint() {
+        if(movementPoints > 0) {
+            movementPoints--;
         }
 
     }
+
+    public boolean checkAllowedMoves() {
+        if(movementPoints > 0) {
+            allowMovement = true;
+        } else {
+            allowMovement = false;
+        }
+        return allowMovement;
+    }
+
 
     public void checkInput() {
         Gdx.input.setInputProcessor(new InputAdapter() {
@@ -189,18 +208,30 @@ public class MapPlayer extends Sprite {
             public boolean keyDown (int keycode) {
                 if(!moving && keycode == UP) {
                     setUpMove(true);
+                    subtractMovementPoint();
+                    movementFinished = false;
                 }
 
                 if(!moving && keycode == DOWN) {
                     setDownMove(true);
+                    subtractMovementPoint();
+                    movementFinished = false;
                 }
 
                 if(!moving && keycode == LEFT) {
                     setLeftMove(true);
+                    subtractMovementPoint();
+                    movementFinished = false;
                 }
 
                 if(!moving && keycode == RIGHT) {
                     setRightMove(true);
+                    subtractMovementPoint();
+                    movementFinished = false;
+                }
+
+                if(keycode == SPACE) {
+                    mapScreen.addStep();
                 }
                 return true;
             }

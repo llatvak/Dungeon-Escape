@@ -3,7 +3,6 @@ package fi.tamk.gameproject;
 import com.badlogic.gdx.Gdx;
 
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -14,12 +13,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.Align;
-
-import fi.tamk.gameproject.writer.BitmapFontWriter;
-
 
 
 public class MapScreen implements Screen {
@@ -52,6 +45,7 @@ public class MapScreen implements Screen {
 
 
     int stepTotal;
+    int movementPoints;
 
     private Stage stage;
 
@@ -73,6 +67,7 @@ public class MapScreen implements Screen {
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
         fontCamera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
         player = new MapPlayer(this);
+
     }
 
 
@@ -83,18 +78,33 @@ public class MapScreen implements Screen {
         camera.update();
     }
 
+    long lastFrameId = -1;
+
     public void update() {
 
 //        game.stage.act(Gdx.graphics.getDeltaTime());
 //        game.stage.draw();
+//        if(stepTotal%5 == 0) {
+//            player.movementPoints++;
+//        }
+        //System.out.println(Gdx.graphics.getFrameId() +" "+ lastFrameId);
+
+//        if(lastFrameId != Gdx.graphics.getFrameId()) {
+
+//            lastFrameId = Gdx.graphics.getFrameId();
+//        }
+
 
         stepTotal = game.getStepTotal();
-        player.getSteps(stepTotal);
+        player.receiveSteps(stepTotal);
         player.checkSteps();
 
-        if(player.moving) {
-            player.move();
+        if(player.checkAllowedMoves()) {
+            if(player.moving) {
+                player.move();
+            }
         }
+
         player.checkCollisions();
         player.checkInput();
         //player.checkGesture();
@@ -117,6 +127,14 @@ public class MapScreen implements Screen {
         // Needs new class StoryScreen
         moveScreen = new MoveScreen(game, this);
         game.setScreen(moveScreen);
+    }
+
+    public void addStep() {
+        game.stepTotal++;
+    }
+
+    public void subtractStep() {
+        game.stepTotal--;
     }
 
     public TiledMap getWorldMap(){
@@ -144,9 +162,12 @@ public class MapScreen implements Screen {
         batch.setProjectionMatrix(fontCamera.combined);
 
         batch.begin();
+
         //batch.draw(background,0,0, WORLD_WIDTH,WORLD_HEIGHT);
+
         fontRoboto = game.getFont();
         fontRoboto.draw(batch, "Steps: " + stepTotal, 10 , WORLD_HEIGHT - 10f);
+        fontRoboto.draw(batch, "Moves: " + player.movementPoints, 200 , WORLD_HEIGHT - 10f);
 
 //        layout = game.getLayout();
 //        layout.setText(fontRoboto, MAIN_TITLE);
@@ -155,6 +176,7 @@ public class MapScreen implements Screen {
 
         // View game camera
         batch.setProjectionMatrix(camera.combined);
+
         player.draw(batch);
 
         batch.end();
