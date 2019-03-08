@@ -33,6 +33,7 @@ public class MapScreen implements Screen {
 
     // Camera
     OrthographicCamera camera;
+    OrthographicCamera fontCamera;
 
     // Map
     TiledMap tiledMap;
@@ -140,6 +141,13 @@ public class MapScreen implements Screen {
         fontWidth = layout.width;
         fontHeight = layout.height;
         //batch.draw(background,0,0, WORLD_WIDTH,WORLD_HEIGHT);
+        fontRoboto = game.getFont();
+        fontRoboto.draw(batch, MAIN_TITLE, WORLD_WIDTH /2 , WORLD_HEIGHT / 2);
+
+        layout = game.getLayout();
+        layout.setText(fontRoboto, MAIN_TITLE);
+        fontWidth = layout.width;
+        fontHeight = layout.height;
         player.draw(batch);
 
         batch.end();

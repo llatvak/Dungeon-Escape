@@ -157,6 +157,7 @@ public class MapPlayer extends Sprite {
         int stepsNeededToMove = 10;
         this.stepCount = stepCount;
         if(!moving && stepCount == stepsNeededToMove) {
+            System.out.println("Moving");
             moveWithSteps();
 
         }
@@ -164,6 +165,7 @@ public class MapPlayer extends Sprite {
 
     public void moveWithSteps() {
         setUpMove(true);
+        stepCount = 0;
     }
 
     public void checkInput() {
@@ -193,19 +195,19 @@ public class MapPlayer extends Sprite {
             // Touch controls
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                // System.out.println("Touchscreen X: " + screenX);
-                // System.out.println("Touchscreen Y: " + screenY);
+                 //System.out.println("Touchscreen X: " + screenX);
+                 //System.out.println("Touchscreen Y: " + screenY);
 
-                if(!moving && screenY < 800f && screenX > 300f  && screenX < 800f  ) {
+                if(!moving && screenY < 500f && screenX > 200f  && screenX < 500f  ) {
                     setUpMove(true);
                 }
-                if(!moving && screenY > 1100f && screenX > 300f  && screenX < 800f  ) {
+                if(!moving && screenY > 600f && screenX > 200f  && screenX < 500f  ) {
                     setDownMove(true);
                 }
-                if(!moving && screenY > 500f && screenY < 1400f && screenX < 400f   ) {
+                if(!moving && screenY > 400f && screenY < 800f && screenX < 400f   ) {
                     setLeftMove(true);
                 }
-                if(!moving && screenY > 500f && screenY < 1400f  && screenX > 700f  ) {
+                if(!moving && screenY > 400f && screenY < 800f  && screenX > 600f  ) {
                     setRightMove(true);
                 }
 

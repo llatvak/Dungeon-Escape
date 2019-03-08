@@ -23,7 +23,6 @@ public class DungeonEscape extends Game {
         MapScreen mapScreen = new MapScreen(this);
         MoveScreen moveScreen = new MoveScreen(this, mapScreen);
 
-
         fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Regular.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 12;
@@ -32,7 +31,6 @@ public class DungeonEscape extends Game {
         fontRoboto = fontGenerator.generateFont(parameter); // Generates BitmapFont
 
         layout = new GlyphLayout();
-
 
         //setScreen(moveScreen);
         setScreen(mapScreen);
@@ -57,6 +55,7 @@ public class DungeonEscape extends Game {
     public int getStepCount() {
         return stepCount;
     }
+
     public BitmapFont getFont() {
         //System.out.println("getting font");
         return fontRoboto;
