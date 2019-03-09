@@ -88,6 +88,10 @@ public class MapPlayer extends Sprite {
                 if (movedDistance < TILE_SIZE) {
                     spriteY -= movementSpeed;
                     movedDistance += movementSpeed;
+                    if(movedDistance == 64) {
+                        removeMovementPoint();
+                    }
+                    System.out.println(movedDistance);
                 } else {
                     goDown = false;
                     moving = false;
@@ -105,6 +109,9 @@ public class MapPlayer extends Sprite {
                 if (movedDistance < TILE_SIZE) {
                     spriteY += movementSpeed;
                     movedDistance += movementSpeed;
+                    if(movedDistance == 64) {
+                        removeMovementPoint();
+                    }
                 } else {
                     goUp = false;
                     moving = false;
@@ -123,6 +130,9 @@ public class MapPlayer extends Sprite {
                 if (movedDistance < TILE_SIZE) {
                     spriteX -= movementSpeed;
                     movedDistance += movementSpeed;
+                    if(movedDistance == 64) {
+                        removeMovementPoint();
+                    }
                 } else {
                     goLeft = false;
                     moving = false;
@@ -140,6 +150,9 @@ public class MapPlayer extends Sprite {
                 if(movedDistance < TILE_SIZE) {
                     spriteX += movementSpeed;
                     movedDistance += movementSpeed;
+                    if(movedDistance == 64) {
+                        removeMovementPoint();
+                    }
                 } else {
                     goRight = false;
                     moving = false;
@@ -191,7 +204,6 @@ public class MapPlayer extends Sprite {
         }
     }
 
-
     public void checkInput() {
         Gdx.input.setInputProcessor(new InputAdapter() {
 
@@ -199,23 +211,20 @@ public class MapPlayer extends Sprite {
             @Override
             public boolean keyDown (int keycode) {
                 if(!moving && allowMovement && keycode == UP) {
+
                     setUpMove(true);
-                    removeMovementPoint();
                 }
 
                 if(!moving && allowMovement && keycode == DOWN) {
                     setDownMove(true);
-                    removeMovementPoint();
                 }
 
                 if(!moving && allowMovement && keycode == LEFT) {
                     setLeftMove(true);
-                    removeMovementPoint();
                 }
 
                 if(!moving && allowMovement && keycode == RIGHT) {
                     setRightMove(true);
-                    removeMovementPoint();
                 }
 
                 if(keycode == SPACE) {
