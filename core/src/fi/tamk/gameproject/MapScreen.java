@@ -12,8 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.GdxNativesLoader;
+
 
 
 public class MapScreen implements Screen {
@@ -26,6 +25,8 @@ public class MapScreen implements Screen {
     MapPlayer player;
     SpriteBatch batch;
     MoveScreen moveScreen;
+
+
 
     // Camera
     OrthographicCamera camera;
@@ -50,6 +51,7 @@ public class MapScreen implements Screen {
     public MapScreen(DungeonEscape game) {
         this.game = game;
         onCreate();
+
     }
 
     public void onCreate() {
@@ -144,7 +146,6 @@ public class MapScreen implements Screen {
 
         // View font camera
         batch.setProjectionMatrix(fontCamera.combined);
-
         batch.begin();
 
         //batch.draw(background,0,0, WORLD_WIDTH,WORLD_HEIGHT);
