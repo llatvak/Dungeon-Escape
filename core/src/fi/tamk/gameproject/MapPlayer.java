@@ -52,9 +52,6 @@ public class MapPlayer extends Sprite {
     private int stepTotal;
     int movementPoints;
     boolean allowMovement;
-    boolean movementFinished;
-    boolean addedPoint = false;
-    private float stateTime;
     private float movementSpeed = 4f;
     private float movedDistance;
     float moveAmount = movementSpeed;

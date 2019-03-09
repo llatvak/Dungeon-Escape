@@ -17,61 +17,14 @@ public class DungeonEscape extends Game {
 	SpriteBatch batch;
 	int stepTotal;
 
-	// Fonts
-	BitmapFont fontRoboto;
-	GlyphLayout layout;
-	FreeTypeFontGenerator fontGenerator;
-	Stage stage;
-
     @Override
     public void create () {
         batch = new SpriteBatch();
-        //createSmartFonts();
         MapScreen mapScreen = new MapScreen(this);
         MoveScreen moveScreen = new MoveScreen(this, mapScreen);
 
-        fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Regular.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 24;
-        parameter.borderColor = Color.BLACK;
-        parameter.borderWidth = 2;
-        fontRoboto = fontGenerator.generateFont(parameter); // Generates BitmapFont
-
-        layout = new GlyphLayout();
-
         //setScreen(moveScreen);
         setScreen(mapScreen);
-    }
-    public void createSmartFonts() {
-        SmartFontGenerator fontGen = new SmartFontGenerator();
-        FileHandle exoFile = Gdx.files.local("Roboto-Regular.ttf");
-        BitmapFont fontSmall = fontGen.createFont(exoFile, "roboto-small", 24);
-//        BitmapFont fontMedium = fontGen.createFont(exoFile, "exo-medium", 48);
-//        BitmapFont fontLarge = fontGen.createFont(exoFile, "exo-large", 64);
-
-        stage = new Stage();
-
-        Label.LabelStyle smallStyle = new Label.LabelStyle();
-        smallStyle.font = fontSmall;
-//        Label.LabelStyle mediumStyle = new Label.LabelStyle();
-//        mediumStyle.font = fontMedium;
-//        Label.LabelStyle largeStyle = new Label.LabelStyle();
-//        largeStyle.font = fontLarge;
-
-        Label small = new Label("Steps: " + stepTotal, smallStyle);
-//        Label medium = new Label("Medium Font", mediumStyle);
-//        Label large = new Label("Large Font", largeStyle);
-
-        Table table = new Table();
-        table.setFillParent(true);
-        table.align(Align.topLeft);
-        stage.addActor(table);
-
-        table.defaults().size(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 6);
-
-        table.add(small).row();
-//        table.add(medium).row();
-//        table.add(large).row();
     }
 
     @Override
@@ -94,23 +47,9 @@ public class DungeonEscape extends Game {
         return stepTotal;
     }
 
-    public BitmapFont getFont() {
-        //System.out.println("getting font");
-        return fontRoboto;
-    }
-
-    public GlyphLayout getLayout() {
-        return layout;
-    }
-
-    public Stage getStage() {
-        return stage;
-    }
-
     @Override
     public void dispose () {
         batch.dispose();
-        fontRoboto.dispose();
     }
 }
 

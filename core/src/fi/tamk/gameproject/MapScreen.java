@@ -13,6 +13,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.GdxNativesLoader;
 
 
 public class MapScreen implements Screen {
@@ -38,22 +39,17 @@ public class MapScreen implements Screen {
     Texture background;
 
     // Fonts
+    private Fonts fonts;
     private BitmapFont fontRoboto;
     private GlyphLayout layout;
     private float fontWidth;
     private float fontHeight;
 
-
-    int stepTotal;
-    int movementPoints;
-
-    private Stage stage;
-
+    private int stepTotal;
 
     public MapScreen(DungeonEscape game) {
         this.game = game;
         onCreate();
-
     }
 
     public void onCreate() {
@@ -62,12 +58,16 @@ public class MapScreen implements Screen {
         background = new Texture("brickwall.png");
 
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+
         camera = new OrthographicCamera();
         fontCamera = new OrthographicCamera();
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
         fontCamera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
         player = new MapPlayer(this);
 
+        fonts = new Fonts();
+        fonts.createMediumFont();
+        fontRoboto = fonts.getFont();
     }
 
 
@@ -78,22 +78,7 @@ public class MapScreen implements Screen {
         camera.update();
     }
 
-    long lastFrameId = -1;
-
     public void update() {
-
-//        game.stage.act(Gdx.graphics.getDeltaTime());
-//        game.stage.draw();
-//        if(stepTotal%5 == 0) {
-//            player.movementPoints++;
-//        }
-        //System.out.println(Gdx.graphics.getFrameId() +" "+ lastFrameId);
-
-//        if(lastFrameId != Gdx.graphics.getFrameId()) {
-
-//            lastFrameId = Gdx.graphics.getFrameId();
-//        }
-
 
         stepTotal = game.getStepTotal();
         player.receiveSteps(stepTotal);
@@ -164,7 +149,7 @@ public class MapScreen implements Screen {
 
         //batch.draw(background,0,0, WORLD_WIDTH,WORLD_HEIGHT);
 
-        fontRoboto = game.getFont();
+        //fontRoboto = game.getFont();
         fontRoboto.draw(batch, "Steps: " + stepTotal, 10 , WORLD_HEIGHT - 10f);
         fontRoboto.draw(batch, "Moves: " + player.movementPoints, 200 , WORLD_HEIGHT - 10f);
 

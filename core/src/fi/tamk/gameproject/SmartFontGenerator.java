@@ -16,6 +16,10 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 
 import fi.tamk.gameproject.writer.BitmapFontWriter;
 
+/**
+ * Currently useless class / MK
+ * */
+
 public class SmartFontGenerator {
     private static final String TAG = "SmartFontGenerator";
     private boolean forceGeneration;
