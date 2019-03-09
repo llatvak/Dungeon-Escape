@@ -241,19 +241,15 @@ public class MapPlayer extends Sprite {
 
                 if(!moving && allowMovement && screenY < 500f && screenX > 200f  && screenX < 500f  ) {
                     setUpMove(true);
-                    removeMovementPoint();
                 }
                 if(!moving && allowMovement && screenY > 600f && screenX > 200f  && screenX < 500f  ) {
                     setDownMove(true);
-                    removeMovementPoint();
                 }
                 if(!moving && allowMovement && screenY > 400f && screenY < 800f && screenX < 400f   ) {
                     setLeftMove(true);
-                    removeMovementPoint();
                 }
                 if(!moving && allowMovement && screenY > 400f && screenY < 800f  && screenX > 600f  ) {
                     setRightMove(true);
-                    removeMovementPoint();
                 }
 
                 return true;
