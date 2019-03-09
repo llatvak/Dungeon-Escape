@@ -97,12 +97,11 @@ public class MapScreen implements Screen {
 
         stepTotal = game.getStepTotal();
         player.receiveSteps(stepTotal);
-        player.checkSteps();
+        player.countMovementPoints();
+        player.checkAllowedMoves();
 
-        if(player.checkAllowedMoves()) {
-            if(player.moving) {
-                player.move();
-            }
+        if(player.moving) {
+            player.move();
         }
 
         player.checkCollisions();

@@ -99,7 +99,6 @@ public class MapPlayer extends Sprite {
             } else {
                 goDown = false;
                 moving = false;
-                movementFinished = true;
             }
         }
 
@@ -117,9 +116,9 @@ public class MapPlayer extends Sprite {
             } else {
                 goUp = false;
                 moving = false;
-                movementFinished = true;
             }
         }
+
 
         if(goLeft) {
             getMyCorners(spriteX - 2, spriteY);
@@ -164,17 +163,14 @@ public class MapPlayer extends Sprite {
     }
 
 
-    public void checkSteps() {
+    public void countMovementPoints() {
         // Amount of steps to move one tile
         int stepsNeededToMove = 5;
-        // Checks if total step amount is multiple of amount needed to move
+        // Checks if total step amount is divisible by the amount needed to move
         if(stepTotal > 0) {
             if(stepTotal % stepsNeededToMove == 0) {
-
                 addMovementPoint();
                 mapScreen.addStep();
-
-
             }
         }
     }
@@ -183,20 +179,19 @@ public class MapPlayer extends Sprite {
         movementPoints++;
     }
 
-    public void subtractMovementPoint() {
+    public void removeMovementPoint() {
         if(movementPoints > 0) {
             movementPoints--;
         }
 
     }
 
-    public boolean checkAllowedMoves() {
+    public void checkAllowedMoves() {
         if(movementPoints > 0) {
             allowMovement = true;
         } else {
             allowMovement = false;
         }
-        return allowMovement;
     }
 
 
@@ -206,28 +201,24 @@ public class MapPlayer extends Sprite {
             // Keyboard controls
             @Override
             public boolean keyDown (int keycode) {
-                if(!moving && keycode == UP) {
+                if(!moving && allowMovement && keycode == UP) {
                     setUpMove(true);
-                    subtractMovementPoint();
-                    movementFinished = false;
+                    removeMovementPoint();
                 }
 
-                if(!moving && keycode == DOWN) {
+                if(!moving && allowMovement && keycode == DOWN) {
                     setDownMove(true);
-                    subtractMovementPoint();
-                    movementFinished = false;
+                    removeMovementPoint();
                 }
 
-                if(!moving && keycode == LEFT) {
+                if(!moving && allowMovement && keycode == LEFT) {
                     setLeftMove(true);
-                    subtractMovementPoint();
-                    movementFinished = false;
+                    removeMovementPoint();
                 }
 
-                if(!moving && keycode == RIGHT) {
+                if(!moving && allowMovement && keycode == RIGHT) {
                     setRightMove(true);
-                    subtractMovementPoint();
-                    movementFinished = false;
+                    removeMovementPoint();
                 }
 
                 if(keycode == SPACE) {
@@ -336,7 +327,8 @@ public class MapPlayer extends Sprite {
         for (RectangleMapObject rectangleObject : rectangleObjects) {
             Rectangle rectangle = rectangleObject.getRectangle();
             // SCALE given rectangle down if using world dimensions!
-            if (getBoundingRectangle().overlaps(rectangle) && movedDistance == 64) {
+            if (getBoundingRectangle().overlaps(rectangle) && movedDistance == TILE_SIZE) {
+                addMovementPoint();
                 mapScreen.goToDownTrap();
             }
         }
@@ -352,7 +344,8 @@ public class MapPlayer extends Sprite {
         for (RectangleMapObject rectangleObject : rectangleObjects) {
             Rectangle rectangle = rectangleObject.getRectangle();
             // SCALE given rectangle down if using world dimensions!
-            if (getBoundingRectangle().overlaps(rectangle) && movedDistance == 64) {
+            if (getBoundingRectangle().overlaps(rectangle) && movedDistance == TILE_SIZE) {
+                addMovementPoint();
                 mapScreen.goToUpTrap();
             }
         }
@@ -367,7 +360,8 @@ public class MapPlayer extends Sprite {
         for (RectangleMapObject rectangleObject : rectangleObjects) {
             Rectangle rectangle = rectangleObject.getRectangle();
             // SCALE given rectangle down if using world dimensions!
-            if (getBoundingRectangle().overlaps(rectangle) && movedDistance == 64) {
+            if (getBoundingRectangle().overlaps(rectangle) && movedDistance == TILE_SIZE) {
+                addMovementPoint();
                 mapScreen.goToStoryTile();
             }
         }
