@@ -1,21 +1,25 @@
 package fi.tamk.gameproject;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 public class DungeonEscape extends Game {
-	SpriteBatch batch;
+    int screenResolutionWidth;
+    int screenResolutionHeight;
 
-	// Fonts
-	BitmapFont fontRoboto;
-	GlyphLayout layout;
-	FreeTypeFontGenerator fontGenerator;
+	SpriteBatch batch;
+	int stepTotal;
 
     @Override
     public void create () {
+
+        // Get device screen resolution
+        screenResolutionWidth = Gdx.graphics.getWidth();
+        screenResolutionHeight = Gdx.graphics.getHeight();
+        System.out.println(Gdx.graphics.getWidth());
+        System.out.println(Gdx.graphics.getHeight());
+
         batch = new SpriteBatch();
         MapScreen mapScreen = new MapScreen(this);
         MoveScreen moveScreen = new MoveScreen(this, mapScreen);
@@ -33,6 +37,15 @@ public class DungeonEscape extends Game {
 
     public SpriteBatch getBatch() {
         return batch;
+    }
+
+    public void receiveSteps(int stepCount) {
+        System.out.println("Steps: " + stepCount);
+        this.stepTotal = stepCount;
+    }
+
+    public int getStepTotal() {
+        return stepTotal;
     }
 
     @Override

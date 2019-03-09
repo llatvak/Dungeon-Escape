@@ -1,7 +1,6 @@
 package fi.tamk.gameproject;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -16,10 +15,12 @@ import com.badlogic.gdx.utils.Array;
 import static com.badlogic.gdx.Input.Keys.DOWN;
 import static com.badlogic.gdx.Input.Keys.LEFT;
 import static com.badlogic.gdx.Input.Keys.RIGHT;
+import static com.badlogic.gdx.Input.Keys.SPACE;
 import static com.badlogic.gdx.Input.Keys.UP;
 
 public class MapPlayer extends Sprite {
 
+    private DungeonEscape game;
     private MapScreen mapScreen;
     private TiledMap tiledMap;
     private Texture playerTexture;
@@ -48,6 +49,9 @@ public class MapPlayer extends Sprite {
     private boolean goLeft;
 
     // Movement
+    private int stepTotal;
+    int movementPoints;
+    boolean allowMovement;
     private float movementSpeed = 4f;
     private float movedDistance;
     float moveAmount = movementSpeed;
@@ -78,7 +82,6 @@ public class MapPlayer extends Sprite {
 
     // Can this method be reduced in size?
     public void move(){
-
         if(goDown) {
             getMyCorners(spriteX, spriteY - 1 * moveAmount);
             if(downLeftCollision && downRightCollision) {
@@ -112,6 +115,7 @@ public class MapPlayer extends Sprite {
                 moving = false;
             }
         }
+
 
         if(goLeft) {
             getMyCorners(spriteX - 2, spriteY);
@@ -151,26 +155,71 @@ public class MapPlayer extends Sprite {
         setY(spriteY);
     }
 
+    public void receiveSteps(int stepTotal){
+        this.stepTotal = stepTotal;
+    }
+
+
+    public void countMovementPoints() {
+        // Amount of steps to move one tile
+        int stepsNeededToMove = 5;
+        // Checks if total step amount is divisible by the amount needed to move
+        if(stepTotal > 0) {
+            if(stepTotal % stepsNeededToMove == 0) {
+                addMovementPoint();
+                mapScreen.addStep();
+            }
+        }
+    }
+
+    public void addMovementPoint() {
+        movementPoints++;
+    }
+
+    public void removeMovementPoint() {
+        if(movementPoints > 0) {
+            movementPoints--;
+        }
+
+    }
+
+    public void checkAllowedMoves() {
+        if(movementPoints > 0) {
+            allowMovement = true;
+        } else {
+            allowMovement = false;
+        }
+    }
+
+
     public void checkInput() {
         Gdx.input.setInputProcessor(new InputAdapter() {
 
             // Keyboard controls
             @Override
             public boolean keyDown (int keycode) {
-                if(!moving && keycode == UP) {
+                if(!moving && allowMovement && keycode == UP) {
                     setUpMove(true);
+                    removeMovementPoint();
                 }
 
-                if(!moving && keycode == DOWN) {
+                if(!moving && allowMovement && keycode == DOWN) {
                     setDownMove(true);
+                    removeMovementPoint();
                 }
 
-                if(!moving && keycode == LEFT) {
+                if(!moving && allowMovement && keycode == LEFT) {
                     setLeftMove(true);
+                    removeMovementPoint();
                 }
 
-                if(!moving && keycode == RIGHT) {
+                if(!moving && allowMovement && keycode == RIGHT) {
                     setRightMove(true);
+                    removeMovementPoint();
+                }
+
+                if(keycode == SPACE) {
+                    mapScreen.addStep();
                 }
                 return true;
             }
@@ -178,20 +227,24 @@ public class MapPlayer extends Sprite {
             // Touch controls
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                // System.out.println("Touchscreen X: " + screenX);
-                // System.out.println("Touchscreen Y: " + screenY);
+                 //System.out.println("Touchscreen X: " + screenX);
+                 //System.out.println("Touchscreen Y: " + screenY);
 
-                if(!moving && screenY < 800f && screenX > 300f  && screenX < 800f  ) {
+                if(!moving && allowMovement && screenY < 500f && screenX > 200f  && screenX < 500f  ) {
                     setUpMove(true);
+                    removeMovementPoint();
                 }
-                if(!moving && screenY > 1100f && screenX > 300f  && screenX < 800f  ) {
+                if(!moving && allowMovement && screenY > 600f && screenX > 200f  && screenX < 500f  ) {
                     setDownMove(true);
+                    removeMovementPoint();
                 }
-                if(!moving && screenY > 500f && screenY < 1400f && screenX < 400f   ) {
+                if(!moving && allowMovement && screenY > 400f && screenY < 800f && screenX < 400f   ) {
                     setLeftMove(true);
+                    removeMovementPoint();
                 }
-                if(!moving && screenY > 500f && screenY < 1400f  && screenX > 700f  ) {
+                if(!moving && allowMovement && screenY > 400f && screenY < 800f  && screenX > 600f  ) {
                     setRightMove(true);
+                    removeMovementPoint();
                 }
 
                 return true;
@@ -275,7 +328,8 @@ public class MapPlayer extends Sprite {
         for (RectangleMapObject rectangleObject : rectangleObjects) {
             Rectangle rectangle = rectangleObject.getRectangle();
             // SCALE given rectangle down if using world dimensions!
-            if (getBoundingRectangle().overlaps(rectangle) && movedDistance == 64) {
+            if (getBoundingRectangle().overlaps(rectangle) && movedDistance == TILE_SIZE) {
+                addMovementPoint();
                 mapScreen.goToDownTrap();
             }
         }
@@ -291,7 +345,8 @@ public class MapPlayer extends Sprite {
         for (RectangleMapObject rectangleObject : rectangleObjects) {
             Rectangle rectangle = rectangleObject.getRectangle();
             // SCALE given rectangle down if using world dimensions!
-            if (getBoundingRectangle().overlaps(rectangle) && movedDistance == 64) {
+            if (getBoundingRectangle().overlaps(rectangle) && movedDistance == TILE_SIZE) {
+                addMovementPoint();
                 mapScreen.goToUpTrap();
             }
         }
@@ -306,7 +361,8 @@ public class MapPlayer extends Sprite {
         for (RectangleMapObject rectangleObject : rectangleObjects) {
             Rectangle rectangle = rectangleObject.getRectangle();
             // SCALE given rectangle down if using world dimensions!
-            if (getBoundingRectangle().overlaps(rectangle) && movedDistance == 64) {
+            if (getBoundingRectangle().overlaps(rectangle) && movedDistance == TILE_SIZE) {
+                addMovementPoint();
                 mapScreen.goToStoryTile();
             }
         }
