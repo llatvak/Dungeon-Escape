@@ -9,9 +9,12 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class MoveScreenSpike {
     private static World world;
+
+    // Spike variables
     private static Texture spikeTexture;
     private Body spikeBody;
 
+    // Creates body to world and gets definitions and fixtures to it
     public MoveScreenSpike(World w) {
         world = w;
         spikeTexture = new Texture("spikes.png");
@@ -20,6 +23,7 @@ public class MoveScreenSpike {
         spikeBody.setUserData(spikeTexture);
     }
 
+    // Defines the player body type and sets position
     private BodyDef getSpikeBodyDef() {
         BodyDef myBodyDef = new BodyDef();
         myBodyDef.type = BodyDef.BodyType.StaticBody;
@@ -27,12 +31,14 @@ public class MoveScreenSpike {
         return myBodyDef;
     }
 
+    // Sets spike body shape and size and returns the shape
     private PolygonShape getSpikeShape() {
         PolygonShape spikeBox = new PolygonShape();
         spikeBox.setAsBox(spikeTexture.getWidth()/100f/2,0.25f + spikeTexture.getHeight()/100f/2);
         return spikeBox;
     }
 
+    // Draws the spike on spike body
     public void draw(SpriteBatch b) {
         b.draw(spikeTexture, spikeBody.getPosition().x - spikeTexture.getWidth()/100f/2, spikeBody.getPosition().y, spikeTexture.getWidth()/100f, spikeTexture.getHeight()/100f);
     }

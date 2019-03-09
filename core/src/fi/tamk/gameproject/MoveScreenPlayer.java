@@ -11,104 +11,140 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-
-import static com.badlogic.gdx.Input.Keys.SPACE;
 import static com.badlogic.gdx.Input.Keys.UP;
 
 public class MoveScreenPlayer {
+    // Box2D player body
     private Body playerBody;
-    private boolean playerHasNotJumped = false;
+
+    // player animation and texture
     private Texture playerSheetTexture;
     private Animation<TextureRegion> jumpAnimation;
     private float stateTime;
     private TextureRegion currentFrameTexture;
 
+    //player jump variables
+    private boolean playerJumped = false;
+    private int countedJumps = 0;
+    private boolean playerInAir = false;
+
     public MoveScreenPlayer(World w) {
+        // Creates body to world and gets definitions and fixtures to it
         playerBody = w.createBody(getDefinitionOfBody());
         playerBody.createFixture(getPlayerShape(), 0.0f);
         playerSheetTexture = new Texture("jumpsheet.png");
         createJumpAnimation();
     }
 
+    // Defines the player body type and sets position
     public BodyDef getDefinitionOfBody() {
         BodyDef myBodyDef = new BodyDef();
         myBodyDef.type = BodyDef.BodyType.DynamicBody;
-        myBodyDef.position.set(MoveScreen.WORLD_WIDTH/5, MoveScreen.WORLD_HEIGHT/2);
+        myBodyDef.position.set(0.56f, 0.25f);
         return myBodyDef;
     }
 
+    // Sets player body shape and size and returns the shape
     public PolygonShape getPlayerShape() {
         PolygonShape playerBox = new PolygonShape();
         playerBox.setAsBox(0.4f, 0.7f);
         return playerBox;
     }
 
+    // Gets player X position and returns it
     public float getPlayerX() {
         float x = playerBody.getPosition().x;
         return x;
     }
 
+    // Gets player Y position and returns it
     public float getPlayerY() {
         float y = playerBody.getPosition().y;
         return y;
     }
 
+    // Draws the player using current animation texture
+    // Also draws the player on the player body in Box2D
     public void draw(Batch b) {
         b.draw(currentFrameTexture, playerBody.getPosition().x - 1f/2, playerBody.getPosition().y - 1.5f/2,
                 1f, 1.5f);
     }
 
+    // Creates animation from player texture sheet
     public void createJumpAnimation() {
+        // Rows and columns in texture sheet
         final int FRAME_COLS = 2;
         final int FRAME_ROWS = 1;
-
+        // Defines the size of texture sheet frames and saves width and height to variables
         int tileWidth = playerSheetTexture.getWidth() / FRAME_COLS;
         int tileHeight = playerSheetTexture.getHeight() / FRAME_ROWS;
+        // Using tile width and height values splits the texture sheet
         TextureRegion [][] tmp = TextureRegion.split(playerSheetTexture, tileWidth, tileHeight);
-        TextureRegion [] allFrames = toTextureArray(tmp, FRAME_COLS, FRAME_ROWS);
+        // Using Utils class method makes texture sheet from 2D array to 1D
+        TextureRegion [] allFrames = Utils.toTextureArray(tmp, FRAME_COLS, FRAME_ROWS);
+        // Initializes the animation
         jumpAnimation = new Animation(4 / 60f, allFrames);
+        // Current split frame texture from texture sheet
         currentFrameTexture = jumpAnimation.getKeyFrame(stateTime, true);
     }
 
-    public static TextureRegion[] toTextureArray(TextureRegion[][] tr, int cols, int rows)  {
-        TextureRegion[] frames = new TextureRegion[cols * rows];
-        int index = 0;
-        for(int i=0; i < rows; i++) {
-            for(int j=0; j < cols; j++) {
-                frames[index++] = tr[i][j];
-            }
-        }
-        return frames;
-    }
-
+    // Method for player jumping
     public void playerJump() {
+        // Counts time of program running
         stateTime += Gdx.graphics.getDeltaTime();
-        //System.out.println(Gdx.input.getAccelerometerY());
-        if(Gdx.input.getAccelerometerY() > 14 && playerHasNotJumped == false) {
-            playerBody.applyLinearImpulse(new Vector2(3.7f, 5f),
-                    playerBody.getWorldCenter(), true);
-            playerHasNotJumped = true;
+        // Moves the player at the start to position X
+        if(playerBody.getPosition().x < 1) {
+            playerBody.setLinearVelocity(1f, 0);
         }
-        currentFrameTexture = jumpAnimation.getKeyFrame(stateTime, false);
+        // Counts player jumps
+        countJumps();
+        // When X amount of jumps is done player character jumps over trap
+        if(Gdx.input.getAccelerometerY() > 14 && countedJumps == 12 && playerInAir == false) {
+            playerBody.applyLinearImpulse(new Vector2(3.5f, 5.5f),
+                    playerBody.getWorldCenter(), true);
+            playerInAir = true;
+        }
+        // Run animation when move screen comes visible
+        if(playerBody.getPosition().y <= 1.25f && playerBody.getPosition().x < 1) {
+            currentFrameTexture = jumpAnimation.getKeyFrame(stateTime, true);
+        }
+        // Placeholder attribute for tracking player jumps
+        System.out.println(countedJumps/2);
     }
 
+    // Counts player jumps
+    public void countJumps() {
+        // Counts jumps when player jumps and when player drops using accelerometer Y values
+        // To control jump counting boolean values are used
+        if(Gdx.input.getAccelerometerY() > 14 && playerJumped == false) {
+            playerJumped = true;
+            countedJumps ++;
+        }
+        if(Gdx.input.getAccelerometerY() < 14) {
+            playerJumped = false;
+        }
+    }
+
+    // For desktop testing
     public void checkInput() {
         Gdx.input.setInputProcessor(new InputAdapter() {
 
             // Keyboard controls
             @Override
             public boolean keyDown(int keycode) {
-                if (keycode == UP) {
+                if (keycode == UP && playerInAir == false) {
                     playerBody.applyLinearImpulse(new Vector2(3.7f, 5f),
                             playerBody.getWorldCenter(), true);
-                    playerHasNotJumped = true;
-                    currentFrameTexture = jumpAnimation.getKeyFrame(stateTime, false);
+                    playerInAir = true;
                 }
                 return true;
             }
-
-
         });
+    }
+
+    // Returns countedjumps
+    public int getCountedJumps() {
+        return countedJumps/2;
     }
 
     public void dispose() {
