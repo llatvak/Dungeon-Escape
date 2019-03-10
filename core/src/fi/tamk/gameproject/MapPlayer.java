@@ -23,7 +23,6 @@ public class MapPlayer extends Sprite {
     private DungeonEscape game;
     private MapScreen mapScreen;
     private TiledMap tiledMap;
-    private Texture playerTexture;
 
     // Map size
     private final int TILE_SIZE = 64;
@@ -78,7 +77,6 @@ public class MapPlayer extends Sprite {
         setSize(spriteWidth, spriteHeight);
         setPosition(startingX, startingY);
 
-        //setSize(getTexture().getWidth()/100f, getTexture().getHeight()/100f);
     }
 
 
@@ -374,13 +372,8 @@ public class MapPlayer extends Sprite {
         }
     }
 
-    public void getScaledPlayer() {
-
-    }
-
-
     public void dispose() {
         getTexture().dispose();
-
+        tiledMap.dispose();
     }
 }

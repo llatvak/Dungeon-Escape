@@ -17,8 +17,7 @@ public class DungeonEscape extends Game {
         // Get device screen resolution
         screenResolutionWidth = Gdx.graphics.getWidth();
         screenResolutionHeight = Gdx.graphics.getHeight();
-        System.out.println(Gdx.graphics.getWidth());
-        System.out.println(Gdx.graphics.getHeight());
+        System.out.println(Gdx.graphics.getWidth() +" x "+ Gdx.graphics.getHeight());
 
         batch = new SpriteBatch();
         MapScreen mapScreen = new MapScreen(this);
