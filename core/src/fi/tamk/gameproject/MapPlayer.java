@@ -31,7 +31,7 @@ public class MapPlayer extends Sprite {
     private final float MAP_HEIGHT = 39 * TILE_SIZE;
 
     // Player size
-    private float spriteWidth = 62f ;
+    private float spriteWidth = 62f;
     private float spriteHeight = 62f;
 
     // Starting location
@@ -75,8 +75,10 @@ public class MapPlayer extends Sprite {
         MyInputProcessor inputProcessor = new MyInputProcessor();
         Gdx.input.setInputProcessor(inputProcessor);
 
-        setSize(spriteWidth, spriteHeight);
+        //setSize(spriteWidth, spriteHeight);
         setPosition(startingX, startingY);
+
+        setSize(getTexture().getWidth()/100f, getTexture().getHeight()/100f);
     }
 
 
@@ -370,6 +372,10 @@ public class MapPlayer extends Sprite {
                 mapScreen.goToStoryTile();
             }
         }
+    }
+
+    public void getScaledPlayer() {
+
     }
 
 

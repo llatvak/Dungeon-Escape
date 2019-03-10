@@ -109,7 +109,7 @@ public class MoveScreenPlayer {
             currentFrameTexture = jumpAnimation.getKeyFrame(stateTime, true);
         }
         // Placeholder attribute for tracking player jumps
-        System.out.println(countedJumps/2);
+        //System.out.println(countedJumps/2);
     }
 
     // Counts player jumps
@@ -132,10 +132,11 @@ public class MoveScreenPlayer {
             // Keyboard controls
             @Override
             public boolean keyDown(int keycode) {
-                if (keycode == UP && playerInAir == false) {
+                if (keycode == UP && playerInAir == false && playerBody.getPosition().x > 1.215f) {
                     playerBody.applyLinearImpulse(new Vector2(3.7f, 5f),
                             playerBody.getWorldCenter(), true);
                     playerInAir = true;
+                    System.out.println(playerInAir);
                 }
                 return true;
             }
