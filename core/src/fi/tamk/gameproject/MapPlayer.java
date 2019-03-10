@@ -31,7 +31,7 @@ public class MapPlayer extends Sprite {
     private final float MAP_HEIGHT = 39 * TILE_SIZE;
 
     // Player size
-    private float spriteWidth = 62f ;
+    private float spriteWidth = 62f;
     private float spriteHeight = 62f;
 
     // Starting location
@@ -75,8 +75,10 @@ public class MapPlayer extends Sprite {
         MyInputProcessor inputProcessor = new MyInputProcessor();
         Gdx.input.setInputProcessor(inputProcessor);
 
-        setSize(spriteWidth, spriteHeight);
+        //setSize(spriteWidth, spriteHeight);
         setPosition(startingX, startingY);
+
+        setSize(getTexture().getWidth()/100f, getTexture().getHeight()/100f);
     }
 
 
@@ -91,7 +93,6 @@ public class MapPlayer extends Sprite {
                     if(movedDistance == 64) {
                         removeMovementPoint();
                     }
-                    System.out.println(movedDistance);
                 } else {
                     goDown = false;
                     moving = false;
@@ -236,8 +237,8 @@ public class MapPlayer extends Sprite {
             // Touch controls
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                 //System.out.println("Touchscreen X: " + screenX);
-                 //System.out.println("Touchscreen Y: " + screenY);
+                //System.out.println("Touchscreen X: " + screenX);
+                //System.out.println("Touchscreen Y: " + screenY);
 
                 if(!moving && allowMovement && screenY < 500f && screenX > 200f  && screenX < 500f  ) {
                     setUpMove(true);
@@ -371,6 +372,10 @@ public class MapPlayer extends Sprite {
                 mapScreen.goToStoryTile();
             }
         }
+    }
+
+    public void getScaledPlayer() {
+
     }
 
 

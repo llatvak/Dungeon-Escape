@@ -12,14 +12,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-
+import com.badlogic.gdx.math.Vector3;
 
 
 public class MapScreen implements Screen {
 
     private final String MAIN_TITLE = "Map screen";
-    final float WORLD_WIDTH = 360f;
-    final float WORLD_HEIGHT = 640f;
+    final float WORLD_WIDTH = 360f/100f;
+    final float WORLD_HEIGHT = 640f/100f;
 
     DungeonEscape game;
     MapPlayer player;
@@ -59,24 +59,25 @@ public class MapScreen implements Screen {
         tiledMap = new TmxMapLoader().load("DungeonEscape_Map.tmx");
         background = new Texture("brickwall.png");
 
-        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1/100f);
 
         camera = new OrthographicCamera();
         fontCamera = new OrthographicCamera();
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
-        fontCamera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
+        fontCamera.setToOrtho(false, 360f, 640f);
         player = new MapPlayer(this);
 
         fonts = new Fonts();
         fonts.createMediumFont();
         fontRoboto = fonts.getFont();
+
     }
 
 
 
     public void moveCamera() {
-        camera.position.x = player.getX() + 32f;
-        camera.position.y = player.getY() + 32f;
+        camera.position.x = player.getX()/100f + 32f/100f;
+        camera.position.y = player.getY()/100f + 32f/100f;
         camera.update();
     }
 
@@ -151,8 +152,8 @@ public class MapScreen implements Screen {
         //batch.draw(background,0,0, WORLD_WIDTH,WORLD_HEIGHT);
 
         //fontRoboto = game.getFont();
-        fontRoboto.draw(batch, "Steps: " + stepTotal, 10 , WORLD_HEIGHT - 10f);
-        fontRoboto.draw(batch, "Moves: " + player.movementPoints, 200 , WORLD_HEIGHT - 10f);
+        fontRoboto.draw(batch, "Steps: " + stepTotal, 10 , 640f - 10f);
+        fontRoboto.draw(batch, "Moves: " + player.movementPoints, 200 , 640f - 10f);
 
 //        layout = game.getLayout();
 //        layout.setText(fontRoboto, MAIN_TITLE);
@@ -162,8 +163,12 @@ public class MapScreen implements Screen {
         // View game camera
         batch.setProjectionMatrix(camera.combined);
 
-        player.draw(batch);
-
+        //player.draw(batch);
+        batch.draw(player.getTexture(),
+                camera.position.x - player.getWidth()/2,
+                camera.position.y - player.getHeight()/2,
+                player.getWidth(),
+                player.getHeight());
         batch.end();
 
         moveCamera();
