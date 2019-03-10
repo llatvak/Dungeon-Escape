@@ -66,8 +66,8 @@ public class MoveScreenPlayer {
     // Draws the player using current animation texture
     // Also draws the player on the player body in Box2D
     public void draw(Batch b) {
-        b.draw(currentFrameTexture, playerBody.getPosition().x - 1f/2, playerBody.getPosition().y - 1.5f/2,
-                1f, 1.5f);
+        b.draw(currentFrameTexture, playerBody.getPosition().x - 1.5f/2, playerBody.getPosition().y - 2f/2,
+                1.5f, 2f);
     }
 
     // Creates animation from player texture sheet

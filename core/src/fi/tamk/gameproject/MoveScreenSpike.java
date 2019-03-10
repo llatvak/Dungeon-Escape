@@ -17,7 +17,7 @@ public class MoveScreenSpike {
     // Creates body to world and gets definitions and fixtures to it
     public MoveScreenSpike(World w) {
         world = w;
-        spikeTexture = new Texture("spikes.png");
+        spikeTexture = new Texture("upspikes.png");
         spikeBody = world.createBody(getSpikeBodyDef());
         spikeBody.createFixture(getSpikeShape(), 0.0f);
         spikeBody.setUserData(spikeTexture);
@@ -27,20 +27,20 @@ public class MoveScreenSpike {
     private BodyDef getSpikeBodyDef() {
         BodyDef myBodyDef = new BodyDef();
         myBodyDef.type = BodyDef.BodyType.StaticBody;
-        myBodyDef.position.set(MoveScreen.WORLD_WIDTH/2 + spikeTexture.getWidth()/100f/2, 0.25f + spikeTexture.getHeight()/100f/2);
+        myBodyDef.position.set(MoveScreen.WORLD_WIDTH/2 + spikeTexture.getWidth()/100f/2, spikeTexture.getHeight()/100f/2);
         return myBodyDef;
     }
 
     // Sets spike body shape and size and returns the shape
     private PolygonShape getSpikeShape() {
         PolygonShape spikeBox = new PolygonShape();
-        spikeBox.setAsBox(spikeTexture.getWidth()/100f/2,0.25f + spikeTexture.getHeight()/100f/2);
+        spikeBox.setAsBox(spikeTexture.getWidth()/100f/3,spikeTexture.getHeight()/100f/3);
         return spikeBox;
     }
 
     // Draws the spike on spike body
     public void draw(SpriteBatch b) {
-        b.draw(spikeTexture, spikeBody.getPosition().x - spikeTexture.getWidth()/100f/2, spikeBody.getPosition().y, spikeTexture.getWidth()/100f, spikeTexture.getHeight()/100f);
+        b.draw(spikeTexture, spikeBody.getPosition().x - spikeTexture.getWidth()/100f/2, spikeBody.getPosition().y/100f/2, spikeTexture.getWidth()/100f, spikeTexture.getHeight()/100f);
     }
 
     public void dispose() {

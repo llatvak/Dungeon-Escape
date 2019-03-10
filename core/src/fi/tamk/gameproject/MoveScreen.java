@@ -77,7 +77,7 @@ public class MoveScreen implements Screen {
         spike = new MoveScreenSpike(world);
 
         // Setting the background texture and camera
-        backgroundTexture = new Texture(Gdx.files.internal("dungeon.png"));
+        backgroundTexture = new Texture(Gdx.files.internal("dungeonbg.png"));
         camera = new OrthographicCamera();
         fontCamera = new OrthographicCamera();
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
