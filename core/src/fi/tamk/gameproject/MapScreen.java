@@ -168,10 +168,10 @@ public class MapScreen implements Screen {
 
         //player.draw(batch);
         batch.draw(player.getTexture(),
-                camera.position.x - player.getWidth()/2,
-                camera.position.y - player.getHeight()/2,
-                player.getWidth(),
-                player.getHeight());
+                camera.position.x - player.getTexture().getWidth()/100f/2,
+                camera.position.y - player.getTexture().getHeight()/100f/2,
+                player.getTexture().getWidth()/100f,
+                player.getTexture().getHeight()/100f);
         batch.end();
 
         moveCamera();

@@ -75,10 +75,10 @@ public class MapPlayer extends Sprite {
         MyInputProcessor inputProcessor = new MyInputProcessor();
         Gdx.input.setInputProcessor(inputProcessor);
 
-        //setSize(spriteWidth, spriteHeight);
+        setSize(spriteWidth, spriteHeight);
         setPosition(startingX, startingY);
 
-        setSize(getTexture().getWidth()/100f, getTexture().getHeight()/100f);
+        //setSize(getTexture().getWidth()/100f, getTexture().getHeight()/100f);
     }
 
 
