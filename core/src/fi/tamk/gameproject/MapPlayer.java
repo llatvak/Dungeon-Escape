@@ -50,7 +50,7 @@ public class MapPlayer extends Sprite {
 
     // Movement
     private int stepTotal;
-    int movementPoints;
+    int movementPoints = 20;
     boolean allowMovement;
     private float movementSpeed = 4f;
     private float movedDistance;
@@ -88,10 +88,9 @@ public class MapPlayer extends Sprite {
                 if (movedDistance < TILE_SIZE) {
                     spriteY -= movementSpeed;
                     movedDistance += movementSpeed;
-                    if(movedDistance == 64) {
+                    if(movedDistance == TILE_SIZE) {
                         removeMovementPoint();
                     }
-                    System.out.println(movedDistance);
                 } else {
                     goDown = false;
                     moving = false;
@@ -109,7 +108,7 @@ public class MapPlayer extends Sprite {
                 if (movedDistance < TILE_SIZE) {
                     spriteY += movementSpeed;
                     movedDistance += movementSpeed;
-                    if(movedDistance == 64) {
+                    if(movedDistance == TILE_SIZE) {
                         removeMovementPoint();
                     }
                 } else {
@@ -130,7 +129,7 @@ public class MapPlayer extends Sprite {
                 if (movedDistance < TILE_SIZE) {
                     spriteX -= movementSpeed;
                     movedDistance += movementSpeed;
-                    if(movedDistance == 64) {
+                    if(movedDistance == TILE_SIZE) {
                         removeMovementPoint();
                     }
                 } else {
@@ -150,7 +149,7 @@ public class MapPlayer extends Sprite {
                 if(movedDistance < TILE_SIZE) {
                     spriteX += movementSpeed;
                     movedDistance += movementSpeed;
-                    if(movedDistance == 64) {
+                    if(movedDistance == TILE_SIZE) {
                         removeMovementPoint();
                     }
                 } else {
@@ -236,19 +235,19 @@ public class MapPlayer extends Sprite {
             // Touch controls
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                 //System.out.println("Touchscreen X: " + screenX);
-                 //System.out.println("Touchscreen Y: " + screenY);
+                int screenWidthHalf = Gdx.graphics.getWidth() / 2;
+                int screenHeightHalf = Gdx.graphics.getHeight() / 2;
 
-                if(!moving && allowMovement && screenY < 500f && screenX > 200f  && screenX < 500f  ) {
+                if(!moving && allowMovement && screenY < screenHeightHalf - 200) {
                     setUpMove(true);
                 }
-                if(!moving && allowMovement && screenY > 600f && screenX > 200f  && screenX < 500f  ) {
+                if(!moving && allowMovement && screenY > screenHeightHalf + 200) {
                     setDownMove(true);
                 }
-                if(!moving && allowMovement && screenY > 400f && screenY < 800f && screenX < 400f   ) {
+                if(!moving && allowMovement && screenX < screenWidthHalf - 100  ) {
                     setLeftMove(true);
                 }
-                if(!moving && allowMovement && screenY > 400f && screenY < 800f  && screenX > 600f  ) {
+                if(!moving && allowMovement && screenX > screenWidthHalf + 100) {
                     setRightMove(true);
                 }
 

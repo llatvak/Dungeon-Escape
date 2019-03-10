@@ -12,7 +12,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-
+import com.badlogic.gdx.utils.viewport.FillViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 
 public class MapScreen implements Screen {
@@ -28,9 +29,11 @@ public class MapScreen implements Screen {
 
 
 
+
     // Camera
     OrthographicCamera camera;
     OrthographicCamera fontCamera;
+    FillViewport viewport;
 
     // Map
     TiledMap tiledMap;
@@ -62,8 +65,11 @@ public class MapScreen implements Screen {
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
         camera = new OrthographicCamera();
-        fontCamera = new OrthographicCamera();
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
+//        viewport = new FillViewport(WORLD_WIDTH,WORLD_HEIGHT,camera);
+//        viewport.apply();
+
+        fontCamera = new OrthographicCamera();
         fontCamera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
         player = new MapPlayer(this);
 
