@@ -49,7 +49,6 @@ public class MapPlayer extends Sprite {
 
     // Movement
     private int stepTotal;
-    int movementPoints = 20;
     boolean allowMovement;
     private float movementSpeed = 4f;
     private float movedDistance;
@@ -89,7 +88,7 @@ public class MapPlayer extends Sprite {
                     spriteY -= movementSpeed;
                     movedDistance += movementSpeed;
                     if(movedDistance == TILE_SIZE) {
-                        removeMovementPoint();
+                        mapScreen.removeMovementPoint();
                     }
                 } else {
                     goDown = false;
@@ -109,7 +108,7 @@ public class MapPlayer extends Sprite {
                     spriteY += movementSpeed;
                     movedDistance += movementSpeed;
                     if(movedDistance == TILE_SIZE) {
-                        removeMovementPoint();
+                        mapScreen.removeMovementPoint();
                     }
                 } else {
                     goUp = false;
@@ -130,7 +129,7 @@ public class MapPlayer extends Sprite {
                     spriteX -= movementSpeed;
                     movedDistance += movementSpeed;
                     if(movedDistance == TILE_SIZE) {
-                        removeMovementPoint();
+                        mapScreen.removeMovementPoint();
                     }
                 } else {
                     goLeft = false;
@@ -150,7 +149,7 @@ public class MapPlayer extends Sprite {
                     spriteX += movementSpeed;
                     movedDistance += movementSpeed;
                     if(movedDistance == TILE_SIZE) {
-                        removeMovementPoint();
+                        mapScreen.removeMovementPoint();
                     }
                 } else {
                     goRight = false;
@@ -172,36 +171,6 @@ public class MapPlayer extends Sprite {
     }
 
 
-    public void countMovementPoints() {
-        // Amount of steps to move one tile
-        int stepsNeededToMove = 5;
-        // Checks if total step amount is divisible by the amount needed to move
-        if(stepTotal > 0) {
-            if(stepTotal % stepsNeededToMove == 0) {
-                addMovementPoint();
-                mapScreen.addStep();
-            }
-        }
-    }
-
-    public void addMovementPoint() {
-        movementPoints++;
-    }
-
-    public void removeMovementPoint() {
-        if(movementPoints > 0) {
-            movementPoints--;
-        }
-
-    }
-
-    public void checkAllowedMoves() {
-        if(movementPoints > 0) {
-            allowMovement = true;
-        } else {
-            allowMovement = false;
-        }
-    }
 
     public void checkInput() {
         Gdx.input.setInputProcessor(new InputAdapter() {
@@ -333,7 +302,7 @@ public class MapPlayer extends Sprite {
             Rectangle rectangle = rectangleObject.getRectangle();
             // SCALE given rectangle down if using world dimensions!
             if (getBoundingRectangle().overlaps(rectangle) && movedDistance == TILE_SIZE) {
-                addMovementPoint();
+                mapScreen.addMovementPoint();
                 mapScreen.goToDownTrap();
             }
         }
@@ -350,7 +319,7 @@ public class MapPlayer extends Sprite {
             Rectangle rectangle = rectangleObject.getRectangle();
             // SCALE given rectangle down if using world dimensions!
             if (getBoundingRectangle().overlaps(rectangle) && movedDistance == TILE_SIZE) {
-                addMovementPoint();
+                mapScreen.addMovementPoint();
                 mapScreen.goToUpTrap();
             }
         }
@@ -366,7 +335,7 @@ public class MapPlayer extends Sprite {
             Rectangle rectangle = rectangleObject.getRectangle();
             // SCALE given rectangle down if using world dimensions!
             if (getBoundingRectangle().overlaps(rectangle) && movedDistance == TILE_SIZE) {
-                addMovementPoint();
+                mapScreen.addMovementPoint();
                 mapScreen.goToStoryTile();
             }
         }

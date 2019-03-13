@@ -46,7 +46,9 @@ public class MapScreen implements Screen {
     private BitmapFont fontRoboto;
 
 
+    private final int TILE_STEPS = 5;
     private int stepTotal;
+    int movementPoints = 20;
 
     public MapScreen(DungeonEscape game) {
         this.game = game;
@@ -79,8 +81,8 @@ public class MapScreen implements Screen {
 
         stepTotal = game.getStepTotal();
         player.receiveSteps(stepTotal);
-        player.countMovementPoints();
-        player.checkAllowedMoves();
+        countMovementPoints();
+        checkAllowedMoves();
 
         if(player.moving) {
             player.move();
@@ -108,7 +110,7 @@ public class MapScreen implements Screen {
         //batch.draw(background,0,0, WORLD_WIDTH,WORLD_HEIGHT);
 
         fontRoboto.draw(batch, "Steps: " + stepTotal, 10 , 640f - 10f);
-        fontRoboto.draw(batch, "Moves: " + player.movementPoints, 200 , 640f - 10f);
+        fontRoboto.draw(batch, "Moves: " + movementPoints, 200 , 640f - 10f);
 
         // View game camera
         batch.setProjectionMatrix(camera.combined);
@@ -148,6 +150,35 @@ public class MapScreen implements Screen {
         // Needs new class StoryScreen
         moveScreen = new MoveScreen(game, this);
         game.setScreen(moveScreen);
+    }
+
+    public void countMovementPoints() {
+        // Checks if total step amount is divisible by the amount needed to move
+        if(stepTotal > 0) {
+            if(stepTotal % TILE_STEPS == 0) {
+                addMovementPoint();
+                addStep();
+            }
+        }
+    }
+
+    public void addMovementPoint() {
+        movementPoints++;
+    }
+
+    public void removeMovementPoint() {
+        if(movementPoints > 0) {
+            movementPoints--;
+        }
+
+    }
+
+    public void checkAllowedMoves() {
+        if(movementPoints > 0) {
+            player.allowMovement = true;
+        } else {
+            player.allowMovement = false;
+        }
     }
 
     public void addStep() {
