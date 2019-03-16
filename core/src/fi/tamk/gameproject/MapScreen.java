@@ -48,6 +48,8 @@ public class MapScreen implements Screen {
 
     private final int TILE_STEPS = 5;
     private int stepTotal;
+    private int stepsOnPause;
+    private int stepDelta;
     int movementPoints = 20;
 
     public MapScreen(DungeonEscape game) {
@@ -181,6 +183,11 @@ public class MapScreen implements Screen {
         }
     }
 
+    public int countStepDelta() {
+        stepDelta = stepTotal - stepsOnPause;
+        return stepDelta;
+    }
+
     public void addStep() {
         game.stepTotal++;
     }
@@ -204,12 +211,14 @@ public class MapScreen implements Screen {
 
     @Override
     public void pause() {
-
+        stepsOnPause = stepTotal;
+        System.out.println("on pause "+stepsOnPause);
     }
 
     @Override
     public void resume() {
-
+        System.out.println("total "+ stepTotal);
+        System.out.println("delta " + countStepDelta());
     }
 
     @Override
