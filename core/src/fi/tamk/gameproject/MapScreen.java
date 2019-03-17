@@ -117,9 +117,9 @@ public class MapScreen implements Screen {
         tiledMapRenderer.render();
 
 
+
         // View font camera
         batch.setProjectionMatrix(fontCamera.combined);
-
 
         batch.begin();
 
@@ -138,11 +138,14 @@ public class MapScreen implements Screen {
                 player.getTexture().getWidth()/100f,
                 player.getTexture().getHeight()/100f);
         batch.end();
+
         stage.act(Gdx.graphics.getDeltaTime());
         // Call draw on every actor
         stage.draw();
+
         moveCamera();
         update();
+
 
     }
 
@@ -150,6 +153,7 @@ public class MapScreen implements Screen {
         camera.position.x = player.getX()/100f + 32f/100f;
         camera.position.y = player.getY()/100f + 32f/100f;
         camera.update();
+
     }
 
     public void goToDownTrap() {
@@ -199,11 +203,11 @@ public class MapScreen implements Screen {
         mainTable.right();
 
         //Create buttons
-        ImageButton optionsButton = new ImageButton(skin, "settings");
+        ImageButton settingsButton = new ImageButton(skin, "settings");
 
         //Add listeners to buttons
 
-        optionsButton.addListener(new ClickListener(){
+        settingsButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 ((Game)Gdx.app.getApplicationListener()).setScreen(new OptionsScreen(game));
@@ -212,7 +216,7 @@ public class MapScreen implements Screen {
 
 
         //Add buttons to table
-        mainTable.add(optionsButton).width(50).height(50).fillX().pad(5,5,5,5);
+        mainTable.add(settingsButton).width(50).height(50).fillX().pad(5,5,5,5);
         mainTable.row();
 
         //Add table to stage

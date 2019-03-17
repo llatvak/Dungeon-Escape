@@ -68,7 +68,7 @@ public class MainMenu implements Screen {
         mainTable.setFillParent(true);
 
         // Debug lines
-        mainTable.setDebug(false);
+        mainTable.setDebug(true);
 
         //Set alignment of contents in the table.
         mainTable.center();
