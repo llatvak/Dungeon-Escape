@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -27,6 +28,7 @@ public class MainMenu implements Screen {
     private Viewport viewport;
     private OrthographicCamera camera;
 
+    private  Texture background;
     private TextureAtlas atlas;
     protected Skin skin;
 
@@ -38,12 +40,14 @@ public class MainMenu implements Screen {
 
     public void onCreate() {
 
-       camera = new OrthographicCamera();
-       viewport = new FitViewport(360f, 640f, camera);
-       viewport.apply();
+        background = new Texture("menu.png");
 
-       camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
-       camera.update();
+        camera = new OrthographicCamera();
+        viewport = new FitViewport(360f, 640f, camera);
+        viewport.apply();
+
+        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+        camera.update();
 
 
         //atlas = new TextureAtlas("skin.atlas");
@@ -109,6 +113,12 @@ public class MainMenu implements Screen {
     @Override
     public void render(float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        batch.begin();
+
+        batch.draw(background,0,0, 360,640);
+
+        batch.end();
 
         stage.act(Gdx.graphics.getDeltaTime());
         // Call draw on every actor
