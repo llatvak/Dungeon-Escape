@@ -3,6 +3,7 @@ package fi.tamk.gameproject;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -103,6 +104,8 @@ public class OptionsScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         stage.act(Gdx.graphics.getDeltaTime());
         // Call draw on every actor
         stage.draw();

@@ -3,6 +3,7 @@ package fi.tamk.gameproject;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -12,7 +13,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class MainMenu implements Screen {
@@ -35,12 +38,13 @@ public class MainMenu implements Screen {
 
     public void onCreate() {
 
-        camera = new OrthographicCamera();
-        viewport = new FitViewport(360f, 640f, camera);
-        viewport.apply();
+       camera = new OrthographicCamera();
+       viewport = new FitViewport(360f, 640f, camera);
+       viewport.apply();
 
-        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
-        camera.update();
+       camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+       camera.update();
+
 
         //atlas = new TextureAtlas("skin.atlas");
         skin = new Skin( Gdx.files.internal("uiskin.json") );
@@ -55,8 +59,10 @@ public class MainMenu implements Screen {
 
         //Create Table
         Table mainTable = new Table();
+
         //Set table to fill stage
         mainTable.setFillParent(true);
+
         mainTable.setDebug(true);
         //Set alignment of contents in the table.
         mainTable.center();
@@ -102,6 +108,8 @@ public class MainMenu implements Screen {
 
     @Override
     public void render(float delta) {
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         stage.act(Gdx.graphics.getDeltaTime());
         // Call draw on every actor
         stage.draw();
@@ -109,9 +117,9 @@ public class MainMenu implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height);
-        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
-        camera.update();
+//        viewport.update(width, height);
+//        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+//        camera.update();
     }
 
     @Override
