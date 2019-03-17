@@ -51,7 +51,7 @@ public class MainMenu implements Screen {
 
 
         //atlas = new TextureAtlas("skin.atlas");
-        skin = new Skin( Gdx.files.internal("uiskin.json") );
+        skin = new Skin( Gdx.files.internal("dark-peel-ui.json") );
 
         stage = new Stage(viewport, batch);
 
@@ -67,7 +67,9 @@ public class MainMenu implements Screen {
         //Set table to fill stage
         mainTable.setFillParent(true);
 
-        mainTable.setDebug(true);
+        // Debug lines
+        mainTable.setDebug(false);
+
         //Set alignment of contents in the table.
         mainTable.center();
 
