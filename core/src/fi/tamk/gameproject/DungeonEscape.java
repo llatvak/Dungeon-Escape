@@ -10,6 +10,7 @@ public class DungeonEscape extends Game {
 
 	SpriteBatch batch;
 	int stepTotal;
+    MapScreen mapScreen;
 
     @Override
     public void create () {
@@ -20,11 +21,13 @@ public class DungeonEscape extends Game {
         System.out.println(Gdx.graphics.getWidth() +" x "+ Gdx.graphics.getHeight());
 
         batch = new SpriteBatch();
-        MapScreen mapScreen = new MapScreen(this);
+        MainMenu menuScreen = new MainMenu(this);
+        mapScreen = new MapScreen(this);
         MoveScreen moveScreen = new MoveScreen(this, mapScreen);
 
+        setScreen(menuScreen);
         //setScreen(moveScreen);
-        setScreen(mapScreen);
+        //setScreen(mapScreen);
     }
 
     @Override
@@ -32,6 +35,12 @@ public class DungeonEscape extends Game {
         super.render();
         batch.begin();
         batch.end();
+    }
+
+    public void changeScreen(int screen) {
+        if(screen == 1) {
+            setScreen(mapScreen);
+        }
     }
 
     public SpriteBatch getBatch() {

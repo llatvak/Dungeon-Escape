@@ -13,7 +13,13 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FillViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 
@@ -27,7 +33,6 @@ public class MapScreen implements Screen {
     MapPlayer player;
     SpriteBatch batch;
     MoveScreen moveScreen;
-
 
 
     // Camera
@@ -72,6 +77,7 @@ public class MapScreen implements Screen {
         fonts = new Fonts();
         fonts.createMediumFont();
         fontRoboto = fonts.getFont();
+
 
     }
 
