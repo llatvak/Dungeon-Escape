@@ -15,7 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class MainMenu implements Screen {
+
+public class OptionsScreen implements Screen {
 
     private Stage stage;
     private SpriteBatch batch;
@@ -27,7 +28,7 @@ public class MainMenu implements Screen {
     private TextureAtlas atlas;
     protected Skin skin;
 
-    public MainMenu(DungeonEscape game) {
+    public OptionsScreen(DungeonEscape game) {
         this.batch = game.getBatch();
         this.game = game;
         onCreate();
@@ -63,29 +64,29 @@ public class MainMenu implements Screen {
 
 
         //Create buttons
-        TextButton playButton = new TextButton("Play", skin);
-        TextButton optionsButton = new TextButton("Options", skin);
-        TextButton exitButton = new TextButton("Exit", skin);
+        TextButton playButton = new TextButton("placeholder1", skin);
+        TextButton optionsButton = new TextButton("placeholder2", skin);
+        TextButton backButton = new TextButton("Back", skin);
 
         //Add listeners to buttons
         playButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ((Game)Gdx.app.getApplicationListener()).setScreen(new MapScreen(game));
+
             }
         });
 
         optionsButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ((Game)Gdx.app.getApplicationListener()).setScreen(new OptionsScreen(game));
+
             }
         });
 
-        exitButton.addListener(new ClickListener(){
+        backButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Gdx.app.exit();
+                ((Game)Gdx.app.getApplicationListener()).setScreen(new MainMenu(game));
             }
         });
 
@@ -94,7 +95,7 @@ public class MainMenu implements Screen {
         mainTable.row().pad(10,0,10,0);
         mainTable.add(optionsButton).width(200).height(40).fillX().uniformX();
         mainTable.row();
-        mainTable.add(exitButton).width(200).height(40).fillX().uniformX();
+        mainTable.add(backButton).width(200).height(40).fillX().uniformX();
 
         //Add table to stage
         stage.addActor(mainTable);
@@ -135,3 +136,4 @@ public class MainMenu implements Screen {
         batch.dispose();
     }
 }
+

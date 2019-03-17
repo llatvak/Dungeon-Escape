@@ -3,6 +3,7 @@ package fi.tamk.gameproject;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class DungeonEscape extends Game {
     int screenResolutionWidth;
@@ -21,13 +22,10 @@ public class DungeonEscape extends Game {
         System.out.println(Gdx.graphics.getWidth() +" x "+ Gdx.graphics.getHeight());
 
         batch = new SpriteBatch();
-        MainMenu menuScreen = new MainMenu(this);
-        mapScreen = new MapScreen(this);
-        MoveScreen moveScreen = new MoveScreen(this, mapScreen);
 
-        setScreen(menuScreen);
-        //setScreen(moveScreen);
-        //setScreen(mapScreen);
+        setScreen( new MainMenu(this) );
+        //setScreen( new MoveScreen(this, mapScreen ));
+        //setScreen( new MapScreen(this) );
     }
 
     @Override
