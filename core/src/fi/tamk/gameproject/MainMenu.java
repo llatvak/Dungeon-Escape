@@ -52,8 +52,8 @@ public class MainMenu implements Screen {
 
         //atlas = new TextureAtlas("skin.atlas");
         skin = new Skin( Gdx.files.internal("dark-peel-ui.json") );
-
         stage = new Stage(viewport, batch);
+
 
     }
 
@@ -129,9 +129,9 @@ public class MainMenu implements Screen {
 
     @Override
     public void resize(int width, int height) {
-//        viewport.update(width, height);
-//        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
-//        camera.update();
+        viewport.update(width, height);
+        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+        camera.update();
     }
 
     @Override

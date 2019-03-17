@@ -24,6 +24,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+
+import javax.swing.text.View;
 
 
 public class MapScreen implements Screen {
@@ -41,7 +44,7 @@ public class MapScreen implements Screen {
     // Camera
     OrthographicCamera camera;
     OrthographicCamera fontCamera;
-
+    Viewport viewport;
     // Map
     TiledMap tiledMap;
     OrthogonalTiledMapRenderer tiledMapRenderer;
@@ -83,10 +86,13 @@ public class MapScreen implements Screen {
         fonts.createMediumFont();
         fontRoboto = fonts.getFont();
 
-        //atlas = new TextureAtlas("skin.atlas");
-        skin = new Skin( Gdx.files.internal("dark-peel-ui.json") );
-        stage = new Stage(new FitViewport(360f, 640f), batch);
 
+        viewport = new FitViewport(360f, 640f, fontCamera);
+        viewport.apply();
+        skin = new Skin( Gdx.files.internal("dark-peel-ui.json") );
+        stage = new Stage(viewport, batch);
+        fontCamera.position.set(fontCamera.viewportWidth / 2, fontCamera.viewportHeight / 2, 0);
+        fontCamera.update();
 
     }
 
@@ -110,6 +116,8 @@ public class MapScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        fontCamera.update();
 
         // Which part of the map are we looking? Use camera's viewport
         tiledMapRenderer.setView(camera);
