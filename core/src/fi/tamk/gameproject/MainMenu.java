@@ -76,7 +76,7 @@ public class MainMenu implements Screen {
 
         //Create buttons
         TextButton playButton = new TextButton("Play", skin);
-        TextButton optionsButton = new TextButton("Options", skin);
+        TextButton settingsButton = new TextButton("Settings", skin);
         TextButton exitButton = new TextButton("Exit", skin);
 
         //Add listeners to buttons
@@ -87,7 +87,7 @@ public class MainMenu implements Screen {
             }
         });
 
-        optionsButton.addListener(new ClickListener(){
+        settingsButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 ((Game)Gdx.app.getApplicationListener()).setScreen(new OptionsScreen(game));
@@ -104,7 +104,7 @@ public class MainMenu implements Screen {
         //Add buttons to table
         mainTable.add(playButton).width(200).height(70).fillX().uniformX();
         mainTable.row().pad(10,0,10,0);
-        mainTable.add(optionsButton).width(200).height(40).fillX().uniformX();
+        mainTable.add(settingsButton).width(200).height(40).fillX().uniformX();
         mainTable.row();
         mainTable.add(exitButton).width(200).height(40).fillX().uniformX();
 

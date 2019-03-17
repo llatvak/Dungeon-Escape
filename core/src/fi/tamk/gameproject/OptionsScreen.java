@@ -46,7 +46,6 @@ public class OptionsScreen implements Screen {
 
         //atlas = new TextureAtlas("skin.atlas");
         skin = new Skin( Gdx.files.internal("dark-peel-ui.json") );
-
         stage = new Stage(viewport, batch);
 
     }
@@ -69,7 +68,7 @@ public class OptionsScreen implements Screen {
 
         //Create buttons
         TextButton playButton = new TextButton("placeholder1", skin);
-        TextButton optionsButton = new TextButton("placeholder2", skin);
+        TextButton settingsButton = new TextButton("placeholder2", skin);
         TextButton backButton = new TextButton("Back", skin);
 
         //Add listeners to buttons
@@ -80,7 +79,7 @@ public class OptionsScreen implements Screen {
             }
         });
 
-        optionsButton.addListener(new ClickListener(){
+        settingsButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
 
@@ -97,7 +96,7 @@ public class OptionsScreen implements Screen {
         //Add buttons to table
         mainTable.add(playButton).width(200).height(70).fillX().uniformX();
         mainTable.row().pad(10,0,10,0);
-        mainTable.add(optionsButton).width(200).height(40).fillX().uniformX();
+        mainTable.add(settingsButton).width(200).height(40).fillX().uniformX();
         mainTable.row();
         mainTable.add(backButton).width(200).height(40).fillX().uniformX();
 

@@ -1,5 +1,6 @@
 package fi.tamk.gameproject;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 
 import com.badlogic.gdx.Screen;
@@ -15,7 +16,9 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FillViewport;
@@ -26,8 +29,8 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 public class MapScreen implements Screen {
 
     private final String MAIN_TITLE = "Map screen";
-    final float WORLD_WIDTH = 360f/100f;
-    final float WORLD_HEIGHT = 640f/100f;
+    final float WORLD_WIDTH = 360f / 100f;
+    final float WORLD_HEIGHT = 640f / 100f;
 
     DungeonEscape game;
     MapPlayer player;
@@ -50,6 +53,8 @@ public class MapScreen implements Screen {
     private Fonts fonts;
     private BitmapFont fontRoboto;
 
+    protected Skin skin;
+    private Stage stage;
 
     private int stepTotal;
 
@@ -77,6 +82,10 @@ public class MapScreen implements Screen {
         fonts = new Fonts();
         fonts.createMediumFont();
         fontRoboto = fonts.getFont();
+
+        //atlas = new TextureAtlas("skin.atlas");
+        skin = new Skin( Gdx.files.internal("dark-peel-ui.json") );
+        stage = new Stage(new FitViewport(360f, 640f), batch);
 
 
     }
@@ -107,8 +116,11 @@ public class MapScreen implements Screen {
         // Render all layers to screen.
         tiledMapRenderer.render();
 
+
         // View font camera
         batch.setProjectionMatrix(fontCamera.combined);
+
+
         batch.begin();
 
         //batch.draw(background,0,0, WORLD_WIDTH,WORLD_HEIGHT);
@@ -126,7 +138,9 @@ public class MapScreen implements Screen {
                 player.getTexture().getWidth()/100f,
                 player.getTexture().getHeight()/100f);
         batch.end();
-
+        stage.act(Gdx.graphics.getDeltaTime());
+        // Call draw on every actor
+        stage.draw();
         moveCamera();
         update();
 
@@ -170,7 +184,39 @@ public class MapScreen implements Screen {
 
     @Override
     public void show() {
+        Gdx.input.setInputProcessor(stage);
 
+        //Create Table
+        Table mainTable = new Table();
+        //Set table to fill stage
+        mainTable.setFillParent(true);
+
+        // Debug lines
+        mainTable.setDebug(true);
+
+        //Set alignment of contents in the table.
+        mainTable.top();
+        mainTable.right();
+
+        //Create buttons
+        ImageButton optionsButton = new ImageButton(skin, "settings");
+
+        //Add listeners to buttons
+
+        optionsButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                ((Game)Gdx.app.getApplicationListener()).setScreen(new OptionsScreen(game));
+            }
+        });
+
+
+        //Add buttons to table
+        mainTable.add(optionsButton).width(50).height(50).fillX().pad(5,5,5,5);
+        mainTable.row();
+
+        //Add table to stage
+        stage.addActor(mainTable);
     }
     @Override
     public void resize(int width, int height) {

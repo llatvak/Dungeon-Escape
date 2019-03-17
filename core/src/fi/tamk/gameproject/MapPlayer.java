@@ -238,10 +238,10 @@ public class MapPlayer extends Sprite {
                 int screenWidthHalf = Gdx.graphics.getWidth() / 2;
                 int screenHeightHalf = Gdx.graphics.getHeight() / 2;
 
-                if(!moving && allowMovement && screenY < screenHeightHalf - 200) {
+                if(!moving && allowMovement && screenY < screenHeightHalf - 100) {
                     setUpMove(true);
                 }
-                if(!moving && allowMovement && screenY > screenHeightHalf + 200) {
+                if(!moving && allowMovement && screenY > screenHeightHalf + 100) {
                     setDownMove(true);
                 }
                 if(!moving && allowMovement && screenX < screenWidthHalf - 100  ) {
