@@ -2,6 +2,7 @@ package fi.tamk.gameproject;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.MapLayer;
@@ -49,7 +50,7 @@ public class MapPlayer extends Sprite {
 
     // Movement
     private int stepTotal;
-    int movementPoints = 20;
+    int movementPoints = 200;
     boolean allowMovement;
     private float movementSpeed = 4f;
     private float movedDistance;
@@ -71,8 +72,7 @@ public class MapPlayer extends Sprite {
         super( new Texture("velho.png"));
         this.mapScreen = mapScreen;
         this.tiledMap = mapScreen.tiledMap;
-        MyInputProcessor inputProcessor = new MyInputProcessor();
-        Gdx.input.setInputProcessor(inputProcessor);
+
 
         setSize(spriteWidth, spriteHeight);
         setPosition(startingX, startingY);
@@ -203,58 +203,7 @@ public class MapPlayer extends Sprite {
         }
     }
 
-    public void checkInput() {
-        Gdx.input.setInputProcessor(new InputAdapter() {
 
-            // Keyboard controls
-            @Override
-            public boolean keyDown (int keycode) {
-                if(!moving && allowMovement && keycode == UP) {
-
-                    setUpMove(true);
-                }
-
-                if(!moving && allowMovement && keycode == DOWN) {
-                    setDownMove(true);
-                }
-
-                if(!moving && allowMovement && keycode == LEFT) {
-                    setLeftMove(true);
-                }
-
-                if(!moving && allowMovement && keycode == RIGHT) {
-                    setRightMove(true);
-                }
-
-                if(keycode == SPACE) {
-                    mapScreen.addStep();
-                }
-                return true;
-            }
-
-            // Touch controls
-            @Override
-            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                int screenWidthHalf = Gdx.graphics.getWidth() / 2;
-                int screenHeightHalf = Gdx.graphics.getHeight() / 2;
-
-                if(!moving && allowMovement && screenY < screenHeightHalf - 100) {
-                    setUpMove(true);
-                }
-                if(!moving && allowMovement && screenY > screenHeightHalf + 100) {
-                    setDownMove(true);
-                }
-                if(!moving && allowMovement && screenX < screenWidthHalf - 100  ) {
-                    setLeftMove(true);
-                }
-                if(!moving && allowMovement && screenX > screenWidthHalf + 100) {
-                    setRightMove(true);
-                }
-
-                return true;
-            }
-        });
-    }
 
     public void setLeftMove(boolean t) {
         goLeft = t;

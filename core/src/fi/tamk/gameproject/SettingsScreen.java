@@ -17,7 +17,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 
-public class OptionsScreen implements Screen {
+public class SettingsScreen implements Screen {
 
     private Stage stage;
     private SpriteBatch batch;
@@ -29,7 +29,7 @@ public class OptionsScreen implements Screen {
     private TextureAtlas atlas;
     protected Skin skin;
 
-    public OptionsScreen(DungeonEscape game) {
+    public SettingsScreen(DungeonEscape game) {
         this.batch = game.getBatch();
         this.game = game;
         onCreate();

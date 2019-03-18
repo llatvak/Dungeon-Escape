@@ -3,30 +3,24 @@ package fi.tamk.gameproject;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-
-import javax.swing.text.View;
 
 
 public class MapScreen implements Screen {
@@ -58,6 +52,7 @@ public class MapScreen implements Screen {
 
     protected Skin skin;
     private Stage stage;
+    InputMultiplexer multiplexer;
 
     private int stepTotal;
 
@@ -94,6 +89,7 @@ public class MapScreen implements Screen {
         fontCamera.position.set(fontCamera.viewportWidth / 2, fontCamera.viewportHeight / 2, 0);
         fontCamera.update();
 
+
     }
 
     public void update() {
@@ -108,7 +104,6 @@ public class MapScreen implements Screen {
         }
 
         player.checkCollisions();
-        player.checkInput();
 
     }
 
@@ -147,14 +142,14 @@ public class MapScreen implements Screen {
                 player.getTexture().getHeight()/100f);
         batch.end();
 
-        stage.act(Gdx.graphics.getDeltaTime());
-        // Call draw on every actor
-        stage.draw();
 
         moveCamera();
         update();
 
 
+        stage.act(Gdx.graphics.getDeltaTime());
+        // Call draw on every actor
+        stage.draw();
     }
 
     public void moveCamera() {
@@ -164,19 +159,20 @@ public class MapScreen implements Screen {
 
     }
 
+
     public void goToDownTrap() {
-        System.out.println("DOWN TRAP!");
+        Gdx.app.log("Down trap", "going to jumping trap");
         moveScreen = new MoveScreen(game, this);
         game.setScreen(moveScreen);
     }
     public void goToUpTrap() {
-        System.out.println("UP TRAP!");
+        Gdx.app.log("Up trap", "going to crouching trap");
         // Needs new class UpScreen
         moveScreen = new MoveScreen(game, this);
         game.setScreen(moveScreen);
     }
     public void goToStoryTile() {
-        System.out.println("STORY TILE!");
+        Gdx.app.log("Story", "going to story tile");
         // Needs new class StoryScreen
         moveScreen = new MoveScreen(game, this);
         game.setScreen(moveScreen);
@@ -196,7 +192,13 @@ public class MapScreen implements Screen {
 
     @Override
     public void show() {
-        Gdx.input.setInputProcessor(stage);
+
+        InputMultiplexer multiplexer = new InputMultiplexer();
+        MyInputProcessor inputProcessor = new MyInputProcessor(player);
+        multiplexer.addProcessor(stage);
+        multiplexer.addProcessor(inputProcessor);
+        Gdx.input.setInputProcessor(multiplexer);
+
 
         //Create Table
         Table mainTable = new Table();
@@ -214,16 +216,17 @@ public class MapScreen implements Screen {
         ImageButton settingsButton = new ImageButton(skin, "settings");
 
         //Add listeners to buttons
-
         settingsButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ((Game)Gdx.app.getApplicationListener()).setScreen(new OptionsScreen(game));
+                Gdx.app.log("Settings", "going to settings");
+                ((Game)Gdx.app.getApplicationListener()).setScreen(new SettingsScreen(game));
             }
         });
 
+        stage.addActor(settingsButton);
 
-        //Add buttons to table
+       //Add buttons to table
         mainTable.add(settingsButton).width(50).height(50).fillX().pad(5,5,5,5);
         mainTable.row();
 
