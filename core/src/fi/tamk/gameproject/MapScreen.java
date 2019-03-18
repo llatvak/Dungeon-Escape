@@ -17,11 +17,13 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -164,6 +166,7 @@ public class MapScreen implements Screen {
 
     public void trapConfirm() {
 
+
         final TextButton confirmButton = new TextButton("I'm ready!", skin, "maroon");
         confirmButton.setWidth(200f);
         confirmButton.setHeight(70f);
@@ -175,8 +178,12 @@ public class MapScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor){
                 Gdx.app.log("Trap", "going");
+                confirmButton.remove();
+
+                // pause?
+                // this needs to be changed for different traps
                 goToDownTrap();
-                //stage.rActor(confirmButton);
+
             }
         });
     }
