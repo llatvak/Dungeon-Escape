@@ -1,6 +1,7 @@
 package fi.tamk.gameproject;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 
 
@@ -42,6 +43,11 @@ public class MyInputProcessor implements InputProcessor {
 
         if(keycode == SPACE) {
             //player.addStep();
+        }
+
+        if(keycode == Input.Keys.BACK){
+            Gdx.app.log("Back", "going back");
+            return true;
         }
         return true;
     }

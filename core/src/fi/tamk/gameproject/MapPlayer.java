@@ -283,7 +283,8 @@ public class MapPlayer extends Sprite {
             // SCALE given rectangle down if using world dimensions!
             if (getBoundingRectangle().overlaps(rectangle) && movedDistance == TILE_SIZE) {
                 addMovementPoint();
-                mapScreen.goToDownTrap();
+                mapScreen.trapConfirm();
+                //mapScreen.goToDownTrap();
             }
         }
     }
@@ -300,7 +301,8 @@ public class MapPlayer extends Sprite {
             // SCALE given rectangle down if using world dimensions!
             if (getBoundingRectangle().overlaps(rectangle) && movedDistance == TILE_SIZE) {
                 addMovementPoint();
-                mapScreen.goToUpTrap();
+                mapScreen.trapConfirm();
+                //mapScreen.goToUpTrap();
             }
         }
     }

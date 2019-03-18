@@ -13,11 +13,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -159,6 +162,25 @@ public class MapScreen implements Screen {
 
     }
 
+    public void trapConfirm() {
+
+        final TextButton confirmButton = new TextButton("I'm ready!", skin, "maroon");
+        confirmButton.setWidth(200f);
+        confirmButton.setHeight(70f);
+        confirmButton.setPosition(Gdx.graphics.getWidth() /2 - 100f, Gdx.graphics.getHeight() /2);
+
+        stage.addActor(confirmButton);
+
+        confirmButton.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeEvent event, Actor actor){
+                Gdx.app.log("Trap", "going");
+                goToDownTrap();
+                //stage.rActor(confirmButton);
+            }
+        });
+    }
+
 
     public void goToDownTrap() {
         Gdx.app.log("Down trap", "going to jumping trap");
@@ -199,14 +221,13 @@ public class MapScreen implements Screen {
         multiplexer.addProcessor(inputProcessor);
         Gdx.input.setInputProcessor(multiplexer);
 
-
         //Create Table
         Table mainTable = new Table();
         //Set table to fill stage
         mainTable.setFillParent(true);
 
         // Debug lines
-        mainTable.setDebug(true);
+        //mainTable.setDebug(true);
 
         //Set alignment of contents in the table.
         mainTable.top();
@@ -216,9 +237,9 @@ public class MapScreen implements Screen {
         ImageButton settingsButton = new ImageButton(skin, "settings");
 
         //Add listeners to buttons
-        settingsButton.addListener(new ClickListener(){
+        settingsButton.addListener(new ChangeListener(){
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public void changed(ChangeListener.ChangeEvent event, Actor actor) {
                 Gdx.app.log("Settings", "going to settings");
                 ((Game)Gdx.app.getApplicationListener()).setScreen(new SettingsScreen(game));
             }

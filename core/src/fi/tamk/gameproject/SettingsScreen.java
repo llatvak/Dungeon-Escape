@@ -53,7 +53,7 @@ public class SettingsScreen implements Screen {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
-
+        Gdx.input.setCatchBackKey(true);
         //Create Table
         Table mainTable = new Table();
         //Set table to fill stage
