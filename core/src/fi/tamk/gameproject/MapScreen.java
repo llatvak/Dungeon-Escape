@@ -61,6 +61,8 @@ public class MapScreen implements Screen {
 
     private int stepTotal;
 
+    private boolean buttonUp;
+
     public MapScreen(DungeonEscape game) {
         this.game = game;
         onCreate();
@@ -104,9 +106,12 @@ public class MapScreen implements Screen {
         player.countMovementPoints();
         player.checkAllowedMoves();
 
-        if(player.moving) {
-            player.move();
+        if(!buttonUp) {
+            if(player.moving) {
+                player.move();
+            }
         }
+
 
         player.checkCollisions();
 
@@ -166,20 +171,24 @@ public class MapScreen implements Screen {
 
     public void trapConfirm() {
 
-
+        buttonUp = true;
+        Gdx.app.log("Button", "created");
         final TextButton confirmButton = new TextButton("I'm ready!", skin, "maroon");
         confirmButton.setWidth(200f);
         confirmButton.setHeight(70f);
-        confirmButton.setPosition(Gdx.graphics.getWidth() /2 - 100f, Gdx.graphics.getHeight() /2);
+        confirmButton.setPosition(360f /2 - 100f, 640f /2);
+
 
         stage.addActor(confirmButton);
+
+
 
         confirmButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
                 Gdx.app.log("Trap", "going");
                 confirmButton.remove();
-
+                buttonUp = false;
                 // pause?
                 // this needs to be changed for different traps
                 goToDownTrap();
