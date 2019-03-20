@@ -102,7 +102,7 @@ public class MapScreen implements Screen {
         skin = new Skin( Gdx.files.internal("dark-peel-ui.json") );
 
         stepsProgressBar = new ProgressBar(0, player.STEPSTOMOVE,1,false,skin, "default-horizontal");
-        stepsProgressBar.setAnimateDuration(1f);
+        stepsProgressBar.setAnimateDuration(0.5f);
 
         stage = new Stage(viewport, batch);
 
@@ -149,7 +149,8 @@ public class MapScreen implements Screen {
         fontRoboto.draw(batch, "STEPS: " + stepTotal, 50 , 640f - 40f);
         fontRoboto.draw(batch,"" + player.movementPoints, 320 , 640f - 12f);
 
-        fontRoboto.draw(batch,"|", 360f / 2f - 5f, 640f / 2f + 70f);
+        // ei näin :D
+        fontRoboto.draw(batch,"|", 360f / 2f - 5f, 640f / 2f + 75f);
         fontRoboto.draw(batch,"<                    >", 360f / 2 - 80f , 640f / 2f);
         fontRoboto.draw(batch,"|", 360f / 2f - 5f, 640f / 2f - 60f);
 
