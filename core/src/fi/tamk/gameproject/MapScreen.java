@@ -105,13 +105,11 @@ public class MapScreen implements Screen {
         player.countMovementPoints();
         player.checkAllowedMoves();
 
-
         if(!buttonUp) {
             if(player.moving) {
                 player.move();
             }
         }
-
 
         player.checkCollisions();
 
@@ -170,7 +168,7 @@ public class MapScreen implements Screen {
     }
 
     public void trapConfirm() {
-        Gdx.app.log("Button", "create");
+        Gdx.app.log("Button", "created");
         buttonUp = true;
 
         final TextButton confirmButton = new TextButton("I'm ready!", skin, "maroon");
@@ -184,7 +182,8 @@ public class MapScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor){
                 Gdx.app.log("Trap", "going");
-                // pause?
+
+                // what if player doesn't want to go to trap?
                 // this needs to be changed for different traps
                 confirmButton.remove();
                 buttonUp = false;
