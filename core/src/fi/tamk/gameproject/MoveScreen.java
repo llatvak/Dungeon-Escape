@@ -86,7 +86,7 @@ public class MoveScreen implements Screen {
         // Setting up fonts
         fonts = new Fonts();
         fonts.createMediumFont();
-        fontRoboto = fonts.getFont();
+        fontRoboto = fonts.getFont(Fonts.MEDIUM);
     }
 
     @Override
