@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -61,6 +62,9 @@ public class MapScreen implements Screen {
     private int stepTotal;
 
     boolean buttonUp;
+    ProgressBar stepsProgressBar;
+    boolean resetProgressBar = false;
+    int value = 0;
 
     public MapScreen(DungeonEscape game) {
         this.game = game;
@@ -78,6 +82,7 @@ public class MapScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
 
+        // Can these be created in Fonts() -class?
         fontCamera = new OrthographicCamera();
         fontCamera.setToOrtho(false, 360f, 640f);
 
@@ -91,6 +96,7 @@ public class MapScreen implements Screen {
         viewport = new FitViewport(360f, 640f, fontCamera);
         viewport.apply();
         skin = new Skin( Gdx.files.internal("dark-peel-ui.json") );
+        stepsProgressBar = new ProgressBar(0,player.STEPSTOMOVE,1,false,skin, "default-horizontal");
         stage = new Stage(viewport, batch);
         fontCamera.position.set(fontCamera.viewportWidth / 2, fontCamera.viewportHeight / 2, 0);
         fontCamera.update();
@@ -108,6 +114,7 @@ public class MapScreen implements Screen {
         if(!buttonUp) {
             if(player.moving) {
                 player.move();
+                //stepsProgressBar.setValue(1f);
             }
         }
 
@@ -127,14 +134,10 @@ public class MapScreen implements Screen {
         // Render all layers to screen.
         tiledMapRenderer.render();
 
-
-
         // View font camera
         batch.setProjectionMatrix(fontCamera.combined);
 
         batch.begin();
-
-        //batch.draw(background,0,0, WORLD_WIDTH,WORLD_HEIGHT);
 
         fontRoboto.draw(batch, "Steps: " + stepTotal, 10 , 640f - 10f);
         fontRoboto.draw(batch, "Moves: " + player.movementPoints, 10 , 640f - 35f);
@@ -142,7 +145,6 @@ public class MapScreen implements Screen {
         // View game camera
         batch.setProjectionMatrix(camera.combined);
 
-        //player.draw(batch);
         batch.draw(player.getTexture(),
                 camera.position.x - player.getTexture().getWidth()/100f/2,
                 camera.position.y - player.getTexture().getHeight()/100f/2,
@@ -158,6 +160,20 @@ public class MapScreen implements Screen {
         stage.act(Gdx.graphics.getDeltaTime());
         // Call draw on every actor
         stage.draw();
+
+
+
+        if(game.stepTotal > game.oldStepTotal){
+            if(resetProgressBar) {
+                value = 0;
+                resetProgressBar = false;
+            } else {
+                value++;
+            }
+
+            stepsProgressBar.setValue(value);
+        }
+        game.oldStepTotal = game.stepTotal;
     }
 
     public void moveCamera() {
@@ -174,7 +190,7 @@ public class MapScreen implements Screen {
         final TextButton confirmButton = new TextButton("I'm ready!", skin, "maroon");
         confirmButton.setWidth(200f);
         confirmButton.setHeight(70f);
-        confirmButton.setPosition(360f / 2 - 100f, 640f / 2);
+        confirmButton.setPosition(360f / 2 - 100f, 640f / 2 - 120f);
 
         stage.addActor(confirmButton);
 
@@ -198,21 +214,17 @@ public class MapScreen implements Screen {
 
     public void goToDownTrap() {
         Gdx.app.log("Down trap", "going to jumping trap");
-//        moveScreen = new MoveScreen(game, this);
-//        game.setScreen(moveScreen);
         game.changeScreen(DungeonEscape.MOVESCREEN);
     }
     public void goToUpTrap() {
         Gdx.app.log("Up trap", "going to crouching trap");
         // Needs new class UpScreen
-        moveScreen = new MoveScreen(game, this);
-        game.setScreen(moveScreen);
+        game.changeScreen(DungeonEscape.MOVESCREEN);
     }
     public void goToStoryTile() {
         Gdx.app.log("Story", "going to story tile");
         // Needs new class StoryScreen
-        moveScreen = new MoveScreen(game, this);
-        game.setScreen(moveScreen);
+        game.changeScreen(DungeonEscape.MOVESCREEN);
     }
 
     public void addStep() {
@@ -241,19 +253,20 @@ public class MapScreen implements Screen {
         Gdx.input.setInputProcessor(multiplexer);
 
         //Create Table
-        Table mainTable = new Table();
+        Table topTable = new Table();
         //Set table to fill stage
-        mainTable.setFillParent(true);
+        topTable.setFillParent(true);
 
         // Debug lines
-        //mainTable.setDebug(true);
+        topTable.setDebug(true);
 
         //Set alignment of contents in the table.
-        mainTable.top();
-        mainTable.right();
+        topTable.top();
+        topTable.right();
 
-        //Create buttons
+        //Create buttons and bars
         ImageButton settingsButton = new ImageButton(skin, "settings");
+
 
         //Add listeners to buttons
         settingsButton.addListener(new ChangeListener(){
@@ -267,13 +280,15 @@ public class MapScreen implements Screen {
         });
 
         stage.addActor(settingsButton);
+        stage.addActor(stepsProgressBar);
 
        //Add buttons to table
-        mainTable.add(settingsButton).width(50).height(50).fillX().pad(5,5,5,5);
-        mainTable.row();
+        topTable.add(stepsProgressBar);
+        topTable.add(settingsButton).width(50).height(50).fillX().pad(5,5,5,5);
+        topTable.row();
 
         //Add table to stage
-        stage.addActor(mainTable);
+        stage.addActor(topTable);
     }
     @Override
     public void resize(int width, int height) {

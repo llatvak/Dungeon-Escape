@@ -10,7 +10,7 @@ public class DungeonEscape extends Game {
     int screenResolutionHeight;
 
 	SpriteBatch batch;
-	int stepTotal;
+
 	private MainMenu mainMenu;
     private MapScreen mapScreen;
     private MoveScreen moveScreen;
@@ -24,6 +24,8 @@ public class DungeonEscape extends Game {
     public final static int MOVESCREEN = 3;
     public final static int BACK = 4;
 
+    int stepTotal;
+    int oldStepTotal;
 
     @Override
     public void create () {
@@ -37,9 +39,6 @@ public class DungeonEscape extends Game {
 
         changeScreen(MAINMENU);
 
-        //setScreen( new MainMenu(this) );
-        //setScreen( new MoveScreen(this, mapScreen ));
-        //setScreen( new MapScreen(this) );
     }
 
     @Override

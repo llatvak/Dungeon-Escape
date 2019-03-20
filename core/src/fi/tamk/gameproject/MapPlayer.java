@@ -11,6 +11,7 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.utils.Array;
 
 import static com.badlogic.gdx.Input.Keys.DOWN;
@@ -50,22 +51,22 @@ public class MapPlayer extends Sprite {
 
     // Movement
     private int stepTotal;
-    int movementPoints = 200;
+    // Amount of steps to move one tile
+    public final int STEPSTOMOVE = 10;
+    private final int INITIAL_POINTS = 10;
+    int movementPoints;
     boolean allowMovement;
     private float movementSpeed = 4f;
     private float movedDistance;
-    float moveAmount = movementSpeed;
+    private float moveAmount = movementSpeed;
 
 
     // Collision checking
-    public boolean upLeftCollision;
-    public boolean downLeftCollision;
-    public boolean upRightCollision;
-    public boolean downRightCollision;
-    private float downYPos;
-    private float upYPos;
-    private float leftXPos;
-    private float rightXPos;
+    private boolean upLeftCollision;
+    private boolean downLeftCollision;
+    private boolean upRightCollision;
+    private boolean downRightCollision;
+
 
 
     public MapPlayer(MapScreen mapScreen) {
@@ -73,9 +74,10 @@ public class MapPlayer extends Sprite {
         this.mapScreen = mapScreen;
         this.tiledMap = mapScreen.tiledMap;
 
-
         setSize(spriteWidth, spriteHeight);
         setPosition(startingX, startingY);
+
+        movementPoints = INITIAL_POINTS;
 
     }
 
@@ -173,19 +175,19 @@ public class MapPlayer extends Sprite {
 
 
     public void countMovementPoints() {
-        // Amount of steps to move one tile
-        int stepsNeededToMove = 5;
         // Checks if total step amount is divisible by the amount needed to move
         if(stepTotal > 0) {
-            if(stepTotal % stepsNeededToMove == 0) {
+            if(stepTotal % STEPSTOMOVE == 0) {
                 addMovementPoint();
                 mapScreen.addStep();
+                mapScreen.resetProgressBar = true;
             }
         }
     }
 
     public void addMovementPoint() {
         movementPoints++;
+
     }
 
     public void removeMovementPoint() {
@@ -248,6 +250,12 @@ public class MapPlayer extends Sprite {
     }
 
     public void getMyCorners(float pX, float pY) {
+
+        float downYPos;
+        float upYPos;
+        float leftXPos;
+        float rightXPos;
+
         // calculate all the corners of the sprite
         downYPos = pY;
         upYPos = spriteHeight + downYPos;

@@ -18,7 +18,7 @@ import static com.badlogic.gdx.Input.Keys.UP;
 
 public class MyInputProcessor implements InputProcessor {
 
-    MapPlayer player;
+    private MapPlayer player;
 
     public MyInputProcessor(MapPlayer player) {
         this.player = player;
@@ -42,7 +42,7 @@ public class MyInputProcessor implements InputProcessor {
         }
 
         if(keycode == SPACE) {
-            //player.addStep();
+            player.addMovementPoint();
         }
 
         if(keycode == Input.Keys.BACK){
