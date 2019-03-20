@@ -55,54 +55,77 @@ public class SettingsScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
         Gdx.input.setCatchBackKey(true);
         //Create Table
-        Table mainTable = new Table();
+        Table menuTable = new Table();
         //Set table to fill stage
-        mainTable.setFillParent(true);
+        menuTable.setFillParent(true);
 
         // Debug lines
-        mainTable.setDebug(false);
+        menuTable.setDebug(true);
 
         //Set alignment of contents in the table.
-        mainTable.center();
+        menuTable.center();
 
 
         //Create buttons
-        TextButton playButton = new TextButton("placeholder1", skin);
-        TextButton settingsButton = new TextButton("placeholder2", skin);
+        TextButton langButton = new TextButton("Language", skin);
+        TextButton notificationButton = new TextButton("Notifications", skin);
+        TextButton soundButton = new TextButton("Sound", skin);
+        TextButton musicButton = new TextButton("Music", skin);
+        TextButton meterButton = new TextButton("Sensitivity", skin);
+        TextButton creditsButton = new TextButton("Credits", skin);
+        TextButton exitButton = new TextButton("Exit to menu", skin);
         TextButton backButton = new TextButton("Back", skin);
 
-        //Add listeners to buttons
-        playButton.addListener(new ClickListener(){
+
+        exitButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
-            }
-        });
-
-        settingsButton.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-
+                game.changeScreen(DungeonEscape.MAINMENU);
             }
         });
 
         backButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //((Game)Gdx.app.getApplicationListener()).setScreen(new MainMenu(game));
                 game.changeScreen(DungeonEscape.BACK);
             }
         });
 
+
+
+        int buttonWidth = 250;
+        int buttonHeight = 50;
+        int topPadding = 10;
+
         //Add buttons to table
-        mainTable.add(playButton).width(200).height(70).fillX().uniformX();
-        mainTable.row().pad(10,0,10,0);
-        mainTable.add(settingsButton).width(200).height(40).fillX().uniformX();
-        mainTable.row();
-        mainTable.add(backButton).width(200).height(40).fillX().uniformX();
+        menuTable.add(langButton).width(buttonWidth).height(buttonHeight).fillX().uniformX();
+        menuTable.row().pad(topPadding,0,0,0);
+
+        menuTable.add(notificationButton).width(buttonWidth).height(buttonHeight).fillX().uniformX();
+        menuTable.row().pad(topPadding,0,0,0);
+
+        menuTable.add(soundButton).width(buttonWidth).height(buttonHeight).fillX().uniformX();
+        menuTable.row().pad(topPadding,0,0,0);
+
+        menuTable.add(musicButton).width(buttonWidth).height(buttonHeight).fillX().uniformX();
+        menuTable.row().pad(topPadding,0,0,0);
+
+        menuTable.add(meterButton).width(buttonWidth).height(buttonHeight).fillX().uniformX();
+        menuTable.row().pad(topPadding,0,0,0);
+
+        menuTable.add(creditsButton).width(buttonWidth).height(buttonHeight).fillX().uniformX();
+        menuTable.row().pad(topPadding,0,0,0);
+
+        menuTable.add(exitButton).width(buttonWidth).height(buttonHeight).fillX().uniformX();
+        menuTable.row().pad(topPadding,0,0,0);
+
+        menuTable.add(backButton).width(buttonWidth).height(buttonHeight).fillX().uniformX();
+        menuTable.row().pad(topPadding,0,0,0);
+
+
 
         //Add table to stage
-        stage.addActor(mainTable);
+        stage.addActor(menuTable);
     }
 
     @Override

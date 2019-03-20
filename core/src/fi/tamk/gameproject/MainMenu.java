@@ -29,7 +29,6 @@ public class MainMenu implements Screen {
     private OrthographicCamera camera;
 
     private  Texture background;
-    private TextureAtlas atlas;
     protected Skin skin;
 
     public MainMenu(DungeonEscape game) {
