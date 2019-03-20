@@ -57,9 +57,10 @@ public class MapScreen implements Screen {
 
     protected Skin skin;
     private Stage stage;
-    InputMultiplexer multiplexer;
 
     private int stepTotal;
+
+    boolean buttonUp;
 
     public MapScreen(DungeonEscape game) {
         this.game = game;
@@ -104,9 +105,13 @@ public class MapScreen implements Screen {
         player.countMovementPoints();
         player.checkAllowedMoves();
 
-        if(player.moving) {
-            player.move();
+
+        if(!buttonUp) {
+            if(player.moving) {
+                player.move();
+            }
         }
+
 
         player.checkCollisions();
 
@@ -165,12 +170,13 @@ public class MapScreen implements Screen {
     }
 
     public void trapConfirm() {
-
+        Gdx.app.log("Button", "create");
+        buttonUp = true;
 
         final TextButton confirmButton = new TextButton("I'm ready!", skin, "maroon");
         confirmButton.setWidth(200f);
         confirmButton.setHeight(70f);
-        confirmButton.setPosition(Gdx.graphics.getWidth() /2 - 100f, Gdx.graphics.getHeight() /2);
+        confirmButton.setPosition(360f / 2 - 100f, 640f / 2);
 
         stage.addActor(confirmButton);
 
@@ -178,11 +184,13 @@ public class MapScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor){
                 Gdx.app.log("Trap", "going");
-                confirmButton.remove();
-
                 // pause?
                 // this needs to be changed for different traps
+                confirmButton.remove();
+                buttonUp = false;
                 goToDownTrap();
+                player.addMovementPoint();
+
 
             }
         });
@@ -217,6 +225,10 @@ public class MapScreen implements Screen {
 
     public TiledMap getWorldMap(){
         return tiledMap;
+    }
+
+    public MapScreen getMapScreen() {
+        return this;
     }
 
     @Override
