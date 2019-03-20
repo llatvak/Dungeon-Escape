@@ -149,6 +149,10 @@ public class MapScreen implements Screen {
         fontRoboto.draw(batch, "STEPS: " + stepTotal, 50 , 640f - 40f);
         fontRoboto.draw(batch,"" + player.movementPoints, 320 , 640f - 12f);
 
+        fontRoboto.draw(batch,"|", 360f / 2f - 5f, 640f / 2f + 70f);
+        fontRoboto.draw(batch,"<                    >", 360f / 2 - 80f , 640f / 2f);
+        fontRoboto.draw(batch,"|", 360f / 2f - 5f, 640f / 2f - 60f);
+
         // View game camera
         batch.setProjectionMatrix(camera.combined);
 

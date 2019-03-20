@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -26,7 +27,7 @@ public class SettingsScreen implements Screen {
     private Viewport viewport;
     private OrthographicCamera camera;
 
-    private TextureAtlas atlas;
+    private Texture background;
     protected Skin skin;
 
     public SettingsScreen(DungeonEscape game) {
@@ -36,6 +37,8 @@ public class SettingsScreen implements Screen {
     }
 
     public void onCreate() {
+
+        background = new Texture("settings.png");
 
         camera = new OrthographicCamera();
         viewport = new FitViewport(360f, 640f, camera);
@@ -60,7 +63,7 @@ public class SettingsScreen implements Screen {
         menuTable.setFillParent(true);
 
         // Debug lines
-        menuTable.setDebug(true);
+        menuTable.setDebug(false);
 
         //Set alignment of contents in the table.
         menuTable.center();
@@ -132,6 +135,12 @@ public class SettingsScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        batch.begin();
+
+        batch.draw(background,0,0, 360,640);
+
+        batch.end();
+
         stage.act(Gdx.graphics.getDeltaTime());
         // Call draw on every actor
         stage.draw();
@@ -163,6 +172,7 @@ public class SettingsScreen implements Screen {
     public void dispose() {
         stage.dispose();
         batch.dispose();
+        background.dispose();
     }
 }
 
