@@ -135,7 +135,6 @@ public class MoveScreen implements Screen {
 
         // When player sprite moves out of boundaries go to map screen
         if(player.getPlayerY() < -1f) {
-            // tähän movement points lisäys
             game.setScreen(mapScreen);
         }
     }

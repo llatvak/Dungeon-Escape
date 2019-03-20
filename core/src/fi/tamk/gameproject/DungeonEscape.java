@@ -11,7 +11,19 @@ public class DungeonEscape extends Game {
 
 	SpriteBatch batch;
 	int stepTotal;
-    MapScreen mapScreen;
+	private MainMenu mainMenu;
+    private MapScreen mapScreen;
+    private MoveScreen moveScreen;
+    private SettingsScreen settingsScreen;
+
+    private int previousScreen;
+
+    public final static int MAINMENU = 0;
+    public final static int SETTINGSSCREEN = 1;
+    public final static int MAPSCREEN = 2;
+    public final static int MOVESCREEN = 3;
+    public final static int BACK = 4;
+
 
     @Override
     public void create () {
@@ -23,7 +35,9 @@ public class DungeonEscape extends Game {
 
         batch = new SpriteBatch();
 
-        setScreen( new MainMenu(this) );
+        changeScreen(MAINMENU);
+
+        //setScreen( new MainMenu(this) );
         //setScreen( new MoveScreen(this, mapScreen ));
         //setScreen( new MapScreen(this) );
     }
@@ -36,9 +50,42 @@ public class DungeonEscape extends Game {
     }
 
     public void changeScreen(int screen) {
-        if(screen == 1) {
-            setScreen(mapScreen);
+
+        switch(screen) {
+            case MAINMENU:
+                mainMenu = new MainMenu(this);
+                setScreen(mainMenu);
+                break;
+
+            case SETTINGSSCREEN:
+                settingsScreen =  new SettingsScreen(this);
+                setScreen(settingsScreen);
+                break;
+
+            case MAPSCREEN:
+                mapScreen = new MapScreen(this);
+                this.setScreen(mapScreen);
+                break;
+
+            case MOVESCREEN:
+                moveScreen = new MoveScreen(this, mapScreen.getMapScreen());
+                this.setScreen(moveScreen);
+                break;
+
+            case BACK:
+                if(previousScreen == MAINMENU) {
+                    mainMenu = new MainMenu(this);
+                    this.setScreen(mainMenu);
+                } else if (previousScreen == MAPSCREEN) {
+                    mapScreen = mapScreen.getMapScreen();
+                    this.setScreen(mapScreen);
+                }
+                break;
         }
+    }
+
+    public void setPreviousScreen(int screen) {
+        this.previousScreen = screen;
     }
 
     public SpriteBatch getBatch() {

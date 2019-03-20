@@ -89,7 +89,8 @@ public class SettingsScreen implements Screen {
         backButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ((Game)Gdx.app.getApplicationListener()).setScreen(new MainMenu(game));
+                //((Game)Gdx.app.getApplicationListener()).setScreen(new MainMenu(game));
+                game.changeScreen(DungeonEscape.BACK);
             }
         });
 

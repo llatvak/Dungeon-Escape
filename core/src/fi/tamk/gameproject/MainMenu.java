@@ -83,14 +83,17 @@ public class MainMenu implements Screen {
         playButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ((Game)Gdx.app.getApplicationListener()).setScreen(new MapScreen(game));
+                //((Game)Gdx.app.getApplicationListener()).setScreen(new MapScreen(game));
+                game.changeScreen(DungeonEscape.MAPSCREEN);
             }
         });
 
         settingsButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
-                ((Game)Gdx.app.getApplicationListener()).setScreen(new SettingsScreen(game));
+                //((Game)Gdx.app.getApplicationListener()).setScreen(new SettingsScreen(game));
+                game.setPreviousScreen(DungeonEscape.MAINMENU);
+                game.changeScreen(DungeonEscape.SETTINGSSCREEN);
             }
         });
 

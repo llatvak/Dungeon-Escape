@@ -198,8 +198,9 @@ public class MapScreen implements Screen {
 
     public void goToDownTrap() {
         Gdx.app.log("Down trap", "going to jumping trap");
-        moveScreen = new MoveScreen(game, this);
-        game.setScreen(moveScreen);
+//        moveScreen = new MoveScreen(game, this);
+//        game.setScreen(moveScreen);
+        game.changeScreen(DungeonEscape.MOVESCREEN);
     }
     public void goToUpTrap() {
         Gdx.app.log("Up trap", "going to crouching trap");
@@ -259,7 +260,9 @@ public class MapScreen implements Screen {
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
                 Gdx.app.log("Settings", "going to settings");
-                ((Game)Gdx.app.getApplicationListener()).setScreen(new SettingsScreen(game));
+                //((Game)Gdx.app.getApplicationListener()).setScreen(new SettingsScreen(game));
+                game.setPreviousScreen(DungeonEscape.MAPSCREEN);
+                game.changeScreen(DungeonEscape.SETTINGSSCREEN);
             }
         });
 
