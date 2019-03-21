@@ -221,8 +221,6 @@ public class MapScreen implements Screen {
                 buttonUp = false;
                 goToDownTrap();
                 player.addMovementPoint();
-
-
             }
         });
     }
@@ -334,5 +332,6 @@ public class MapScreen implements Screen {
         player.dispose();
         tiledMap.dispose();
         batch.dispose();
+        stage.dispose();
     }
 }
