@@ -29,12 +29,6 @@ public class SplashScreen implements Screen {
         this.app = app;
         this.stage = new Stage(new StretchViewport(app.screenResolutionWidth, app.screenResolutionHeight, app.camera));
 
-        // Sets the InputProcessor that will receive all touch and key input events.
-        // It will be called before the ApplicationListener.render() method each frame.
-        //
-        // Stage handles the calling of input listeners for each actor.
-        Gdx.input.setInputProcessor(stage);
-
         // Rento texture to img
         Texture rentoTex = new Texture(Gdx.files.internal("rentologo.png"));
         rentoImg = new Image(rentoTex);
