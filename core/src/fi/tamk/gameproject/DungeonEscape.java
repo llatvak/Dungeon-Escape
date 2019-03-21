@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class DungeonEscape extends Game {
-    int screenResolutionWidth;
-    int screenResolutionHeight;
+    public final float screenResolutionWidth = 360;
+    public final float screenResolutionHeight = 640;
 
 	SpriteBatch batch;
 
@@ -35,11 +35,11 @@ public class DungeonEscape extends Game {
     @Override
     public void create () {
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, screenResolutionWidth, screenResolutionHeight);
+        camera.setToOrtho(false, 360f, 640f);
 
         // Get device screen resolution
-        screenResolutionWidth = Gdx.graphics.getWidth();
-        screenResolutionHeight = Gdx.graphics.getHeight();
+        //screenResolutionWidth = Gdx.graphics.getWidth();
+        //screenResolutionHeight = Gdx.graphics.getHeight();
         System.out.println(Gdx.graphics.getWidth() +" x "+ Gdx.graphics.getHeight());
 
         batch = new SpriteBatch();

@@ -30,6 +30,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 
@@ -96,7 +97,7 @@ public class MapScreen implements Screen {
         fontRoboto = fonts.getFont(Fonts.MEDIUM);
 
 
-        viewport = new FitViewport(360f, 640f, fontCamera);
+        viewport = new StretchViewport(360f, 640f, fontCamera);
         viewport.apply();
 
         skin = new Skin( Gdx.files.internal("dark-peel-ui.json") );

@@ -44,9 +44,9 @@ public class SplashScreen implements Screen {
     @Override
     public void show() {
         // Setting sizes
-        rentoImg.setSize(120,100);
-        tamkImg.setSize(120, 100);
-        tikoImg.setSize(120, 100);
+        rentoImg.setSize(256,144);
+        tamkImg.setSize(256, 144);
+        tikoImg.setSize(256, 144);
 
         // Centering images
         rentoImg.setOrigin(rentoImg.getWidth() / 2, rentoImg.getHeight() / 2);
@@ -54,27 +54,27 @@ public class SplashScreen implements Screen {
         tikoImg.setOrigin(tikoImg.getWidth() / 2, tikoImg.getHeight() / 2);
 
         // Setting position of the images
-        rentoImg.setPosition(stage.getWidth() / 2 - 60, stage.getHeight() + 100);
-        tamkImg.setPosition(stage.getWidth() / 2 - 60, stage.getHeight()  - 100);
-        tikoImg.setPosition(stage.getWidth() / 2 - 60, stage.getHeight() + 200);
+        rentoImg.setPosition(stage.getWidth() / 2 - 128, stage.getHeight() + 100);
+        tamkImg.setPosition(stage.getWidth() / 2 - 128, stage.getHeight()  - 100);
+        tikoImg.setPosition(stage.getWidth() / 2 - 128, stage.getHeight() + 200);
 
         // Adding effects to images
         rentoImg.addAction(sequence(alpha(0), scaleTo(.1f, .1f),
                 parallel(fadeIn(2f, Interpolation.pow2),
                         scaleTo(1f, 1f, 2.5f, Interpolation.pow5),
-                        moveTo(stage.getWidth() / 2 - 60, stage.getHeight() / 2 - 100, 2f, Interpolation.swing)),
+                        moveTo(stage.getWidth() / 2 - 128, stage.getHeight() / 2 - 100, 2f, Interpolation.swing)),
                 delay(0.5f),  fadeOut(0.5f)));
 
         tamkImg.addAction(sequence(alpha(0), scaleTo(.1f, .1f),
                 parallel(fadeIn(2f, Interpolation.pow2),
                         scaleTo(1f, 1f, 2.5f, Interpolation.pow5),
-                        moveTo(stage.getWidth() / 2 - 60, stage.getHeight() / 2 - 250, 2f, Interpolation.swing)),
+                        moveTo(stage.getWidth() / 2 - 128, stage.getHeight() / 2 - 250, 2f, Interpolation.swing)),
                 delay(0.5f),  fadeOut(0.5f)));
 
         tikoImg.addAction(sequence(alpha(0), scaleTo(.1f, .1f),
                 parallel(fadeIn(2f, Interpolation.pow2),
                         scaleTo(1f, 1f, 2.5f, Interpolation.pow5),
-                        moveTo(stage.getWidth() / 2 - 60, stage.getHeight() / 2 + 50, 2f, Interpolation.swing)),
+                        moveTo(stage.getWidth() / 2 - 128, stage.getHeight() / 2 + 50, 2f, Interpolation.swing)),
                 delay(0.5f),  fadeOut(0.5f)));
 
         // Adding all actors(images) to stage
