@@ -2,6 +2,7 @@ package fi.tamk.gameproject;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.MapLayer;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.utils.Array;
 
 import static com.badlogic.gdx.Input.Keys.DOWN;
@@ -49,33 +51,33 @@ public class MapPlayer extends Sprite {
 
     // Movement
     private int stepTotal;
-    int movementPoints = 20;
+    // Amount of steps to move one tile
+    public final int STEPSTOMOVE = 10;
+    private final int INITIAL_POINTS = 10;
+    int movementPoints;
     boolean allowMovement;
     private float movementSpeed = 4f;
     private float movedDistance;
-    float moveAmount = movementSpeed;
+    private float moveAmount = movementSpeed;
 
 
     // Collision checking
-    public boolean upLeftCollision;
-    public boolean downLeftCollision;
-    public boolean upRightCollision;
-    public boolean downRightCollision;
-    private float downYPos;
-    private float upYPos;
-    private float leftXPos;
-    private float rightXPos;
+    private boolean upLeftCollision;
+    private boolean downLeftCollision;
+    private boolean upRightCollision;
+    private boolean downRightCollision;
+
 
 
     public MapPlayer(MapScreen mapScreen) {
         super( new Texture("velho.png"));
         this.mapScreen = mapScreen;
         this.tiledMap = mapScreen.tiledMap;
-        MyInputProcessor inputProcessor = new MyInputProcessor();
-        Gdx.input.setInputProcessor(inputProcessor);
 
         setSize(spriteWidth, spriteHeight);
         setPosition(startingX, startingY);
+
+        movementPoints = INITIAL_POINTS;
 
     }
 
@@ -173,19 +175,19 @@ public class MapPlayer extends Sprite {
 
 
     public void countMovementPoints() {
-        // Amount of steps to move one tile
-        int stepsNeededToMove = 5;
         // Checks if total step amount is divisible by the amount needed to move
         if(stepTotal > 0) {
-            if(stepTotal % stepsNeededToMove == 0) {
+            if(stepTotal % STEPSTOMOVE == 0) {
                 addMovementPoint();
                 mapScreen.addStep();
+                mapScreen.resetProgressBar = true;
             }
         }
     }
 
     public void addMovementPoint() {
         movementPoints++;
+
     }
 
     public void removeMovementPoint() {
@@ -203,58 +205,7 @@ public class MapPlayer extends Sprite {
         }
     }
 
-    public void checkInput() {
-        Gdx.input.setInputProcessor(new InputAdapter() {
 
-            // Keyboard controls
-            @Override
-            public boolean keyDown (int keycode) {
-                if(!moving && allowMovement && keycode == UP) {
-
-                    setUpMove(true);
-                }
-
-                if(!moving && allowMovement && keycode == DOWN) {
-                    setDownMove(true);
-                }
-
-                if(!moving && allowMovement && keycode == LEFT) {
-                    setLeftMove(true);
-                }
-
-                if(!moving && allowMovement && keycode == RIGHT) {
-                    setRightMove(true);
-                }
-
-                if(keycode == SPACE) {
-                    mapScreen.addStep();
-                }
-                return true;
-            }
-
-            // Touch controls
-            @Override
-            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                int screenWidthHalf = Gdx.graphics.getWidth() / 2;
-                int screenHeightHalf = Gdx.graphics.getHeight() / 2;
-
-                if(!moving && allowMovement && screenY < screenHeightHalf - 200) {
-                    setUpMove(true);
-                }
-                if(!moving && allowMovement && screenY > screenHeightHalf + 200) {
-                    setDownMove(true);
-                }
-                if(!moving && allowMovement && screenX < screenWidthHalf - 100  ) {
-                    setLeftMove(true);
-                }
-                if(!moving && allowMovement && screenX > screenWidthHalf + 100) {
-                    setRightMove(true);
-                }
-
-                return true;
-            }
-        });
-    }
 
     public void setLeftMove(boolean t) {
         goLeft = t;
@@ -299,6 +250,12 @@ public class MapPlayer extends Sprite {
     }
 
     public void getMyCorners(float pX, float pY) {
+
+        float downYPos;
+        float upYPos;
+        float leftXPos;
+        float rightXPos;
+
         // calculate all the corners of the sprite
         downYPos = pY;
         upYPos = spriteHeight + downYPos;
@@ -333,8 +290,12 @@ public class MapPlayer extends Sprite {
             Rectangle rectangle = rectangleObject.getRectangle();
             // SCALE given rectangle down if using world dimensions!
             if (getBoundingRectangle().overlaps(rectangle) && movedDistance == TILE_SIZE) {
-                addMovementPoint();
-                mapScreen.goToDownTrap();
+
+                if(!mapScreen.buttonUp) {
+                    mapScreen.trapConfirm();
+                }
+
+
             }
         }
     }
@@ -350,8 +311,10 @@ public class MapPlayer extends Sprite {
             Rectangle rectangle = rectangleObject.getRectangle();
             // SCALE given rectangle down if using world dimensions!
             if (getBoundingRectangle().overlaps(rectangle) && movedDistance == TILE_SIZE) {
-                addMovementPoint();
-                mapScreen.goToUpTrap();
+
+                if(!mapScreen.buttonUp) {
+                    mapScreen.trapConfirm();
+                }
             }
         }
     }
@@ -366,8 +329,10 @@ public class MapPlayer extends Sprite {
             Rectangle rectangle = rectangleObject.getRectangle();
             // SCALE given rectangle down if using world dimensions!
             if (getBoundingRectangle().overlaps(rectangle) && movedDistance == TILE_SIZE) {
-                addMovementPoint();
-                mapScreen.goToStoryTile();
+
+                    mapScreen.goToStoryTile();
+
+
             }
         }
     }
