@@ -100,7 +100,7 @@ public class MoveScreenPlayer {
         countJumps();
         // When X amount of jumps is done player character jumps over trap
         if(Gdx.input.getAccelerometerY() > 14 && countedJumps == 12 && playerInAir == false) {
-            playerBody.applyLinearImpulse(new Vector2(3.5f, 5.5f),
+            playerBody.applyLinearImpulse(new Vector2(4f, 6f),
                     playerBody.getWorldCenter(), true);
             playerInAir = true;
         }
@@ -133,7 +133,7 @@ public class MoveScreenPlayer {
             @Override
             public boolean keyDown(int keycode) {
                 if (keycode == UP && playerInAir == false && playerBody.getPosition().x > 1.215f) {
-                    playerBody.applyLinearImpulse(new Vector2(3.7f, 5f),
+                    playerBody.applyLinearImpulse(new Vector2(4f, 6f),
                             playerBody.getWorldCenter(), true);
                     playerInAir = true;
                     System.out.println(playerInAir);

@@ -29,6 +29,7 @@ public class MoveScreen implements Screen {
 
     // Textures
     private Texture backgroundTexture;
+    private Texture spikeTexture;
 
     // World attributes
     private static World world;
@@ -42,7 +43,13 @@ public class MoveScreen implements Screen {
     // World objects
     private MoveScreenPlayer player;
     private MoveScreenGround ground;
-    private MoveScreenSpike spike;
+
+    // Spike attributes
+    private float spikeX;
+    private float spikeY;
+    private float spikeWidth;
+    private float spikeHeight;
+
     // Saves all bodies in Box2D world to this array
     private Array<Body> bodies = new Array<Body>();
 
@@ -74,9 +81,9 @@ public class MoveScreen implements Screen {
         // Sets all objects in world
         player = new MoveScreenPlayer(world);
         ground = new MoveScreenGround(world);
-        spike = new MoveScreenSpike(world);
 
         // Setting the background texture and camera
+        spikeTexture = new Texture(Gdx.files.internal("upspikes.png"));
         backgroundTexture = new Texture(Gdx.files.internal("dungeonbg.png"));
         camera = new OrthographicCamera();
         fontCamera = new OrthographicCamera();
@@ -87,6 +94,11 @@ public class MoveScreen implements Screen {
         fonts = new Fonts();
         fonts.createMediumFont();
         fontRoboto = fonts.getFont(Fonts.MEDIUM);
+
+        spikeX = WORLD_WIDTH/2 + spikeTexture.getWidth()/100f/2;
+        spikeY = spikeTexture.getHeight()/100f/4;
+        spikeWidth = spikeTexture.getWidth()/100f;
+        spikeHeight = spikeTexture.getHeight()/100f;
     }
 
     @Override
@@ -113,8 +125,8 @@ public class MoveScreen implements Screen {
         batch.begin();
 
         batch.draw(backgroundTexture, 0, 0, WORLD_WIDTH, WORLD_HEIGHT);
+        batch.draw(spikeTexture, spikeX, spikeY, spikeWidth, spikeHeight);
         player.draw(batch);
-        spike.draw(batch);
 
         // Font camera
         batch.setProjectionMatrix(fontCamera.combined);
@@ -177,7 +189,7 @@ public class MoveScreen implements Screen {
         backgroundTexture.dispose();
         world.dispose();
         player.dispose();
-        spike.dispose();
+        //spike.dispose();
         fontRoboto.dispose();
     }
 }
