@@ -1,35 +1,25 @@
 package fi.tamk.gameproject;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -63,12 +53,15 @@ public class MapScreen implements Screen {
     protected Skin skin;
     private Stage stage;
 
-    private int stepTotal;
+    int stepTotal;
+    private int savedSteps;
+    private int stepsDelta;
+    private int leftOverSteps;
 
     boolean buttonUp;
-    ProgressBar stepsProgressBar;
-    boolean resetProgressBar = false;
-    int value = 0;
+    private ProgressBar stepsProgressBar;
+    private boolean resetProgressBar = false;
+    private int progressbarValue = 0;
 
     public MapScreen(DungeonEscape game) {
         this.game = game;
@@ -117,9 +110,9 @@ public class MapScreen implements Screen {
 
     public void update() {
 
-        stepTotal = game.getStepTotal();
+        //stepTotal = game.getStepTotal();
         player.receiveSteps(stepTotal);
-        player.countMovementPoints();
+        countMovementPoints();
         player.checkAllowedMoves();
 
         if(!buttonUp) {
@@ -182,17 +175,17 @@ public class MapScreen implements Screen {
 
     }
     public void updateProgressBar() {
-        if(game.stepTotal > game.oldStepTotal){
+        if(stepTotal > game.oldStepTotal){
             if(resetProgressBar) {
-                value = 0;
+                progressbarValue = 0;
                 resetProgressBar = false;
             } else {
-                value++;
+                progressbarValue++;
             }
 
-            stepsProgressBar.setValue(value);
+            stepsProgressBar.setValue(progressbarValue);
         }
-        game.oldStepTotal = game.stepTotal;
+        game.oldStepTotal = stepTotal;
     }
 
 
@@ -255,11 +248,17 @@ public class MapScreen implements Screen {
     }
 
     public void addStep() {
-        game.stepTotal++;
+
+        if(!paused) {
+            leftOverSteps++;
+        }
+
+        System.out.println("Steps to point: " + leftOverSteps);
+        stepTotal++;
     }
 
     public void subtractStep() {
-        game.stepTotal--;
+        stepTotal--;
     }
 
     public TiledMap getWorldMap(){
@@ -322,14 +321,69 @@ public class MapScreen implements Screen {
         // update this
     }
 
+    boolean paused;
     @Override
     public void pause() {
+        paused = true;
         Gdx.app.log("Mapscreen", "paused");
+        saveSteps();
     }
 
     @Override
     public void resume() {
+        paused = false;
         Gdx.app.log("Mapscreen", "resume");
+
+        countMovementPointsDelta();
+        System.out.println(stepTotal);
+    }
+
+    public void countMovementPoints() {
+        // Checks if total step amount is divisible by the amount needed to move
+        if(stepTotal > 0) {
+            if(stepTotal % player.STEPSTOMOVE == 0) {
+                leftOverSteps = 0;
+                player.addMovementPoint();
+                addStep();
+                resetProgressBar = true;
+
+            }
+        }
+    }
+
+
+    public void countMovementPointsDelta() {
+        int stepsDuringPause = getStepsDelta();
+        int pointsToAdd;
+
+        pointsToAdd = stepsDuringPause / player.STEPSTOMOVE;
+        // System.out.println("added steps: " + addedSteps);
+       // System.out.println("background steps: " + steps);
+       // System.out.println("points to add: " + pointsToAdd);
+
+        addMultipleMovementPoints(pointsToAdd);
+        leftOverSteps = 0;
+    }
+
+    public void addMultipleMovementPoints(int points) {
+        player.movementPoints = player.movementPoints + points;
+    }
+
+    public void resetSteps() {
+        stepTotal = 0;
+    }
+
+    public void saveSteps() {
+        savedSteps = stepTotal;
+    }
+
+    public void subtractSteps() {
+        stepTotal = savedSteps;
+    }
+
+    public int getStepsDelta() {
+        stepsDelta = stepTotal - savedSteps;
+        return stepsDelta;
     }
 
     @Override

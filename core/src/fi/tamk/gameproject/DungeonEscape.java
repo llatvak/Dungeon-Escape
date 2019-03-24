@@ -31,7 +31,7 @@ public class DungeonEscape extends Game {
     public final static int BACK = 5;
     public final static int SQUATSCREEN = 6;
 
-    int stepTotal;
+    //int stepTotal;
     int oldStepTotal;
 
     private PedometerStatus pedometerStatus;
@@ -124,21 +124,12 @@ public class DungeonEscape extends Game {
 
 
     public void addSteps() {
-        stepTotal++;
-        System.out.println("Steps: " + stepTotal);
+        //stepTotal++;
+        mapScreen.addStep();
+        System.out.println("Steps: " + mapScreen.stepTotal);
 
     }
 
-    public void resetSteps() {
-        stepTotal = 0;
-    }
-    int savedSteps;
-    public void saveSteps() {
-        savedSteps = stepTotal;
-    }
-    public void subtractSteps() {
-        stepTotal = savedSteps;
-    }
 
 
     boolean meterStance = true;
@@ -146,14 +137,10 @@ public class DungeonEscape extends Game {
         return meterStance;
     }
 
-    //AndroidLauncher launcher;
-//    public void getAndroidLauncher(AndroidApplication launcher) {
-//        this.launcher = launcher;
-//    }
 
-    public int getStepTotal() {
-        return stepTotal;
-    }
+//    public int getStepTotal() {
+//        return stepTotal;
+//    }
 
     @Override
     public void dispose () {

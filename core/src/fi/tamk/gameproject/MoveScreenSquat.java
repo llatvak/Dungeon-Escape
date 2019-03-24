@@ -31,7 +31,7 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
 
     @Override
     public void show() {
-        getGame().saveSteps();
+        getMapScreen().saveSteps();
     }
 
     @Override
@@ -101,7 +101,7 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
 
     @Override
     public void hide() {
-        getGame().subtractSteps();
+        getMapScreen().subtractSteps();
     }
 
     @Override
