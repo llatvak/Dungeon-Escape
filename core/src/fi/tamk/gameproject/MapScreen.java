@@ -105,8 +105,8 @@ public class MapScreen implements Screen {
 
         skin = new Skin( Gdx.files.internal("dark-peel-ui.json") );
 
-        stepsProgressBar = new ProgressBar(0, player.STEPSTOMOVE,1,false,skin, "default-horizontal");
-        stepsProgressBar.setAnimateDuration(0.5f);
+        stepsProgressBar = new ProgressBar(0, player.STEPSTOMOVE ,1,false,skin, "default-horizontal");
+        stepsProgressBar.setAnimateDuration(0.2f);
 
         stage = new Stage(viewport, batch);
 
@@ -219,6 +219,9 @@ public class MapScreen implements Screen {
             public void changed(ChangeEvent event, Actor actor){
                 Gdx.app.log("Trap", "going");
 
+                game.saveSteps();
+
+
                 // what if player doesn't want to go to trap?
                 // this needs to be changed for different traps
                 confirmButton.remove();
@@ -271,7 +274,7 @@ public class MapScreen implements Screen {
 
     @Override
     public void show() {
-
+        Gdx.app.log("Show", "");
         InputMultiplexer multiplexer = new InputMultiplexer();
         MyInputProcessor inputProcessor = new MyInputProcessor(player);
         multiplexer.addProcessor(stage);

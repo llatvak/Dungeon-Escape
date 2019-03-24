@@ -80,6 +80,7 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
 
         // When player sprite moves out of boundaries go to map screen
         if(getPlayer().getPlayerX() > 8.5f) {
+            getGame().subtractSteps();
             getGame().setScreen(getMapScreen());
         }
     }

@@ -76,6 +76,7 @@ public class MoveScreenJump extends MoveScreenMove implements Screen {
 
         // When player sprite moves out of boundaries go to map screen
         if(getPlayer().getPlayerY() < -1f) {
+            getGame().subtractSteps();
             getGame().setScreen(getMapScreen());
         }
     }

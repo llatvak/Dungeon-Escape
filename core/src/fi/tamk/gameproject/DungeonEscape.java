@@ -34,6 +34,14 @@ public class DungeonEscape extends Game {
     int stepTotal;
     int oldStepTotal;
 
+    private PedometerStatus pedometerStatus;
+
+    public DungeonEscape(PedometerStatus pedometerStatus) {
+        this.pedometerStatus = pedometerStatus;
+        pedometerStatus.setStatus(1);
+
+    }
+
 
     @Override
     public void create () {
@@ -47,7 +55,7 @@ public class DungeonEscape extends Game {
 
         batch = new SpriteBatch();
 
-        changeScreen(SPLASHSCREEN);
+        changeScreen(MAINMENU);
 
     }
 
@@ -79,6 +87,7 @@ public class DungeonEscape extends Game {
                 break;
 
             case MAPSCREEN:
+
                 mapScreen = new MapScreen(this);
                 this.setScreen(mapScreen);
                 break;
@@ -113,10 +122,24 @@ public class DungeonEscape extends Game {
         return batch;
     }
 
-    public void receiveSteps(int stepCount) {
-        System.out.println("Steps: " + stepCount);
-        this.stepTotal = stepCount;
+
+    public void addSteps() {
+        stepTotal++;
+        System.out.println("Steps: " + stepTotal);
+
     }
+
+    public void resetSteps() {
+        stepTotal = 0;
+    }
+    int savedSteps;
+    public void saveSteps() {
+        savedSteps = stepTotal;
+    }
+    public void subtractSteps() {
+        stepTotal = savedSteps;
+    }
+
 
     boolean meterStance = true;
     public boolean getMeterStance() {

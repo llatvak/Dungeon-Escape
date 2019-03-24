@@ -22,7 +22,9 @@ public class AndroidLauncher extends AndroidApplication implements SensorEventLi
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		System.out.println("Create");
 
+		PedometerStatus pedometerStatus = new AndroidPedometerStatus();
 		// Get an instance of the SensorManager
 		sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -33,22 +35,27 @@ public class AndroidLauncher extends AndroidApplication implements SensorEventLi
 
 
 
-
-
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		initialize(game = new DungeonEscape(), config);
+		initialize(game = new DungeonEscape(pedometerStatus), config);
 
-		if(game.getMeterStance()) {
+
+		if(pedometerStatus.getStatus() == true) {
 			startPedometer();
-		} else {
+		} else if(pedometerStatus.getStatus() == false) {
 			stopPedometer();
 		}
+
+		startPedometer();
+		//
+
 
 
 	}
 
 	@Override
 	public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+		System.out.println("Accuracy");
 	}
 
 	@Override
@@ -56,30 +63,35 @@ public class AndroidLauncher extends AndroidApplication implements SensorEventLi
 		if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
 			simpleStepDetector.updateAccel(
 					event.timestamp, event.values[0], event.values[1], event.values[2]);
+			// System.out.println("sensor");
+
 
 		}
 
-		if(game.getMeterStance()) {
-			startPedometer();
-		} else {
-			stopPedometer();
-		}
+//		if(game.getMeterStance()) {
+//			startPedometer();
+//		} else {
+//			stopPedometer();
+//		}
 
 	}
 
 	@Override
 	public void step(long timeNs) {
-		numSteps++;
-		game.receiveSteps(numSteps);
+		//numSteps++;
+		game.addSteps();
 
 	}
 
 	public void startPedometer() {
+		System.out.println("start pedometer");
 		sensorManager.registerListener(AndroidLauncher.this, accel, SensorManager.SENSOR_DELAY_FASTEST);
 	}
 
 	public void stopPedometer() {
+		System.out.println("stop pedometer");
 		sensorManager.unregisterListener(AndroidLauncher.this);
+
 	}
 
 }
