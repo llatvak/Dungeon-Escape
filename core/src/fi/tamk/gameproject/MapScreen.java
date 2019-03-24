@@ -29,9 +29,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
+import java.util.Locale;
 
 
 public class MapScreen implements Screen {
@@ -69,6 +72,9 @@ public class MapScreen implements Screen {
     ProgressBar stepsProgressBar;
     boolean resetProgressBar = false;
     int value = 0;
+
+    Locale locale;
+    I18NBundle myBundle;
 
     public MapScreen(DungeonEscape game) {
         this.game = game;
@@ -113,6 +119,8 @@ public class MapScreen implements Screen {
         fontCamera.position.set(fontCamera.viewportWidth / 2, fontCamera.viewportHeight / 2, 0);
         fontCamera.update();
 
+        myBundle = DungeonEscape.getMyBundle();
+        locale = DungeonEscape.getLocale();
     }
 
     public void update() {
@@ -150,7 +158,7 @@ public class MapScreen implements Screen {
         batch.begin();
 
         // Draw fonts
-        fontRoboto.draw(batch, "STEPS: " + stepTotal, 50 , 640f - 40f);
+        fontRoboto.draw(batch, myBundle.get("stepcounter") + ": " + stepTotal, 50 , 640f - 40f);
         fontRoboto.draw(batch,"" + player.movementPoints, 320 , 640f - 12f);
 
         // ei näin :D
@@ -207,7 +215,7 @@ public class MapScreen implements Screen {
         Gdx.app.log("Button", "created");
         buttonUp = true;
 
-        final TextButton confirmButton = new TextButton("I'm ready!", skin, "maroon");
+        final TextButton confirmButton = new TextButton(myBundle.get("readybutton"), skin, "maroon");
         confirmButton.setWidth(160f);
         confirmButton.setHeight(70f);
         confirmButton.setPosition(360f / 2 - 80f, 640f / 2 - 110f);

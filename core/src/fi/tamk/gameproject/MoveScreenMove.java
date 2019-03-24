@@ -10,6 +10,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.I18NBundle;
+
+import java.util.Locale;
 
 abstract class MoveScreenMove implements Screen {
 
@@ -46,6 +49,9 @@ abstract class MoveScreenMove implements Screen {
     private float fontWidth;
     private float fontHeight;
 
+    Locale locale;
+    I18NBundle myBundle;
+
     public MoveScreenMove(DungeonEscape game, MapScreen mapScreen) {
         // Current game and screen
         this.game = game;
@@ -75,6 +81,9 @@ abstract class MoveScreenMove implements Screen {
         fonts = new Fonts();
         fonts.createMediumFont();
         fontRoboto = fonts.getFont(Fonts.MEDIUM);
+
+        myBundle = DungeonEscape.getMyBundle();
+        locale = DungeonEscape.getLocale();
     }
 
     public void debug() {

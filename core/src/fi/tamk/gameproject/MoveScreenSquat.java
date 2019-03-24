@@ -26,7 +26,6 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
         // Arrow trap in squat screen drawn on rectangle
         arrowTexture = new Texture(Gdx.files.internal("arrow.png"));
         arrowRect = new Rectangle(WORLD_WIDTH + arrowTexture.getWidth()/100f, 1.7f, arrowTexture.getWidth()/100f, arrowTexture.getHeight()/100f);
-
     }
 
     @Override
@@ -53,8 +52,8 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
 
         // Font camera
         batch.setProjectionMatrix(fontCamera.combined);
-        getFontRoboto().draw(batch, "Squat six times!",80 , 640f - 50f);
-        getFontRoboto().draw(batch, "Squats: " + getPlayer().getCountedJumps(), 120, 640f - 100f);
+        getFontRoboto().draw(batch, myBundle.get("squattext"),80 , 640f - 50f);
+        getFontRoboto().draw(batch, myBundle.get("squatcount") + ": " + getPlayer().getCountedJumps(), 120, 640f - 100f);
 
         batch.end();
 

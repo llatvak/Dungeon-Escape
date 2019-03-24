@@ -4,6 +4,9 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.I18NBundle;
+
+import java.util.Locale;
 
 public class DungeonEscape extends Game {
     public final float screenResolutionWidth = 360;
@@ -34,9 +37,13 @@ public class DungeonEscape extends Game {
     int stepTotal;
     int oldStepTotal;
 
+    private static Locale locale;
+    private static I18NBundle myBundle;
 
     @Override
     public void create () {
+        setLanguage("fi", "FI", "MyBundle_fi_FI");
+
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 360f, 640f);
 
@@ -49,6 +56,19 @@ public class DungeonEscape extends Game {
 
         changeScreen(SPLASHSCREEN);
 
+    }
+
+    public static void setLanguage(String s1, String s2, String s3) {
+        locale = new Locale(s1, s2);
+        myBundle = I18NBundle.createBundle(Gdx.files.internal(s3), locale);
+    }
+
+    public static Locale getLocale() {
+        return locale;
+    }
+
+    public static I18NBundle getMyBundle() {
+        return myBundle;
     }
 
     @Override
