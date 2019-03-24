@@ -10,6 +10,7 @@ public class DungeonEscape extends Game {
 
 	SpriteBatch batch;
 
+
 	private MainMenu mainMenu;
     private MapScreen mapScreen;
     private MoveScreen moveScreen;
@@ -25,6 +26,7 @@ public class DungeonEscape extends Game {
 
     int stepTotal;
     int oldStepTotal;
+
 
     @Override
     public void create () {
@@ -51,11 +53,13 @@ public class DungeonEscape extends Game {
 
         switch(screen) {
             case MAINMENU:
+                meterStance = true;
                 mainMenu = new MainMenu(this);
                 setScreen(mainMenu);
                 break;
 
             case SETTINGSSCREEN:
+                meterStance = false;
                 settingsScreen =  new SettingsScreen(this);
                 setScreen(settingsScreen);
                 break;
@@ -94,6 +98,16 @@ public class DungeonEscape extends Game {
         System.out.println("Steps: " + stepCount);
         this.stepTotal = stepCount;
     }
+
+    boolean meterStance = true;
+    public boolean getMeterStance() {
+        return meterStance;
+    }
+
+    //AndroidLauncher launcher;
+//    public void getAndroidLauncher(AndroidApplication launcher) {
+//        this.launcher = launcher;
+//    }
 
     public int getStepTotal() {
         return stepTotal;
