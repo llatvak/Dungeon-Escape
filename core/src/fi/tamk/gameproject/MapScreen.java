@@ -77,6 +77,9 @@ public class MapScreen implements Screen {
     }
 
     public void onCreate() {
+
+
+
         batch = game.getBatch();
         tiledMap = new TmxMapLoader().load("DungeonEscape_Map.tmx");
         background = new Texture("brickwall.png");
@@ -151,9 +154,9 @@ public class MapScreen implements Screen {
         fontRoboto.draw(batch,"" + player.movementPoints, 320 , 640f - 12f);
 
         // ei näin :D
-        fontRoboto.draw(batch,"|", 360f / 2f - 5f, 640f / 2f + 75f);
-        fontRoboto.draw(batch,"<                    >", 360f / 2 - 80f , 640f / 2f);
-        fontRoboto.draw(batch,"|", 360f / 2f - 5f, 640f / 2f - 60f);
+//        fontRoboto.draw(batch,"|", 360f / 2f - 5f, 640f / 2f + 75f);
+//        fontRoboto.draw(batch,"_                    _", 360f / 2 - 80f , 640f / 2f);
+//        fontRoboto.draw(batch,"|", 360f / 2f - 5f, 640f / 2f - 60f);
 
         // View game camera
         batch.setProjectionMatrix(camera.combined);
@@ -296,7 +299,6 @@ public class MapScreen implements Screen {
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
                 Gdx.app.log("Settings", "going to settings");
-                //((Game)Gdx.app.getApplicationListener()).setScreen(new SettingsScreen(game));
                 game.setPreviousScreen(DungeonEscape.MAPSCREEN);
                 game.changeScreen(DungeonEscape.SETTINGSSCREEN);
             }
