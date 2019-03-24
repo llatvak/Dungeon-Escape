@@ -13,9 +13,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
+import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import com.badlogic.gdx.utils.viewport.Viewport;
+
+import java.util.Locale;
 
 public class MainMenu implements Screen {
 
@@ -28,6 +31,17 @@ public class MainMenu implements Screen {
 
     private  Texture background;
     protected Skin skin;
+
+    Locale locale;
+    I18NBundle myBundle;
+
+    TextButton playButton;
+    TextButton settingsButton;
+    TextButton exitButton;
+
+    Table topTable;
+    Table mainTable;
+
 
     public MainMenu(DungeonEscape game) {
         this.batch = game.getBatch();
@@ -56,32 +70,26 @@ public class MainMenu implements Screen {
 
     @Override
     public void show() {
+        locale = DungeonEscape.getLocale();
+        myBundle = DungeonEscape.getMyBundle();
 
         Gdx.input.setInputProcessor(stage);
 
         //Create Table
-        Table topTable = new Table();
-        Table mainTable = new Table();
+        topTable = new Table();
 
         //Set table to fill stage
         topTable.setFillParent(true);
-        mainTable.setFillParent(true);
         // Debug lines
         topTable.setDebug(false);
-        mainTable.setDebug(false);
 
         //Set alignment of contents in the table.
         topTable.top();
         topTable.left();
-        mainTable.center();
 
         //Create buttons
         TextButton langFinButton = new TextButton("FIN", skin);
         TextButton langEngButton = new TextButton("ENG", skin);
-
-        TextButton playButton = new TextButton("Play", skin);
-        TextButton settingsButton = new TextButton("Settings", skin);
-        TextButton exitButton = new TextButton("Exit", skin);
 
         //Add listeners to buttons
 
@@ -89,6 +97,10 @@ public class MainMenu implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.log("Language", "Finnish");
+                DungeonEscape.setLanguage("fi", "FI", "MyBundle_fi_FI");
+                locale = DungeonEscape.getLocale();
+                myBundle = DungeonEscape.getMyBundle();
+                setLocaleFin();
             }
         });
 
@@ -96,8 +108,34 @@ public class MainMenu implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.log("Language", "English");
+                DungeonEscape.setLanguage("en", "US", "MyBundle_en_US");
+                locale = DungeonEscape.getLocale();
+                myBundle = DungeonEscape.getMyBundle();
+                setLocaleEng();
             }
         });
+
+        //Add buttons to table
+        topTable.row().pad(10,5,0,5);
+        topTable.add(langFinButton).width(32).height(32).fillX().uniformX();
+        topTable.add(langEngButton).width(32).height(32).fillX().uniformX();
+
+
+        //Add table to stage
+        stage.addActor(topTable);
+
+        gameInit();
+    }
+
+    public void gameInit() {
+        mainTable = new Table();
+        mainTable.setFillParent(true);
+        mainTable.setDebug(false);
+        mainTable.center();
+
+        playButton = new TextButton(myBundle.get("playbutton"), skin);
+        settingsButton = new TextButton(myBundle.get("settingsbutton"), skin);
+        exitButton = new TextButton(myBundle.get("exitbutton"), skin);
 
         playButton.addListener(new ChangeListener(){
             @Override
@@ -121,12 +159,6 @@ public class MainMenu implements Screen {
             }
         });
 
-        //Add buttons to table
-        topTable.row().pad(10,5,0,5);
-        topTable.add(langFinButton).width(32).height(32).fillX().uniformX();
-        topTable.add(langEngButton).width(32).height(32).fillX().uniformX();
-
-
         mainTable.row().pad(0,0,10,0);
         mainTable.add(playButton).width(200).height(70).fillX().uniformX();
 
@@ -136,9 +168,15 @@ public class MainMenu implements Screen {
         mainTable.row();
         mainTable.add(exitButton).width(200).height(40).fillX().uniformX();
 
-        //Add table to stage
-        stage.addActor(topTable);
         stage.addActor(mainTable);
+    }
+
+    public void setLocaleFin() {
+        gameInit();
+    }
+
+    public void setLocaleEng() {
+        gameInit();
     }
 
     @Override

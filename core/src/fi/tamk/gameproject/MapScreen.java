@@ -1,27 +1,40 @@
 package fi.tamk.gameproject;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.I18NBundle;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
+import java.util.Locale;
 
 
 public class MapScreen implements Screen {
@@ -34,6 +47,7 @@ public class MapScreen implements Screen {
     SpriteBatch batch;
 
     boolean exists;
+    boolean paused;
 
     // Camera
     OrthographicCamera camera;
@@ -62,6 +76,9 @@ public class MapScreen implements Screen {
     private ProgressBar stepsProgressBar;
     private boolean resetProgressBar = false;
     private int progressbarValue = 0;
+
+    Locale locale;
+    I18NBundle myBundle;
 
     public MapScreen(DungeonEscape game) {
         this.game = game;
@@ -99,14 +116,16 @@ public class MapScreen implements Screen {
 
         skin = new Skin( Gdx.files.internal("dark-peel-ui.json") );
 
-        stepsProgressBar = new ProgressBar(0, player.STEPSTOMOVE ,1,false,skin, "default-horizontal");
-        stepsProgressBar.setAnimateDuration(0.2f);
+        stepsProgressBar = new ProgressBar(0, player.STEPSTOMOVE,1,false,skin, "default-horizontal");
+        stepsProgressBar.setAnimateDuration(0.5f);
 
         stage = new Stage(viewport, batch);
 
         fontCamera.position.set(fontCamera.viewportWidth / 2, fontCamera.viewportHeight / 2, 0);
         fontCamera.update();
 
+        myBundle = DungeonEscape.getMyBundle();
+        locale = DungeonEscape.getLocale();
     }
 
     public void update() {
@@ -144,7 +163,7 @@ public class MapScreen implements Screen {
         batch.begin();
 
         // Draw fonts
-        fontRoboto.draw(batch, "STEPS: " + stepTotal, 50 , 640f - 40f);
+        fontRoboto.draw(batch, myBundle.get("stepcounter") + ": " + stepTotal, 50 , 640f - 40f);
         fontRoboto.draw(batch,"" + player.movementPoints, 320 , 640f - 12f);
 
         // View game camera
@@ -196,7 +215,7 @@ public class MapScreen implements Screen {
         Gdx.app.log("Button", "created");
         buttonUp = true;
 
-        final TextButton confirmButton = new TextButton("I'm ready!", skin, "maroon");
+        final TextButton confirmButton = new TextButton(myBundle.get("readybutton"), skin, "maroon");
         confirmButton.setWidth(160f);
         confirmButton.setHeight(70f);
         confirmButton.setPosition(360f / 2 - 80f, 640f / 2 - 110f);
@@ -318,7 +337,7 @@ public class MapScreen implements Screen {
         // update this
     }
 
-    boolean paused;
+
     @Override
     public void pause() {
         paused = true;

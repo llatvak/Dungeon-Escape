@@ -60,8 +60,8 @@ public class MoveScreenJump extends MoveScreenMove implements Screen {
 
         // Font camera
         batch.setProjectionMatrix(fontCamera.combined);
-        getFontRoboto().draw(batch, "Jump six times!",80 , 640f - 50f);
-        getFontRoboto().draw(batch, "Jumps: " + getPlayer().getCountedJumps(), 120, 640f - 100f);
+        getFontRoboto().draw(batch, myBundle.get("jumptext"),80 , 640f - 50f);
+        getFontRoboto().draw(batch, myBundle.get("jumpcount") + ": " + getPlayer().getCountedJumps(), 120, 640f - 100f);
 
         batch.end();
 
