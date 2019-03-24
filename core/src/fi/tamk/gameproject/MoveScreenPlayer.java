@@ -26,7 +26,10 @@ public class MoveScreenPlayer {
     //player jump variables
     private boolean playerJumped = false;
     private int countedJumps = 0;
-    private boolean playerInAir = false;
+    private boolean playerMoving = false;
+
+    int squatStateTime = 0;
+
 
     public MoveScreenPlayer(World w) {
         // Creates body to world and gets definitions and fixtures to it
@@ -73,7 +76,7 @@ public class MoveScreenPlayer {
     // Creates animation from player texture sheet
     public void createJumpAnimation() {
         // Rows and columns in texture sheet
-        final int FRAME_COLS = 2;
+        final int FRAME_COLS = 6;
         final int FRAME_ROWS = 1;
         // Defines the size of texture sheet frames and saves width and height to variables
         int tileWidth = playerSheetTexture.getWidth() / FRAME_COLS;
@@ -99,17 +102,15 @@ public class MoveScreenPlayer {
         // Counts player jumps
         countJumps();
         // When X amount of jumps is done player character jumps over trap
-        if(Gdx.input.getAccelerometerY() > 14 && countedJumps == 12 && playerInAir == false) {
-            playerBody.applyLinearImpulse(new Vector2(3.5f, 5.5f),
+        if(Gdx.input.getAccelerometerY() > 14 && countedJumps >= 12 && playerMoving == false) {
+            playerBody.applyLinearImpulse(new Vector2(4f, 6f),
                     playerBody.getWorldCenter(), true);
-            playerInAir = true;
+            playerMoving = true;
         }
         // Run animation when move screen comes visible
         if(playerBody.getPosition().y <= 1.25f && playerBody.getPosition().x < 1) {
-            currentFrameTexture = jumpAnimation.getKeyFrame(stateTime, true);
+            currentFrameTexture = jumpAnimation.getKeyFrame(stateTime, false);
         }
-        // Placeholder attribute for tracking player jumps
-        //System.out.println(countedJumps/2);
     }
 
     // Counts player jumps
@@ -125,6 +126,44 @@ public class MoveScreenPlayer {
         }
     }
 
+    // Counts player squats
+    public void countSquats() {
+        squatStateTime ++;
+        // Counts squats when player squats
+        if(Gdx.input.getAccelerometerY() > 13 && playerJumped == false) {
+            if (squatStateTime >= 60) {
+                countedJumps += 2;
+                squatStateTime = 0;
+            }
+            playerJumped = true;
+        }
+        if(Gdx.input.getAccelerometerY() < 13) {
+            playerJumped = false;
+        }
+    }
+
+    public void playerSquat() {
+        // Counts time of program running
+        stateTime += Gdx.graphics.getDeltaTime();
+        // Moves the player at the start to position X
+        if(playerBody.getPosition().x < 1) {
+            playerBody.setLinearVelocity(1f, 0);
+        }
+        // Counts player squats
+        countSquats();
+
+        // Run animation when move screen comes visible
+        if(playerBody.getPosition().y <= 1.25f && playerBody.getPosition().x < 1) {
+            currentFrameTexture = jumpAnimation.getKeyFrame(stateTime, false);
+        }
+    }
+
+    // Method for running after arrow is passed
+    public void playerRun() {
+        playerBody.setLinearVelocity(3f, 0);
+        currentFrameTexture = jumpAnimation.getKeyFrame(stateTime, true);
+    }
+
     // For desktop testing
     public void checkInput() {
         Gdx.input.setInputProcessor(new InputAdapter() {
@@ -132,11 +171,10 @@ public class MoveScreenPlayer {
             // Keyboard controls
             @Override
             public boolean keyDown(int keycode) {
-                if (keycode == UP && playerInAir == false && playerBody.getPosition().x > 1.215f) {
-                    playerBody.applyLinearImpulse(new Vector2(3.7f, 5f),
+                if (keycode == UP && playerMoving == false && playerBody.getPosition().x > 1.215f) {
+                    playerBody.applyLinearImpulse(new Vector2(4f, 6f),
                             playerBody.getWorldCenter(), true);
-                    playerInAir = true;
-                    System.out.println(playerInAir);
+                    playerMoving = true;
                 }
                 return true;
             }

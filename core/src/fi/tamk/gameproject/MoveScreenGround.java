@@ -20,14 +20,14 @@ public class MoveScreenGround {
     private BodyDef getGroundBodyDef() {
         BodyDef myBodyDef = new BodyDef();
         myBodyDef.type = BodyDef.BodyType.StaticBody;
-        myBodyDef.position.set(MoveScreen.WORLD_WIDTH/2, 0.25f);
+        myBodyDef.position.set(MoveScreenJump.WORLD_WIDTH/2, 0.25f);
         return myBodyDef;
     }
 
     // Sets ground body shape and size and returns the shape
     private PolygonShape getGroundShape() {
         PolygonShape groundBox = new PolygonShape();
-        groundBox.setAsBox(MoveScreen.WORLD_WIDTH/2, 0.25f);
+        groundBox.setAsBox(MoveScreenJump.WORLD_WIDTH/2, 0.25f);
         return groundBox;
     }
 }
