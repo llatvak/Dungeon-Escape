@@ -32,8 +32,8 @@ public class MapScreen implements Screen {
     DungeonEscape game;
     MapPlayer player;
     SpriteBatch batch;
-    MoveScreenJump moveScreenJump;
 
+    boolean exists;
 
     // Camera
     OrthographicCamera camera;
@@ -65,8 +65,9 @@ public class MapScreen implements Screen {
 
     public MapScreen(DungeonEscape game) {
         this.game = game;
+        exists = true;
+        //resetSteps();
         onCreate();
-
     }
 
     public void onCreate() {
@@ -145,11 +146,6 @@ public class MapScreen implements Screen {
         // Draw fonts
         fontRoboto.draw(batch, "STEPS: " + stepTotal, 50 , 640f - 40f);
         fontRoboto.draw(batch,"" + player.movementPoints, 320 , 640f - 12f);
-
-        // ei näin :D
-//        fontRoboto.draw(batch,"|", 360f / 2f - 5f, 640f / 2f + 75f);
-//        fontRoboto.draw(batch,"_                    _", 360f / 2 - 80f , 640f / 2f);
-//        fontRoboto.draw(batch,"|", 360f / 2f - 5f, 640f / 2f - 60f);
 
         // View game camera
         batch.setProjectionMatrix(camera.combined);
@@ -248,13 +244,14 @@ public class MapScreen implements Screen {
     }
 
     public void addStep() {
+        stepTotal++;
+        System.out.println("Steps: " + stepTotal);
 
         if(!paused) {
             leftOverSteps++;
+            System.out.println("Steps to point: " + leftOverSteps);
         }
 
-        System.out.println("Steps to point: " + leftOverSteps);
-        stepTotal++;
     }
 
     public void subtractStep() {
@@ -333,9 +330,8 @@ public class MapScreen implements Screen {
     public void resume() {
         paused = false;
         Gdx.app.log("Mapscreen", "resume");
-
         countMovementPointsDelta();
-        System.out.println(stepTotal);
+        //System.out.println(stepTotal);
     }
 
     public void countMovementPoints() {
@@ -373,14 +369,17 @@ public class MapScreen implements Screen {
         stepTotal = 0;
     }
 
+    // Save current step count
     public void saveSteps() {
         savedSteps = stepTotal;
     }
 
+    // Make saved steps actual step count
     public void subtractSteps() {
         stepTotal = savedSteps;
     }
 
+    // Get difference between total steps and saved steps
     public int getStepsDelta() {
         stepsDelta = stepTotal - savedSteps;
         return stepsDelta;

@@ -102,7 +102,6 @@ public class MainMenu implements Screen {
         playButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                //game.resetSteps();
                 game.changeScreen(DungeonEscape.MAPSCREEN);
             }
         });

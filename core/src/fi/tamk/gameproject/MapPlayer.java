@@ -178,9 +178,6 @@ public class MapPlayer extends Sprite {
     }
 
 
-
-
-
     public void addMovementPoint() {
         Gdx.app.log("Movementpoint", "added");
         movementPoints++;

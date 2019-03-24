@@ -39,6 +39,7 @@ public class MoveScreenJump extends MoveScreenMove implements Screen {
     @Override
     public void show() {
         getMapScreen().saveSteps();
+        getGame().setMoveScreenStatus(true);
     }
 
     @Override
@@ -98,6 +99,7 @@ public class MoveScreenJump extends MoveScreenMove implements Screen {
     @Override
     public void hide() {
         getMapScreen().subtractSteps();
+        getGame().setMoveScreenStatus(false);
     }
 
     @Override

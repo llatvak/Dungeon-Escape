@@ -21,6 +21,9 @@ public class DungeonEscape extends Game {
     private SettingsScreen settingsScreen;
     private MoveScreenSquat moveScreenSquat;
 
+    private boolean mapScreenStatus;
+    private boolean moveScreenStatus;
+
     private int previousScreen;
 
     public final static int SPLASHSCREEN = 0;
@@ -75,25 +78,24 @@ public class DungeonEscape extends Game {
                 break;
 
             case MAINMENU:
-                meterStance = true;
                 mainMenu = new MainMenu(this);
                 setScreen(mainMenu);
                 break;
 
             case SETTINGSSCREEN:
-                meterStance = false;
                 settingsScreen =  new SettingsScreen(this);
                 setScreen(settingsScreen);
                 break;
 
             case MAPSCREEN:
-
                 mapScreen = new MapScreen(this);
+                mapScreenStatus = true;
                 this.setScreen(mapScreen);
                 break;
 
             case JUMPSCREEN:
                 moveScreenJump = new MoveScreenJump(this, mapScreen.getMapScreen());
+                moveScreenStatus = true;
                 this.setScreen(moveScreenJump);
                 break;
 
@@ -109,6 +111,7 @@ public class DungeonEscape extends Game {
 
             case SQUATSCREEN:
                 moveScreenSquat = new MoveScreenSquat(this, mapScreen.getMapScreen());
+                moveScreenStatus = true;
                 this.setScreen(moveScreenSquat);
                 break;
         }
@@ -118,29 +121,24 @@ public class DungeonEscape extends Game {
         this.previousScreen = screen;
     }
 
+    public void setMoveScreenStatus(boolean status) {
+        this.moveScreenStatus = status;
+    }
+
     public SpriteBatch getBatch() {
         return batch;
     }
 
 
     public void addSteps() {
-        //stepTotal++;
-        mapScreen.addStep();
-        System.out.println("Steps: " + mapScreen.stepTotal);
-
+        // Is map screen open
+        if(mapScreenStatus) {
+            // Is movement screen open
+            if(!moveScreenStatus) {
+                mapScreen.addStep();
+            }
+        }
     }
-
-
-
-    boolean meterStance = true;
-    public boolean getMeterStance() {
-        return meterStance;
-    }
-
-
-//    public int getStepTotal() {
-//        return stepTotal;
-//    }
 
     @Override
     public void dispose () {
