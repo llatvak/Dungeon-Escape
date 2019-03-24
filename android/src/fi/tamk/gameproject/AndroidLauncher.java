@@ -34,7 +34,7 @@ public class AndroidLauncher extends AndroidApplication implements SensorEventLi
 		numSteps = 0;
 
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		initialize(game = new DungeonEscape(pedometerStatus), config);
+		initialize(game = new DungeonEscape(), config);
 
 
 		if(pedometerStatus.getStatus() == true) {

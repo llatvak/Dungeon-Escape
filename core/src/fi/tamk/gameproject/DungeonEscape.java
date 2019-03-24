@@ -44,9 +44,9 @@ public class DungeonEscape extends Game {
     private static I18NBundle myBundle;
     private PedometerStatus pedometerStatus;
 
-    public DungeonEscape(PedometerStatus pedometerStatus) {
-        this.pedometerStatus = pedometerStatus;
-        pedometerStatus.setStatus(1);
+    public DungeonEscape() {
+       // this.pedometerStatus = pedometerStatus;
+       // pedometerStatus.setStatus(1);
 
     }
 
