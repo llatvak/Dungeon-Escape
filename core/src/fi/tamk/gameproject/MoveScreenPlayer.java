@@ -129,7 +129,6 @@ public class MoveScreenPlayer {
     // Counts player squats
     public void countSquats() {
         squatStateTime ++;
-        System.out.println(squatStateTime);
         // Counts squats when player squats
         if(Gdx.input.getAccelerometerY() > 13 && playerJumped == false) {
             if (squatStateTime >= 60) {

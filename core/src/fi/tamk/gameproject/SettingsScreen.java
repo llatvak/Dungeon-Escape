@@ -39,7 +39,7 @@ public class SettingsScreen implements Screen {
 
     public void onCreate() {
 
-        background = new Texture("menu.png");
+        background = new Texture("settings.png");
 
         camera = new OrthographicCamera();
         viewport = new StretchViewport(360f, 640f, camera);
