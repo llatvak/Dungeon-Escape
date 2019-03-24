@@ -182,6 +182,7 @@ public class MapPlayer extends Sprite {
         // Checks if total step amount is divisible by the amount needed to move
         if(stepTotal > 0) {
             if(stepTotal % STEPSTOMOVE == 0) {
+                Gdx.app.log("Movementpoint", "added");
                 addMovementPoint();
                 mapScreen.addStep();
                 mapScreen.resetProgressBar = true;

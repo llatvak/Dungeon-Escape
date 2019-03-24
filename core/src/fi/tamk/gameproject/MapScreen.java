@@ -219,8 +219,6 @@ public class MapScreen implements Screen {
             public void changed(ChangeEvent event, Actor actor){
                 Gdx.app.log("Trap", "going");
 
-                game.saveSteps();
-
 
                 // what if player doesn't want to go to trap?
                 // this needs to be changed for different traps
@@ -326,17 +324,17 @@ public class MapScreen implements Screen {
 
     @Override
     public void pause() {
-
+        Gdx.app.log("Mapscreen", "paused");
     }
 
     @Override
     public void resume() {
-
+        Gdx.app.log("Mapscreen", "resume");
     }
 
     @Override
     public void hide() {
-
+        Gdx.app.log("Mapscreen", "hidden");
     }
 
     @Override
