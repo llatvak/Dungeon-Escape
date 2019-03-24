@@ -4,7 +4,6 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class DungeonEscape extends Game {
     public final float screenResolutionWidth = 360;
@@ -17,8 +16,9 @@ public class DungeonEscape extends Game {
 	private SplashScreen splashScreen;
 	private MainMenu mainMenu;
     private MapScreen mapScreen;
-    private MoveScreen moveScreen;
+    private MoveScreenJump moveScreenJump;
     private SettingsScreen settingsScreen;
+    private MoveScreenSquat moveScreenSquat;
 
     private int previousScreen;
 
@@ -26,8 +26,9 @@ public class DungeonEscape extends Game {
     public final static int MAINMENU = 1;
     public final static int SETTINGSSCREEN = 2;
     public final static int MAPSCREEN = 3;
-    public final static int MOVESCREEN = 4;
+    public final static int JUMPSCREEN = 4;
     public final static int BACK = 5;
+    public final static int SQUATSCREEN = 6;
 
     int stepTotal;
     int oldStepTotal;
@@ -78,9 +79,9 @@ public class DungeonEscape extends Game {
                 this.setScreen(mapScreen);
                 break;
 
-            case MOVESCREEN:
-                moveScreen = new MoveScreen(this, mapScreen.getMapScreen());
-                this.setScreen(moveScreen);
+            case JUMPSCREEN:
+                moveScreenJump = new MoveScreenJump(this, mapScreen.getMapScreen());
+                this.setScreen(moveScreenJump);
                 break;
 
             case BACK:
@@ -91,6 +92,11 @@ public class DungeonEscape extends Game {
                     mapScreen = mapScreen.getMapScreen();
                     this.setScreen(mapScreen);
                 }
+                break;
+
+            case SQUATSCREEN:
+                moveScreenSquat = new MoveScreenSquat(this, mapScreen.getMapScreen());
+                this.setScreen(moveScreenSquat);
                 break;
         }
     }

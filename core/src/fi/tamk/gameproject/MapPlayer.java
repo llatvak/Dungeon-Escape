@@ -67,6 +67,10 @@ public class MapPlayer extends Sprite {
     private boolean upRightCollision;
     private boolean downRightCollision;
 
+    // Boolean values for stepping on up/down trap
+    private boolean onUpTrap = false;
+    private boolean onDownTrap = false;
+
 
 
     public MapPlayer(MapScreen mapScreen) {
@@ -290,9 +294,10 @@ public class MapPlayer extends Sprite {
             Rectangle rectangle = rectangleObject.getRectangle();
             // SCALE given rectangle down if using world dimensions!
             if (getBoundingRectangle().overlaps(rectangle) && movedDistance == TILE_SIZE) {
-
+                onDownTrap = true;
+                onUpTrap = false;
                 if(!mapScreen.buttonUp) {
-                    mapScreen.trapConfirm();
+                    mapScreen.trapConfirm(onDownTrap, onUpTrap);
                 }
 
 
@@ -311,9 +316,10 @@ public class MapPlayer extends Sprite {
             Rectangle rectangle = rectangleObject.getRectangle();
             // SCALE given rectangle down if using world dimensions!
             if (getBoundingRectangle().overlaps(rectangle) && movedDistance == TILE_SIZE) {
-
+                onUpTrap = true;
+                onDownTrap = false;
                 if(!mapScreen.buttonUp) {
-                    mapScreen.trapConfirm();
+                    mapScreen.trapConfirm(onDownTrap, onUpTrap);
                 }
             }
         }
