@@ -30,6 +30,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 
@@ -41,7 +42,7 @@ public class MapScreen implements Screen {
     DungeonEscape game;
     MapPlayer player;
     SpriteBatch batch;
-    MoveScreen moveScreen;
+    MoveScreenJump moveScreenJump;
 
 
     // Camera
@@ -96,7 +97,7 @@ public class MapScreen implements Screen {
         fontRoboto = fonts.getFont(Fonts.MEDIUM);
 
 
-        viewport = new FitViewport(360f, 640f, fontCamera);
+        viewport = new StretchViewport(360f, 640f, fontCamera);
         viewport.apply();
 
         skin = new Skin( Gdx.files.internal("dark-peel-ui.json") );
@@ -199,7 +200,7 @@ public class MapScreen implements Screen {
 
     }
 
-    public void trapConfirm() {
+    public void trapConfirm(final boolean onDown, final boolean onUp) {
         Gdx.app.log("Button", "created");
         buttonUp = true;
 
@@ -219,10 +220,16 @@ public class MapScreen implements Screen {
                 // this needs to be changed for different traps
                 confirmButton.remove();
                 buttonUp = false;
-                goToDownTrap();
+
+                // Using boolean values checks trapscreen
+                if(onDown) {
+                    goToDownTrap();
+                }
+                if(onUp) {
+                    goToUpTrap();
+                }
+
                 player.addMovementPoint();
-
-
             }
         });
     }
@@ -230,17 +237,17 @@ public class MapScreen implements Screen {
 
     public void goToDownTrap() {
         Gdx.app.log("Down trap", "going to jumping trap");
-        game.changeScreen(DungeonEscape.MOVESCREEN);
+        game.changeScreen(DungeonEscape.JUMPSCREEN);
     }
     public void goToUpTrap() {
         Gdx.app.log("Up trap", "going to crouching trap");
         // Needs new class UpScreen
-        game.changeScreen(DungeonEscape.MOVESCREEN);
+        game.changeScreen(DungeonEscape.SQUATSCREEN);
     }
     public void goToStoryTile() {
         Gdx.app.log("Story", "going to story tile");
         // Needs new class StoryScreen
-        game.changeScreen(DungeonEscape.MOVESCREEN);
+        game.changeScreen(DungeonEscape.JUMPSCREEN);
     }
 
     public void addStep() {
@@ -334,5 +341,6 @@ public class MapScreen implements Screen {
         player.dispose();
         tiledMap.dispose();
         batch.dispose();
+        stage.dispose();
     }
 }

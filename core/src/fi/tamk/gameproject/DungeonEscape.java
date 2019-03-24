@@ -2,41 +2,50 @@ package fi.tamk.gameproject;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class DungeonEscape extends Game {
-    int screenResolutionWidth;
-    int screenResolutionHeight;
+    public final float screenResolutionWidth = 360;
+    public final float screenResolutionHeight = 640;
 
 	SpriteBatch batch;
 
+	public OrthographicCamera camera;
+
+	private SplashScreen splashScreen;
 	private MainMenu mainMenu;
     private MapScreen mapScreen;
-    private MoveScreen moveScreen;
+    private MoveScreenJump moveScreenJump;
     private SettingsScreen settingsScreen;
+    private MoveScreenSquat moveScreenSquat;
 
     private int previousScreen;
 
-    public final static int MAINMENU = 0;
-    public final static int SETTINGSSCREEN = 1;
-    public final static int MAPSCREEN = 2;
-    public final static int MOVESCREEN = 3;
-    public final static int BACK = 4;
+    public final static int SPLASHSCREEN = 0;
+    public final static int MAINMENU = 1;
+    public final static int SETTINGSSCREEN = 2;
+    public final static int MAPSCREEN = 3;
+    public final static int JUMPSCREEN = 4;
+    public final static int BACK = 5;
+    public final static int SQUATSCREEN = 6;
 
     int stepTotal;
     int oldStepTotal;
 
     @Override
     public void create () {
+        camera = new OrthographicCamera();
+        camera.setToOrtho(false, 360f, 640f);
 
         // Get device screen resolution
-        screenResolutionWidth = Gdx.graphics.getWidth();
-        screenResolutionHeight = Gdx.graphics.getHeight();
+        //screenResolutionWidth = Gdx.graphics.getWidth();
+        //screenResolutionHeight = Gdx.graphics.getHeight();
         System.out.println(Gdx.graphics.getWidth() +" x "+ Gdx.graphics.getHeight());
 
         batch = new SpriteBatch();
 
-        changeScreen(MAINMENU);
+        changeScreen(SPLASHSCREEN);
 
     }
 
@@ -50,6 +59,11 @@ public class DungeonEscape extends Game {
     public void changeScreen(int screen) {
 
         switch(screen) {
+            case SPLASHSCREEN:
+                splashScreen = new SplashScreen(this);
+                setScreen(splashScreen);
+                break;
+
             case MAINMENU:
                 mainMenu = new MainMenu(this);
                 setScreen(mainMenu);
@@ -65,9 +79,9 @@ public class DungeonEscape extends Game {
                 this.setScreen(mapScreen);
                 break;
 
-            case MOVESCREEN:
-                moveScreen = new MoveScreen(this, mapScreen.getMapScreen());
-                this.setScreen(moveScreen);
+            case JUMPSCREEN:
+                moveScreenJump = new MoveScreenJump(this, mapScreen.getMapScreen());
+                this.setScreen(moveScreenJump);
                 break;
 
             case BACK:
@@ -78,6 +92,11 @@ public class DungeonEscape extends Game {
                     mapScreen = mapScreen.getMapScreen();
                     this.setScreen(mapScreen);
                 }
+                break;
+
+            case SQUATSCREEN:
+                moveScreenSquat = new MoveScreenSquat(this, mapScreen.getMapScreen());
+                this.setScreen(moveScreenSquat);
                 break;
         }
     }
