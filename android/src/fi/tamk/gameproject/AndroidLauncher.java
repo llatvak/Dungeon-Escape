@@ -10,6 +10,7 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
 
 
+
 public class AndroidLauncher extends AndroidApplication implements SensorEventListener, StepListener{
 	private StepDetector simpleStepDetector;
 	private SensorManager sensorManager;
@@ -29,17 +30,21 @@ public class AndroidLauncher extends AndroidApplication implements SensorEventLi
 		simpleStepDetector.registerListener(this);
 
 		numSteps = 0;
-		sensorManager.registerListener(AndroidLauncher.this, accel, SensorManager.SENSOR_DELAY_FASTEST);
 
 
 
-		// To stop listener
-
-		// sensorManager.unregisterListener(MainActivity.this);
 
 
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		initialize(game = new DungeonEscape(), config);
+
+		if(game.getMeterStance()) {
+			startPedometer();
+		} else {
+			stopPedometer();
+		}
+
+
 	}
 
 	@Override
@@ -54,12 +59,27 @@ public class AndroidLauncher extends AndroidApplication implements SensorEventLi
 
 		}
 
+		if(game.getMeterStance()) {
+			startPedometer();
+		} else {
+			stopPedometer();
+		}
+
 	}
 
 	@Override
 	public void step(long timeNs) {
 		numSteps++;
 		game.receiveSteps(numSteps);
+
+	}
+
+	public void startPedometer() {
+		sensorManager.registerListener(AndroidLauncher.this, accel, SensorManager.SENSOR_DELAY_FASTEST);
+	}
+
+	public void stopPedometer() {
+		sensorManager.unregisterListener(AndroidLauncher.this);
 	}
 
 }
