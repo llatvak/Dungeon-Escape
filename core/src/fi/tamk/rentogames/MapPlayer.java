@@ -64,10 +64,10 @@ public class MapPlayer extends Sprite {
 
 
 
-    public MapPlayer(MapScreen mapScreen) {
+    public MapPlayer(MapScreen mapScreen, Level level) {
         super( new Texture("velho.png"));
         this.mapScreen = mapScreen;
-        this.tiledMap = mapScreen.tiledMap;
+        this.tiledMap = level.getCurrentMap();
 
         setSize(spriteWidth, spriteHeight);
         setPosition(startingX, startingY);
@@ -190,8 +190,6 @@ public class MapPlayer extends Sprite {
         }
     }
 
-
-
     public void setLeftMove(boolean t) {
         goLeft = t;
         moving = t;
@@ -261,7 +259,27 @@ public class MapPlayer extends Sprite {
         checkDownTraps();
         checkUpTraps();
         checkStoryTiles();
+        checkLevelChange();
     }
+
+    private void checkLevelChange() {
+        // Get the down trap rectangles layer
+        MapLayer downTrapObjectLayer = (MapLayer)tiledMap.getLayers().get("Level_change");
+        // All the rectangles of the layer
+        MapObjects mapObjects = downTrapObjectLayer.getObjects();
+        // Cast it to RectangleObjects array
+        Array<RectangleMapObject> rectangleObjects = mapObjects.getByType(RectangleMapObject.class);
+        // Iterate all the rectangles
+        for (RectangleMapObject rectangleObject : rectangleObjects) {
+            Rectangle rectangle = rectangleObject.getRectangle();
+            // SCALE given rectangle down if using world dimensions!
+            if (getBoundingRectangle().overlaps(rectangle) && movedDistance == TILE_SIZE) {
+                Gdx.app.log("Level", "change");
+
+            }
+        }
+    }
+
 
     public void checkDownTraps() {
         // Get the down trap rectangles layer

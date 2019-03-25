@@ -79,12 +79,12 @@ public class MapScreen implements Screen {
         batch = game.getBatch();
 
         level = new Level();
-        tiledMap = level.getTiledMap();
+        tiledMap = level.getCurrentMap();
         tiledMapRenderer = level.getTiledMapRenderer();
 
         camera = game.getGameCamera();
 
-        player = new MapPlayer(this);
+        player = new MapPlayer(this, level);
 
         fonts = new Fonts();
         fontRoboto = fonts.createMediumFont();
