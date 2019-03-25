@@ -1,4 +1,4 @@
-package fi.tamk.gameproject;
+package fi.tamk.rentogames;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -13,7 +13,7 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
 public class SplashScreen implements Screen {
 
-    private final DungeonEscape app;
+    private final DungeonEscape game;
     private Stage stage;
 
     // Images
@@ -24,10 +24,10 @@ public class SplashScreen implements Screen {
     //Test to count switching screen (does not reflect the actual runtime ATM)!
     private float stateTime = 0;
 
-    public SplashScreen(final DungeonEscape app) {
+    public SplashScreen(final DungeonEscape game) {
         // Using DungeonEscape class camera to set viewport to stage
-        this.app = app;
-        this.stage = new Stage(new StretchViewport(app.screenResolutionWidth, app.screenResolutionHeight, app.camera));
+        this.game = game;
+        this.stage = new Stage(new StretchViewport(game.screenResolutionWidth, game.screenResolutionHeight, game.camera));
 
         // Rento texture to img
         Texture rentoTex = new Texture(Gdx.files.internal("rentologo.png"));
@@ -92,8 +92,8 @@ public class SplashScreen implements Screen {
 
         stage.draw();
 
-        app.batch.begin();
-        app.batch.end();
+        game.batch.begin();
+        game.batch.end();
 
     }
 
@@ -103,7 +103,7 @@ public class SplashScreen implements Screen {
 
         // if game has run for X time switch screen to setScreen
         if(stateTime >= 3.6) {
-            app.changeScreen(1);
+            game.changeScreen(1);
         }
     }
 

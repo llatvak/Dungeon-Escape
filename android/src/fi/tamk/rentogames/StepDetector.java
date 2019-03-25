@@ -1,4 +1,4 @@
-package fi.tamk.gameproject;
+package fi.tamk.rentogames;
 
 public class StepDetector {
 

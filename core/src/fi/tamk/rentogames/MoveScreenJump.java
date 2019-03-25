@@ -1,20 +1,24 @@
-package fi.tamk.gameproject;
+package fi.tamk.rentogames;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 
-public class MoveScreenSquat extends MoveScreenMove implements Screen {
+public class MoveScreenJump extends MoveScreenMove implements Screen {
+
     private SpriteBatch batch;
 
-    // Testing for arrow
-    private Texture arrowTexture;
-    private Rectangle arrowRect;
+    private Texture spikeTexture;
 
-    public MoveScreenSquat(DungeonEscape game, MapScreen mapScreen) {
+    // Spike attributes
+    private float spikeX;
+    private float spikeY;
+    private float spikeWidth;
+    private float spikeHeight;
+
+    public MoveScreenJump(DungeonEscape game, MapScreen mapScreen) {
         super(game, mapScreen);
         onCreates();
     }
@@ -23,15 +27,19 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
     public void onCreates() {
         batch = getGame().getBatch();
 
-        // Arrow trap in squat screen drawn on rectangle
-        arrowTexture = new Texture(Gdx.files.internal("arrow.png"));
-        arrowRect = new Rectangle(WORLD_WIDTH + arrowTexture.getWidth()/100f, 1.7f, arrowTexture.getWidth()/100f, arrowTexture.getHeight()/100f);
+        // Setting the background texture and camera
+        spikeTexture = new Texture(Gdx.files.internal("floorspikes.png"));
 
+        spikeX = WORLD_WIDTH/2 + spikeTexture.getWidth()/100f/2;
+        spikeY = spikeTexture.getHeight()/100f/6;
+        spikeWidth = spikeTexture.getWidth()/100f;
+        spikeHeight = spikeTexture.getHeight()/100f;
     }
 
     @Override
     public void show() {
-
+        getMapScreen().saveSteps();
+        getGame().setMoveScreenStatus(true);
     }
 
     @Override
@@ -46,15 +54,14 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
 
         batch.begin();
 
-        //Drawing everything
         batch.draw(getBackgroundTexture(), 0, 0, WORLD_WIDTH, WORLD_HEIGHT);
-        batch.draw(arrowTexture, arrowRect.getX(), arrowRect.getY(), arrowRect.getWidth(), arrowRect.getHeight());
+        batch.draw(spikeTexture, spikeX, spikeY, spikeWidth, spikeHeight);
         getPlayer().draw(batch);
 
         // Font camera
         batch.setProjectionMatrix(fontCamera.combined);
-        getFontRoboto().draw(batch, "Squat six times!",80 , 640f - 50f);
-        getFontRoboto().draw(batch, "Squats: " + getPlayer().getCountedJumps(), 120, 640f - 100f);
+        getFontRoboto().draw(batch, myBundle.get("jumptext"),80 , 640f - 50f);
+        getFontRoboto().draw(batch, myBundle.get("jumpcount") + ": " + getPlayer().getCountedJumps(), 120, 640f - 100f);
 
         batch.end();
 
@@ -65,21 +72,11 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
 
     public void update() {
         // Player jumping and checking user input
-        getPlayer().playerSquat();
+        getPlayer().playerJump();
         getPlayer().checkInput();
 
-        // Moves the arrow
-        if(getPlayer().getCountedJumps() >= 6) {
-            arrowRect.setX(arrowRect.getX() - 0.1f);
-        }
-
-        // Player runs when arrow is passed
-        if(arrowRect.getX() + arrowRect.getWidth()/100f < getPlayer().getPlayerX()) {
-            getPlayer().playerRun();
-        }
-
         // When player sprite moves out of boundaries go to map screen
-        if(getPlayer().getPlayerX() > 8.5f) {
+        if(getPlayer().getPlayerY() < -1f) {
             getGame().setScreen(getMapScreen());
         }
     }
@@ -101,13 +98,15 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
 
     @Override
     public void hide() {
-
+        getMapScreen().subtractSteps();
+        getGame().setMoveScreenStatus(false);
     }
 
     @Override
     // Disposes all from move screen
     public void dispose() {
         super.dispose();
-        arrowTexture.dispose();
+        spikeTexture.dispose();
     }
 }
+

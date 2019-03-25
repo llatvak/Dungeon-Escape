@@ -1,9 +1,12 @@
-package fi.tamk.gameproject;
+package fi.tamk.rentogames;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.I18NBundle;
+
+import java.util.Locale;
 
 public class DungeonEscape extends Game {
     public final float screenResolutionWidth = 360;
@@ -21,6 +24,9 @@ public class DungeonEscape extends Game {
     private SettingsScreen settingsScreen;
     private MoveScreenSquat moveScreenSquat;
 
+    private boolean mapScreenStatus;
+    private boolean moveScreenStatus;
+
     private int previousScreen;
 
     public final static int SPLASHSCREEN = 0;
@@ -31,12 +37,21 @@ public class DungeonEscape extends Game {
     public final static int BACK = 5;
     public final static int SQUATSCREEN = 6;
 
-    int stepTotal;
-    int oldStepTotal;
+    private static Locale locale;
+    private static I18NBundle myBundle;
+    private PedometerStatus pedometerStatus;
+
+    public DungeonEscape() {
+       // this.pedometerStatus = pedometerStatus;
+       // pedometerStatus.setStatus(1);
+
+    }
 
 
     @Override
     public void create () {
+        setLanguage("fi", "FI", "MyBundle_fi_FI");
+
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 360f, 640f);
 
@@ -49,6 +64,19 @@ public class DungeonEscape extends Game {
 
         changeScreen(SPLASHSCREEN);
 
+    }
+
+    public static void setLanguage(String s1, String s2, String s3) {
+        locale = new Locale(s1, s2);
+        myBundle = I18NBundle.createBundle(Gdx.files.internal(s3), locale);
+    }
+
+    public static Locale getLocale() {
+        return locale;
+    }
+
+    public static I18NBundle getMyBundle() {
+        return myBundle;
     }
 
     @Override
@@ -67,24 +95,24 @@ public class DungeonEscape extends Game {
                 break;
 
             case MAINMENU:
-                meterStance = true;
                 mainMenu = new MainMenu(this);
                 setScreen(mainMenu);
                 break;
 
             case SETTINGSSCREEN:
-                meterStance = false;
                 settingsScreen =  new SettingsScreen(this);
                 setScreen(settingsScreen);
                 break;
 
             case MAPSCREEN:
                 mapScreen = new MapScreen(this);
+                mapScreenStatus = true;
                 this.setScreen(mapScreen);
                 break;
 
             case JUMPSCREEN:
                 moveScreenJump = new MoveScreenJump(this, mapScreen.getMapScreen());
+                moveScreenStatus = true;
                 this.setScreen(moveScreenJump);
                 break;
 
@@ -100,6 +128,7 @@ public class DungeonEscape extends Game {
 
             case SQUATSCREEN:
                 moveScreenSquat = new MoveScreenSquat(this, mapScreen.getMapScreen());
+                moveScreenStatus = true;
                 this.setScreen(moveScreenSquat);
                 break;
         }
@@ -109,27 +138,23 @@ public class DungeonEscape extends Game {
         this.previousScreen = screen;
     }
 
+    public void setMoveScreenStatus(boolean status) {
+        this.moveScreenStatus = status;
+    }
+
     public SpriteBatch getBatch() {
         return batch;
     }
 
-    public void receiveSteps(int stepCount) {
-        System.out.println("Steps: " + stepCount);
-        this.stepTotal = stepCount;
-    }
 
-    boolean meterStance = true;
-    public boolean getMeterStance() {
-        return meterStance;
-    }
-
-    //AndroidLauncher launcher;
-//    public void getAndroidLauncher(AndroidApplication launcher) {
-//        this.launcher = launcher;
-//    }
-
-    public int getStepTotal() {
-        return stepTotal;
+    public void addSteps() {
+        // Is map screen open
+        if(mapScreenStatus) {
+            // Is movement screen open
+            if(!moveScreenStatus) {
+                mapScreen.addStep();
+            }
+        }
     }
 
     @Override
