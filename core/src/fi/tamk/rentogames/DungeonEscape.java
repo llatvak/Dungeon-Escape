@@ -62,7 +62,7 @@ public class DungeonEscape extends Game {
 
         batch = new SpriteBatch();
 
-        changeScreen(SPLASHSCREEN);
+        changeScreen(MAPSCREEN);
 
     }
 

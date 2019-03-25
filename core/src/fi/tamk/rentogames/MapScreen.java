@@ -34,6 +34,7 @@ public class MapScreen implements Screen {
 
     DungeonEscape game;
     MapPlayer player;
+    Level level;
     SpriteBatch batch;
 
     private boolean paused;
@@ -46,6 +47,7 @@ public class MapScreen implements Screen {
     // Map
     TiledMap tiledMap;
     OrthogonalTiledMapRenderer tiledMapRenderer;
+    int levelNumber;
 
     // Textures
     Texture background;
@@ -81,23 +83,19 @@ public class MapScreen implements Screen {
     public void onCreate() {
 
         batch = game.getBatch();
-        tiledMap = new TmxMapLoader().load("DungeonEscape_Map.tmx");
-        background = new Texture("brickwall.png");
 
-        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1/100f);
+        level = new Level();
+        tiledMap = level.getTiledMap();
+        tiledMapRenderer = level.getTiledMapRenderer();
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, worldWidth, worldHeight);
 
-        // Can these be created in Fonts() -class?
-        fontCamera = new OrthographicCamera();
-        fontCamera.setToOrtho(false, 360f, 640f);
-
         player = new MapPlayer(this);
 
         fonts = new Fonts();
-        fonts.createMediumFont();
-        fontRoboto = fonts.getFont(Fonts.MEDIUM);
+        fontRoboto = fonts.createMediumFont();
+        fontCamera = fonts.getCamera();
 
 
         viewport = new StretchViewport(360f, 640f, fontCamera);

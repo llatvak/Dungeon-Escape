@@ -73,14 +73,12 @@ abstract class MoveScreenMove implements Screen {
 
         backgroundTexture = new Texture(Gdx.files.internal("dungeonbg.png"));
         camera = new OrthographicCamera();
-        fontCamera = new OrthographicCamera();
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
-        fontCamera.setToOrtho(false, 360f, 640f);
 
         // Setting up fonts
         fonts = new Fonts();
-        fonts.createMediumFont();
-        fontRoboto = fonts.getFont(Fonts.MEDIUM);
+        fontRoboto = fonts.createMediumFont();
+        fontCamera = fonts.getCamera();
 
         myBundle = DungeonEscape.getMyBundle();
         locale = DungeonEscape.getLocale();
