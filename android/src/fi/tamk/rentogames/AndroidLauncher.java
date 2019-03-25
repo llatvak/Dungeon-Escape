@@ -1,4 +1,4 @@
-package fi.tamk.gameproject;
+package fi.tamk.rentogames;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -7,9 +7,6 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-
-import fi.tamk.rentogames.DungeonEscape;
-import fi.tamk.rentogames.PedometerStatus;
 
 
 public class AndroidLauncher extends AndroidApplication implements SensorEventListener, StepListener{

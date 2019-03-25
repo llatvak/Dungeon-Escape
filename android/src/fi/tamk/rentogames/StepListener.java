@@ -1,4 +1,4 @@
-package fi.tamk.gameproject;
+package fi.tamk.rentogames;
 
 // Will listen to step alerts
 public interface StepListener {

@@ -29,20 +29,20 @@ import java.util.Locale;
 
 public class MapScreen implements Screen {
 
-    final float WORLD_WIDTH = 360f / 100f;
-    final float WORLD_HEIGHT = 640f / 100f;
+    private float worldWidth;
+    private float worldHeight;
 
     DungeonEscape game;
     MapPlayer player;
     SpriteBatch batch;
 
-    boolean exists;
-    boolean paused;
+    private boolean paused;
 
     // Camera
     OrthographicCamera camera;
     OrthographicCamera fontCamera;
     Viewport viewport;
+
     // Map
     TiledMap tiledMap;
     OrthogonalTiledMapRenderer tiledMapRenderer;
@@ -57,8 +57,8 @@ public class MapScreen implements Screen {
     protected Skin skin;
     private Stage stage;
 
-    int stepTotal;
-    int oldStepTotal;
+    private int stepTotal;
+    private int oldStepTotal;
     private int savedSteps;
     private int stepsDelta;
     private int leftOverSteps;
@@ -73,14 +73,12 @@ public class MapScreen implements Screen {
 
     public MapScreen(DungeonEscape game) {
         this.game = game;
-        exists = true;
-        //resetSteps();
+        worldWidth = game.screenResolutionWidth / 100f;
+        worldHeight = game.screenResolutionHeight / 100f;
         onCreate();
     }
 
     public void onCreate() {
-
-
 
         batch = game.getBatch();
         tiledMap = new TmxMapLoader().load("DungeonEscape_Map.tmx");
@@ -89,7 +87,7 @@ public class MapScreen implements Screen {
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1/100f);
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
+        camera.setToOrtho(false, worldWidth, worldHeight);
 
         // Can these be created in Fonts() -class?
         fontCamera = new OrthographicCamera();
@@ -120,8 +118,6 @@ public class MapScreen implements Screen {
     }
 
     public void update() {
-
-        //stepTotal = game.getStepTotal();
         player.receiveSteps(stepTotal);
         countMovementPoints();
         player.checkAllowedMoves();

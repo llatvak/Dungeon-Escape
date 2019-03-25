@@ -37,8 +37,6 @@ public class DungeonEscape extends Game {
     public final static int BACK = 5;
     public final static int SQUATSCREEN = 6;
 
-    //int stepTotal;
-
     private static Locale locale;
     private static I18NBundle myBundle;
     private PedometerStatus pedometerStatus;
