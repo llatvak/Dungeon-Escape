@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -69,7 +68,6 @@ public class MapScreen implements Screen {
     Locale locale;
     I18NBundle myBundle;
 
-    TmxMapLoader mapLoader;
 
     public MapScreen(DungeonEscape game) {
         this.game = game;
@@ -80,7 +78,7 @@ public class MapScreen implements Screen {
     boolean keysCollected = true;
 
     public void changeLevel() {
-        if(level < 4) {
+        if(level < 3) {
             level++;
         }
         mapLevel.setLevel(level);
@@ -91,7 +89,8 @@ public class MapScreen implements Screen {
         Gdx.app.log("MapLevel", ": " + level);
         mapLevel.resetMap();
         mapLevel.createTiledMap();
-        player.spawn(level);
+        player.setMap();
+        player.spawn();
         tiledMapRenderer = mapLevel.getTiledMapRenderer();
     }
 
@@ -245,13 +244,12 @@ public class MapScreen implements Screen {
 
 
     public void goToDownTrap() {
-        Gdx.app.log("Down trap", "going to jumping trap");
-        game.changeScreen(DungeonEscape.JUMPSCREEN);
+        Gdx.app.log("Down trap", "going to crouching trap");
+        game.changeScreen(DungeonEscape.SQUATSCREEN);
     }
     public void goToUpTrap() {
-        Gdx.app.log("Up trap", "going to crouching trap");
-        // Needs new class UpScreen
-        game.changeScreen(DungeonEscape.SQUATSCREEN);
+        Gdx.app.log("Up trap", "going to jumping trap");
+        game.changeScreen(DungeonEscape.JUMPSCREEN);
     }
     public void goToStoryTile() {
         Gdx.app.log("Story", "going to story tile");

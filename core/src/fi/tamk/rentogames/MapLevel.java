@@ -27,7 +27,7 @@ public class MapLevel {
     }
 
     void createTiledMap() {
-        tiledMap = new TmxMapLoader().load("level"+level+".tmx");
+        tiledMap = new TmxMapLoader().load("map"+level+".tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1/100f);
         currentMap = tiledMap;
     }
@@ -35,7 +35,7 @@ public class MapLevel {
     public void resetMap(){
         Gdx.app.log("MapLevel", "reset");
         // reset all the vars that should be reset before the next mapLevel
-        tiledMap.dispose();
+        currentMap.dispose();
 
     }
 

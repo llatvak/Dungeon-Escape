@@ -20,6 +20,8 @@ public class MapPlayer extends Sprite {
 
     // Map size
     private final int TILE_SIZE = 64;
+
+    // Not used
     private final float MAP_WIDTH = 29 * TILE_SIZE;
     private final float MAP_HEIGHT = 39 * TILE_SIZE;
 
@@ -28,8 +30,8 @@ public class MapPlayer extends Sprite {
     private float spriteHeight = 62f;
 
     // Starting location
-    private float startingX = 2 * TILE_SIZE + 1f;
-    private float startingY = 26 * TILE_SIZE + 1f;
+    private float startingX = 8 * TILE_SIZE + 1f;
+    private float startingY = 1 * TILE_SIZE + 1f;
 
     private float spriteX = startingX;
     private float spriteY = startingY;
@@ -68,8 +70,8 @@ public class MapPlayer extends Sprite {
     public MapPlayer(MapScreen mapScreen, MapLevel mapLevel) {
         super( new Texture("velho.png"));
         this.mapScreen = mapScreen;
-        //this.mapLevel = mapLevel;
-        this.tiledMap = mapScreen.getWorldMap();
+        this.mapLevel = mapLevel;
+        this.tiledMap = mapLevel.getCurrentMap();
 
 
         setSize(spriteWidth, spriteHeight);
@@ -79,27 +81,14 @@ public class MapPlayer extends Sprite {
 
     }
 
-    public void spawn(int level) {
-        float x = 2 * TILE_SIZE + 1f;
-        float y = 27 * TILE_SIZE + 1f;
+    void setMap() {
+        this.tiledMap = mapLevel.getCurrentMap();
+    }
 
-        switch(level) {
-            case 2:
-                x = 2 * TILE_SIZE + 1f;
-                y = 27 * TILE_SIZE + 1f;
-                break;
-            case 3:
-                x = 2 * TILE_SIZE + 1f;
-                y = 31 * TILE_SIZE + 1f;
-                break;
-            case 4:
-                x = 4 * TILE_SIZE + 1f;
-                y = 31 * TILE_SIZE + 1f;
-                break;
-        }
-        spriteX = x;
-        spriteY = y;
-        setPosition(x,y);
+    public void spawn() {
+        spriteX = startingX;
+        spriteY = startingY;
+        setPosition(spriteX,spriteY);
     }
 
     // Can this method be reduced in size?
@@ -289,7 +278,7 @@ public class MapPlayer extends Sprite {
 
     private void checkLevelChange() {
         // Get the down trap rectangles layer
-        MapLayer downTrapObjectLayer = (MapLayer)tiledMap.getLayers().get("Level_change");
+        MapLayer downTrapObjectLayer = (MapLayer)tiledMap.getLayers().get("level-change");
         // All the rectangles of the layer
         MapObjects mapObjects = downTrapObjectLayer.getObjects();
         // Cast it to RectangleObjects array
@@ -311,7 +300,7 @@ public class MapPlayer extends Sprite {
 
     public void checkDownTraps() {
         // Get the down trap rectangles layer
-        MapLayer downTrapObjectLayer = (MapLayer)tiledMap.getLayers().get("Down_trap");
+        MapLayer downTrapObjectLayer = (MapLayer)tiledMap.getLayers().get("down-trap");
         // All the rectangles of the layer
         MapObjects mapObjects = downTrapObjectLayer.getObjects();
         // Cast it to RectangleObjects array
@@ -333,7 +322,7 @@ public class MapPlayer extends Sprite {
     }
 
     public void checkUpTraps() {
-        MapLayer upTrapObjectLayer = (MapLayer)tiledMap.getLayers().get("Up_trap");
+        MapLayer upTrapObjectLayer = (MapLayer)tiledMap.getLayers().get("up-trap");
         // All the rectangles of the layer
         MapObjects mapObjects = upTrapObjectLayer.getObjects();
         // Cast it to RectangleObjects array
@@ -352,7 +341,7 @@ public class MapPlayer extends Sprite {
         }
     }
     public void checkStoryTiles() {
-        MapLayer storyTileObjectLayer = (MapLayer)tiledMap.getLayers().get("Story_tiles");
+        MapLayer storyTileObjectLayer = (MapLayer)tiledMap.getLayers().get("story-object");
         // All the rectangles of the layer
         MapObjects mapObjects = storyTileObjectLayer.getObjects();
         // Cast it to RectangleObjects array

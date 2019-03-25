@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="17" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="14" nextobjectid="12">
+ <tileset firstgid="1" name="RPGpack_sheet" tilewidth="64" tileheight="64" tilecount="260" columns="20">
+  <image source="RPGpack_sheet.png" width="1280" height="832"/>
+ </tileset>
+ <layer id="1" name="Walls" width="17" height="17">
+  <data encoding="base64" compression="zlib">
+   eJzzZmBg8MaDGQjIw/BsPJiBgDwlZjBgMYMcgM0MfO4h1h3U8AsutcT4BVmMVu4YTmbgAoTMwGUmvrROyD5a5BdamIEPz2NgeEBIDQBAv3b1
+  </data>
+ </layer>
+ <layer id="12" name="PassableWalls" width="17" height="17">
+  <data encoding="base64" compression="zlib">
+   eJxjYMAPvAnIj4JRMApGASUAAE3fAEw=
+  </data>
+ </layer>
+ <layer id="2" name="Road" width="17" height="17">
+  <data encoding="base64" compression="zlib">
+   eJxjYMAP7hCQJwZI09AMbOLSZGBi7SPFfaS4mRwziPELLv9R0x3DyQxy0wc5aZwU+8gxezCYQQwAAESNB0w=
+  </data>
+ </layer>
+ <layer id="3" name="Keys" width="17" height="17">
+  <data encoding="base64" compression="zlib">
+   eJxjYBja4OdAO4AMQE83D8XwGYpgNJzJBwBuLgPl
+  </data>
+ </layer>
+ <layer id="4" name="Story" width="17" height="17">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIKBAwAEhAAB
+  </data>
+ </layer>
+ <layer id="5" name="DownTrap" width="17" height="17">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFQxmsQKNHwSgYagAAoLEBUQ==
+  </data>
+ </layer>
+ <layer id="6" name="UpTrap" width="17" height="17">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgZ4DsDw4OBdsMooBwA47FhoN0wCqgLAFJ7A08=
+  </data>
+ </layer>
+ <objectgroup color="#0de214" id="8" name="level-change">
+  <object id="2" x="545.333" y="53.3333">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#e8e801" id="13" name="keys">
+  <object id="4" x="95.667" y="499.667">
+   <point/>
+  </object>
+  <object id="5" x="542.333" y="370.333">
+   <point/>
+  </object>
+  <object id="8" x="928" y="181">
+   <point/>
+  </object>
+  <object id="11" x="415" y="818">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#fd9a21" id="10" name="down-trap">
+  <object id="7" x="671" y="432">
+   <point/>
+  </object>
+  <object id="10" x="800" y="431">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ec182d" id="9" name="up-trap">
+  <object id="6" x="468.333" y="237.667">
+   <point/>
+  </object>
+  <object id="9" x="159" y="688">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="11" name="story-object"/>
+</map>
