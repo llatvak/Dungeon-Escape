@@ -1,4 +1,4 @@
-package fi.tamk.gameproject;
+package fi.tamk.rentogames;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -38,7 +38,6 @@ public class DungeonEscape extends Game {
     public final static int SQUATSCREEN = 6;
 
     //int stepTotal;
-    int oldStepTotal;
 
     private static Locale locale;
     private static I18NBundle myBundle;

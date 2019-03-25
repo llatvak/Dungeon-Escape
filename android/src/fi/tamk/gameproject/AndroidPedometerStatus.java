@@ -1,5 +1,7 @@
 package fi.tamk.gameproject;
 
+import fi.tamk.rentogames.PedometerStatus;
+
 public class AndroidPedometerStatus implements PedometerStatus {
 
     AndroidLauncher launcher;
