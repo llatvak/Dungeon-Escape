@@ -20,12 +20,9 @@ abstract class MoveScreenMove implements Screen {
     private MapScreen mapScreen;
     private DungeonEscape game;
 
-    private SpriteBatch batch;
-
     // Camera attributes
-    public OrthographicCamera camera;
+    private OrthographicCamera camera;
     private Box2DDebugRenderer debugRenderer;
-    public OrthographicCamera fontCamera;
 
     // Textures
     private Texture backgroundTexture;
@@ -33,8 +30,6 @@ abstract class MoveScreenMove implements Screen {
     // World attributes
     private static World world;
     public static final boolean DEBUG_PHYSICS = true;
-    public  static final float WORLD_WIDTH = 3.6f;
-    public  static final float WORLD_HEIGHT = 6.4f;
     private double accumulator = 0;
     private float TIME_STEP = 1/60f;
 
@@ -49,8 +44,8 @@ abstract class MoveScreenMove implements Screen {
     private float fontWidth;
     private float fontHeight;
 
-    Locale locale;
-    I18NBundle myBundle;
+    private Locale locale;
+    private I18NBundle myBundle;
 
     public MoveScreenMove(DungeonEscape game, MapScreen mapScreen) {
         // Current game and screen
@@ -58,7 +53,6 @@ abstract class MoveScreenMove implements Screen {
         this.mapScreen = mapScreen;
         onCreate();
     }
-
 
     public void onCreate() {
         // Sets Box2D attributes, gravitation etc.
@@ -69,17 +63,16 @@ abstract class MoveScreenMove implements Screen {
 
         // Sets all objects in world
         player = new MoveScreenPlayer(world);
-        ground = new MoveScreenGround(world);
+        ground = new MoveScreenGround(world, game.gameWidth);
 
         backgroundTexture = new Texture(Gdx.files.internal("dungeonbg.png"));
 
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
+        camera = game.getGameCamera();
+        camera.setToOrtho(false, game.gameWidth, game.gameHeight);
 
         // Setting up fonts
         fonts = new Fonts();
         fontRoboto = fonts.createMediumFont();
-        fontCamera = fonts.getCamera();
 
         myBundle = DungeonEscape.getMyBundle();
         locale = DungeonEscape.getLocale();
@@ -88,7 +81,7 @@ abstract class MoveScreenMove implements Screen {
     public void debug() {
         // Is script working correctly
         if(DEBUG_PHYSICS) {
-            debugRenderer.render(world, camera.combined);
+            debugRenderer.render(world, game.getGameCamera().combined);
         }
     }
 
@@ -130,6 +123,14 @@ abstract class MoveScreenMove implements Screen {
         this.game = game;
     }
 
+    public I18NBundle getMyBundle() {
+        return myBundle;
+    }
+
+    public World getWorld() {
+        return world;
+    }
+
     public Texture getBackgroundTexture() {
         return backgroundTexture;
     }
@@ -167,5 +168,6 @@ abstract class MoveScreenMove implements Screen {
         backgroundTexture.dispose();
         game.dispose();
         fontRoboto.dispose();
+        getPlayer().dispose();
     }
 }

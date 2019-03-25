@@ -28,7 +28,7 @@ public class MoveScreenPlayer {
     private int countedJumps = 0;
     private boolean playerMoving = false;
 
-    int squatStateTime = 0;
+    private int squatStateTime = 0;
 
 
     public MoveScreenPlayer(World w) {

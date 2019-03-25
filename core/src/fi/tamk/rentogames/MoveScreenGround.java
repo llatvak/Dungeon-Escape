@@ -7,10 +7,12 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class MoveScreenGround {
     private static World world;
+    private float gameWidth;
 
-    public MoveScreenGround(World w) {
+    public MoveScreenGround(World w, Float gW) {
         // Current world
         world = w;
+        gameWidth = gW;
         // Creates body to world and gets definitions and fixtures to it
         Body groundBody = world.createBody(getGroundBodyDef());
         groundBody.createFixture(getGroundShape(), 0.0f);
@@ -20,14 +22,14 @@ public class MoveScreenGround {
     private BodyDef getGroundBodyDef() {
         BodyDef myBodyDef = new BodyDef();
         myBodyDef.type = BodyDef.BodyType.StaticBody;
-        myBodyDef.position.set(MoveScreenJump.WORLD_WIDTH/2, 0.25f);
+        myBodyDef.position.set(gameWidth/2, 0.25f);
         return myBodyDef;
     }
 
     // Sets ground body shape and size and returns the shape
     private PolygonShape getGroundShape() {
         PolygonShape groundBox = new PolygonShape();
-        groundBox.setAsBox(MoveScreenJump.WORLD_WIDTH/2, 0.25f);
+        groundBox.setAsBox(gameWidth/2, 0.25f);
         return groundBox;
     }
 }
