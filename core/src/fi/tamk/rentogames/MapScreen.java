@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -30,7 +31,7 @@ public class MapScreen implements Screen {
 
     DungeonEscape game;
     MapPlayer player;
-    Level level;
+    MapLevel mapLevel;
     SpriteBatch batch;
 
     private boolean paused;
@@ -43,7 +44,6 @@ public class MapScreen implements Screen {
     // Map
     TiledMap tiledMap;
     OrthogonalTiledMapRenderer tiledMapRenderer;
-    int levelNumber;
 
     // Textures
     Texture background;
@@ -69,22 +69,43 @@ public class MapScreen implements Screen {
     Locale locale;
     I18NBundle myBundle;
 
+    TmxMapLoader mapLoader;
+
     public MapScreen(DungeonEscape game) {
         this.game = game;
         onCreate();
     }
 
+    int level = 1;
+    boolean keysCollected = true;
+
+    public void changeLevel() {
+        if(level < 4) {
+            level++;
+        }
+        mapLevel.setLevel(level);
+        changeMap();
+    }
+
+    public void changeMap() {
+        Gdx.app.log("MapLevel", ": " + level);
+        mapLevel.resetMap();
+        mapLevel.createTiledMap();
+        player.spawn(level);
+        tiledMapRenderer = mapLevel.getTiledMapRenderer();
+    }
+
+
     public void onCreate() {
 
         batch = game.getBatch();
-
-        level = new Level();
-        tiledMap = level.getCurrentMap();
-        tiledMapRenderer = level.getTiledMapRenderer();
+        mapLevel = new MapLevel(game);
+        tiledMap = mapLevel.getCurrentMap();
+        tiledMapRenderer = mapLevel.getTiledMapRenderer();
 
         camera = game.getGameCamera();
 
-        player = new MapPlayer(this, level);
+        player = new MapPlayer(this, mapLevel);
 
         fonts = new Fonts();
         fontRoboto = fonts.createMediumFont();
@@ -104,6 +125,7 @@ public class MapScreen implements Screen {
         myBundle = DungeonEscape.getMyBundle();
         locale = DungeonEscape.getLocale();
     }
+
 
     public void update() {
         player.receiveSteps(stepTotal);

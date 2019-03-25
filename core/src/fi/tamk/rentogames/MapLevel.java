@@ -1,31 +1,52 @@
 package fi.tamk.rentogames;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
-public class Level {
+public class MapLevel {
+
+    DungeonEscape game;
 
     TiledMap tiledMap;
-
-
 
     TiledMap currentMap;
     OrthogonalTiledMapRenderer tiledMapRenderer;
 
-    Level() {
+    int level = 1;
+
+    MapLevel(DungeonEscape game) {
+        this.game = game;
         onCreate();
     }
 
     void onCreate() {
+        setLevel(1);
         createTiledMap();
-        createTiledMapRenderer();
     }
 
     void createTiledMap() {
-        tiledMap = new TmxMapLoader().load("DungeonEscape_Map.tmx");
+        tiledMap = new TmxMapLoader().load("level"+level+".tmx");
+        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1/100f);
         currentMap = tiledMap;
     }
+
+    public void resetMap(){
+        Gdx.app.log("MapLevel", "reset");
+        // reset all the vars that should be reset before the next mapLevel
+        tiledMap.dispose();
+
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
 
     public TiledMap getCurrentMap() {
         return currentMap;

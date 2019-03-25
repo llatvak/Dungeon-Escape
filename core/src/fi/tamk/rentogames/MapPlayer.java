@@ -16,6 +16,7 @@ public class MapPlayer extends Sprite {
     private DungeonEscape game;
     private MapScreen mapScreen;
     private TiledMap tiledMap;
+    private MapLevel mapLevel;
 
     // Map size
     private final int TILE_SIZE = 64;
@@ -64,10 +65,12 @@ public class MapPlayer extends Sprite {
 
 
 
-    public MapPlayer(MapScreen mapScreen, Level level) {
+    public MapPlayer(MapScreen mapScreen, MapLevel mapLevel) {
         super( new Texture("velho.png"));
         this.mapScreen = mapScreen;
-        this.tiledMap = level.getCurrentMap();
+        //this.mapLevel = mapLevel;
+        this.tiledMap = mapScreen.getWorldMap();
+
 
         setSize(spriteWidth, spriteHeight);
         setPosition(startingX, startingY);
@@ -76,6 +79,28 @@ public class MapPlayer extends Sprite {
 
     }
 
+    public void spawn(int level) {
+        float x = 2 * TILE_SIZE + 1f;
+        float y = 27 * TILE_SIZE + 1f;
+
+        switch(level) {
+            case 2:
+                x = 2 * TILE_SIZE + 1f;
+                y = 27 * TILE_SIZE + 1f;
+                break;
+            case 3:
+                x = 2 * TILE_SIZE + 1f;
+                y = 31 * TILE_SIZE + 1f;
+                break;
+            case 4:
+                x = 4 * TILE_SIZE + 1f;
+                y = 31 * TILE_SIZE + 1f;
+                break;
+        }
+        spriteX = x;
+        spriteY = y;
+        setPosition(x,y);
+    }
 
     // Can this method be reduced in size?
     public void move(){
@@ -274,7 +299,10 @@ public class MapPlayer extends Sprite {
             Rectangle rectangle = rectangleObject.getRectangle();
             // SCALE given rectangle down if using world dimensions!
             if (getBoundingRectangle().overlaps(rectangle) && movedDistance == TILE_SIZE) {
-                Gdx.app.log("Level", "change");
+                if(mapScreen.keysCollected) {
+                    mapScreen.changeLevel();
+                }
+
 
             }
         }
