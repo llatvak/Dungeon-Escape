@@ -9,8 +9,8 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 public class Fonts {
 
-    public final static int SMALL = 0;
-    public final static int MEDIUM = 1;
+    private final static int SMALL = 0;
+    private final static int MEDIUM = 1;
 
     private BitmapFont fontRobotoSm;
     private BitmapFont fontRobotoMed;
@@ -20,16 +20,16 @@ public class Fonts {
 
     private OrthographicCamera fontCamera;
 
-    public Fonts(){
+    Fonts(){
         createFontCamera();
     }
 
-    public void createFontCamera(){
+    private void createFontCamera(){
         fontCamera = new OrthographicCamera();
         fontCamera.setToOrtho(false, 360f, 640f);
     }
 
-    public OrthographicCamera getCamera() {
+    OrthographicCamera getCamera() {
         return fontCamera;
     }
 
@@ -44,7 +44,7 @@ public class Fonts {
         return fontRobotoSm;
     }
 
-    public BitmapFont createMediumFont() {
+    BitmapFont createMediumFont() {
         fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Regular.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 24;
@@ -54,7 +54,6 @@ public class Fonts {
 
         return fontRobotoMed;
     }
-
 
     public BitmapFont getFont(int size) {
         if(size == SMALL) {

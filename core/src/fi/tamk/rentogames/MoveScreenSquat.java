@@ -14,13 +14,13 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
     private Texture arrowTexture;
     private Rectangle arrowRect;
 
-    public MoveScreenSquat(DungeonEscape game, MapScreen mapScreen) {
+    MoveScreenSquat(DungeonEscape game, MapScreen mapScreen) {
         super(game, mapScreen);
         onCreates();
     }
 
     // Sets up the world for box2D and camera used
-    public void onCreates() {
+    private void onCreates() {
         batch = getGame().getBatch();
 
         // Arrow trap in squat screen drawn on rectangle
@@ -63,7 +63,7 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
         doPhysicsStep(Gdx.graphics.getDeltaTime());
     }
 
-    public void update() {
+    private void update() {
         // Player jumping and checking user input
         getPlayer().playerSquat();
         getPlayer().checkInput();

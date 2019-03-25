@@ -18,8 +18,6 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import java.util.Locale;
-
 public class MainMenu implements Screen {
 
     private Stage stage;
@@ -30,27 +28,17 @@ public class MainMenu implements Screen {
     private OrthographicCamera camera;
 
     private  Texture background;
-    protected Skin skin;
+    private Skin skin;
 
-    Locale locale;
-    I18NBundle myBundle;
+    private I18NBundle myBundle;
 
-    TextButton playButton;
-    TextButton settingsButton;
-    TextButton exitButton;
-
-    Table topTable;
-    Table mainTable;
-
-
-    public MainMenu(DungeonEscape game) {
+    MainMenu(DungeonEscape game) {
         this.batch = game.getBatch();
         this.game = game;
         onCreate();
     }
 
-    public void onCreate() {
-
+    private void onCreate() {
         background = new Texture("menu.png");
 
         camera = game.getScreenCamera();
@@ -60,23 +48,19 @@ public class MainMenu implements Screen {
         camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
         camera.update();
 
-
         //atlas = new TextureAtlas("skin.atlas");
         skin = new Skin( Gdx.files.internal("dark-peel-ui.json") );
         stage = new Stage(viewport, batch);
-
-
     }
 
     @Override
     public void show() {
-        locale = DungeonEscape.getLocale();
         myBundle = DungeonEscape.getMyBundle();
 
         Gdx.input.setInputProcessor(stage);
 
         //Create Table
-        topTable = new Table();
+        Table topTable = new Table();
 
         //Set table to fill stage
         topTable.setFillParent(true);
@@ -92,13 +76,11 @@ public class MainMenu implements Screen {
         TextButton langEngButton = new TextButton("ENG", skin);
 
         //Add listeners to buttons
-
         langFinButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.log("Language", "Finnish");
                 DungeonEscape.setLanguage("fi", "FI", "MyBundle_fi_FI");
-                locale = DungeonEscape.getLocale();
                 myBundle = DungeonEscape.getMyBundle();
                 setLocaleFin();
             }
@@ -109,7 +91,6 @@ public class MainMenu implements Screen {
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.log("Language", "English");
                 DungeonEscape.setLanguage("en", "US", "MyBundle_en_US");
-                locale = DungeonEscape.getLocale();
                 myBundle = DungeonEscape.getMyBundle();
                 setLocaleEng();
             }
@@ -127,15 +108,15 @@ public class MainMenu implements Screen {
         gameInit();
     }
 
-    public void gameInit() {
-        mainTable = new Table();
+    private void gameInit() {
+        Table mainTable = new Table();
         mainTable.setFillParent(true);
         mainTable.setDebug(false);
         mainTable.center();
 
-        playButton = new TextButton(myBundle.get("playbutton"), skin);
-        settingsButton = new TextButton(myBundle.get("settingsbutton"), skin);
-        exitButton = new TextButton(myBundle.get("exitbutton"), skin);
+        TextButton playButton = new TextButton(myBundle.get("playbutton"), skin);
+        TextButton settingsButton = new TextButton(myBundle.get("settingsbutton"), skin);
+        TextButton exitButton = new TextButton(myBundle.get("exitbutton"), skin);
 
         playButton.addListener(new ChangeListener(){
             @Override
@@ -171,11 +152,11 @@ public class MainMenu implements Screen {
         stage.addActor(mainTable);
     }
 
-    public void setLocaleFin() {
+    private void setLocaleFin() {
         gameInit();
     }
 
-    public void setLocaleEng() {
+    private void setLocaleEng() {
         gameInit();
     }
 

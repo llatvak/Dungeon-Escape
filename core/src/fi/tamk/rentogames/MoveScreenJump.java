@@ -18,13 +18,13 @@ public class MoveScreenJump extends MoveScreenMove implements Screen {
     private float spikeWidth;
     private float spikeHeight;
 
-    public MoveScreenJump(DungeonEscape game, MapScreen mapScreen) {
+    MoveScreenJump(DungeonEscape game, MapScreen mapScreen) {
         super(game, mapScreen);
         onCreates();
     }
 
     // Sets up the world for box2D and camera used
-    public void onCreates() {
+    private void onCreates() {
         batch = getGame().getBatch();
 
         // Setting the background texture and camera
@@ -70,7 +70,7 @@ public class MoveScreenJump extends MoveScreenMove implements Screen {
         doPhysicsStep(Gdx.graphics.getDeltaTime());
     }
 
-    public void update() {
+    private void update() {
         // Player jumping and checking user input
         getPlayer().playerJump();
         getPlayer().checkInput();

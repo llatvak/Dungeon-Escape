@@ -4,33 +4,33 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
-public class Level {
+class Level {
 
-    TiledMap tiledMap;
-    OrthogonalTiledMapRenderer tiledMapRenderer;
+    private TiledMap tiledMap;
+    private OrthogonalTiledMapRenderer tiledMapRenderer;
 
-    public Level() {
+    Level() {
         onCreate();
     }
 
-    public void onCreate() {
+    private void onCreate() {
         createTiledMap();
         createTiledMapRenderer();
     }
 
-    public void createTiledMap() {
+    private void createTiledMap() {
         tiledMap = new TmxMapLoader().load("DungeonEscape_Map.tmx");
     }
 
-    public void createTiledMapRenderer() {
+    private void createTiledMapRenderer() {
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1/100f);
     }
 
-    public TiledMap getTiledMap() {
+    TiledMap getTiledMap() {
         return this.tiledMap;
     }
 
-    public OrthogonalTiledMapRenderer getTiledMapRenderer() {
+    OrthogonalTiledMapRenderer getTiledMapRenderer() {
         return this.tiledMapRenderer;
     }
 }

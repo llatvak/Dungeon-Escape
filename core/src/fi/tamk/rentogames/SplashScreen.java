@@ -24,7 +24,7 @@ public class SplashScreen implements Screen {
     //Test to count switching screen (does not reflect the actual runtime ATM)!
     private float stateTime = 0;
 
-    public SplashScreen(final DungeonEscape game) {
+    SplashScreen(final DungeonEscape game) {
         // Using DungeonEscape class camera to set viewport to stage
         this.game = game;
         this.stage = new Stage(new StretchViewport(game.screenWidth, game.screenHeight, game.getScreenCamera()));
@@ -97,7 +97,7 @@ public class SplashScreen implements Screen {
 
     }
 
-    public void update(float delta) {
+    private void update(float delta) {
         stage.act(delta);
         stateTime += delta;
 

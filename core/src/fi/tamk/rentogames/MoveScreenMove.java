@@ -2,17 +2,12 @@ package fi.tamk.rentogames;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.I18NBundle;
-
-import java.util.Locale;
 
 abstract class MoveScreenMove implements Screen {
 
@@ -21,7 +16,6 @@ abstract class MoveScreenMove implements Screen {
     private DungeonEscape game;
 
     // Camera attributes
-    private OrthographicCamera camera;
     private Box2DDebugRenderer debugRenderer;
 
     // Textures
@@ -29,32 +23,25 @@ abstract class MoveScreenMove implements Screen {
 
     // World attributes
     private static World world;
-    public static final boolean DEBUG_PHYSICS = true;
+    private static final boolean DEBUG_PHYSICS = true;
     private double accumulator = 0;
-    private float TIME_STEP = 1/60f;
 
     // World objects
     private MoveScreenPlayer player;
-    private MoveScreenGround ground;
 
     // Fonts
-    private Fonts fonts;
     private BitmapFont fontRoboto;
-    private GlyphLayout layout;
-    private float fontWidth;
-    private float fontHeight;
 
-    private Locale locale;
     private I18NBundle myBundle;
 
-    public MoveScreenMove(DungeonEscape game, MapScreen mapScreen) {
+    MoveScreenMove(DungeonEscape game, MapScreen mapScreen) {
         // Current game and screen
         this.game = game;
         this.mapScreen = mapScreen;
         onCreate();
     }
 
-    public void onCreate() {
+    private void onCreate() {
         // Sets Box2D attributes, gravitation etc.
         world = new World(new Vector2(0, -9.8f), true);
 
@@ -63,22 +50,20 @@ abstract class MoveScreenMove implements Screen {
 
         // Sets all objects in world
         player = new MoveScreenPlayer(world);
-        ground = new MoveScreenGround(world, game.gameWidth);
+        new MoveScreenGround(world, game.gameWidth);
 
         backgroundTexture = new Texture(Gdx.files.internal("dungeonbg.png"));
 
-        camera = game.getGameCamera();
-        camera.setToOrtho(false, game.gameWidth, game.gameHeight);
+        game.getGameCamera().setToOrtho(false, game.gameWidth, game.gameHeight);
 
         // Setting up fonts
-        fonts = new Fonts();
+        Fonts fonts = new Fonts();
         fontRoboto = fonts.createMediumFont();
 
         myBundle = DungeonEscape.getMyBundle();
-        locale = DungeonEscape.getLocale();
     }
 
-    public void debug() {
+    void debug() {
         // Is script working correctly
         if(DEBUG_PHYSICS) {
             debugRenderer.render(world, game.getGameCamera().combined);
@@ -123,33 +108,30 @@ abstract class MoveScreenMove implements Screen {
         this.game = game;
     }
 
-    public I18NBundle getMyBundle() {
+    I18NBundle getMyBundle() {
         return myBundle;
     }
 
-    public World getWorld() {
-        return world;
-    }
-
-    public Texture getBackgroundTexture() {
+    Texture getBackgroundTexture() {
         return backgroundTexture;
     }
 
 
-    public MoveScreenPlayer getPlayer() {
+    MoveScreenPlayer getPlayer() {
         return player;
     }
 
-    public BitmapFont getFontRoboto() {
+    BitmapFont getFontRoboto() {
         return fontRoboto;
     }
 
 
-    public MapScreen getMapScreen() {
+    MapScreen getMapScreen() {
         return mapScreen;
     }
 
-    public void doPhysicsStep(float deltaTime) {
+    void doPhysicsStep(float deltaTime) {
+        float TIME_STEP = 1/60f;
         float frameTime = deltaTime;
         if(deltaTime > 1/4f) {
             frameTime = 1/4f;

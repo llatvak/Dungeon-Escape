@@ -5,16 +5,14 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class MoveScreenGround {
-    private static World world;
+class MoveScreenGround {
     private float gameWidth;
 
-    public MoveScreenGround(World w, Float gW) {
+    MoveScreenGround(World w, Float gW) {
         // Current world
-        world = w;
         gameWidth = gW;
         // Creates body to world and gets definitions and fixtures to it
-        Body groundBody = world.createBody(getGroundBodyDef());
+        Body groundBody = w.createBody(getGroundBodyDef());
         groundBody.createFixture(getGroundShape(), 0.0f);
     }
 
