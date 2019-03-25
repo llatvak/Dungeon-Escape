@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -28,9 +27,6 @@ import java.util.Locale;
 
 
 public class MapScreen implements Screen {
-
-    private float worldWidth;
-    private float worldHeight;
 
     DungeonEscape game;
     MapPlayer player;
@@ -75,8 +71,6 @@ public class MapScreen implements Screen {
 
     public MapScreen(DungeonEscape game) {
         this.game = game;
-        worldWidth = game.screenResolutionWidth / 100f;
-        worldHeight = game.screenResolutionHeight / 100f;
         onCreate();
     }
 
@@ -88,8 +82,7 @@ public class MapScreen implements Screen {
         tiledMap = level.getTiledMap();
         tiledMapRenderer = level.getTiledMapRenderer();
 
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, worldWidth, worldHeight);
+        camera = game.getGameCamera();
 
         player = new MapPlayer(this);
 
@@ -97,16 +90,13 @@ public class MapScreen implements Screen {
         fontRoboto = fonts.createMediumFont();
         fontCamera = fonts.getCamera();
 
-
-        viewport = new StretchViewport(360f, 640f, fontCamera);
+        viewport = new StretchViewport(game.screenWidth, game.screenHeight, fontCamera);
         viewport.apply();
 
+        stage = new Stage(viewport, batch);
         skin = new Skin( Gdx.files.internal("dark-peel-ui.json") );
-
         stepsProgressBar = new ProgressBar(0, player.STEPSTOMOVE,1,false,skin, "default-horizontal");
         stepsProgressBar.setAnimateDuration(0.5f);
-
-        stage = new Stage(viewport, batch);
 
         fontCamera.position.set(fontCamera.viewportWidth / 2, fontCamera.viewportHeight / 2, 0);
         fontCamera.update();

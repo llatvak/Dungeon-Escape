@@ -9,12 +9,17 @@ import com.badlogic.gdx.utils.I18NBundle;
 import java.util.Locale;
 
 public class DungeonEscape extends Game {
-    public final float screenResolutionWidth = 360;
-    public final float screenResolutionHeight = 640;
+    public final float screenWidth = 360f;
+    public final float screenHeight = 640f;
+
+    public final float gameWidth = 360f / 100f;
+    public final float gameHeight = 640f / 100f;
 
 	SpriteBatch batch;
 
-	public OrthographicCamera camera;
+	public OrthographicCamera screenCamera;
+    public OrthographicCamera gameCamera;
+
 
 	private SplashScreen splashScreen;
 
@@ -50,20 +55,29 @@ public class DungeonEscape extends Game {
 
     @Override
     public void create () {
-        setLanguage("fi", "FI", "MyBundle_fi_FI");
-
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, 360f, 640f);
-
-        // Get device screen resolution
-        //screenResolutionWidth = Gdx.graphics.getWidth();
-        //screenResolutionHeight = Gdx.graphics.getHeight();
         System.out.println(Gdx.graphics.getWidth() +" x "+ Gdx.graphics.getHeight());
 
+        setLanguage("fi", "FI", "MyBundle_fi_FI");
+        createCameras();
         batch = new SpriteBatch();
-
         changeScreen(SPLASHSCREEN);
 
+    }
+
+    public void createCameras() {
+        screenCamera = new OrthographicCamera();
+        screenCamera.setToOrtho(false, screenWidth, screenHeight);
+
+        gameCamera = new OrthographicCamera();
+        gameCamera.setToOrtho(false, gameWidth, gameHeight);
+    }
+
+    public OrthographicCamera getScreenCamera() {
+        return this.screenCamera;
+    }
+
+    public OrthographicCamera getGameCamera() {
+        return this.gameCamera;
     }
 
     public static void setLanguage(String s1, String s2, String s3) {

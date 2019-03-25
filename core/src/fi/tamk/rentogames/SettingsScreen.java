@@ -44,8 +44,8 @@ public class SettingsScreen implements Screen {
 
         background = new Texture("settings.png");
 
-        camera = new OrthographicCamera();
-        viewport = new StretchViewport(360f, 640f, camera);
+        camera = game.getScreenCamera();
+        viewport = new StretchViewport(game.screenWidth, game.screenHeight, camera);
         viewport.apply();
 
         camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);

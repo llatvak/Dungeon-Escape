@@ -72,6 +72,7 @@ abstract class MoveScreenMove implements Screen {
         ground = new MoveScreenGround(world);
 
         backgroundTexture = new Texture(Gdx.files.internal("dungeonbg.png"));
+
         camera = new OrthographicCamera();
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
 

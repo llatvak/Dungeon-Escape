@@ -27,7 +27,7 @@ public class SplashScreen implements Screen {
     public SplashScreen(final DungeonEscape game) {
         // Using DungeonEscape class camera to set viewport to stage
         this.game = game;
-        this.stage = new Stage(new StretchViewport(game.screenResolutionWidth, game.screenResolutionHeight, game.camera));
+        this.stage = new Stage(new StretchViewport(game.screenWidth, game.screenHeight, game.getScreenCamera()));
 
         // Rento texture to img
         Texture rentoTex = new Texture(Gdx.files.internal("rentologo.png"));
