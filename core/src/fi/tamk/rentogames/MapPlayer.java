@@ -47,7 +47,7 @@ public class MapPlayer extends Sprite {
     private int stepTotal;
     // Amount of steps to move one tile
     public final int STEPSTOMOVE = 10;
-    private final int INITIAL_POINTS = 40;
+    private final int INITIAL_POINTS = 100;
     int movementPoints;
     boolean allowMovement;
     private float movementSpeed = 4f;
@@ -62,14 +62,14 @@ public class MapPlayer extends Sprite {
     private boolean downRightCollision;
 
     // Layer names
-    private String jumpingTrap = "up-trap";
-    private String squatTrap = "down-trap";
+    private String jumpingTrap = "jump-trap";
+    private String squatTrap = "squat-trap";
     private String levelChangeObject = "level-change";
     private String storyObject = "story-object";
     private String keyObject = "keys";
     // Boolean values for stepping on up/down trap
-    private boolean onUpTrap = false;
-    private boolean onDownTrap = false;
+    private boolean onJumpTrap = false;
+    private boolean onSquatTrap = false;
 
 
 
@@ -299,23 +299,26 @@ public class MapPlayer extends Sprite {
             if (getBoundingRectangle().overlaps(rectangle) && movedDistance == TILE_SIZE) {
 
                 if(layer.equals(jumpingTrap) ) {
-                    onDownTrap = true;
-                    onUpTrap = false;
+                    onSquatTrap = false;
+                    onJumpTrap = true;
                     if(!mapScreen.buttonUp) {
-                        mapScreen.trapConfirm(onDownTrap, onUpTrap);
+                        mapScreen.trapConfirm(onSquatTrap, onJumpTrap);
                     }
                 }
 
                 if(layer.equals(squatTrap) ) {
-                    onUpTrap = true;
-                    onDownTrap = false;
+                    onJumpTrap = false;
+                    onSquatTrap = true;
                     if(!mapScreen.buttonUp) {
-                        mapScreen.trapConfirm(onDownTrap, onUpTrap);
+                        mapScreen.trapConfirm(onSquatTrap, onJumpTrap);
                     }
                 }
 
                 if(layer.equals(keyObject) ) {
                     mapScreen.keyAmount++;
+                    if (getBoundingRectangle().overlaps(rectangle)) {
+                        clearKeys(rectangle.getX(), rectangle.getY());
+                    }
                     Gdx.app.log("Collected", "keys: " + mapScreen.keyAmount);
                 }
 
@@ -328,11 +331,19 @@ public class MapPlayer extends Sprite {
                 }
 
                 if(layer.equals(storyObject) ) {
-                    mapScreen.goToStoryTile();
+                    mapScreen.goToStoryScreen();
                 }
 
             }
         }
+    }
+
+    private void clearKeys(float xCoord, float yCoord) {
+        int indexX = (int) xCoord / TILE_SIZE;
+        int indexY = (int) yCoord / TILE_SIZE;
+
+        TiledMapTileLayer wallCells = (TiledMapTileLayer) tiledMap.getLayers().get("Keys");
+        wallCells.setCell(indexX, indexY, null);
     }
 
 

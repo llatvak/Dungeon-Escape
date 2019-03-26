@@ -5,22 +5,22 @@
  </tileset>
  <layer id="1" name="Walls" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJzzZmBg8MaDGQjIw/BsPJiBgPyoGcSbgQ2QYwYx7qGHGQxUMAOXeQPhF2QwVNMYqWbgw/MYGB4QUgMAgkGJug==
+   eJzzZmBg8KYCno0DuzNAgCceNYTMmA01A5/8SDEDGyDHDGLcQw8zGKhgBi7zBsIvyGCopjFSzcCH5zEwPCCkBgAetolf
   </data>
  </layer>
  <layer id="12" name="PassableWalls" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYMAPvAnIj4JRMApGASUAAE3fAEw=
+   eJxjYKA9KKaDHaNgFIyCoQkA3vMAdA==
   </data>
  </layer>
  <layer id="2" name="Road" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYMAP7hCQJwZIj5pBNTOksWBK7R9IM6TR+JS4Y6DDg9J4ocT+wWoGMQAAg3IEBw==
+   eJxjYKA9uEMFM6RHzYDrRceU2j+QZkij8Slxx0CHB6XxQon9g9UMYgAA2ZMD7A==
   </data>
  </layer>
  <layer id="3" name="Keys" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFpICfA+2AYQaoGZ6jcTM0AQDjbgLs
+   eJxjYBgFpIBvA+2AYQaoGZ6jcTM0AQDOPgLj
   </data>
  </layer>
  <layer id="4" name="Story" width="17" height="17">
@@ -28,18 +28,18 @@
    eJxjYBgFo2AUjIKBAwAEhAAB
   </data>
  </layer>
- <layer id="5" name="DownTrap" width="17" height="17">
+ <layer id="5" name="SquatTrap" width="17" height="17">
   <data encoding="base64" compression="zlib">
    eJxjYBgFQxGsGGgHjAKsYOVAO2AIAgCl1gFS
   </data>
  </layer>
- <layer id="6" name="UpTrap" width="17" height="17">
+ <layer id="6" name="JumpTrap" width="17" height="17">
   <data encoding="base64" compression="zlib">
    eJxjYBgFo2AUjIKBAwAEhAAB
   </data>
  </layer>
  <objectgroup color="#0de214" id="8" name="level-change">
-  <object id="2" x="545.333" y="53.3333">
+  <object id="2" x="542.666" y="117.333">
    <point/>
   </object>
  </objectgroup>
@@ -54,7 +54,7 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup color="#fd9a21" id="10" name="down-trap">
+ <objectgroup color="#fd9a21" id="10" name="squat-trap">
   <object id="7" x="543" y="812">
    <point/>
   </object>
@@ -62,6 +62,6 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup color="#ec182d" id="9" name="up-trap"/>
+ <objectgroup color="#ec182d" id="9" name="jump-trap"/>
  <objectgroup id="11" name="story-object"/>
 </map>

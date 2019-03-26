@@ -217,6 +217,8 @@ public class MapScreen implements Screen {
 
     public void changeMap() {
         Gdx.app.log("MapLevel", ": " + level);
+        keyAmount = 0;
+        keysCollected = false;
         mapLevel.resetMap();
         mapLevel.createTiledMap();
         player.setMap();
@@ -224,14 +226,14 @@ public class MapScreen implements Screen {
         tiledMapRenderer = mapLevel.getTiledMapRenderer();
     }
 
-    public void trapConfirm(final boolean onDown, final boolean onUp) {
+    public void trapConfirm(final boolean onSquat, final boolean onJump) {
         Gdx.app.log("Button", "created");
         buttonUp = true;
 
         final TextButton confirmButton = new TextButton(myBundle.get("readybutton"), skin, "maroon");
         confirmButton.setWidth(160f);
         confirmButton.setHeight(70f);
-        confirmButton.setPosition(360f / 2 - 80f, 640f / 2 - 110f);
+        confirmButton.setPosition(360f / 2 - 80f, 640f / 2 + 50f);
 
         stage.addActor(confirmButton);
 
@@ -247,11 +249,11 @@ public class MapScreen implements Screen {
                 buttonUp = false;
 
                 // Using boolean values checks trapscreen
-                if(onDown) {
-                    goToDownTrap();
+                if(onSquat) {
+                    goToSquatTrap();
                 }
-                if(onUp) {
-                    goToUpTrap();
+                if(onJump) {
+                    goToJumpTrap();
                 }
 
                 player.addMovementPoint();
@@ -260,16 +262,16 @@ public class MapScreen implements Screen {
     }
 
 
-    public void goToDownTrap() {
+    public void goToSquatTrap() {
         Gdx.app.log("Down trap", "going to crouching trap");
         game.changeScreen(DungeonEscape.SQUATSCREEN);
     }
-    public void goToUpTrap() {
+    public void goToJumpTrap() {
         Gdx.app.log("Up trap", "going to jumping trap");
         game.changeScreen(DungeonEscape.JUMPSCREEN);
     }
-    public void goToStoryTile() {
-        Gdx.app.log("Story", "going to story tile");
+    public void goToStoryScreen() {
+        Gdx.app.log("Story", "going to story screen");
         // Needs new class StoryScreen
         game.changeScreen(DungeonEscape.JUMPSCREEN);
     }

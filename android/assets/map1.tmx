@@ -20,7 +20,7 @@
  </layer>
  <layer id="3" name="Keys" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYBj84OdAO4AGYDj6aaDAaFgObQAAdEgC7A==
+   eJxjYBj84NtAO4AGYLD46fNAO4AKYLCE5SggDwAAva4D1g==
   </data>
  </layer>
  <layer id="4" name="Story" width="17" height="17">
@@ -28,12 +28,12 @@
    eJxjYBgFo2AUjIKBAwAEhAAB
   </data>
  </layer>
- <layer id="5" name="DownTrap" width="17" height="17">
+ <layer id="5" name="SquatTrap" width="17" height="17">
   <data encoding="base64" compression="zlib">
    eJxjYBgFo2AUjIKBAwAEhAAB
   </data>
  </layer>
- <layer id="6" name="UpTrap" width="17" height="17">
+ <layer id="6" name="JumpTrap" width="17" height="17">
   <data encoding="base64" compression="zlib">
    eJxjYBgFIxV8H2gHjIJRAAQAddoA+A==
   </data>
@@ -54,9 +54,9 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="10" name="down-trap"/>
- <objectgroup color="#ec182d" id="9" name="up-trap">
-  <object id="1" x="613.334" y="498.667">
+ <objectgroup id="10" name="squat-trap"/>
+ <objectgroup color="#ec182d" id="9" name="jump-trap">
+  <object id="1" x="542.667" y="501.334">
    <point/>
   </object>
  </objectgroup>

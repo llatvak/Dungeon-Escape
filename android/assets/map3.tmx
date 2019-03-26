@@ -5,22 +5,22 @@
  </tileset>
  <layer id="1" name="Walls" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJzzZmBg8MaDGQjIw/BsPJiBgDy1zSAV4DKDWHcMZjPQ/YiunhbhgS9ehqsZhPSSmk6JNQMXpqcZ+PA8BoYHhNQAAH22fZ4=
+   eJzzZmBg8KYCno0DuzNAgCceNYTMmA01A588shmkAlxmEOuOwWwGuh/R1dMiPPDFy3A1g5BeUtMpsWbgwvQ0Ax+ex8DwgJAaABorfUM=
   </data>
  </layer>
  <layer id="12" name="PassableWalls" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYMAPvAnIj4JRMApGASUAAE3fAEw=
+   eJxjYKA9KKaDHaNgFIyCoQkA3vMAdA==
   </data>
  </layer>
  <layer id="2" name="Road" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYMAP7hCQJwZI09kMaRIxKfZhEx/MZhDyIy3CAxcYzmaQk8ZJTZOkmj0YzCAGAAD2LAYj
+   eJxjYKA9uEMFM6RJVEsKJsU+bOKD2QxCfqRFeOACw9kMUvQi6yElDkg1ezCYQQwAAExcBgg=
   </data>
  </layer>
  <layer id="3" name="Keys" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFwxn8HGgHDCFASViNhjP5AAA3ZwLs
+   eJxjYBgFwxl8G2gHDCFASViNhjP5AAAnXwLj
   </data>
  </layer>
  <layer id="4" name="Story" width="17" height="17">
@@ -28,18 +28,18 @@
    eJxjYBgFo2AUjIKBAwAEhAAB
   </data>
  </layer>
- <layer id="5" name="DownTrap" width="17" height="17">
+ <layer id="5" name="SquatTrap" width="17" height="17">
   <data encoding="base64" compression="zlib">
    eJxjYBgFpIAVA+0AKBgs7hgFo4BSAAAJwAFR
   </data>
  </layer>
- <layer id="6" name="UpTrap" width="17" height="17">
+ <layer id="6" name="JumpTrap" width="17" height="17">
   <data encoding="base64" compression="zlib">
    eJxjYBgZ4DsDw4OBdsMooBwA47FhoN0wCqgLAFJ7A08=
   </data>
  </layer>
  <objectgroup color="#0de214" id="8" name="level-change">
-  <object id="2" x="545.333" y="53.3333">
+  <object id="2" x="544" y="121.333">
    <point/>
   </object>
  </objectgroup>
@@ -54,7 +54,7 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup color="#fd9a21" id="10" name="down-trap">
+ <objectgroup color="#fd9a21" id="10" name="squat-trap">
   <object id="7" x="543" y="429.333">
    <point/>
   </object>
@@ -62,7 +62,7 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup color="#ec182d" id="9" name="up-trap">
+ <objectgroup color="#ec182d" id="9" name="jump-trap">
   <object id="6" x="468.333" y="237.667">
    <point/>
   </object>
