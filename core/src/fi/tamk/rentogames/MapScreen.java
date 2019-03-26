@@ -35,6 +35,7 @@ public class MapScreen implements Screen {
 
     private Texture keyTexture;
     private Texture footMarkTexture;
+    private Texture movesArrowTexture;
 
     // Map
     private TiledMap tiledMap;
@@ -64,6 +65,17 @@ public class MapScreen implements Screen {
 
     private Viewport gameViewport;
 
+    //Create buttons and bars
+    ImageButton settingsButton;
+    ImageButton keyImage;
+    ImageButton footmarkImage;
+    ImageButton movesImage;
+
+
+    private Label stepLabel;
+    private Label movesLabel;
+    private Label keyLabel;
+
     MapScreen(DungeonEscape game) {
         this.game = game;
         onCreate();
@@ -91,6 +103,19 @@ public class MapScreen implements Screen {
 
         keyTexture = new Texture("key.png");
         footMarkTexture = new Texture("footmarkicon.png");
+        movesArrowTexture = new Texture("movesicon.png");
+
+        //Create buttons and bars
+        settingsButton = new ImageButton(skin, "settings");
+        keyImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(keyTexture)));
+        footmarkImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(footMarkTexture)));
+        movesImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(movesArrowTexture)));
+
+        stepLabel = new Label("" + stepTotal, skin,"white");
+        movesLabel = new Label("" + player.movementPoints, skin,"white");
+        keyLabel = new Label("" + keyAmount + "/" + KEYS_NEEDED, skin,"white");
+
+
     }
 
     private void update() {
@@ -149,6 +174,11 @@ public class MapScreen implements Screen {
 
         // Update progress bar
         updateProgressBar();
+
+        // TODO update these only when they actually change
+        stepLabel.setText("" + stepTotal);
+        movesLabel.setText("" + player.movementPoints);
+        keyLabel.setText("" + keyAmount + "/" + KEYS_NEEDED);
     }
 
     private void updateProgressBar() {
@@ -274,18 +304,14 @@ public class MapScreen implements Screen {
         topTable.setFillParent(true);
 
         // Debug lines
-        topTable.setDebug(true);
+        // topTable.setDebug(true);
 
         //Set alignment of contents in the table.
         topTable.top();
 
 
-        //Create buttons and bars
-        ImageButton settingsButton = new ImageButton(skin, "settings");
-        ImageButton keyImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(keyTexture)));
-        ImageButton footmarkImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(footMarkTexture)));
-        Label stepLabel = new Label("" + stepTotal, skin,"white");
-        Label keyLabel = new Label("" + keyAmount + "/" + KEYS_NEEDED, skin,"white");
+
+
 
 
         //Add listeners to buttons
@@ -298,22 +324,27 @@ public class MapScreen implements Screen {
             }
         });
 
-        //stage.addActor(stepLabel);
-        //stage.addActor(keyLabel);
-        //stage.addActor(keyImage);
+        stage.addActor(stepLabel);
+        stage.addActor(keyLabel);
+        stage.addActor(movesLabel);
         stage.addActor(settingsButton);
         stage.addActor(stepsProgressBar);
 
 
+        // TODO stop cell movement
         //Add buttons and progress bar to table
         topTable.add(settingsButton).left().width(35).height(35).pad(5,5,5,0);
-        topTable.add(footmarkImage).width(25).fillX().fillY().height(40).pad(5,10,5,0);
-        topTable.add(stepLabel).expandX().fillX().fillY().pad(5,5,5,5);
-       // topTable.add(movesLabel).expandX().fillX().fillY().pad(5,5,5,5);
-        topTable.add(keyImage).width(30).fillX().fillY().height(40).pad(5,0,5,0);
+
+        topTable.add(footmarkImage).width(25).height(40).fillX().fillY().pad(5,10,5,0);
+        topTable.add(stepLabel).fillX().fillY().pad(5,5,5,5);
+
+        topTable.add(movesImage).right().width(30).height(40).fillX().fillY().pad(5,5,5,5);
+        topTable.add(movesLabel).fillY().pad(5,0,5,5);
+
+        topTable.add(keyImage).width(30).height(40).fillX().fillY().pad(5,0,5,0);
         topTable.add(keyLabel).fillX().fillY().pad(5,0,5,5);
         topTable.row();
-        topTable.add(stepsProgressBar).expandX().colspan(5).fillX().fillY().pad(5,5,0,5);
+        topTable.add(stepsProgressBar).expandX().colspan(7).fillX().fillY().pad(5,5,0,5);
         topTable.row();
 
         //Add table to stage
