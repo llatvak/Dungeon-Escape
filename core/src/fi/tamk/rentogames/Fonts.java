@@ -5,8 +5,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.utils.Disposable;
 
-public class Fonts {
+public class Fonts implements Disposable {
 
     private final static int SMALL = 0;
     private final static int MEDIUM = 1;
@@ -51,4 +52,10 @@ public class Fonts {
         return fontRobotoMed;
     }
 
+    @Override
+    public void dispose() {
+        fontRobotoMed.dispose();
+        fontRobotoSm.dispose();
+        fontGenerator.dispose();
+    }
 }

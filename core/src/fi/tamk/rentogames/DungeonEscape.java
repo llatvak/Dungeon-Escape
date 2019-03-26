@@ -38,7 +38,7 @@ public class DungeonEscape extends Game {
     final static int BACK = 5;
     final static int SQUATSCREEN = 6;
 
-    private static I18NBundle myBundle;
+    private I18NBundle myBundle;
     private Viewport gameViewport;
     private Viewport fontViewport;
 
@@ -85,7 +85,7 @@ public class DungeonEscape extends Game {
         return this.gameCamera;
     }
 
-    static void setLanguage(String s1, String s2, String s3) {
+    void setLanguage(String s1, String s2, String s3) {
         Locale locale = new Locale(s1, s2);
         myBundle = I18NBundle.createBundle(Gdx.files.internal(s3), locale);
     }
@@ -175,6 +175,7 @@ public class DungeonEscape extends Game {
     @Override
     public void dispose () {
         batch.dispose();
+        mapScreen.dispose();
     }
 }
 

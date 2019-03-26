@@ -4,8 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.utils.Disposable;
 
-public class MapLevel {
+public class MapLevel implements Disposable {
 
     DungeonEscape game;
 
@@ -35,7 +36,6 @@ public class MapLevel {
     void resetMap(){
         Gdx.app.log("MapLevel", "reset");
         // reset all the vars that should be reset before the next mapLevel
-        currentMap.dispose();
 
     }
 
@@ -62,5 +62,13 @@ public class MapLevel {
 
     OrthogonalTiledMapRenderer getTiledMapRenderer() {
         return this.tiledMapRenderer;
+    }
+
+    @Override
+    public void dispose() {
+        game.dispose();
+        tiledMap.dispose();
+        currentMap.dispose();
+        tiledMapRenderer.dispose();
     }
 }

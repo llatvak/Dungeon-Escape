@@ -138,5 +138,6 @@ abstract class MoveScreenMove implements Screen {
         game.dispose();
         fontRoboto.dispose();
         player.dispose();
+        debugRenderer.dispose();
     }
 }

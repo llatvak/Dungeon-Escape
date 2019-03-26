@@ -58,7 +58,7 @@ public class MainMenu implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.log("Language", "Finnish");
-                DungeonEscape.setLanguage("fi", "FI", "MyBundle_fi_FI");
+                game.setLanguage("fi", "FI", "MyBundle_fi_FI");
                 setLocaleFin();
             }
         });
@@ -67,7 +67,7 @@ public class MainMenu implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.log("Language", "English");
-                DungeonEscape.setLanguage("en", "US", "MyBundle_en_US");
+                game.setLanguage("en", "US", "MyBundle_en_US");
                 setLocaleEng();
             }
         });
@@ -174,5 +174,7 @@ public class MainMenu implements Screen {
     public void dispose() {
         stage.dispose();
         background.dispose();
+        skin.dispose();
+        game.dispose();
     }
 }

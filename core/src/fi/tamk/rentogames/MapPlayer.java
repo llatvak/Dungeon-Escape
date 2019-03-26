@@ -332,5 +332,7 @@ public class MapPlayer extends Sprite {
     public void dispose() {
         getTexture().dispose();
         tiledMap.dispose();
+        mapScreen.dispose();
+        mapLevel.dispose();
     }
 }

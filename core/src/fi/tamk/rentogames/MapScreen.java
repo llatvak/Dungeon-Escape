@@ -367,5 +367,9 @@ public class MapScreen implements Screen {
         player.dispose();
         tiledMap.dispose();
         stage.dispose();
+        tiledMapRenderer.dispose();
+        mapLevel.dispose();
+        game.dispose();
+        skin.dispose();
     }
 }

@@ -163,6 +163,8 @@ public class SettingsScreen implements Screen {
     public void dispose() {
         stage.dispose();
         background.dispose();
+        skin.dispose();
+        game.dispose();
     }
 }
 
