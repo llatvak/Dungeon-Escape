@@ -4,11 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class MoveScreenJump extends MoveScreenMove implements Screen {
-
-    private SpriteBatch batch;
 
     private Texture spikeTexture;
 
@@ -18,19 +15,17 @@ public class MoveScreenJump extends MoveScreenMove implements Screen {
     private float spikeWidth;
     private float spikeHeight;
 
-    public MoveScreenJump(DungeonEscape game, MapScreen mapScreen) {
+    MoveScreenJump(DungeonEscape game, MapScreen mapScreen) {
         super(game, mapScreen);
         onCreates();
     }
 
     // Sets up the world for box2D and camera used
-    public void onCreates() {
-        batch = getGame().getBatch();
-
+    private void onCreates() {
         // Setting the background texture and camera
         spikeTexture = new Texture(Gdx.files.internal("floorspikes.png"));
 
-        spikeX = WORLD_WIDTH/2 + spikeTexture.getWidth()/100f/2;
+        spikeX = getGame().gameWidth/2 + spikeTexture.getWidth()/100f/2;
         spikeY = spikeTexture.getHeight()/100f/6;
         spikeWidth = spikeTexture.getWidth()/100f;
         spikeHeight = spikeTexture.getHeight()/100f;
@@ -50,27 +45,27 @@ public class MoveScreenJump extends MoveScreenMove implements Screen {
         debug();
 
         // World camera
-        batch.setProjectionMatrix(camera.combined);
+        getGame().batch.setProjectionMatrix(getGame().getGameCamera().combined);
 
-        batch.begin();
+        getGame().batch.begin();
 
-        batch.draw(getBackgroundTexture(), 0, 0, WORLD_WIDTH, WORLD_HEIGHT);
-        batch.draw(spikeTexture, spikeX, spikeY, spikeWidth, spikeHeight);
-        getPlayer().draw(batch);
+        getGame().batch.draw(getBackgroundTexture(), 0, 0, getGame().gameWidth, getGame().gameHeight);
+        getGame().batch.draw(spikeTexture, spikeX, spikeY, spikeWidth, spikeHeight);
+        getPlayer().draw(getGame().batch);
 
         // Font camera
-        batch.setProjectionMatrix(fontCamera.combined);
-        getFontRoboto().draw(batch, myBundle.get("jumptext"),80 , 640f - 50f);
-        getFontRoboto().draw(batch, myBundle.get("jumpcount") + ": " + getPlayer().getCountedJumps(), 120, 640f - 100f);
+        getGame().batch.setProjectionMatrix(getGame().getScreenCamera().combined);
+        getFontRoboto().draw(getGame().batch, getMyBundle().get("jumptext"),80 , getGame().screenHeight - 50f);
+        getFontRoboto().draw(getGame().batch, getMyBundle().get("jumpcount") + ": " + getPlayer().getCountedJumps(), 120, getGame().screenHeight - 100f);
 
-        batch.end();
+        getGame().batch.end();
 
         update();
 
-        doPhysicsStep(Gdx.graphics.getDeltaTime());
+        doPhysicsStep(delta);
     }
 
-    public void update() {
+    private void update() {
         // Player jumping and checking user input
         getPlayer().playerJump();
         getPlayer().checkInput();
@@ -83,7 +78,7 @@ public class MoveScreenJump extends MoveScreenMove implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        super.resize(width, height);
     }
 
     @Override

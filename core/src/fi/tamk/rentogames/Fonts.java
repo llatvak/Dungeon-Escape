@@ -8,34 +8,36 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 public class Fonts {
 
-    public final static int SMALL = 0;
-    public final static int MEDIUM = 1;
+    private final static int SMALL = 0;
+    private final static int MEDIUM = 1;
 
-    BitmapFont fontRobotoSm;
-    BitmapFont fontRobotoMed;
+    private BitmapFont fontRobotoSm;
+    private BitmapFont fontRobotoMed;
 
-    GlyphLayout layout;
-    FreeTypeFontGenerator fontGenerator;
+    private GlyphLayout layout;
+    private FreeTypeFontGenerator fontGenerator;
 
-    public void createSmallmFont() {
+    public BitmapFont createSmallFont() {
         fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Regular.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 14;
         parameter.borderColor = Color.BLACK;
         parameter.borderWidth = 2;
         fontRobotoSm = fontGenerator.generateFont(parameter); // Generates BitmapFont
+
+        return fontRobotoSm;
     }
 
-    public void createMediumFont() {
+    BitmapFont createMediumFont() {
         fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Regular.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 24;
         parameter.borderColor = Color.BLACK;
         parameter.borderWidth = 1;
         fontRobotoMed = fontGenerator.generateFont(parameter); // Generates BitmapFont
+
+        return fontRobotoMed;
     }
-
-
 
     public BitmapFont getFont(int size) {
         if(size == SMALL) {

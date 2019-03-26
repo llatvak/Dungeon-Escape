@@ -24,10 +24,10 @@ public class SplashScreen implements Screen {
     //Test to count switching screen (does not reflect the actual runtime ATM)!
     private float stateTime = 0;
 
-    public SplashScreen(final DungeonEscape game) {
+    SplashScreen(final DungeonEscape game) {
         // Using DungeonEscape class camera to set viewport to stage
         this.game = game;
-        this.stage = new Stage(new StretchViewport(game.screenResolutionWidth, game.screenResolutionHeight, game.camera));
+        this.stage = new Stage(new StretchViewport(game.screenWidth, game.screenHeight, game.getScreenCamera()));
 
         // Rento texture to img
         Texture rentoTex = new Texture(Gdx.files.internal("rentologo.png"));
@@ -44,9 +44,9 @@ public class SplashScreen implements Screen {
     @Override
     public void show() {
         // Setting sizes
-        rentoImg.setSize(256,144);
+        rentoImg.setSize(256,160);
         tamkImg.setSize(310, 114);
-        tikoImg.setSize(256, 144);
+        tikoImg.setSize(292, 125);
 
         // Centering images
         rentoImg.setOrigin(rentoImg.getWidth() / 2, rentoImg.getHeight() / 2);
@@ -56,25 +56,25 @@ public class SplashScreen implements Screen {
         // Setting position of the images
         rentoImg.setPosition(stage.getWidth() / 2 - 128, stage.getHeight() - 100);
         tamkImg.setPosition(stage.getWidth() / 2 - 155, stage.getHeight()  + 200);
-        tikoImg.setPosition(stage.getWidth() / 2 - 128, stage.getHeight() + 100);
+        tikoImg.setPosition(stage.getWidth() / 2 - 146, stage.getHeight() + 100);
 
         // Adding effects to images
         rentoImg.addAction(sequence(alpha(0), scaleTo(.1f, .1f),
                 parallel(fadeIn(2f, Interpolation.pow2),
                         scaleTo(1f, 1f, 2.5f, Interpolation.pow5),
-                        moveTo(stage.getWidth() / 2 - 128, stage.getHeight() / 2 - 250, 2f, Interpolation.swing)),
+                        moveTo(stage.getWidth() / 2 - 128, stage.getHeight() / 2 - 300, 2f, Interpolation.swing)),
                 delay(0.5f),  fadeOut(0.5f)));
 
         tamkImg.addAction(sequence(alpha(0), scaleTo(.1f, .1f),
                 parallel(fadeIn(2f, Interpolation.pow2),
                         scaleTo(1f, 1f, 2.5f, Interpolation.pow5),
-                        moveTo(stage.getWidth() / 2 - 155, stage.getHeight() / 2 + 50, 2f, Interpolation.swing)),
+                        moveTo(stage.getWidth() / 2 - 155, stage.getHeight() / 2 + 60, 2f, Interpolation.swing)),
                 delay(0.5f),  fadeOut(0.5f)));
 
         tikoImg.addAction(sequence(alpha(0), scaleTo(.1f, .1f),
                 parallel(fadeIn(2f, Interpolation.pow2),
                         scaleTo(1f, 1f, 2.5f, Interpolation.pow5),
-                        moveTo(stage.getWidth() / 2 - 128, stage.getHeight() / 2 - 100, 2f, Interpolation.swing)),
+                        moveTo(stage.getWidth() / 2 - 146, stage.getHeight() / 2 - 120, 2f, Interpolation.swing)),
                 delay(0.5f),  fadeOut(0.5f)));
 
         // Adding all actors(images) to stage
@@ -97,7 +97,7 @@ public class SplashScreen implements Screen {
 
     }
 
-    public void update(float delta) {
+    private void update(float delta) {
         stage.act(delta);
         stateTime += delta;
 

@@ -12,23 +12,20 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
 public class MapPlayer extends Sprite {
-
-    private DungeonEscape game;
     private MapScreen mapScreen;
     private TiledMap tiledMap;
+    private MapLevel mapLevel;
 
     // Map size
     private final int TILE_SIZE = 64;
-    private final float MAP_WIDTH = 29 * TILE_SIZE;
-    private final float MAP_HEIGHT = 39 * TILE_SIZE;
 
     // Player size
     private float spriteWidth = 62f;
     private float spriteHeight = 62f;
 
     // Starting location
-    private float startingX = 2 * TILE_SIZE + 1f;
-    private float startingY = 26 * TILE_SIZE + 1f;
+    private float startingX = 8 * TILE_SIZE + 1f;
+    private float startingY = TILE_SIZE + 1f;
 
     private float spriteX = startingX;
     private float spriteY = startingY;
@@ -40,17 +37,13 @@ public class MapPlayer extends Sprite {
     private boolean goRight;
     private boolean goLeft;
 
-    // Movement
-    private int stepTotal;
     // Amount of steps to move one tile
-    public final int STEPSTOMOVE = 10;
-    private final int INITIAL_POINTS = 10;
+    final int STEPSTOMOVE = 10;
     int movementPoints;
     boolean allowMovement;
     private float movementSpeed = 4f;
     private float movedDistance;
     private float moveAmount = movementSpeed;
-
 
     // Collision checking
     private boolean upLeftCollision;
@@ -58,27 +51,41 @@ public class MapPlayer extends Sprite {
     private boolean upRightCollision;
     private boolean downRightCollision;
 
-    // Boolean values for stepping on up/down trap
-    private boolean onUpTrap = false;
-    private boolean onDownTrap = false;
+    // Layer names
+    private String jumpingTrap = "jump-trap";
+    private String squatTrap = "squat-trap";
+    private String levelChangeObject = "level-change";
+    private String storyObject = "story-object";
+    private String keyObject = "keys";
 
 
 
-    public MapPlayer(MapScreen mapScreen) {
+
+    MapPlayer(MapScreen mapScreen, MapLevel mapLevel) {
         super( new Texture("velho.png"));
         this.mapScreen = mapScreen;
-        this.tiledMap = mapScreen.tiledMap;
+        this.mapLevel = mapLevel;
+        this.tiledMap = mapLevel.getCurrentMap();
+
 
         setSize(spriteWidth, spriteHeight);
         setPosition(startingX, startingY);
 
-        movementPoints = INITIAL_POINTS;
-
+        movementPoints = 50;
     }
 
+    void setMap() {
+        this.tiledMap = mapLevel.getCurrentMap();
+    }
+
+    void spawn() {
+        spriteX = startingX;
+        spriteY = startingY;
+        setPosition(spriteX,spriteY);
+    }
 
     // Can this method be reduced in size?
-    public void move(){
+    void move(){
         if(goDown) {
             getMyCorners(spriteX, spriteY - 1 * moveAmount);
             if(downLeftCollision && downRightCollision) {
@@ -119,7 +126,6 @@ public class MapPlayer extends Sprite {
             }
         }
 
-
         if(goLeft) {
             getMyCorners(spriteX - 2, spriteY);
             if(upLeftCollision && downLeftCollision) {
@@ -158,58 +164,50 @@ public class MapPlayer extends Sprite {
                 goRight = false;
                 moving = false;
             }
-
         }
         setX(spriteX);
         setY(spriteY);
     }
 
-    public void receiveSteps(int stepTotal){
-        this.stepTotal = stepTotal;
+    void receiveSteps(int stepTotal){
+        // Movement
     }
 
-
-    public void addMovementPoint() {
+    void addMovementPoint() {
         Gdx.app.log("Movementpoint", "added");
         movementPoints++;
 
     }
 
-    public void removeMovementPoint() {
+    private void removeMovementPoint() {
         if(movementPoints > 0) {
             movementPoints--;
         }
 
     }
 
-    public void checkAllowedMoves() {
-        if(movementPoints > 0) {
-            allowMovement = true;
-        } else {
-            allowMovement = false;
-        }
+    void checkAllowedMoves() {
+        allowMovement = movementPoints > 0;
     }
 
-
-
-    public void setLeftMove(boolean t) {
-        goLeft = t;
-        moving = t;
+    void setLeftMove() {
+        goLeft = true;
+        moving = true;
     }
 
-    public void setRightMove(boolean t) {
-        goRight = t;
-        moving = t;
+    void setRightMove() {
+        goRight = true;
+        moving = true;
     }
 
-    public void setDownMove(boolean t) {
-        goDown = t;
-        moving = t;
+    void setDownMove() {
+        goDown = true;
+        moving = true;
     }
 
-    public void setUpMove(boolean t) {
-        goUp = t;
-        moving = t;
+    void setUpMove() {
+        goUp = true;
+        moving = true;
     }
 
     private boolean isFree(float x, float y) {
@@ -234,7 +232,7 @@ public class MapPlayer extends Sprite {
         }
     }
 
-    public void getMyCorners(float pX, float pY) {
+    private void getMyCorners(float pX, float pY) {
 
         float downYPos;
         float upYPos;
@@ -256,16 +254,23 @@ public class MapPlayer extends Sprite {
     /**
      * Checks if player has collided with event tiles
      */
-    public void checkCollisions() {
-        // Can these methods be merged into one single method?
-        checkDownTraps();
-        checkUpTraps();
-        checkStoryTiles();
+    void checkCollisions() {
+        checkObjectCollision(jumpingTrap);
+        checkObjectCollision(squatTrap);
+        checkObjectCollision(keyObject);
+        checkObjectCollision(storyObject);
+        checkObjectCollision(levelChangeObject);
     }
 
-    public void checkDownTraps() {
+
+
+    private void checkObjectCollision(String layer) {
+        // Boolean values for stepping on up/down trap
+        boolean onJumpTrap;
+        boolean onSquatTrap;
+
         // Get the down trap rectangles layer
-        MapLayer downTrapObjectLayer = (MapLayer)tiledMap.getLayers().get("Down_trap");
+        MapLayer downTrapObjectLayer = tiledMap.getLayers().get(layer);
         // All the rectangles of the layer
         MapObjects mapObjects = downTrapObjectLayer.getObjects();
         // Cast it to RectangleObjects array
@@ -275,54 +280,54 @@ public class MapPlayer extends Sprite {
             Rectangle rectangle = rectangleObject.getRectangle();
             // SCALE given rectangle down if using world dimensions!
             if (getBoundingRectangle().overlaps(rectangle) && movedDistance == TILE_SIZE) {
-                onDownTrap = true;
-                onUpTrap = false;
-                if(!mapScreen.buttonUp) {
-                    mapScreen.trapConfirm(onDownTrap, onUpTrap);
+
+                if(layer.equals(jumpingTrap) ) {
+                    onSquatTrap = false;
+                    onJumpTrap = true;
+                    if(!mapScreen.buttonUp) {
+                        mapScreen.trapConfirm(onSquatTrap, onJumpTrap);
+                    }
                 }
 
+                if(layer.equals(squatTrap) ) {
+                    onJumpTrap = false;
+                    onSquatTrap = true;
+                    if(!mapScreen.buttonUp) {
+                        mapScreen.trapConfirm(onSquatTrap, onJumpTrap);
+                    }
+                }
 
-            }
-        }
-    }
+                if(layer.equals(keyObject) ) {
+                    mapScreen.keyAmount++;
+                    if (getBoundingRectangle().overlaps(rectangle)) {
+                        clearKeys(rectangle.getX(), rectangle.getY());
+                    }
+                    Gdx.app.log("Collected", "keys: " + mapScreen.keyAmount);
+                }
 
-    public void checkUpTraps() {
-        MapLayer upTrapObjectLayer = (MapLayer)tiledMap.getLayers().get("Up_trap");
-        // All the rectangles of the layer
-        MapObjects mapObjects = upTrapObjectLayer.getObjects();
-        // Cast it to RectangleObjects array
-        Array<RectangleMapObject> rectangleObjects = mapObjects.getByType(RectangleMapObject.class);
-        // Iterate all the rectangles
-        for (RectangleMapObject rectangleObject : rectangleObjects) {
-            Rectangle rectangle = rectangleObject.getRectangle();
-            // SCALE given rectangle down if using world dimensions!
-            if (getBoundingRectangle().overlaps(rectangle) && movedDistance == TILE_SIZE) {
-                onUpTrap = true;
-                onDownTrap = false;
-                if(!mapScreen.buttonUp) {
-                    mapScreen.trapConfirm(onDownTrap, onUpTrap);
+                if(layer.equals(levelChangeObject) ) {
+                    if(mapScreen.keysCollected) {
+                        mapScreen.changeLevel();
+                    } else {
+                        mapScreen.notEnoughKeys();
+                    }
+                }
+
+                if(layer.equals(storyObject) ) {
+                    //mapScreen.goToStoryScreen();
                 }
             }
         }
     }
-    public void checkStoryTiles() {
-        MapLayer storyTileObjectLayer = (MapLayer)tiledMap.getLayers().get("Story_tiles");
-        // All the rectangles of the layer
-        MapObjects mapObjects = storyTileObjectLayer.getObjects();
-        // Cast it to RectangleObjects array
-        Array<RectangleMapObject> rectangleObjects = mapObjects.getByType(RectangleMapObject.class);
-        // Iterate all the rectangles
-        for (RectangleMapObject rectangleObject : rectangleObjects) {
-            Rectangle rectangle = rectangleObject.getRectangle();
-            // SCALE given rectangle down if using world dimensions!
-            if (getBoundingRectangle().overlaps(rectangle) && movedDistance == TILE_SIZE) {
 
-                    mapScreen.goToStoryTile();
+    private void clearKeys(float xCoord, float yCoord) {
+        int indexX = (int) xCoord / TILE_SIZE;
+        int indexY = (int) yCoord / TILE_SIZE;
 
-
-            }
-        }
+        TiledMapTileLayer wallCells = (TiledMapTileLayer) tiledMap.getLayers().get("Keys");
+        wallCells.setCell(indexX, indexY, null);
     }
+
 
     public void dispose() {
         getTexture().dispose();

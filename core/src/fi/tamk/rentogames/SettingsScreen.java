@@ -3,9 +3,7 @@ package fi.tamk.rentogames;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -14,48 +12,30 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
-
-import java.util.Locale;
-
 
 public class SettingsScreen implements Screen {
 
     private Stage stage;
-    private SpriteBatch batch;
     private DungeonEscape game;
 
-    private Viewport viewport;
-    private OrthographicCamera camera;
-
     private Texture background;
-    protected Skin skin;
+    private Skin skin;
 
-    Locale locale;
-    I18NBundle myBundle;
+    private I18NBundle myBundle;
 
-    public SettingsScreen(DungeonEscape game) {
-        this.batch = game.getBatch();
+    SettingsScreen(DungeonEscape game) {
         this.game = game;
         onCreate();
     }
 
-    public void onCreate() {
-
+    private void onCreate() {
         background = new Texture("settings.png");
 
-        camera = new OrthographicCamera();
-        viewport = new StretchViewport(360f, 640f, camera);
-        viewport.apply();
-
-        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
-        camera.update();
-
         skin = new Skin( Gdx.files.internal("dark-peel-ui.json") );
-        stage = new Stage(viewport, batch);
+
+        this.stage = new Stage(new StretchViewport(game.screenWidth, game.screenHeight, game.getScreenCamera()));
 
         myBundle = DungeonEscape.getMyBundle();
-        locale = DungeonEscape.getLocale();
     }
 
     @Override
@@ -155,11 +135,11 @@ public class SettingsScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        batch.begin();
+        game.batch.setProjectionMatrix(game.getScreenCamera().combined);
 
-        batch.draw(background,0,0, 360,640);
-
-        batch.end();
+        game.batch.begin();
+        game.batch.draw(background,0,0, game.screenWidth, game.screenHeight);
+        game.batch.end();
 
         stage.act(Gdx.graphics.getDeltaTime());
         // Call draw on every actor
@@ -168,9 +148,7 @@ public class SettingsScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height);
-        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
-        camera.update();
+        stage.getViewport().update(width, height);
     }
 
     @Override
@@ -191,7 +169,6 @@ public class SettingsScreen implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
-        batch.dispose();
         background.dispose();
     }
 }
