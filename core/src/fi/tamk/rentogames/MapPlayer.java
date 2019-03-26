@@ -57,9 +57,7 @@ public class MapPlayer extends Sprite {
     private String levelChangeObject = "level-change";
     private String storyObject = "story-object";
     private String keyObject = "keys";
-    // Boolean values for stepping on up/down trap
-    private boolean onJumpTrap = false;
-    private boolean onSquatTrap = false;
+
 
 
 
@@ -267,6 +265,10 @@ public class MapPlayer extends Sprite {
 
 
     private void checkObjectCollision(String layer) {
+        // Boolean values for stepping on up/down trap
+        boolean onJumpTrap;
+        boolean onSquatTrap;
+
         // Get the down trap rectangles layer
         MapLayer downTrapObjectLayer = (MapLayer)tiledMap.getLayers().get(layer);
         // All the rectangles of the layer

@@ -36,7 +36,7 @@ public class MapScreen implements Screen {
     private OrthographicCamera fontCamera;
 
     // Map
-    TiledMap tiledMap;
+    private TiledMap tiledMap;
     private OrthogonalTiledMapRenderer tiledMapRenderer;
 
     private BitmapFont fontRoboto;
@@ -50,7 +50,7 @@ public class MapScreen implements Screen {
     private int leftOverSteps;
 
 
-    int level = 1;
+    private int level = 1;
     private final int KEYS_NEEDED = 3;
     int keyAmount;
     boolean keysCollected = true;
@@ -177,11 +177,7 @@ public class MapScreen implements Screen {
     }
 
     private void checkKeyAmount() {
-        if(keyAmount == KEYS_NEEDED) {
-            keysCollected = true;
-        } else {
-            keysCollected = false;
-        }
+        keysCollected = keyAmount == KEYS_NEEDED;
     }
 
     void notEnoughKeys() {
@@ -264,14 +260,6 @@ public class MapScreen implements Screen {
             leftOverSteps++;
             System.out.println("Steps to point: " + leftOverSteps);
         }
-    }
-
-    public void subtractStep() {
-        stepTotal--;
-    }
-
-    public TiledMap getWorldMap(){
-        return tiledMap;
     }
 
     MapScreen getMapScreen() {
