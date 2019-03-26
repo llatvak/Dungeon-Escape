@@ -61,6 +61,11 @@ public class MapPlayer extends Sprite {
     private boolean upRightCollision;
     private boolean downRightCollision;
 
+    // Layer names
+    private String jumpingTrap = "up-trap";
+    private String squatTrap = "down-trap";
+    private String levelChangeObject = "level-change";
+    private String storyObject = "story-object";
     // Boolean values for stepping on up/down trap
     private boolean onUpTrap = false;
     private boolean onDownTrap = false;
@@ -265,20 +270,20 @@ public class MapPlayer extends Sprite {
         upRightCollision = isFree(rightXPos, upYPos);
         downRightCollision = isFree(rightXPos, downYPos);
     }
+
     /**
      * Checks if player has collided with event tiles
      */
     public void checkCollisions() {
-        // Can these methods be merged into one single method?
-        checkDownTraps();
-        checkUpTraps();
-        checkStoryTiles();
-        checkLevelChange();
+        checkObjectCollision(jumpingTrap);
+        checkObjectCollision(squatTrap);
+        checkObjectCollision(levelChangeObject);
+        checkObjectCollision(storyObject);
     }
 
-    private void checkLevelChange() {
+    private void checkObjectCollision(String layer) {
         // Get the down trap rectangles layer
-        MapLayer downTrapObjectLayer = (MapLayer)tiledMap.getLayers().get("level-change");
+        MapLayer downTrapObjectLayer = (MapLayer)tiledMap.getLayers().get(layer);
         // All the rectangles of the layer
         MapObjects mapObjects = downTrapObjectLayer.getObjects();
         // Cast it to RectangleObjects array
@@ -288,76 +293,37 @@ public class MapPlayer extends Sprite {
             Rectangle rectangle = rectangleObject.getRectangle();
             // SCALE given rectangle down if using world dimensions!
             if (getBoundingRectangle().overlaps(rectangle) && movedDistance == TILE_SIZE) {
-                if(mapScreen.keysCollected) {
-                    mapScreen.changeLevel();
+
+                if(layer.equals(jumpingTrap) ) {
+                    onDownTrap = true;
+                    onUpTrap = false;
+                    if(!mapScreen.buttonUp) {
+                        mapScreen.trapConfirm(onDownTrap, onUpTrap);
+                    }
                 }
 
-
-            }
-        }
-    }
-
-
-    public void checkDownTraps() {
-        // Get the down trap rectangles layer
-        MapLayer downTrapObjectLayer = (MapLayer)tiledMap.getLayers().get("down-trap");
-        // All the rectangles of the layer
-        MapObjects mapObjects = downTrapObjectLayer.getObjects();
-        // Cast it to RectangleObjects array
-        Array<RectangleMapObject> rectangleObjects = mapObjects.getByType(RectangleMapObject.class);
-        // Iterate all the rectangles
-        for (RectangleMapObject rectangleObject : rectangleObjects) {
-            Rectangle rectangle = rectangleObject.getRectangle();
-            // SCALE given rectangle down if using world dimensions!
-            if (getBoundingRectangle().overlaps(rectangle) && movedDistance == TILE_SIZE) {
-                onDownTrap = true;
-                onUpTrap = false;
-                if(!mapScreen.buttonUp) {
-                    mapScreen.trapConfirm(onDownTrap, onUpTrap);
+                if(layer.equals(squatTrap) ) {
+                    onUpTrap = true;
+                    onDownTrap = false;
+                    if(!mapScreen.buttonUp) {
+                        mapScreen.trapConfirm(onDownTrap, onUpTrap);
+                    }
                 }
 
-
-            }
-        }
-    }
-
-    public void checkUpTraps() {
-        MapLayer upTrapObjectLayer = (MapLayer)tiledMap.getLayers().get("up-trap");
-        // All the rectangles of the layer
-        MapObjects mapObjects = upTrapObjectLayer.getObjects();
-        // Cast it to RectangleObjects array
-        Array<RectangleMapObject> rectangleObjects = mapObjects.getByType(RectangleMapObject.class);
-        // Iterate all the rectangles
-        for (RectangleMapObject rectangleObject : rectangleObjects) {
-            Rectangle rectangle = rectangleObject.getRectangle();
-            // SCALE given rectangle down if using world dimensions!
-            if (getBoundingRectangle().overlaps(rectangle) && movedDistance == TILE_SIZE) {
-                onUpTrap = true;
-                onDownTrap = false;
-                if(!mapScreen.buttonUp) {
-                    mapScreen.trapConfirm(onDownTrap, onUpTrap);
+                if(layer.equals(levelChangeObject) ) {
+                    if(mapScreen.keysCollected) {
+                        mapScreen.changeLevel();
+                    }
                 }
-            }
-        }
-    }
-    public void checkStoryTiles() {
-        MapLayer storyTileObjectLayer = (MapLayer)tiledMap.getLayers().get("story-object");
-        // All the rectangles of the layer
-        MapObjects mapObjects = storyTileObjectLayer.getObjects();
-        // Cast it to RectangleObjects array
-        Array<RectangleMapObject> rectangleObjects = mapObjects.getByType(RectangleMapObject.class);
-        // Iterate all the rectangles
-        for (RectangleMapObject rectangleObject : rectangleObjects) {
-            Rectangle rectangle = rectangleObject.getRectangle();
-            // SCALE given rectangle down if using world dimensions!
-            if (getBoundingRectangle().overlaps(rectangle) && movedDistance == TILE_SIZE) {
 
+                if(layer.equals(storyObject) ) {
                     mapScreen.goToStoryTile();
-
+                }
 
             }
         }
     }
+
 
     public void dispose() {
         getTexture().dispose();
