@@ -16,10 +16,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.I18NBundle;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class MapScreen implements Screen {
 
@@ -53,10 +49,6 @@ public class MapScreen implements Screen {
     private boolean resetProgressBar = false;
     private int progressbarValue = 0;
 
-    private I18NBundle myBundle;
-
-    private Viewport gameViewport;
-
     MapScreen(DungeonEscape game) {
         this.game = game;
         onCreate();
@@ -73,14 +65,11 @@ public class MapScreen implements Screen {
         Fonts fonts = new Fonts();
         fontRoboto = fonts.createMediumFont();
 
-        this.stage = new Stage(new FitViewport(game.screenWidth, game.screenHeight, game.getScreenCamera()));
-        gameViewport = new StretchViewport(game.screenWidth, game.screenHeight, game.getScreenCamera());
+        this.stage = new Stage(game.getFontViewport());
 
         skin = new Skin( Gdx.files.internal("dark-peel-ui.json") );
         stepsProgressBar = new ProgressBar(0, player.STEPSTOMOVE,1,false,skin, "default-horizontal");
         stepsProgressBar.setAnimateDuration(0.5f);
-
-        myBundle = DungeonEscape.getMyBundle();
     }
 
     private void update() {
@@ -114,9 +103,9 @@ public class MapScreen implements Screen {
         game.batch.begin();
 
         // Draw fonts
-        fontRoboto.draw(game.batch, myBundle.get("stepcounter") + ": " + stepTotal, 10f , game.screenHeight - 40f);
+        fontRoboto.draw(game.batch, game.getMyBundle().get("stepcounter") + ": " + stepTotal, 10f , game.screenHeight - 40f);
         fontRoboto.draw(game.batch,"" + player.movementPoints, 320 , game.screenHeight - 12f);
-        fontRoboto.draw(game.batch,myBundle.get("keys") + ": " + keyAmount + "/3", 10f , game.screenHeight - 70f);
+        fontRoboto.draw(game.batch,game.getMyBundle().get("keys") + ": " + keyAmount + "/3", 10f , game.screenHeight - 70f);
 
         // View game camera
         game.batch.setProjectionMatrix(game.getGameCamera().combined);
@@ -192,7 +181,7 @@ public class MapScreen implements Screen {
         Gdx.app.log("Button", "created");
         buttonUp = true;
 
-        final TextButton confirmButton = new TextButton(myBundle.get("readybutton"), skin, "maroon");
+        final TextButton confirmButton = new TextButton(game.getMyBundle().get("readybutton"), skin, "maroon");
         confirmButton.setWidth(160f);
         confirmButton.setHeight(70f);
         confirmButton.setPosition(game.screenWidth / 2 - 80f, game.screenHeight / 2 + 50f);
@@ -301,7 +290,7 @@ public class MapScreen implements Screen {
         // Updates the stage viewport where font is
         stage.getViewport().update(width, height);
         // Updates game viewport
-        gameViewport.update(width, height);
+        game.getGameViewport().update(width, height);
     }
 
     @Override

@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
@@ -27,7 +26,7 @@ public class SplashScreen implements Screen {
     SplashScreen(final DungeonEscape game) {
         // Using DungeonEscape class camera to set viewport to stage
         this.game = game;
-        this.stage = new Stage(new StretchViewport(game.screenWidth, game.screenHeight, game.getScreenCamera()));
+        this.stage = new Stage(game.getGameViewport());
 
         // Rento texture to img
         Texture rentoTex = new Texture(Gdx.files.internal("rentologo.png"));

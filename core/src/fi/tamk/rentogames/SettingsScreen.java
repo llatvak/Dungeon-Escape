@@ -10,18 +10,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.I18NBundle;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 public class SettingsScreen implements Screen {
-
     private Stage stage;
     private DungeonEscape game;
 
     private Texture background;
     private Skin skin;
-
-    private I18NBundle myBundle;
 
     SettingsScreen(DungeonEscape game) {
         this.game = game;
@@ -33,9 +28,7 @@ public class SettingsScreen implements Screen {
 
         skin = new Skin( Gdx.files.internal("dark-peel-ui.json") );
 
-        this.stage = new Stage(new StretchViewport(game.screenWidth, game.screenHeight, game.getScreenCamera()));
-
-        myBundle = DungeonEscape.getMyBundle();
+        this.stage = new Stage(game.getGameViewport());
     }
 
     @Override
@@ -54,12 +47,12 @@ public class SettingsScreen implements Screen {
 
         //Create buttons
 
-        TextButton tutorialButton = new TextButton(myBundle.get("howtoplaybutton"), skin);
-        TextButton soundButton = new TextButton(myBundle.get("soundbutton"), skin);
-        TextButton musicButton = new TextButton(myBundle.get("musicbutton"), skin);
-        TextButton creditsButton = new TextButton(myBundle.get("creditbutton"), skin);
-        TextButton exitButton = new TextButton(myBundle.get("exitbutton"), skin);
-        TextButton backButton = new TextButton(myBundle.get("backbutton"), skin);
+        TextButton tutorialButton = new TextButton(game.getMyBundle().get("howtoplaybutton"), skin);
+        TextButton soundButton = new TextButton(game.getMyBundle().get("soundbutton"), skin);
+        TextButton musicButton = new TextButton(game.getMyBundle().get("musicbutton"), skin);
+        TextButton creditsButton = new TextButton(game.getMyBundle().get("creditbutton"), skin);
+        TextButton exitButton = new TextButton(game.getMyBundle().get("exitbutton"), skin);
+        TextButton backButton = new TextButton(game.getMyBundle().get("backbutton"), skin);
 
         soundButton.addListener(new ClickListener(){
             @Override

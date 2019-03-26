@@ -7,9 +7,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.I18NBundle;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 abstract class MoveScreenMove implements Screen {
 
@@ -34,10 +31,6 @@ abstract class MoveScreenMove implements Screen {
     // Fonts
     private BitmapFont fontRoboto;
 
-    private I18NBundle myBundle;
-
-    private Viewport moveScreenViewport;
-
     MoveScreenMove(DungeonEscape game, MapScreen mapScreen) {
         // Current game and screen
         this.game = game;
@@ -58,15 +51,11 @@ abstract class MoveScreenMove implements Screen {
 
         backgroundTexture = new Texture(Gdx.files.internal("dungeonbg.png"));
 
-        moveScreenViewport = new StretchViewport(game.screenWidth, game.screenHeight, game.getScreenCamera());
-
         game.getGameCamera().setToOrtho(false, game.gameWidth, game.gameHeight);
 
         // Setting up fonts
         Fonts fonts = new Fonts();
         fontRoboto = fonts.createMediumFont();
-
-        myBundle = DungeonEscape.getMyBundle();
     }
 
     void debug() {
@@ -88,7 +77,7 @@ abstract class MoveScreenMove implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        moveScreenViewport.update(width, height);
+        game.getGameViewport().update(width, height);
     }
 
     @Override
@@ -108,10 +97,6 @@ abstract class MoveScreenMove implements Screen {
 
     public DungeonEscape getGame() {
         return game;
-    }
-
-    I18NBundle getMyBundle() {
-        return myBundle;
     }
 
     Texture getBackgroundTexture() {

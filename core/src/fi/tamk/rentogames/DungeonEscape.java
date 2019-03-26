@@ -5,6 +5,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.I18NBundle;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.Locale;
 
@@ -36,6 +39,8 @@ public class DungeonEscape extends Game {
     final static int SQUATSCREEN = 6;
 
     private static I18NBundle myBundle;
+    private Viewport gameViewport;
+    private Viewport fontViewport;
 
     public DungeonEscape() {
        // this.pedometerStatus = pedometerStatus;
@@ -48,6 +53,10 @@ public class DungeonEscape extends Game {
 
         setLanguage("fi", "FI", "MyBundle_fi_FI");
         createCameras();
+
+        gameViewport = new StretchViewport(screenWidth, screenHeight, screenCamera);
+        fontViewport = new FitViewport(screenWidth, screenHeight, screenCamera);
+
         batch = new SpriteBatch();
         changeScreen(SPLASHSCREEN);
     }
@@ -58,6 +67,14 @@ public class DungeonEscape extends Game {
 
         gameCamera = new OrthographicCamera();
         gameCamera.setToOrtho(false, gameWidth, gameHeight);
+    }
+
+    Viewport getGameViewport() {
+        return gameViewport;
+    }
+
+    Viewport getFontViewport() {
+        return fontViewport;
     }
 
     OrthographicCamera getScreenCamera() {
@@ -73,7 +90,7 @@ public class DungeonEscape extends Game {
         myBundle = I18NBundle.createBundle(Gdx.files.internal(s3), locale);
     }
 
-    static I18NBundle getMyBundle() {
+    I18NBundle getMyBundle() {
         return myBundle;
     }
 
