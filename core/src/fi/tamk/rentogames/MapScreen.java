@@ -6,7 +6,6 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -23,41 +22,31 @@ import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import java.util.Locale;
-
-
 public class MapScreen implements Screen {
 
-    DungeonEscape game;
-    MapPlayer player;
-    MapLevel mapLevel;
-    SpriteBatch batch;
+    private DungeonEscape game;
+    private MapPlayer player;
+    private SpriteBatch batch;
+    private MapLevel mapLevel;
 
     private boolean paused;
 
     // Camera
-    OrthographicCamera camera;
-    OrthographicCamera fontCamera;
-    Viewport viewport;
+    private OrthographicCamera camera;
+    private OrthographicCamera fontCamera;
 
     // Map
     TiledMap tiledMap;
-    OrthogonalTiledMapRenderer tiledMapRenderer;
+    private OrthogonalTiledMapRenderer tiledMapRenderer;
 
-    // Textures
-    Texture background;
-
-    // Fonts
-    private Fonts fonts;
     private BitmapFont fontRoboto;
 
-    protected Skin skin;
+    private Skin skin;
     private Stage stage;
 
     private int stepTotal;
     private int oldStepTotal;
     private int savedSteps;
-    private int stepsDelta;
     private int leftOverSteps;
 
 
@@ -71,19 +60,16 @@ public class MapScreen implements Screen {
     private boolean resetProgressBar = false;
     private int progressbarValue = 0;
 
-    Locale locale;
-    I18NBundle myBundle;
+    private I18NBundle myBundle;
 
-
-    public MapScreen(DungeonEscape game) {
+    MapScreen(DungeonEscape game) {
         this.game = game;
         onCreate();
     }
 
-    public void onCreate() {
-
+    private void onCreate() {
         batch = game.getBatch();
-        mapLevel = new MapLevel(game);
+        MapLevel mapLevel = new MapLevel(game);
         tiledMap = mapLevel.getCurrentMap();
         tiledMapRenderer = mapLevel.getTiledMapRenderer();
 
@@ -91,11 +77,12 @@ public class MapScreen implements Screen {
 
         player = new MapPlayer(this, mapLevel);
 
-        fonts = new Fonts();
+        // Fonts
+        Fonts fonts = new Fonts();
         fontRoboto = fonts.createMediumFont();
         fontCamera = fonts.getCamera();
 
-        viewport = new StretchViewport(game.screenWidth, game.screenHeight, fontCamera);
+        Viewport viewport = new StretchViewport(game.screenWidth, game.screenHeight, fontCamera);
         viewport.apply();
 
         stage = new Stage(viewport, batch);
@@ -107,11 +94,9 @@ public class MapScreen implements Screen {
         fontCamera.update();
 
         myBundle = DungeonEscape.getMyBundle();
-        locale = DungeonEscape.getLocale();
     }
 
-
-    public void update() {
+    private void update() {
         player.receiveSteps(stepTotal);
         countMovementPoints();
         player.checkAllowedMoves();
@@ -124,8 +109,6 @@ public class MapScreen implements Screen {
 
         checkKeyAmount();
         player.checkCollisions();
-
-
     }
 
     @Override
@@ -171,9 +154,9 @@ public class MapScreen implements Screen {
 
         // Update progress bar
         updateProgressBar();
-
     }
-    public void updateProgressBar() {
+
+    private void updateProgressBar() {
         if(stepTotal > oldStepTotal){
             if(resetProgressBar) {
                 progressbarValue = 0;
@@ -187,15 +170,13 @@ public class MapScreen implements Screen {
         oldStepTotal = stepTotal;
     }
 
-
-    public void moveCamera() {
+    private void moveCamera() {
         camera.position.x = player.getX()/100f + 32f/100f;
         camera.position.y = player.getY()/100f + 32f/100f;
         camera.update();
-
     }
 
-    public void checkKeyAmount() {
+    private void checkKeyAmount() {
         if(keyAmount == KEYS_NEEDED) {
             keysCollected = true;
         } else {
@@ -203,11 +184,11 @@ public class MapScreen implements Screen {
         }
     }
 
-    public void notEnoughKeys() {
+    void notEnoughKeys() {
         System.out.println("No keys");
     }
 
-    public void changeLevel() {
+    void changeLevel() {
         if(level < 3) {
             level++;
         }
@@ -215,7 +196,7 @@ public class MapScreen implements Screen {
         changeMap();
     }
 
-    public void changeMap() {
+    private void changeMap() {
         Gdx.app.log("MapLevel", ": " + level);
         keyAmount = 0;
         keysCollected = false;
@@ -226,7 +207,7 @@ public class MapScreen implements Screen {
         tiledMapRenderer = mapLevel.getTiledMapRenderer();
     }
 
-    public void trapConfirm(final boolean onSquat, final boolean onJump) {
+    void trapConfirm(final boolean onSquat, final boolean onJump) {
         Gdx.app.log("Button", "created");
         buttonUp = true;
 
@@ -255,28 +236,27 @@ public class MapScreen implements Screen {
                 if(onJump) {
                     goToJumpTrap();
                 }
-
                 player.addMovementPoint();
             }
         });
     }
 
 
-    public void goToSquatTrap() {
+    private void goToSquatTrap() {
         Gdx.app.log("Down trap", "going to crouching trap");
         game.changeScreen(DungeonEscape.SQUATSCREEN);
     }
-    public void goToJumpTrap() {
+    private void goToJumpTrap() {
         Gdx.app.log("Up trap", "going to jumping trap");
         game.changeScreen(DungeonEscape.JUMPSCREEN);
     }
-    public void goToStoryScreen() {
+    private void goToStoryScreen() {
         Gdx.app.log("Story", "going to story screen");
         // Needs new class StoryScreen
         game.changeScreen(DungeonEscape.JUMPSCREEN);
     }
 
-    public void addStep() {
+    void addStep() {
         stepTotal++;
         System.out.println("Steps: " + stepTotal);
 
@@ -284,7 +264,6 @@ public class MapScreen implements Screen {
             leftOverSteps++;
             System.out.println("Steps to point: " + leftOverSteps);
         }
-
     }
 
     public void subtractStep() {
@@ -295,7 +274,7 @@ public class MapScreen implements Screen {
         return tiledMap;
     }
 
-    public MapScreen getMapScreen() {
+    MapScreen getMapScreen() {
         return this;
     }
 
@@ -351,7 +330,6 @@ public class MapScreen implements Screen {
         // update this
     }
 
-
     @Override
     public void pause() {
         paused = true;
@@ -367,7 +345,7 @@ public class MapScreen implements Screen {
         //System.out.println(stepTotal);
     }
 
-    public void countMovementPoints() {
+    private void countMovementPoints() {
         // Checks if total step amount is divisible by the amount needed to move
         if(stepTotal > 0) {
             if(stepTotal % player.STEPSTOMOVE == 0) {
@@ -375,13 +353,11 @@ public class MapScreen implements Screen {
                 player.addMovementPoint();
                 addStep();
                 resetProgressBar = true;
-
             }
         }
     }
 
-
-    public void countMovementPointsDelta() {
+    private void countMovementPointsDelta() {
         int stepsDuringPause = getStepsDelta();
         int pointsToAdd;
 
@@ -394,7 +370,7 @@ public class MapScreen implements Screen {
         leftOverSteps = 0;
     }
 
-    public void addMultipleMovementPoints(int points) {
+    private void addMultipleMovementPoints(int points) {
         player.movementPoints = player.movementPoints + points;
     }
 
@@ -403,19 +379,18 @@ public class MapScreen implements Screen {
     }
 
     // Save current step count
-    public void saveSteps() {
+    void saveSteps() {
         savedSteps = stepTotal;
     }
 
     // Make saved steps actual step count
-    public void subtractSteps() {
+    void subtractSteps() {
         stepTotal = savedSteps;
     }
 
     // Get difference between total steps and saved steps
-    public int getStepsDelta() {
-        stepsDelta = stepTotal - savedSteps;
-        return stepsDelta;
+    private int getStepsDelta() {
+        return stepTotal - savedSteps;
     }
 
     @Override
@@ -425,7 +400,6 @@ public class MapScreen implements Screen {
 
     @Override
     public void dispose() {
-        background.dispose();
         fontRoboto.dispose();
         player.dispose();
         tiledMap.dispose();

@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 
-
 import static com.badlogic.gdx.Input.Keys.DOWN;
 import static com.badlogic.gdx.Input.Keys.LEFT;
 import static com.badlogic.gdx.Input.Keys.RIGHT;
@@ -20,25 +19,25 @@ public class MyInputProcessor implements InputProcessor {
 
     private MapPlayer player;
 
-    public MyInputProcessor(MapPlayer player) {
+    MyInputProcessor(MapPlayer player) {
         this.player = player;
     }
 
     public boolean keyDown (int keycode) {
         if(!player.moving && player.allowMovement && keycode == UP) {
-            player.setUpMove(true);
+            player.setUpMove();
         }
 
         if(!player.moving && player.allowMovement && keycode == DOWN) {
-            player.setDownMove(true);
+            player.setDownMove();
         }
 
         if(!player.moving && player.allowMovement && keycode == LEFT) {
-            player.setLeftMove(true);
+            player.setLeftMove();
         }
 
         if(!player.moving && player.allowMovement && keycode == RIGHT) {
-            player.setRightMove(true);
+            player.setRightMove();
         }
 
         if(keycode == SPACE) {
@@ -65,16 +64,16 @@ public class MyInputProcessor implements InputProcessor {
         int screenHeightHalf = Gdx.graphics.getHeight() / 2;
 
         if(!player.moving && player.allowMovement && y < screenHeightHalf - 100) {
-            player.setUpMove(true);
+            player.setUpMove();
         }
         if(!player.moving && player.allowMovement && y > screenHeightHalf + 100) {
-            player.setDownMove(true);
+            player.setDownMove();
         }
         if(!player.moving && player.allowMovement && x < screenWidthHalf - 100  ) {
-            player.setLeftMove(true);
+            player.setLeftMove();
         }
         if(!player.moving && player.allowMovement && x > screenWidthHalf + 100) {
-            player.setRightMove(true);
+            player.setRightMove();
         }
 
         return true;

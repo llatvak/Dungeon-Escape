@@ -18,19 +18,19 @@ public class MoveScreenJump extends MoveScreenMove implements Screen {
     private float spikeWidth;
     private float spikeHeight;
 
-    public MoveScreenJump(DungeonEscape game, MapScreen mapScreen) {
+    MoveScreenJump(DungeonEscape game, MapScreen mapScreen) {
         super(game, mapScreen);
         onCreates();
     }
 
     // Sets up the world for box2D and camera used
-    public void onCreates() {
+    private void onCreates() {
         batch = getGame().getBatch();
 
         // Setting the background texture and camera
         spikeTexture = new Texture(Gdx.files.internal("floorspikes.png"));
 
-        spikeX = WORLD_WIDTH/2 + spikeTexture.getWidth()/100f/2;
+        spikeX = getGame().gameWidth/2 + spikeTexture.getWidth()/100f/2;
         spikeY = spikeTexture.getHeight()/100f/6;
         spikeWidth = spikeTexture.getWidth()/100f;
         spikeHeight = spikeTexture.getHeight()/100f;
@@ -50,18 +50,18 @@ public class MoveScreenJump extends MoveScreenMove implements Screen {
         debug();
 
         // World camera
-        batch.setProjectionMatrix(camera.combined);
+        batch.setProjectionMatrix(getGame().getGameCamera().combined);
 
         batch.begin();
 
-        batch.draw(getBackgroundTexture(), 0, 0, WORLD_WIDTH, WORLD_HEIGHT);
+        batch.draw(getBackgroundTexture(), 0, 0, getGame().gameWidth, getGame().gameHeight);
         batch.draw(spikeTexture, spikeX, spikeY, spikeWidth, spikeHeight);
         getPlayer().draw(batch);
 
         // Font camera
-        batch.setProjectionMatrix(fontCamera.combined);
-        getFontRoboto().draw(batch, myBundle.get("jumptext"),80 , 640f - 50f);
-        getFontRoboto().draw(batch, myBundle.get("jumpcount") + ": " + getPlayer().getCountedJumps(), 120, 640f - 100f);
+        batch.setProjectionMatrix(getGame().getScreenCamera().combined);
+        getFontRoboto().draw(batch, getMyBundle().get("jumptext"),80 , 640f - 50f);
+        getFontRoboto().draw(batch, getMyBundle().get("jumpcount") + ": " + getPlayer().getCountedJumps(), 120, 640f - 100f);
 
         batch.end();
 
@@ -70,7 +70,7 @@ public class MoveScreenJump extends MoveScreenMove implements Screen {
         doPhysicsStep(Gdx.graphics.getDeltaTime());
     }
 
-    public void update() {
+    private void update() {
         // Player jumping and checking user input
         getPlayer().playerJump();
         getPlayer().checkInput();

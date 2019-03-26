@@ -12,18 +12,12 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
 public class MapPlayer extends Sprite {
-
-    private DungeonEscape game;
     private MapScreen mapScreen;
     private TiledMap tiledMap;
     private MapLevel mapLevel;
 
     // Map size
     private final int TILE_SIZE = 64;
-
-    // Not used
-    private final float MAP_WIDTH = 29 * TILE_SIZE;
-    private final float MAP_HEIGHT = 39 * TILE_SIZE;
 
     // Player size
     private float spriteWidth = 62f;
@@ -43,17 +37,13 @@ public class MapPlayer extends Sprite {
     private boolean goRight;
     private boolean goLeft;
 
-    // Movement
-    private int stepTotal;
     // Amount of steps to move one tile
-    public final int STEPSTOMOVE = 10;
-    private final int INITIAL_POINTS = 100;
+    final int STEPSTOMOVE = 10;
     int movementPoints;
     boolean allowMovement;
     private float movementSpeed = 4f;
     private float movedDistance;
     private float moveAmount = movementSpeed;
-
 
     // Collision checking
     private boolean upLeftCollision;
@@ -73,7 +63,7 @@ public class MapPlayer extends Sprite {
 
 
 
-    public MapPlayer(MapScreen mapScreen, MapLevel mapLevel) {
+    MapPlayer(MapScreen mapScreen, MapLevel mapLevel) {
         super( new Texture("velho.png"));
         this.mapScreen = mapScreen;
         this.mapLevel = mapLevel;
@@ -83,22 +73,21 @@ public class MapPlayer extends Sprite {
         setSize(spriteWidth, spriteHeight);
         setPosition(startingX, startingY);
 
-        movementPoints = INITIAL_POINTS;
-
+        movementPoints = 10;
     }
 
     void setMap() {
         this.tiledMap = mapLevel.getCurrentMap();
     }
 
-    public void spawn() {
+    void spawn() {
         spriteX = startingX;
         spriteY = startingY;
         setPosition(spriteX,spriteY);
     }
 
     // Can this method be reduced in size?
-    public void move(){
+    void move(){
         if(goDown) {
             getMyCorners(spriteX, spriteY - 1 * moveAmount);
             if(downLeftCollision && downRightCollision) {
@@ -139,7 +128,6 @@ public class MapPlayer extends Sprite {
             }
         }
 
-
         if(goLeft) {
             getMyCorners(spriteX - 2, spriteY);
             if(upLeftCollision && downLeftCollision) {
@@ -178,56 +166,50 @@ public class MapPlayer extends Sprite {
                 goRight = false;
                 moving = false;
             }
-
         }
         setX(spriteX);
         setY(spriteY);
     }
 
-    public void receiveSteps(int stepTotal){
-        this.stepTotal = stepTotal;
+    void receiveSteps(int stepTotal){
+        // Movement
     }
 
-
-    public void addMovementPoint() {
+    void addMovementPoint() {
         Gdx.app.log("Movementpoint", "added");
         movementPoints++;
 
     }
 
-    public void removeMovementPoint() {
+    private void removeMovementPoint() {
         if(movementPoints > 0) {
             movementPoints--;
         }
 
     }
 
-    public void checkAllowedMoves() {
-        if(movementPoints > 0) {
-            allowMovement = true;
-        } else {
-            allowMovement = false;
-        }
+    void checkAllowedMoves() {
+        allowMovement = movementPoints > 0;
     }
 
-    public void setLeftMove(boolean t) {
-        goLeft = t;
-        moving = t;
+    void setLeftMove() {
+        goLeft = true;
+        moving = true;
     }
 
-    public void setRightMove(boolean t) {
-        goRight = t;
-        moving = t;
+    void setRightMove() {
+        goRight = true;
+        moving = true;
     }
 
-    public void setDownMove(boolean t) {
-        goDown = t;
-        moving = t;
+    void setDownMove() {
+        goDown = true;
+        moving = true;
     }
 
-    public void setUpMove(boolean t) {
-        goUp = t;
-        moving = t;
+    void setUpMove() {
+        goUp = true;
+        moving = true;
     }
 
     private boolean isFree(float x, float y) {
@@ -252,7 +234,7 @@ public class MapPlayer extends Sprite {
         }
     }
 
-    public void getMyCorners(float pX, float pY) {
+    private void getMyCorners(float pX, float pY) {
 
         float downYPos;
         float upYPos;
@@ -271,11 +253,10 @@ public class MapPlayer extends Sprite {
         upRightCollision = isFree(rightXPos, upYPos);
         downRightCollision = isFree(rightXPos, downYPos);
     }
-
     /**
      * Checks if player has collided with event tiles
      */
-    public void checkCollisions() {
+    void checkCollisions() {
         checkObjectCollision(jumpingTrap);
         checkObjectCollision(squatTrap);
         checkObjectCollision(keyObject);

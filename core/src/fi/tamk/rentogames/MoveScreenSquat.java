@@ -14,18 +14,18 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
     private Texture arrowTexture;
     private Rectangle arrowRect;
 
-    public MoveScreenSquat(DungeonEscape game, MapScreen mapScreen) {
+    MoveScreenSquat(DungeonEscape game, MapScreen mapScreen) {
         super(game, mapScreen);
         onCreates();
     }
 
     // Sets up the world for box2D and camera used
-    public void onCreates() {
+    private void onCreates() {
         batch = getGame().getBatch();
 
         // Arrow trap in squat screen drawn on rectangle
         arrowTexture = new Texture(Gdx.files.internal("arrow.png"));
-        arrowRect = new Rectangle(WORLD_WIDTH + arrowTexture.getWidth()/100f, 1.7f, arrowTexture.getWidth()/100f, arrowTexture.getHeight()/100f);
+        arrowRect = new Rectangle(getGame().gameWidth + arrowTexture.getWidth()/100f, 1.7f, arrowTexture.getWidth()/100f, arrowTexture.getHeight()/100f);
     }
 
     @Override
@@ -42,19 +42,19 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
         debug();
 
         // World camera
-        batch.setProjectionMatrix(camera.combined);
+        batch.setProjectionMatrix(getGame().getGameCamera().combined);
 
         batch.begin();
 
         //Drawing everything
-        batch.draw(getBackgroundTexture(), 0, 0, WORLD_WIDTH, WORLD_HEIGHT);
+        batch.draw(getBackgroundTexture(), 0, 0, getGame().gameWidth, getGame().gameHeight);
         batch.draw(arrowTexture, arrowRect.getX(), arrowRect.getY(), arrowRect.getWidth(), arrowRect.getHeight());
         getPlayer().draw(batch);
 
         // Font camera
-        batch.setProjectionMatrix(fontCamera.combined);
-        getFontRoboto().draw(batch, myBundle.get("squattext"),80 , 640f - 50f);
-        getFontRoboto().draw(batch, myBundle.get("squatcount") + ": " + getPlayer().getCountedJumps(), 120, 640f - 100f);
+        batch.setProjectionMatrix(getGame().getScreenCamera().combined);
+        getFontRoboto().draw(batch, getMyBundle().get("squattext"),80 , 640f - 50f);
+        getFontRoboto().draw(batch, getMyBundle().get("squatcount") + ": " + getPlayer().getCountedJumps(), 120, 640f - 100f);
 
         batch.end();
 
@@ -63,7 +63,7 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
         doPhysicsStep(Gdx.graphics.getDeltaTime());
     }
 
-    public void update() {
+    private void update() {
         // Player jumping and checking user input
         getPlayer().playerSquat();
         getPlayer().checkInput();

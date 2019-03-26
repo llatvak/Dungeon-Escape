@@ -16,9 +16,6 @@ import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import java.util.Locale;
-
-
 public class SettingsScreen implements Screen {
 
     private Stage stage;
@@ -29,19 +26,17 @@ public class SettingsScreen implements Screen {
     private OrthographicCamera camera;
 
     private Texture background;
-    protected Skin skin;
+    private Skin skin;
 
-    Locale locale;
-    I18NBundle myBundle;
+    private I18NBundle myBundle;
 
-    public SettingsScreen(DungeonEscape game) {
+    SettingsScreen(DungeonEscape game) {
         this.batch = game.getBatch();
         this.game = game;
         onCreate();
     }
 
-    public void onCreate() {
-
+    private void onCreate() {
         background = new Texture("settings.png");
 
         camera = game.getScreenCamera();
@@ -55,7 +50,6 @@ public class SettingsScreen implements Screen {
         stage = new Stage(viewport, batch);
 
         myBundle = DungeonEscape.getMyBundle();
-        locale = DungeonEscape.getLocale();
     }
 
     @Override
