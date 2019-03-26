@@ -49,7 +49,7 @@ public class DungeonEscape extends Game {
         setLanguage("fi", "FI", "MyBundle_fi_FI");
         createCameras();
         batch = new SpriteBatch();
-        changeScreen(SPLASHSCREEN);
+        changeScreen(MAPSCREEN);
     }
 
     private void createCameras() {

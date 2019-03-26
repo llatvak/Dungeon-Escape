@@ -31,7 +31,7 @@ public class SettingsScreen implements Screen {
     private void onCreate() {
         background = new Texture("settings.png");
 
-        skin = new Skin( Gdx.files.internal("dark-peel-ui.json") );
+        skin = new Skin( Gdx.files.internal("uiskin.json") );
 
         this.stage = new Stage(new StretchViewport(game.screenWidth, game.screenHeight, game.getScreenCamera()));
 

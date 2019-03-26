@@ -5,17 +5,21 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -28,6 +32,9 @@ public class MapScreen implements Screen {
     private MapLevel mapLevel;
 
     private boolean paused;
+
+    private Texture keyTexture;
+    private Texture footMarkTexture;
 
     // Map
     private TiledMap tiledMap;
@@ -76,11 +83,14 @@ public class MapScreen implements Screen {
         this.stage = new Stage(new FitViewport(game.screenWidth, game.screenHeight, game.getScreenCamera()));
         gameViewport = new StretchViewport(game.screenWidth, game.screenHeight, game.getScreenCamera());
 
-        skin = new Skin( Gdx.files.internal("dark-peel-ui.json") );
+        skin = new Skin( Gdx.files.internal("uiskin.json") );
         stepsProgressBar = new ProgressBar(0, player.STEPSTOMOVE,1,false,skin, "default-horizontal");
         stepsProgressBar.setAnimateDuration(0.5f);
 
         myBundle = DungeonEscape.getMyBundle();
+
+        keyTexture = new Texture("key.png");
+        footMarkTexture = new Texture("footmarkicon.png");
     }
 
     private void update() {
@@ -114,9 +124,9 @@ public class MapScreen implements Screen {
         game.batch.begin();
 
         // Draw fonts
-        fontRoboto.draw(game.batch, myBundle.get("stepcounter") + ": " + stepTotal, 10f , game.screenHeight - 40f);
-        fontRoboto.draw(game.batch,"" + player.movementPoints, 320 , game.screenHeight - 12f);
-        fontRoboto.draw(game.batch,myBundle.get("keys") + ": " + keyAmount + "/3", 10f , game.screenHeight - 70f);
+//        fontRoboto.draw(game.batch, myBundle.get("stepcounter") + ": " + stepTotal, 10f , game.screenHeight - 40f);
+//        fontRoboto.draw(game.batch,"" + player.movementPoints, 320 , game.screenHeight - 12f);
+//        fontRoboto.draw(game.batch,myBundle.get("keys") + ": " + keyAmount + "/3", 10f , game.screenHeight - 70f);
 
         // View game camera
         game.batch.setProjectionMatrix(game.getGameCamera().combined);
@@ -264,14 +274,18 @@ public class MapScreen implements Screen {
         topTable.setFillParent(true);
 
         // Debug lines
-        //topTable.setDebug(true);
+        topTable.setDebug(true);
 
         //Set alignment of contents in the table.
         topTable.top();
-        topTable.left();
+
 
         //Create buttons and bars
         ImageButton settingsButton = new ImageButton(skin, "settings");
+        ImageButton keyImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(keyTexture)));
+        ImageButton footmarkImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(footMarkTexture)));
+        Label stepLabel = new Label("" + stepTotal, skin,"white");
+        Label keyLabel = new Label("" + keyAmount + "/" + KEYS_NEEDED, skin,"white");
 
 
         //Add listeners to buttons
@@ -284,13 +298,22 @@ public class MapScreen implements Screen {
             }
         });
 
+        //stage.addActor(stepLabel);
+        //stage.addActor(keyLabel);
+        //stage.addActor(keyImage);
         stage.addActor(settingsButton);
         stage.addActor(stepsProgressBar);
 
 
         //Add buttons and progress bar to table
-        topTable.add(settingsButton).width(30).fillX().fillY().height(30).pad(5,5,5,5);
-        topTable.add(stepsProgressBar).width(260).fillX().fillY().pad(5,5,5,5);
+        topTable.add(settingsButton).left().width(35).height(35).pad(5,5,5,0);
+        topTable.add(footmarkImage).width(25).fillX().fillY().height(40).pad(5,10,5,0);
+        topTable.add(stepLabel).expandX().fillX().fillY().pad(5,5,5,5);
+       // topTable.add(movesLabel).expandX().fillX().fillY().pad(5,5,5,5);
+        topTable.add(keyImage).width(30).fillX().fillY().height(40).pad(5,0,5,0);
+        topTable.add(keyLabel).fillX().fillY().pad(5,0,5,5);
+        topTable.row();
+        topTable.add(stepsProgressBar).expandX().colspan(5).fillX().fillY().pad(5,5,0,5);
         topTable.row();
 
         //Add table to stage
