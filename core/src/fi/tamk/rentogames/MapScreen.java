@@ -60,8 +60,11 @@ public class MapScreen implements Screen {
     private int stepsDelta;
     private int leftOverSteps;
 
+
+    int level = 1;
     private final int KEYS_NEEDED = 3;
     int keyAmount;
+    boolean keysCollected = true;
 
     boolean buttonUp;
     private ProgressBar stepsProgressBar;
@@ -76,27 +79,6 @@ public class MapScreen implements Screen {
         this.game = game;
         onCreate();
     }
-
-    int level = 1;
-    boolean keysCollected = true;
-
-    public void changeLevel() {
-        if(level < 3) {
-            level++;
-        }
-        mapLevel.setLevel(level);
-        changeMap();
-    }
-
-    public void changeMap() {
-        Gdx.app.log("MapLevel", ": " + level);
-        mapLevel.resetMap();
-        mapLevel.createTiledMap();
-        player.setMap();
-        player.spawn();
-        tiledMapRenderer = mapLevel.getTiledMapRenderer();
-    }
-
 
     public void onCreate() {
 
@@ -164,8 +146,9 @@ public class MapScreen implements Screen {
         batch.begin();
 
         // Draw fonts
-        fontRoboto.draw(batch, myBundle.get("stepcounter") + ": " + stepTotal, 50 , 640f - 40f);
+        fontRoboto.draw(batch, myBundle.get("stepcounter") + ": " + stepTotal, 10f , 640f - 40f);
         fontRoboto.draw(batch,"" + player.movementPoints, 320 , 640f - 12f);
+        fontRoboto.draw(batch,myBundle.get("keys") + ": " + keyAmount + "/3", 10f , 640f - 70f);
 
         // View game camera
         batch.setProjectionMatrix(camera.combined);
@@ -222,6 +205,23 @@ public class MapScreen implements Screen {
 
     public void notEnoughKeys() {
         System.out.println("No keys");
+    }
+
+    public void changeLevel() {
+        if(level < 3) {
+            level++;
+        }
+        mapLevel.setLevel(level);
+        changeMap();
+    }
+
+    public void changeMap() {
+        Gdx.app.log("MapLevel", ": " + level);
+        mapLevel.resetMap();
+        mapLevel.createTiledMap();
+        player.setMap();
+        player.spawn();
+        tiledMapRenderer = mapLevel.getTiledMapRenderer();
     }
 
     public void trapConfirm(final boolean onDown, final boolean onUp) {
