@@ -363,9 +363,7 @@ public class MapScreen implements Screen {
 
     @Override
     public void dispose() {
-        fontRoboto.dispose();
         player.dispose();
-        tiledMap.dispose();
         stage.dispose();
         tiledMapRenderer.dispose();
         mapLevel.dispose();

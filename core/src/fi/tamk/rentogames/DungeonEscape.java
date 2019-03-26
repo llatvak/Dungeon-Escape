@@ -175,7 +175,6 @@ public class DungeonEscape extends Game {
     @Override
     public void dispose () {
         batch.dispose();
-        mapScreen.dispose();
     }
 }
 
