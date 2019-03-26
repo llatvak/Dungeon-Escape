@@ -69,7 +69,7 @@ public class MapScreen implements Screen {
 
     private void onCreate() {
         batch = game.getBatch();
-        MapLevel mapLevel = new MapLevel(game);
+        mapLevel = new MapLevel(game);
         tiledMap = mapLevel.getCurrentMap();
         tiledMapRenderer = mapLevel.getTiledMapRenderer();
 

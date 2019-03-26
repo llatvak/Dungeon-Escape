@@ -312,7 +312,7 @@ public class MapPlayer extends Sprite {
                 }
 
                 if(layer.equals(storyObject) ) {
-                    mapScreen.goToStoryScreen();
+                    //mapScreen.goToStoryScreen();
                 }
 
             }
