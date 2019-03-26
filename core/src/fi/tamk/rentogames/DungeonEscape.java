@@ -20,7 +20,6 @@ public class DungeonEscape extends Game {
 	private OrthographicCamera screenCamera;
     private OrthographicCamera gameCamera;
 
-
     private MapScreen mapScreen;
 
     private boolean mapScreenStatus;
@@ -36,7 +35,6 @@ public class DungeonEscape extends Game {
     final static int BACK = 5;
     final static int SQUATSCREEN = 6;
 
-    private static Locale locale;
     private static I18NBundle myBundle;
 
     public DungeonEscape() {
@@ -71,12 +69,8 @@ public class DungeonEscape extends Game {
     }
 
     static void setLanguage(String s1, String s2, String s3) {
-        locale = new Locale(s1, s2);
+        Locale locale = new Locale(s1, s2);
         myBundle = I18NBundle.createBundle(Gdx.files.internal(s3), locale);
-    }
-
-    static Locale getLocale() {
-        return locale;
     }
 
     static I18NBundle getMyBundle() {

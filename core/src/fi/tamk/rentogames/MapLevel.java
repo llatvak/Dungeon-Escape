@@ -9,19 +9,19 @@ public class MapLevel {
 
     DungeonEscape game;
 
-    TiledMap tiledMap;
+    private TiledMap tiledMap;
 
-    TiledMap currentMap;
-    OrthogonalTiledMapRenderer tiledMapRenderer;
+    private TiledMap currentMap;
+    private OrthogonalTiledMapRenderer tiledMapRenderer;
 
-    int level = 1;
+    private int level = 1;
 
     MapLevel(DungeonEscape game) {
         this.game = game;
         onCreate();
     }
 
-    void onCreate() {
+    private void onCreate() {
         setLevel(1);
         createTiledMap();
     }
@@ -32,14 +32,14 @@ public class MapLevel {
         currentMap = tiledMap;
     }
 
-    public void resetMap(){
+    void resetMap(){
         Gdx.app.log("MapLevel", "reset");
         // reset all the vars that should be reset before the next mapLevel
         currentMap.dispose();
 
     }
 
-    public void setLevel(int level) {
+    void setLevel(int level) {
         this.level = level;
     }
 
@@ -48,7 +48,7 @@ public class MapLevel {
     }
 
 
-    public TiledMap getCurrentMap() {
+    TiledMap getCurrentMap() {
         return currentMap;
     }
 

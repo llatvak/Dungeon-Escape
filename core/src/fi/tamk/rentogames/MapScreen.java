@@ -5,9 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -19,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.I18NBundle;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -26,14 +25,9 @@ public class MapScreen implements Screen {
 
     private DungeonEscape game;
     private MapPlayer player;
-    private SpriteBatch batch;
     private MapLevel mapLevel;
 
     private boolean paused;
-
-    // Camera
-    private OrthographicCamera camera;
-    private OrthographicCamera fontCamera;
 
     // Map
     private TiledMap tiledMap;
@@ -49,7 +43,6 @@ public class MapScreen implements Screen {
     private int savedSteps;
     private int leftOverSteps;
 
-
     private int level = 1;
     private final int KEYS_NEEDED = 3;
     int keyAmount;
@@ -62,36 +55,30 @@ public class MapScreen implements Screen {
 
     private I18NBundle myBundle;
 
+    private Viewport gameViewport;
+
     MapScreen(DungeonEscape game) {
         this.game = game;
         onCreate();
     }
 
     private void onCreate() {
-        batch = game.getBatch();
         mapLevel = new MapLevel(game);
         tiledMap = mapLevel.getCurrentMap();
         tiledMapRenderer = mapLevel.getTiledMapRenderer();
-
-        camera = game.getGameCamera();
 
         player = new MapPlayer(this, mapLevel);
 
         // Fonts
         Fonts fonts = new Fonts();
         fontRoboto = fonts.createMediumFont();
-        fontCamera = fonts.getCamera();
 
-        Viewport viewport = new StretchViewport(game.screenWidth, game.screenHeight, fontCamera);
-        viewport.apply();
+        this.stage = new Stage(new FitViewport(game.screenWidth, game.screenHeight, game.getScreenCamera()));
+        gameViewport = new StretchViewport(game.screenWidth, game.screenHeight, game.getScreenCamera());
 
-        stage = new Stage(viewport, batch);
         skin = new Skin( Gdx.files.internal("dark-peel-ui.json") );
         stepsProgressBar = new ProgressBar(0, player.STEPSTOMOVE,1,false,skin, "default-horizontal");
         stepsProgressBar.setAnimateDuration(0.5f);
-
-        fontCamera.position.set(fontCamera.viewportWidth / 2, fontCamera.viewportHeight / 2, 0);
-        fontCamera.update();
 
         myBundle = DungeonEscape.getMyBundle();
     }
@@ -116,32 +103,30 @@ public class MapScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        fontCamera.update();
-
         // Which part of the map are we looking? Use camera's viewport
-        tiledMapRenderer.setView(camera);
+        tiledMapRenderer.setView(game.getGameCamera());
         // Render all layers to screen.
         tiledMapRenderer.render();
 
         // View font camera
-        batch.setProjectionMatrix(fontCamera.combined);
+        game.batch.setProjectionMatrix(game.getScreenCamera().combined);
 
-        batch.begin();
+        game.batch.begin();
 
         // Draw fonts
-        fontRoboto.draw(batch, myBundle.get("stepcounter") + ": " + stepTotal, 10f , 640f - 40f);
-        fontRoboto.draw(batch,"" + player.movementPoints, 320 , 640f - 12f);
-        fontRoboto.draw(batch,myBundle.get("keys") + ": " + keyAmount + "/3", 10f , 640f - 70f);
+        fontRoboto.draw(game.batch, myBundle.get("stepcounter") + ": " + stepTotal, 10f , game.screenHeight - 40f);
+        fontRoboto.draw(game.batch,"" + player.movementPoints, 320 , game.screenHeight - 12f);
+        fontRoboto.draw(game.batch,myBundle.get("keys") + ": " + keyAmount + "/3", 10f , game.screenHeight - 70f);
 
         // View game camera
-        batch.setProjectionMatrix(camera.combined);
+        game.batch.setProjectionMatrix(game.getGameCamera().combined);
 
-        batch.draw(player.getTexture(),
-                camera.position.x - player.getTexture().getWidth()/100f/2,
-                camera.position.y - player.getTexture().getHeight()/100f/2,
+        game.batch.draw(player.getTexture(),
+                game.getGameCamera().position.x - player.getTexture().getWidth()/100f/2,
+                game.getGameCamera().position.y - player.getTexture().getHeight()/100f/2,
                 player.getTexture().getWidth()/100f,
                 player.getTexture().getHeight()/100f);
-        batch.end();
+        game.batch.end();
 
 
         moveCamera();
@@ -171,9 +156,9 @@ public class MapScreen implements Screen {
     }
 
     private void moveCamera() {
-        camera.position.x = player.getX()/100f + 32f/100f;
-        camera.position.y = player.getY()/100f + 32f/100f;
-        camera.update();
+        game.getGameCamera().position.x = player.getX()/100f + 32f/100f;
+        game.getGameCamera().position.y = player.getY()/100f + 32f/100f;
+        game.getGameCamera().update();
     }
 
     private void checkKeyAmount() {
@@ -210,7 +195,7 @@ public class MapScreen implements Screen {
         final TextButton confirmButton = new TextButton(myBundle.get("readybutton"), skin, "maroon");
         confirmButton.setWidth(160f);
         confirmButton.setHeight(70f);
-        confirmButton.setPosition(360f / 2 - 80f, 640f / 2 + 50f);
+        confirmButton.setPosition(game.screenWidth / 2 - 80f, game.screenHeight / 2 + 50f);
 
         stage.addActor(confirmButton);
 
@@ -218,7 +203,6 @@ public class MapScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor){
                 Gdx.app.log("Trap", "going");
-
 
                 // what if player doesn't want to go to trap?
                 // this needs to be changed for different traps
@@ -236,7 +220,6 @@ public class MapScreen implements Screen {
             }
         });
     }
-
 
     private void goToSquatTrap() {
         Gdx.app.log("Down trap", "going to crouching trap");
@@ -305,7 +288,7 @@ public class MapScreen implements Screen {
         stage.addActor(stepsProgressBar);
 
 
-       //Add buttons and progress bar to table
+        //Add buttons and progress bar to table
         topTable.add(settingsButton).width(30).fillX().fillY().height(30).pad(5,5,5,5);
         topTable.add(stepsProgressBar).width(260).fillX().fillY().pad(5,5,5,5);
         topTable.row();
@@ -315,7 +298,10 @@ public class MapScreen implements Screen {
     }
     @Override
     public void resize(int width, int height) {
-        // update this
+        // Updates the stage viewport where font is
+        stage.getViewport().update(width, height);
+        // Updates game viewport
+        gameViewport.update(width, height);
     }
 
     @Override
@@ -351,8 +337,8 @@ public class MapScreen implements Screen {
 
         pointsToAdd = stepsDuringPause / player.STEPSTOMOVE;
         // System.out.println("added steps: " + addedSteps);
-       // System.out.println("background steps: " + steps);
-       // System.out.println("points to add: " + pointsToAdd);
+        // System.out.println("background steps: " + steps);
+        // System.out.println("points to add: " + pointsToAdd);
 
         addMultipleMovementPoints(pointsToAdd);
         leftOverSteps = 0;
@@ -391,7 +377,6 @@ public class MapScreen implements Screen {
         fontRoboto.dispose();
         player.dispose();
         tiledMap.dispose();
-        batch.dispose();
         stage.dispose();
     }
 }

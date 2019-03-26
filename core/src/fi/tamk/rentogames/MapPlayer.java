@@ -25,7 +25,7 @@ public class MapPlayer extends Sprite {
 
     // Starting location
     private float startingX = 8 * TILE_SIZE + 1f;
-    private float startingY = 1 * TILE_SIZE + 1f;
+    private float startingY = TILE_SIZE + 1f;
 
     private float spriteX = startingX;
     private float spriteY = startingY;
@@ -71,7 +71,7 @@ public class MapPlayer extends Sprite {
         setSize(spriteWidth, spriteHeight);
         setPosition(startingX, startingY);
 
-        movementPoints = 10;
+        movementPoints = 50;
     }
 
     void setMap() {
@@ -270,7 +270,7 @@ public class MapPlayer extends Sprite {
         boolean onSquatTrap;
 
         // Get the down trap rectangles layer
-        MapLayer downTrapObjectLayer = (MapLayer)tiledMap.getLayers().get(layer);
+        MapLayer downTrapObjectLayer = tiledMap.getLayers().get(layer);
         // All the rectangles of the layer
         MapObjects mapObjects = downTrapObjectLayer.getObjects();
         // Cast it to RectangleObjects array
@@ -316,7 +316,6 @@ public class MapPlayer extends Sprite {
                 if(layer.equals(storyObject) ) {
                     //mapScreen.goToStoryScreen();
                 }
-
             }
         }
     }

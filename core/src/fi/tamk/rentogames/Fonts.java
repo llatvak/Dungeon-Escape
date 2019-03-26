@@ -2,7 +2,6 @@ package fi.tamk.rentogames;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -17,21 +16,6 @@ public class Fonts {
 
     private GlyphLayout layout;
     private FreeTypeFontGenerator fontGenerator;
-
-    private OrthographicCamera fontCamera;
-
-    Fonts(){
-        createFontCamera();
-    }
-
-    private void createFontCamera(){
-        fontCamera = new OrthographicCamera();
-        fontCamera.setToOrtho(false, 360f, 640f);
-    }
-
-    OrthographicCamera getCamera() {
-        return fontCamera;
-    }
 
     public BitmapFont createSmallFont() {
         fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Regular.ttf"));
