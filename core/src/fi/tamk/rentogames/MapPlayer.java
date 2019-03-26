@@ -47,7 +47,7 @@ public class MapPlayer extends Sprite {
     private int stepTotal;
     // Amount of steps to move one tile
     public final int STEPSTOMOVE = 10;
-    private final int INITIAL_POINTS = 10;
+    private final int INITIAL_POINTS = 40;
     int movementPoints;
     boolean allowMovement;
     private float movementSpeed = 4f;
@@ -66,6 +66,7 @@ public class MapPlayer extends Sprite {
     private String squatTrap = "down-trap";
     private String levelChangeObject = "level-change";
     private String storyObject = "story-object";
+    private String keyObject = "keys";
     // Boolean values for stepping on up/down trap
     private boolean onUpTrap = false;
     private boolean onDownTrap = false;
@@ -277,9 +278,12 @@ public class MapPlayer extends Sprite {
     public void checkCollisions() {
         checkObjectCollision(jumpingTrap);
         checkObjectCollision(squatTrap);
-        checkObjectCollision(levelChangeObject);
+        checkObjectCollision(keyObject);
         checkObjectCollision(storyObject);
+        checkObjectCollision(levelChangeObject);
     }
+
+
 
     private void checkObjectCollision(String layer) {
         // Get the down trap rectangles layer
@@ -310,9 +314,16 @@ public class MapPlayer extends Sprite {
                     }
                 }
 
+                if(layer.equals(keyObject) ) {
+                    mapScreen.keyAmount++;
+                    Gdx.app.log("Collected", "keys: " + mapScreen.keyAmount);
+                }
+
                 if(layer.equals(levelChangeObject) ) {
                     if(mapScreen.keysCollected) {
                         mapScreen.changeLevel();
+                    } else {
+                        mapScreen.notEnoughKeys();
                     }
                 }
 

@@ -5,7 +5,7 @@
  </tileset>
  <layer id="1" name="Walls" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJzzZmBg8MaDGQjIw/BsPJiBgDwlZjBgMYMcgM0MfO4h1h3U8AsutcT4BVmMVu4YTmbgAoTMwGUmvrROyD5a5BdamIEPz2NgeEBIDQBAv3b1
+   eJzzZmBg8MaDGQjIw/BsPJiBgDy1zSAV4DKDWHcMZjPQ/YiunhbhgS9ehqsZhPSSmk6JNQMXpqcZ+PA8BoYHhNQAAH22fZ4=
   </data>
  </layer>
  <layer id="12" name="PassableWalls" width="17" height="17">
@@ -15,12 +15,12 @@
  </layer>
  <layer id="2" name="Road" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYMAP7hCQJwZI09AMbOLSZGBi7SPFfaS4mRwziPELLv9R0x3DyQxy0wc5aZwU+8gxezCYQQwAAESNB0w=
+   eJxjYMAP7hCQJwZI09kMaRIxKfZhEx/MZhDyIy3CAxcYzmaQk8ZJTZOkmj0YzCAGAAD2LAYj
   </data>
  </layer>
  <layer id="3" name="Keys" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYBja4OdAO4AMQE83D8XwGYpgNJzJBwBuLgPl
+   eJxjYBgFwxn8HGgHDCFASViNhjP5AAA3ZwLs
   </data>
  </layer>
  <layer id="4" name="Story" width="17" height="17">
@@ -30,7 +30,7 @@
  </layer>
  <layer id="5" name="DownTrap" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFQxmsQKNHwSgYagAAoLEBUQ==
+   eJxjYBgFpIAVA+0AKBgs7hgFo4BSAAAJwAFR
   </data>
  </layer>
  <layer id="6" name="UpTrap" width="17" height="17">
@@ -47,10 +47,7 @@
   <object id="4" x="95.667" y="499.667">
    <point/>
   </object>
-  <object id="5" x="542.333" y="370.333">
-   <point/>
-  </object>
-  <object id="8" x="928" y="181">
+  <object id="5" x="543.666" y="750.333">
    <point/>
   </object>
   <object id="11" x="415" y="818">
@@ -58,10 +55,10 @@
   </object>
  </objectgroup>
  <objectgroup color="#fd9a21" id="10" name="down-trap">
-  <object id="7" x="671" y="432">
+  <object id="7" x="543" y="429.333">
    <point/>
   </object>
-  <object id="10" x="800" y="431">
+  <object id="10" x="544" y="300.333">
    <point/>
   </object>
  </objectgroup>

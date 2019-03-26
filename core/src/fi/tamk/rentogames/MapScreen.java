@@ -60,6 +60,9 @@ public class MapScreen implements Screen {
     private int stepsDelta;
     private int leftOverSteps;
 
+    private final int KEYS_NEEDED = 3;
+    int keyAmount;
+
     boolean buttonUp;
     private ProgressBar stepsProgressBar;
     private boolean resetProgressBar = false;
@@ -137,7 +140,9 @@ public class MapScreen implements Screen {
             }
         }
 
+        checkKeyAmount();
         player.checkCollisions();
+
 
     }
 
@@ -205,6 +210,18 @@ public class MapScreen implements Screen {
         camera.position.y = player.getY()/100f + 32f/100f;
         camera.update();
 
+    }
+
+    public void checkKeyAmount() {
+        if(keyAmount == KEYS_NEEDED) {
+            keysCollected = true;
+        } else {
+            keysCollected = false;
+        }
+    }
+
+    public void notEnoughKeys() {
+        System.out.println("No keys");
     }
 
     public void trapConfirm(final boolean onDown, final boolean onUp) {
