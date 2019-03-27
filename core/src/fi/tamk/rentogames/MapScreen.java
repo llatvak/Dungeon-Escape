@@ -31,7 +31,7 @@ public class MapScreen implements Screen {
     private DungeonEscape game;
     private MapPlayer player;
     private MapLevel mapLevel;
-
+    private MapScreenUI userInterface;
     private boolean paused;
 
     private Texture keyTexture;
@@ -47,13 +47,15 @@ public class MapScreen implements Screen {
     private Skin skin;
     private Stage stage;
 
+
+
     private int stepTotal;
     private int oldStepTotal;
     private int savedSteps;
     private int leftOverSteps;
 
     private int level = 1;
-    private final int KEYS_NEEDED = 3;
+    static final int KEYS_NEEDED = 3;
     int keyAmount;
     boolean keysCollected = true;
 
@@ -61,10 +63,6 @@ public class MapScreen implements Screen {
     private ProgressBar stepsProgressBar;
     private boolean resetProgressBar = false;
     private int progressbarValue = 0;
-
-   // private I18NBundle myBundle;
-
-   // private Viewport gameViewport;
 
     //Create buttons and bars
     ImageButton settingsButton;
@@ -88,6 +86,8 @@ public class MapScreen implements Screen {
         tiledMapRenderer = mapLevel.getTiledMapRenderer();
 
         player = new MapPlayer(this, mapLevel);
+
+        userInterface = new MapScreenUI(game, this, player);
 
         // Fonts
         Fonts fonts = new Fonts();
@@ -458,6 +458,13 @@ public class MapScreen implements Screen {
 
     void updateKeyLabel() {
         keyLabel.setText("" + keyAmount + "/" + KEYS_NEEDED);
+    }
+    public int getStepTotal() {
+        return stepTotal;
+    }
+
+    public int getProgressbarValue() {
+        return progressbarValue;
     }
 
     @Override
