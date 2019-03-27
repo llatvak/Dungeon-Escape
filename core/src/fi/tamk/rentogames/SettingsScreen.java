@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -23,6 +25,7 @@ public class SettingsScreen implements Screen {
 
     private I18NBundle myBundle;
 
+    BitmapFont fontRoboto;
     SettingsScreen(DungeonEscape game) {
         this.game = game;
         onCreate();
@@ -31,7 +34,15 @@ public class SettingsScreen implements Screen {
     private void onCreate() {
         background = new Texture("settings.png");
 
-        skin = new Skin( Gdx.files.internal("uiskin.json") );
+        Fonts fonts = new Fonts();
+        fontRoboto = fonts.createMediumFont();
+
+        skin = new Skin(Gdx.files.internal("uiskin.json"));
+
+//        skin = new Skin();
+//        skin.add("fontRoboto-Med", fontRoboto);
+//        skin.addRegions(new TextureAtlas(Gdx.files.internal("uiskin.atlas")));
+//        skin.load(Gdx.files.internal("uiskin.json"));
 
         this.stage = new Stage(new StretchViewport(game.screenWidth, game.screenHeight, game.getScreenCamera()));
 

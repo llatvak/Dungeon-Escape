@@ -8,7 +8,7 @@ com.badlogic.gdx.graphics.Color: {
 	light_green: { a: 1.0, b: 0.3647059, g: 0.8352941, r: 0.38039216 }
 },
 com.badlogic.gdx.graphics.g2d.BitmapFont: {
-	font: { file: font-export.fnt },
+	font: { file: Roboto-Medium.fnt },
 	font-title: { file: font-title-export.fnt }
 },
 com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {

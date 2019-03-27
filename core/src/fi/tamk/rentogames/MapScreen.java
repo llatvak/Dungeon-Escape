@@ -7,6 +7,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -89,13 +90,20 @@ public class MapScreen implements Screen {
         player = new MapPlayer(this, mapLevel);
 
         // Fonts
-//        Fonts fonts = new Fonts();
-//        fontRoboto = fonts.createMediumFont();
+        Fonts fonts = new Fonts();
+        fontRoboto = fonts.createMediumFont();
 
         this.stage = new Stage(new FitViewport(game.screenWidth, game.screenHeight, game.getScreenCamera()));
         gameViewport = new StretchViewport(game.screenWidth, game.screenHeight, game.getScreenCamera());
 
-        skin = new Skin( Gdx.files.internal("uiskin.json") );
+        skin = new Skin(Gdx.files.internal("uiskin.json"));
+
+//        skin = new Skin();
+//        skin.add("fontRoboto-Med", fontRoboto);
+//        skin.addRegions(new TextureAtlas(Gdx.files.internal("uiskin.atlas")));
+//        skin.load(Gdx.files.internal("uiskin.json"));
+
+
         stepsProgressBar = new ProgressBar(0, player.STEPSTOMOVE,1,false,skin, "default-horizontal");
         stepsProgressBar.setAnimateDuration(0.5f);
 
