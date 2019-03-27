@@ -61,7 +61,7 @@ public class MapPlayer extends Sprite {
 
 
 
-    MapPlayer(MapScreen mapScreen, MapLevel mapLevel) {
+    public MapPlayer(MapScreen mapScreen, MapLevel mapLevel) {
         super( new Texture("velho.png"));
         this.mapScreen = mapScreen;
         this.mapLevel = mapLevel;
@@ -74,18 +74,18 @@ public class MapPlayer extends Sprite {
         movementPoints = 50;
     }
 
-    void setMap() {
+    public void setMap() {
         this.tiledMap = mapLevel.getCurrentMap();
     }
 
-    void spawn() {
+    public void spawn() {
         spriteX = startingX;
         spriteY = startingY;
         setPosition(spriteX,spriteY);
     }
 
     // Can this method be reduced in size?
-    void move(){
+    public void move(){
         if(goDown) {
             getMyCorners(spriteX, spriteY - 1 * moveAmount);
             if(downLeftCollision && downRightCollision) {
@@ -169,11 +169,11 @@ public class MapPlayer extends Sprite {
         setY(spriteY);
     }
 
-    void receiveSteps(int stepTotal){
+    public void receiveSteps(int stepTotal){
         // Movement
     }
 
-    void addMovementPoint() {
+    public void addMovementPoint() {
         Gdx.app.log("Movementpoint", "added");
         movementPoints++;
         mapScreen.updateMovesLabel();
@@ -188,26 +188,26 @@ public class MapPlayer extends Sprite {
 
     }
 
-    void checkAllowedMoves() {
+    public void checkAllowedMoves() {
         allowMovement = movementPoints > 0;
     }
 
-    void setLeftMove() {
+    public void setLeftMove() {
         goLeft = true;
         moving = true;
     }
 
-    void setRightMove() {
+    public void setRightMove() {
         goRight = true;
         moving = true;
     }
 
-    void setDownMove() {
+    public void setDownMove() {
         goDown = true;
         moving = true;
     }
 
-    void setUpMove() {
+    public void setUpMove() {
         goUp = true;
         moving = true;
     }
@@ -256,7 +256,7 @@ public class MapPlayer extends Sprite {
     /**
      * Checks if player has collided with event tiles
      */
-    void checkCollisions() {
+    public void checkCollisions() {
         checkObjectCollision(jumpingTrap);
         checkObjectCollision(squatTrap);
         checkObjectCollision(keyObject);

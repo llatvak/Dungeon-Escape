@@ -8,7 +8,7 @@ import com.badlogic.gdx.physics.box2d.World;
 class MoveScreenGround {
     private float gameWidth;
 
-    MoveScreenGround(World w, Float gW) {
+    public MoveScreenGround(World w, Float gW) {
         // Current world
         gameWidth = gW;
         // Creates body to world and gets definitions and fixtures to it

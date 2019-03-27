@@ -11,7 +11,7 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
     private Texture arrowTexture;
     private Rectangle arrowRect;
 
-    MoveScreenSquat(DungeonEscape game, MapScreen mapScreen) {
+    public MoveScreenSquat(DungeonEscape game, MapScreen mapScreen) {
         super(game, mapScreen);
         onCreates();
     }

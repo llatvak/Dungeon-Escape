@@ -31,7 +31,7 @@ public class MoveScreenPlayer {
     private int squatStateTime = 0;
 
 
-    MoveScreenPlayer(World w) {
+    public MoveScreenPlayer(World w) {
         // Creates body to world and gets definitions and fixtures to it
         playerBody = w.createBody(getDefinitionOfBody());
         playerBody.createFixture(getPlayerShape(), 0.0f);
@@ -55,18 +55,18 @@ public class MoveScreenPlayer {
     }
 
     // Gets player X position and returns it
-    float getPlayerX() {
+    public float getPlayerX() {
         return playerBody.getPosition().x;
     }
 
     // Gets player Y position and returns it
-    float getPlayerY() {
+    public float getPlayerY() {
         return playerBody.getPosition().y;
     }
 
     // Draws the player using current animation texture
     // Also draws the player on the player body in Box2D
-    void draw(Batch b) {
+    public void draw(Batch b) {
         b.draw(currentFrameTexture, playerBody.getPosition().x - 1.5f/2, playerBody.getPosition().y - 2f/2,
                 1.5f, 2f);
     }
@@ -90,7 +90,7 @@ public class MoveScreenPlayer {
     }
 
     // Method for player jumping
-    void playerJump() {
+    public void playerJump() {
         // Counts time of program running
         stateTime += Gdx.graphics.getDeltaTime();
         // Moves the player at the start to position X
@@ -140,7 +140,7 @@ public class MoveScreenPlayer {
         }
     }
 
-    void playerSquat() {
+    public void playerSquat() {
         // Counts time of program running
         stateTime += Gdx.graphics.getDeltaTime();
         // Moves the player at the start to position X
@@ -157,13 +157,13 @@ public class MoveScreenPlayer {
     }
 
     // Method for running after arrow is passed
-    void playerRun() {
+    public void playerRun() {
         playerBody.setLinearVelocity(3f, 0);
         currentFrameTexture = jumpAnimation.getKeyFrame(stateTime, true);
     }
 
     // For desktop testing
-    void checkInput() {
+    public void checkInput() {
         Gdx.input.setInputProcessor(new InputAdapter() {
 
             // Keyboard controls
@@ -180,7 +180,7 @@ public class MoveScreenPlayer {
     }
 
     // Returns counted jumps
-    int getCountedJumps() {
+    public int getCountedJumps() {
         return countedJumps/2;
     }
 

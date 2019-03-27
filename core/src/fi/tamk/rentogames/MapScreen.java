@@ -7,7 +7,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -21,10 +20,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.I18NBundle;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class MapScreen implements Screen {
 
@@ -77,7 +72,7 @@ public class MapScreen implements Screen {
     private Label movesLabel;
     private Label keyLabel;
 
-    MapScreen(DungeonEscape game) {
+    public MapScreen(DungeonEscape game) {
         this.game = game;
         onCreate();
     }
@@ -93,7 +88,7 @@ public class MapScreen implements Screen {
         Fonts fonts = new Fonts();
         fontRoboto = fonts.createMediumFont();
 
-        this.stage = new Stage(game.getFontViewport());
+        this.stage = new Stage(game.getGameViewport());
 
         skin = new Skin(Gdx.files.internal("uiskin.json"));
 
@@ -209,11 +204,11 @@ public class MapScreen implements Screen {
         keysCollected = keyAmount == KEYS_NEEDED;
     }
 
-    void notEnoughKeys() {
+    public void notEnoughKeys() {
         System.out.println("No keys");
     }
 
-    void changeLevel() {
+    public void changeLevel() {
         if(level < 3) {
             level++;
         }
@@ -233,7 +228,7 @@ public class MapScreen implements Screen {
         tiledMapRenderer = mapLevel.getTiledMapRenderer();
     }
 
-    void trapConfirm(final boolean onSquat, final boolean onJump) {
+    public void trapConfirm(final boolean onSquat, final boolean onJump) {
         Gdx.app.log("Button", "created");
         buttonUp = true;
 
@@ -311,7 +306,7 @@ public class MapScreen implements Screen {
         game.changeScreen(DungeonEscape.JUMPSCREEN);
     }
 
-    void addStep() {
+    public void addStep() {
         stepTotal++;
         updateStepsLabel();
         checkProgressBar();
@@ -323,7 +318,7 @@ public class MapScreen implements Screen {
         }
     }
 
-    MapScreen getMapScreen() {
+    public MapScreen getMapScreen() {
         return this;
     }
 
@@ -434,12 +429,12 @@ public class MapScreen implements Screen {
     }
 
     // Save current step count
-    void saveSteps() {
+    public void saveSteps() {
         savedSteps = stepTotal;
     }
 
     // Make saved steps actual step count
-    void subtractSteps() {
+    public void subtractSteps() {
         stepTotal = savedSteps;
     }
 
@@ -448,15 +443,15 @@ public class MapScreen implements Screen {
         return stepTotal - savedSteps;
     }
 
-    void updateMovesLabel() {
+    public void updateMovesLabel() {
         movesLabel.setText("" + player.movementPoints);
     }
 
-    void updateStepsLabel() {
+    public void updateStepsLabel() {
         stepLabel.setText("" + stepTotal);
     }
 
-    void updateKeyLabel() {
+    public void updateKeyLabel() {
         keyLabel.setText("" + keyAmount + "/" + KEYS_NEEDED);
     }
 

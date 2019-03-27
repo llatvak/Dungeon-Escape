@@ -29,7 +29,7 @@ public class Fonts implements Disposable {
         return fontRobotoSm;
     }
 
-    BitmapFont createMediumFont() {
+    public BitmapFont createMediumFont() {
         fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Regular.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 24;

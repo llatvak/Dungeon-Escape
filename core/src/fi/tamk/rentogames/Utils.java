@@ -7,14 +7,14 @@ import com.badlogic.gdx.math.MathUtils;
 This class holds general utilities
  */
 
-class Utils {
+public class Utils {
     // Method for creating a random number
     private float randomNumber(float min, float max) {
         return MathUtils.random(min, max);
     }
 
     // Method for making 2D array to 1D array
-    static TextureRegion[] toTextureArray(TextureRegion[][] tr, int cols, int rows)  {
+    public static TextureRegion[] toTextureArray(TextureRegion[][] tr, int cols, int rows)  {
         TextureRegion[] frames = new TextureRegion[cols * rows];
         int index = 0;
         for(int i=0; i < rows; i++) {

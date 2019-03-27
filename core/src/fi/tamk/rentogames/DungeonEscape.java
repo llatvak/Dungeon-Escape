@@ -53,11 +53,10 @@ public class DungeonEscape extends Game {
         setLanguage("fi", "FI", "MyBundle_fi_FI");
         createCameras();
 
-        gameViewport = new StretchViewport(screenWidth, screenHeight, screenCamera);
-        fontViewport = new FitViewport(screenWidth, screenHeight, screenCamera);
+        gameViewport = new FitViewport(screenWidth, screenHeight, screenCamera);
 
         batch = new SpriteBatch();
-        changeScreen(MAPSCREEN);
+        changeScreen(SPLASHSCREEN);
     }
 
     private void createCameras() {
@@ -68,28 +67,28 @@ public class DungeonEscape extends Game {
         gameCamera.setToOrtho(false, gameWidth, gameHeight);
     }
 
-    Viewport getGameViewport() {
+    public Viewport getGameViewport() {
         return gameViewport;
     }
 
-    Viewport getFontViewport() {
+    public Viewport getFontViewport() {
         return fontViewport;
     }
 
-    OrthographicCamera getScreenCamera() {
+    public OrthographicCamera getScreenCamera() {
         return this.screenCamera;
     }
 
-    OrthographicCamera getGameCamera() {
+    public OrthographicCamera getGameCamera() {
         return this.gameCamera;
     }
 
-    void setLanguage(String s1, String s2, String s3) {
+    public void setLanguage(String s1, String s2, String s3) {
         Locale locale = new Locale(s1, s2);
         myBundle = I18NBundle.createBundle(Gdx.files.internal(s3), locale, "UTF-8");
     }
 
-    I18NBundle getMyBundle() {
+    public I18NBundle getMyBundle() {
         return myBundle;
     }
 
@@ -100,7 +99,7 @@ public class DungeonEscape extends Game {
         batch.end();
     }
 
-    void changeScreen(int screen) {
+    public void changeScreen(int screen) {
 
         switch(screen) {
             case SPLASHSCREEN:
@@ -148,20 +147,20 @@ public class DungeonEscape extends Game {
         }
     }
 
-    void setPreviousScreen(int screen) {
+    public void setPreviousScreen(int screen) {
         this.previousScreen = screen;
     }
 
-    void setMoveScreenStatus(boolean status) {
+    public void setMoveScreenStatus(boolean status) {
         this.moveScreenStatus = status;
     }
 
-    SpriteBatch getBatch() {
+    public SpriteBatch getBatch() {
         return batch;
     }
 
 
-    void addSteps() {
+    public void addSteps() {
         // Is map screen open
         if(mapScreenStatus) {
             // Is movement screen open

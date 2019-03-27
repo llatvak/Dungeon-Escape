@@ -17,7 +17,7 @@ public class MapLevel implements Disposable {
 
     private int level = 1;
 
-    MapLevel(DungeonEscape game) {
+    public MapLevel(DungeonEscape game) {
         this.game = game;
         onCreate();
     }
@@ -27,19 +27,19 @@ public class MapLevel implements Disposable {
         createTiledMap();
     }
 
-    void createTiledMap() {
+    public void createTiledMap() {
         tiledMap = new TmxMapLoader().load("map"+level+".tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1/100f);
         currentMap = tiledMap;
     }
 
-    void resetMap(){
+    public void resetMap(){
         Gdx.app.log("MapLevel", "reset");
         // reset all the vars that should be reset before the next mapLevel
 
     }
 
-    void setLevel(int level) {
+    public void setLevel(int level) {
         this.level = level;
     }
 
@@ -48,7 +48,7 @@ public class MapLevel implements Disposable {
     }
 
 
-    TiledMap getCurrentMap() {
+    public TiledMap getCurrentMap() {
         return currentMap;
     }
 
@@ -56,11 +56,11 @@ public class MapLevel implements Disposable {
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1/100f);
     }
 
-    TiledMap getTiledMap() {
+    public TiledMap getTiledMap() {
         return this.tiledMap;
     }
 
-    OrthogonalTiledMapRenderer getTiledMapRenderer() {
+    public OrthogonalTiledMapRenderer getTiledMapRenderer() {
         return this.tiledMapRenderer;
     }
 

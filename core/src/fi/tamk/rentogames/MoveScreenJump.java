@@ -15,7 +15,7 @@ public class MoveScreenJump extends MoveScreenMove implements Screen {
     private float spikeWidth;
     private float spikeHeight;
 
-    MoveScreenJump(DungeonEscape game, MapScreen mapScreen) {
+    public MoveScreenJump(DungeonEscape game, MapScreen mapScreen) {
         super(game, mapScreen);
         onCreates();
     }

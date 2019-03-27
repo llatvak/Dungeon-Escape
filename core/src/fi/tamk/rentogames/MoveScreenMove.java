@@ -31,7 +31,7 @@ abstract class MoveScreenMove implements Screen {
     // Fonts
     private BitmapFont fontRoboto;
 
-    MoveScreenMove(DungeonEscape game, MapScreen mapScreen) {
+    public MoveScreenMove(DungeonEscape game, MapScreen mapScreen) {
         // Current game and screen
         this.game = game;
         this.mapScreen = mapScreen;
@@ -58,7 +58,7 @@ abstract class MoveScreenMove implements Screen {
         fontRoboto = fonts.createMediumFont();
     }
 
-    void debug() {
+    public void debug() {
         // Is script working correctly
         if(DEBUG_PHYSICS) {
             debugRenderer.render(world, game.getGameCamera().combined);
@@ -99,25 +99,25 @@ abstract class MoveScreenMove implements Screen {
         return game;
     }
 
-    Texture getBackgroundTexture() {
+    public Texture getBackgroundTexture() {
         return backgroundTexture;
     }
 
 
-    MoveScreenPlayer getPlayer() {
+    public MoveScreenPlayer getPlayer() {
         return player;
     }
 
-    BitmapFont getFontRoboto() {
+    public BitmapFont getFontRoboto() {
         return fontRoboto;
     }
 
 
-    MapScreen getMapScreen() {
+    public MapScreen getMapScreen() {
         return mapScreen;
     }
 
-    void doPhysicsStep(float deltaTime) {
+    public void doPhysicsStep(float deltaTime) {
         float TIME_STEP = 1/60f;
         float frameTime = deltaTime;
         if(deltaTime > 1/4f) {

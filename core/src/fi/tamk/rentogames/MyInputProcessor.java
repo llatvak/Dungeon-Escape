@@ -20,7 +20,7 @@ public class MyInputProcessor implements InputProcessor, Disposable {
 
     private MapPlayer player;
 
-    MyInputProcessor(MapPlayer player) {
+    public MyInputProcessor(MapPlayer player) {
         this.player = player;
     }
 
