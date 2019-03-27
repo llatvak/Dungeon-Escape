@@ -1,4 +1,4 @@
-package fi.tamk.rentogames;
+package fi.tamk.rentogames.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+
+import fi.tamk.rentogames.DungeonEscape;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 

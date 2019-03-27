@@ -1,4 +1,4 @@
-package fi.tamk.rentogames;
+package fi.tamk.rentogames.Map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,6 +10,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
+
+import fi.tamk.rentogames.Screens.MapScreen;
 
 public class MapPlayer extends Sprite {
     private MapScreen mapScreen;
@@ -31,16 +33,16 @@ public class MapPlayer extends Sprite {
     private float spriteY = startingY;
 
     // Movement direction
-    boolean moving;
+    public boolean moving;
     private boolean goUp;
     private boolean goDown;
     private boolean goRight;
     private boolean goLeft;
 
     // Amount of steps to move one tile
-    final int STEPSTOMOVE = 10;
-    int movementPoints;
-    boolean allowMovement;
+    public final int STEPSTOMOVE = 10;
+    public int movementPoints;
+    public boolean allowMovement;
     private float movementSpeed = 4f;
     private float movedDistance;
     private float moveAmount = movementSpeed;

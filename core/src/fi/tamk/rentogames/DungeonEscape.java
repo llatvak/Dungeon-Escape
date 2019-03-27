@@ -6,19 +6,25 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.Locale;
 
+import fi.tamk.rentogames.Screens.MainMenu;
+import fi.tamk.rentogames.Screens.MapScreen;
+import fi.tamk.rentogames.Screens.MoveScreenJump;
+import fi.tamk.rentogames.Screens.MoveScreenSquat;
+import fi.tamk.rentogames.Screens.SettingsScreen;
+import fi.tamk.rentogames.Screens.SplashScreen;
+
 public class DungeonEscape extends Game {
-    final float screenWidth = 360f;
-    final float screenHeight = 640f;
+    public final float screenWidth = 360f;
+    public final float screenHeight = 640f;
 
-    final float gameWidth = 360f / 100f;
-    final float gameHeight = 640f / 100f;
+    public final float gameWidth = 360f / 100f;
+    public final float gameHeight = 640f / 100f;
 
-	SpriteBatch batch;
+	public SpriteBatch batch;
 
 	private OrthographicCamera screenCamera;
     private OrthographicCamera gameCamera;
@@ -31,12 +37,12 @@ public class DungeonEscape extends Game {
     private int previousScreen;
 
     private final static int SPLASHSCREEN = 0;
-    final static int MAINMENU = 1;
-    final static int SETTINGSSCREEN = 2;
-    final static int MAPSCREEN = 3;
-    final static int JUMPSCREEN = 4;
-    final static int BACK = 5;
-    final static int SQUATSCREEN = 6;
+    public final static int MAINMENU = 1;
+    public final static int SETTINGSSCREEN = 2;
+    public final static int MAPSCREEN = 3;
+    public final static int JUMPSCREEN = 4;
+    public final static int BACK = 5;
+    public final static int SQUATSCREEN = 6;
 
     private I18NBundle myBundle;
     private Viewport gameViewport;

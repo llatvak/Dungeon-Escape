@@ -1,4 +1,4 @@
-package fi.tamk.rentogames;
+package fi.tamk.rentogames.Screens;
 
 import com.badlogic.gdx.Gdx;
 
@@ -20,6 +20,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+
+import fi.tamk.rentogames.DungeonEscape;
+import fi.tamk.rentogames.Framework.Fonts;
+import fi.tamk.rentogames.Map.MapLevel;
+import fi.tamk.rentogames.Map.MapPlayer;
+import fi.tamk.rentogames.Interface.MapScreenUI;
+import fi.tamk.rentogames.Framework.MyInputProcessor;
 
 public class MapScreen implements Screen {
 
@@ -50,11 +57,11 @@ public class MapScreen implements Screen {
     private int leftOverSteps;
 
     private int level = 1;
-    static final int KEYS_NEEDED = 3;
-    int keyAmount;
-    boolean keysCollected = true;
+    public static final int KEYS_NEEDED = 3;
+    public int keyAmount;
+    public boolean keysCollected = true;
 
-    boolean buttonUp;
+    public boolean buttonUp;
     private ProgressBar stepsProgressBar;
     private boolean resetProgressBar = false;
     private int progressbarValue = 0;

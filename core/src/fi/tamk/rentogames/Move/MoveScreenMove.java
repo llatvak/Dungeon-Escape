@@ -1,4 +1,4 @@
-package fi.tamk.rentogames;
+package fi.tamk.rentogames.Move;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -8,7 +8,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 
-abstract class MoveScreenMove implements Screen {
+import fi.tamk.rentogames.DungeonEscape;
+import fi.tamk.rentogames.Framework.Fonts;
+import fi.tamk.rentogames.Screens.MapScreen;
+
+public abstract class MoveScreenMove implements Screen {
 
     // Current screen and game
     private MapScreen mapScreen;

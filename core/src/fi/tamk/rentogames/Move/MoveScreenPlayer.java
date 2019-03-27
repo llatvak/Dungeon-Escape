@@ -1,4 +1,4 @@
-package fi.tamk.rentogames;
+package fi.tamk.rentogames.Move;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
@@ -11,6 +11,9 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+
+import fi.tamk.rentogames.Framework.Utils;
+
 import static com.badlogic.gdx.Input.Keys.UP;
 
 public class MoveScreenPlayer {

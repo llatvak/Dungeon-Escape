@@ -1,4 +1,4 @@
-package fi.tamk.rentogames;
+package fi.tamk.rentogames.Interface;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,9 +9,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
-import static fi.tamk.rentogames.MapScreen.KEYS_NEEDED;
+import fi.tamk.rentogames.DungeonEscape;
+import fi.tamk.rentogames.Map.MapPlayer;
+import fi.tamk.rentogames.Screens.MapScreen;
 
-class MapScreenUI extends UI {
+import static fi.tamk.rentogames.Screens.MapScreen.KEYS_NEEDED;
+
+public class MapScreenUI extends UI {
 
     DungeonEscape game;
     MapScreen mapScreen;
@@ -33,7 +37,7 @@ class MapScreenUI extends UI {
     private Texture movesArrowTexture;
 
 
-    MapScreenUI(DungeonEscape game, MapScreen mapScreen, MapPlayer player){
+    public MapScreenUI(DungeonEscape game, MapScreen mapScreen, MapPlayer player){
         this.game = game;
         this.mapScreen = mapScreen;
         this.player = player;

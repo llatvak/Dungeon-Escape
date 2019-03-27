@@ -1,9 +1,12 @@
-package fi.tamk.rentogames;
+package fi.tamk.rentogames.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+
+import fi.tamk.rentogames.DungeonEscape;
+import fi.tamk.rentogames.Move.MoveScreenMove;
 
 public class MoveScreenJump extends MoveScreenMove implements Screen {
 

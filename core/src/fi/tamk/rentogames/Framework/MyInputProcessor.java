@@ -1,9 +1,11 @@
-package fi.tamk.rentogames;
+package fi.tamk.rentogames.Framework;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.utils.Disposable;
+
+import fi.tamk.rentogames.Map.MapPlayer;
 
 import static com.badlogic.gdx.Input.Keys.DOWN;
 import static com.badlogic.gdx.Input.Keys.LEFT;

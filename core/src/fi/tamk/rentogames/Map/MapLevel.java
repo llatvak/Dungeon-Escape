@@ -1,10 +1,12 @@
-package fi.tamk.rentogames;
+package fi.tamk.rentogames.Map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.Disposable;
+
+import fi.tamk.rentogames.DungeonEscape;
 
 public class MapLevel implements Disposable {
 
