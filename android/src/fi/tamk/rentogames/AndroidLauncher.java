@@ -13,43 +13,24 @@ public class AndroidLauncher extends AndroidApplication implements SensorEventLi
 	private StepDetector simpleStepDetector;
 	private SensorManager sensorManager;
 	private Sensor accel;
-	private int numSteps;
 	private DungeonEscape game;
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		System.out.println("Create");
 
-		PedometerStatus pedometerStatus = new AndroidPedometerStatus();
 		// Get an instance of the SensorManager
 		sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 		simpleStepDetector = new StepDetector();
 		simpleStepDetector.registerListener(this);
-
-		numSteps = 0;
-
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		initialize(game = new DungeonEscape(), config);
-
-
-		if(pedometerStatus.getStatus() == true) {
-			startPedometer();
-		} else if(pedometerStatus.getStatus() == false) {
-			stopPedometer();
-		}
-
 		startPedometer();
-
-
 	}
 
 	@Override
 	public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-		System.out.println("Accuracy");
 	}
 
 	@Override
@@ -57,24 +38,12 @@ public class AndroidLauncher extends AndroidApplication implements SensorEventLi
 		if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
 			simpleStepDetector.updateAccel(
 					event.timestamp, event.values[0], event.values[1], event.values[2]);
-			// System.out.println("sensor");
-
-
 		}
-
-//		if(game.getMeterStance()) {
-//			startPedometer();
-//		} else {
-//			stopPedometer();
-//		}
-
 	}
 
 	@Override
 	public void step(long timeNs) {
-		//numSteps++;
 		game.addSteps();
-
 	}
 
 	public void startPedometer() {
@@ -85,7 +54,6 @@ public class AndroidLauncher extends AndroidApplication implements SensorEventLi
 	public void stopPedometer() {
 		System.out.println("stop pedometer");
 		sensorManager.unregisterListener(AndroidLauncher.this);
-
 	}
 
 }

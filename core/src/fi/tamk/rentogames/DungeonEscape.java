@@ -43,8 +43,7 @@ public class DungeonEscape extends Game {
     private Viewport fontViewport;
 
     public DungeonEscape() {
-       // this.pedometerStatus = pedometerStatus;
-       // pedometerStatus.setStatus(1);
+       // :D
     }
 
     @Override
