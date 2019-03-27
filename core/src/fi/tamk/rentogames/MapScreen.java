@@ -180,9 +180,9 @@ public class MapScreen implements Screen {
         updateProgressBar();
 
         // TODO update these only when they actually change
-        stepLabel.setText("" + stepTotal);
-        movesLabel.setText("" + player.movementPoints);
-        keyLabel.setText("" + keyAmount + "/" + KEYS_NEEDED);
+
+
+
     }
 
     private void updateProgressBar() {
@@ -312,6 +312,7 @@ public class MapScreen implements Screen {
 
     void addStep() {
         stepTotal++;
+        updateStepsLabel();
         System.out.println("Steps: " + stepTotal);
 
         if(!paused) {
@@ -444,6 +445,18 @@ public class MapScreen implements Screen {
     // Get difference between total steps and saved steps
     private int getStepsDelta() {
         return stepTotal - savedSteps;
+    }
+
+    void updateMovesLabel() {
+        movesLabel.setText("" + player.movementPoints);
+    }
+
+    void updateStepsLabel() {
+        stepLabel.setText("" + stepTotal);
+    }
+
+    void updateKeyLabel() {
+        keyLabel.setText("" + keyAmount + "/" + KEYS_NEEDED);
     }
 
     @Override
