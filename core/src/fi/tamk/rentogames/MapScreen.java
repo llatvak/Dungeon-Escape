@@ -12,12 +12,15 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.I18NBundle;
@@ -89,8 +92,8 @@ public class MapScreen implements Screen {
         player = new MapPlayer(this, mapLevel);
 
         // Fonts
-        Fonts fonts = new Fonts();
-        fontRoboto = fonts.createMediumFont();
+//        Fonts fonts = new Fonts();
+//        fontRoboto = fonts.createMediumFont();
 
         this.stage = new Stage(new FitViewport(game.screenWidth, game.screenHeight, game.getScreenCamera()));
         gameViewport = new StretchViewport(game.screenWidth, game.screenHeight, game.getScreenCamera());
@@ -100,6 +103,7 @@ public class MapScreen implements Screen {
         stepsProgressBar.setAnimateDuration(0.5f);
 
         myBundle = DungeonEscape.getMyBundle();
+
 
         keyTexture = new Texture("key.png");
         footMarkTexture = new Texture("footmarkicon.png");
@@ -232,23 +236,41 @@ public class MapScreen implements Screen {
         Gdx.app.log("Button", "created");
         buttonUp = true;
 
-        final TextButton confirmButton = new TextButton(myBundle.get("readybutton"), skin, "maroon");
-        confirmButton.setWidth(160f);
-        confirmButton.setHeight(70f);
-        confirmButton.setPosition(game.screenWidth / 2 - 80f, game.screenHeight / 2 + 50f);
+        final TextButton confirmButton = new TextButton("Yes!", skin);
+        final TextButton cancelButton = new TextButton("No", skin, "maroon");
 
+        final Label trapLabel = new Label("TRAP!",skin,"title-white");
+        final Label readyLabel = new Label("Are you ready?",skin,"title-white");
+
+        trapLabel.setPosition(game.screenWidth / 2 - trapLabel.getWidth() / 2, game.screenHeight / 2 + 170f);
+        readyLabel.setPosition(game.screenWidth / 2 - readyLabel.getWidth() / 2, game.screenHeight / 2 + 140f);
+
+
+        confirmButton.setWidth(110f);
+        confirmButton.setHeight(60f);
+        cancelButton.setColor(48,192,12,1);
+        confirmButton.setPosition(game.screenWidth / 2 + 60f, game.screenHeight / 2 + 70f);
+
+        cancelButton.setWidth(110f);
+        cancelButton.setHeight(60f);
+        cancelButton.setColor(185,22,22,1);
+        cancelButton.setPosition(game.screenWidth / 2 - 170f, game.screenHeight / 2 + 70f);
+
+
+        stage.addActor(trapLabel);
+        stage.addActor(readyLabel);
+        stage.addActor(cancelButton);
         stage.addActor(confirmButton);
 
         confirmButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
                 Gdx.app.log("Trap", "going");
-
-                // what if player doesn't want to go to trap?
-                // this needs to be changed for different traps
                 confirmButton.remove();
+                cancelButton.remove();
+                trapLabel.remove();
+                readyLabel.remove();
                 buttonUp = false;
-
                 // Using boolean values checks trapscreen
                 if(onSquat) {
                     goToSquatTrap();
@@ -256,6 +278,19 @@ public class MapScreen implements Screen {
                 if(onJump) {
                     goToJumpTrap();
                 }
+                player.addMovementPoint();
+            }
+        });
+
+        cancelButton.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeEvent event, Actor actor){
+                Gdx.app.log("Trap", "cancel");
+                confirmButton.remove();
+                cancelButton.remove();
+                trapLabel.remove();
+                readyLabel.remove();
+                buttonUp = false;
                 player.addMovementPoint();
             }
         });
@@ -304,15 +339,10 @@ public class MapScreen implements Screen {
         topTable.setFillParent(true);
 
         // Debug lines
-        // topTable.setDebug(true);
+         topTable.setDebug(true);
 
         //Set alignment of contents in the table.
         topTable.top();
-
-
-
-
-
 
         //Add listeners to buttons
         settingsButton.addListener(new ChangeListener(){
@@ -324,28 +354,23 @@ public class MapScreen implements Screen {
             }
         });
 
-        stage.addActor(stepLabel);
-        stage.addActor(keyLabel);
-        stage.addActor(movesLabel);
         stage.addActor(settingsButton);
-        stage.addActor(stepsProgressBar);
+
+        //Window window = new Window("Window", skin);
+        //TextButton button = new TextButton("TRAP!", skin);
 
 
-        // TODO stop cell movement
         //Add buttons and progress bar to table
-        topTable.add(settingsButton).left().width(35).height(35).pad(5,5,5,0);
-
-        topTable.add(footmarkImage).width(25).height(40).fillX().fillY().pad(5,10,5,0);
-        topTable.add(stepLabel).fillX().fillY().pad(5,5,5,5);
-
-        topTable.add(movesImage).right().width(30).height(40).fillX().fillY().pad(5,5,5,5);
-        topTable.add(movesLabel).fillY().pad(5,0,5,5);
-
-        topTable.add(keyImage).width(30).height(40).fillX().fillY().pad(5,0,5,0);
-        topTable.add(keyLabel).fillX().fillY().pad(5,0,5,5);
+        topTable.add(settingsButton).left().width(35).height(35).pad(5,10,0,0);
+        topTable.add(footmarkImage).width(25).height(40).fillX().fillY().pad(5,5,0,0);
+        topTable.add(stepsProgressBar).width(240).fillX().pad(5,0,0,5);
+        topTable.add(stepLabel).fillX().fillY().pad(5,0,0,5);
         topTable.row();
-        topTable.add(stepsProgressBar).expandX().colspan(7).fillX().fillY().pad(5,5,0,5);
-        topTable.row();
+
+        topTable.add(keyImage).width(30).height(40).fillX().fillY().pad(0,0,5,0);
+        topTable.add(keyLabel).width(30).fillX().fillY().pad(0,0,5,5)     ;
+        topTable.add(movesImage).right().width(30).height(40).fillX().fillY().pad(0,5,5,5);
+        topTable.add(movesLabel).width(40).fillY().pad(0,0,5,5);
 
         //Add table to stage
         stage.addActor(topTable);
@@ -432,5 +457,8 @@ public class MapScreen implements Screen {
         player.dispose();
         tiledMap.dispose();
         stage.dispose();
+        keyTexture.dispose();
+        footMarkTexture.dispose();
+        movesArrowTexture.dispose();
     }
 }
