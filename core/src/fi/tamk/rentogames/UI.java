@@ -1,6 +1,6 @@
 package fi.tamk.rentogames;
 
-public class UI {
+abstract class UI {
 
 
 }
