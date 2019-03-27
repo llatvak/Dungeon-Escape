@@ -87,7 +87,7 @@ public class DungeonEscape extends Game {
 
     void setLanguage(String s1, String s2, String s3) {
         Locale locale = new Locale(s1, s2);
-        myBundle = I18NBundle.createBundle(Gdx.files.internal(s3), locale);
+        myBundle = I18NBundle.createBundle(Gdx.files.internal(s3), locale, "UTF-8");
     }
 
     I18NBundle getMyBundle() {

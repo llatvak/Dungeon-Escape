@@ -44,9 +44,7 @@ public class SettingsScreen implements Screen {
         menuTable.setDebug(false);
         //Set alignment of contents in the table.
         menuTable.center();
-
         //Create buttons
-
         TextButton tutorialButton = new TextButton(game.getMyBundle().get("howtoplaybutton"), skin);
         TextButton soundButton = new TextButton(game.getMyBundle().get("soundbutton"), skin);
         TextButton musicButton = new TextButton(game.getMyBundle().get("musicbutton"), skin);
