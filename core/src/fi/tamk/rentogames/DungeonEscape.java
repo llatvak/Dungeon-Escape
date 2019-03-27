@@ -58,7 +58,7 @@ public class DungeonEscape extends Game {
         fontViewport = new FitViewport(screenWidth, screenHeight, screenCamera);
 
         batch = new SpriteBatch();
-        changeScreen(SPLASHSCREEN);
+        changeScreen(MAPSCREEN);
     }
 
     private void createCameras() {

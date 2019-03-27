@@ -28,7 +28,7 @@ public class MainMenu implements Screen {
         background = new Texture("menu.png");
 
         //atlas = new TextureAtlas("skin.atlas");
-        skin = new Skin( Gdx.files.internal("dark-peel-ui.json") );
+        skin = new Skin( Gdx.files.internal("uiskin.json") );
 
         this.stage = new Stage(game.getGameViewport());
     }

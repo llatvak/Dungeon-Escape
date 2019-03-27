@@ -5,17 +5,26 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.I18NBundle;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class MapScreen implements Screen {
 
@@ -24,6 +33,10 @@ public class MapScreen implements Screen {
     private MapLevel mapLevel;
 
     private boolean paused;
+
+    private Texture keyTexture;
+    private Texture footMarkTexture;
+    private Texture movesArrowTexture;
 
     // Map
     private TiledMap tiledMap;
@@ -49,6 +62,21 @@ public class MapScreen implements Screen {
     private boolean resetProgressBar = false;
     private int progressbarValue = 0;
 
+   // private I18NBundle myBundle;
+
+   // private Viewport gameViewport;
+
+    //Create buttons and bars
+    ImageButton settingsButton;
+    ImageButton keyImage;
+    ImageButton footmarkImage;
+    ImageButton movesImage;
+
+
+    private Label stepLabel;
+    private Label movesLabel;
+    private Label keyLabel;
+
     MapScreen(DungeonEscape game) {
         this.game = game;
         onCreate();
@@ -67,9 +95,33 @@ public class MapScreen implements Screen {
 
         this.stage = new Stage(game.getFontViewport());
 
-        skin = new Skin( Gdx.files.internal("dark-peel-ui.json") );
+        skin = new Skin(Gdx.files.internal("uiskin.json"));
+
+//        skin = new Skin();
+//        skin.add("fontRoboto-Med", fontRoboto);
+//        skin.addRegions(new TextureAtlas(Gdx.files.internal("uiskin.atlas")));
+//        skin.load(Gdx.files.internal("uiskin.json"));
+
+
         stepsProgressBar = new ProgressBar(0, player.STEPSTOMOVE,1,false,skin, "default-horizontal");
         stepsProgressBar.setAnimateDuration(0.5f);
+
+
+        keyTexture = new Texture("key.png");
+        footMarkTexture = new Texture("footmarkicon.png");
+        movesArrowTexture = new Texture("movesicon.png");
+
+        //Create buttons and bars
+        settingsButton = new ImageButton(skin, "settings");
+        keyImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(keyTexture)));
+        footmarkImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(footMarkTexture)));
+        movesImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(movesArrowTexture)));
+
+        stepLabel = new Label("" + stepTotal, skin,"white");
+        movesLabel = new Label("" + player.movementPoints, skin,"white");
+        keyLabel = new Label("" + keyAmount + "/" + KEYS_NEEDED, skin,"white");
+
+
     }
 
     private void update() {
@@ -103,9 +155,9 @@ public class MapScreen implements Screen {
         game.batch.begin();
 
         // Draw fonts
-        fontRoboto.draw(game.batch, game.getMyBundle().get("stepcounter") + ": " + stepTotal, 10f , game.screenHeight - 40f);
-        fontRoboto.draw(game.batch,"" + player.movementPoints, 320 , game.screenHeight - 12f);
-        fontRoboto.draw(game.batch,game.getMyBundle().get("keys") + ": " + keyAmount + "/3", 10f , game.screenHeight - 70f);
+       // fontRoboto.draw(game.batch, game.getMyBundle().get("stepcounter") + ": " + stepTotal, 10f , game.screenHeight - 40f);
+       // fontRoboto.draw(game.batch,"" + player.movementPoints, 320 , game.screenHeight - 12f);
+       // fontRoboto.draw(game.batch,game.getMyBundle().get("keys") + ": " + keyAmount + "/3", 10f , game.screenHeight - 70f);
 
         // View game camera
         game.batch.setProjectionMatrix(game.getGameCamera().combined);
@@ -130,7 +182,7 @@ public class MapScreen implements Screen {
         updateProgressBar();
     }
 
-    private void updateProgressBar() {
+    private void checkProgressBar() {
         if(stepTotal > oldStepTotal){
             if(resetProgressBar) {
                 progressbarValue = 0;
@@ -138,10 +190,13 @@ public class MapScreen implements Screen {
             } else {
                 progressbarValue++;
             }
-
-            stepsProgressBar.setValue(progressbarValue);
         }
         oldStepTotal = stepTotal;
+        updateProgressBar();
+    }
+
+    private void updateProgressBar() {
+        stepsProgressBar.setValue(progressbarValue);
     }
 
     private void moveCamera() {
@@ -169,6 +224,7 @@ public class MapScreen implements Screen {
     private void changeMap() {
         Gdx.app.log("MapLevel", ": " + level);
         keyAmount = 0;
+        updateKeyLabel();
         keysCollected = false;
         mapLevel.resetMap();
         mapLevel.createTiledMap();
@@ -181,23 +237,42 @@ public class MapScreen implements Screen {
         Gdx.app.log("Button", "created");
         buttonUp = true;
 
-        final TextButton confirmButton = new TextButton(game.getMyBundle().get("readybutton"), skin, "maroon");
-        confirmButton.setWidth(160f);
-        confirmButton.setHeight(70f);
-        confirmButton.setPosition(game.screenWidth / 2 - 80f, game.screenHeight / 2 + 50f);
+        //TODO localization for buttons and labels
+        final TextButton confirmButton = new TextButton(game.getMyBundle().get("readybutton", skin);
+        final TextButton cancelButton = new TextButton("No", skin, "maroon");
 
+        final Label trapLabel = new Label("TRAP!",skin,"title-white");
+        final Label readyLabel = new Label("Are you ready?",skin,"title-white");
+
+        trapLabel.setPosition(game.screenWidth / 2 - trapLabel.getWidth() / 2, game.screenHeight / 2 + 170f);
+        readyLabel.setPosition(game.screenWidth / 2 - readyLabel.getWidth() / 2, game.screenHeight / 2 + 140f);
+
+
+        confirmButton.setWidth(110f);
+        confirmButton.setHeight(60f);
+        cancelButton.setColor(48,192,12,1);
+        confirmButton.setPosition(game.screenWidth / 2 + 60f, game.screenHeight / 2 + 70f);
+
+        cancelButton.setWidth(110f);
+        cancelButton.setHeight(60f);
+        cancelButton.setColor(185,22,22,1);
+        cancelButton.setPosition(game.screenWidth / 2 - 170f, game.screenHeight / 2 + 70f);
+
+
+        stage.addActor(trapLabel);
+        stage.addActor(readyLabel);
+        stage.addActor(cancelButton);
         stage.addActor(confirmButton);
 
         confirmButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
                 Gdx.app.log("Trap", "going");
-
-                // what if player doesn't want to go to trap?
-                // this needs to be changed for different traps
                 confirmButton.remove();
+                cancelButton.remove();
+                trapLabel.remove();
+                readyLabel.remove();
                 buttonUp = false;
-
                 // Using boolean values checks trapscreen
                 if(onSquat) {
                     goToSquatTrap();
@@ -205,6 +280,19 @@ public class MapScreen implements Screen {
                 if(onJump) {
                     goToJumpTrap();
                 }
+                player.addMovementPoint();
+            }
+        });
+
+        cancelButton.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeEvent event, Actor actor){
+                Gdx.app.log("Trap", "cancel");
+                confirmButton.remove();
+                cancelButton.remove();
+                trapLabel.remove();
+                readyLabel.remove();
+                buttonUp = false;
                 player.addMovementPoint();
             }
         });
@@ -226,11 +314,13 @@ public class MapScreen implements Screen {
 
     void addStep() {
         stepTotal++;
+        updateStepsLabel();
+        checkProgressBar();
         System.out.println("Steps: " + stepTotal);
 
         if(!paused) {
             leftOverSteps++;
-            System.out.println("Steps to point: " + leftOverSteps);
+            //System.out.println("Steps to point: " + leftOverSteps);
         }
     }
 
@@ -240,7 +330,6 @@ public class MapScreen implements Screen {
 
     @Override
     public void show() {
-        Gdx.app.log("Show", "");
         InputMultiplexer multiplexer = new InputMultiplexer();
         MyInputProcessor inputProcessor = new MyInputProcessor(player);
         multiplexer.addProcessor(stage);
@@ -257,11 +346,6 @@ public class MapScreen implements Screen {
 
         //Set alignment of contents in the table.
         topTable.top();
-        topTable.left();
-
-        //Create buttons and bars
-        ImageButton settingsButton = new ImageButton(skin, "settings");
-
 
         //Add listeners to buttons
         settingsButton.addListener(new ChangeListener(){
@@ -274,13 +358,22 @@ public class MapScreen implements Screen {
         });
 
         stage.addActor(settingsButton);
-        stage.addActor(stepsProgressBar);
+
+        //Window window = new Window("Window", skin);
+        //TextButton button = new TextButton("TRAP!", skin);
 
 
         //Add buttons and progress bar to table
-        topTable.add(settingsButton).width(30).fillX().fillY().height(30).pad(5,5,5,5);
-        topTable.add(stepsProgressBar).width(260).fillX().fillY().pad(5,5,5,5);
+        topTable.add(settingsButton).left().width(35).height(35).pad(5,10,0,0);
+        topTable.add(footmarkImage).width(25).height(40).fillX().fillY().pad(5,5,0,0);
+        topTable.add(stepsProgressBar).width(240).fillX().pad(5,0,0,5);
+        topTable.add(stepLabel).fillX().fillY().pad(5,0,0,5);
         topTable.row();
+
+        topTable.add(keyImage).width(30).height(40).fillX().fillY().pad(0,0,5,0);
+        topTable.add(keyLabel).width(30).fillX().fillY().pad(0,0,5,5)     ;
+        topTable.add(movesImage).right().width(30).height(40).fillX().fillY().pad(0,5,5,5);
+        topTable.add(movesLabel).width(40).fillY().pad(0,0,5,5);
 
         //Add table to stage
         stage.addActor(topTable);
@@ -314,8 +407,8 @@ public class MapScreen implements Screen {
             if(stepTotal % player.STEPSTOMOVE == 0) {
                 leftOverSteps = 0;
                 player.addMovementPoint();
-                addStep();
                 resetProgressBar = true;
+                addStep();
             }
         }
     }
@@ -356,6 +449,18 @@ public class MapScreen implements Screen {
         return stepTotal - savedSteps;
     }
 
+    void updateMovesLabel() {
+        movesLabel.setText("" + player.movementPoints);
+    }
+
+    void updateStepsLabel() {
+        stepLabel.setText("" + stepTotal);
+    }
+
+    void updateKeyLabel() {
+        keyLabel.setText("" + keyAmount + "/" + KEYS_NEEDED);
+    }
+
     @Override
     public void hide() {
         Gdx.app.log("Mapscreen", "hidden");
@@ -365,9 +470,15 @@ public class MapScreen implements Screen {
     public void dispose() {
         player.dispose();
         stage.dispose();
+        keyTexture.dispose();
+        footMarkTexture.dispose();
+        movesArrowTexture.dispose();
         tiledMapRenderer.dispose();
         mapLevel.dispose();
         game.dispose();
         skin.dispose();
+        keyTexture.dispose();
+        footMarkTexture.dispose();
+        movesArrowTexture.dispose();
     }
 }

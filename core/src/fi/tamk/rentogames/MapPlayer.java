@@ -176,12 +176,14 @@ public class MapPlayer extends Sprite {
     void addMovementPoint() {
         Gdx.app.log("Movementpoint", "added");
         movementPoints++;
+        mapScreen.updateMovesLabel();
 
     }
 
     private void removeMovementPoint() {
         if(movementPoints > 0) {
             movementPoints--;
+            mapScreen.updateMovesLabel();
         }
 
     }
@@ -299,6 +301,7 @@ public class MapPlayer extends Sprite {
 
                 if(layer.equals(keyObject) ) {
                     mapScreen.keyAmount++;
+                    mapScreen.updateKeyLabel();
                     if (getBoundingRectangle().overlaps(rectangle)) {
                         clearKeys(rectangle.getX(), rectangle.getY());
                     }
