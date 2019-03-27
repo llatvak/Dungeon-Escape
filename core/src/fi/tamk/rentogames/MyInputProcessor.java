@@ -3,6 +3,7 @@ package fi.tamk.rentogames;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.utils.Disposable;
 
 import static com.badlogic.gdx.Input.Keys.DOWN;
 import static com.badlogic.gdx.Input.Keys.LEFT;
@@ -15,7 +16,7 @@ import static com.badlogic.gdx.Input.Keys.UP;
 //        MyInputProcessor inputProcessor = new MyInputProcessor();
 //        Gdx.input.setInputProcessor(inputProcessor);
 
-public class MyInputProcessor implements InputProcessor {
+public class MyInputProcessor implements InputProcessor, Disposable {
 
     private MapPlayer player;
 
@@ -93,5 +94,10 @@ public class MyInputProcessor implements InputProcessor {
 
     public boolean scrolled (int amount) {
         return false;
+    }
+
+    @Override
+    public void dispose() {
+        player.dispose();
     }
 }

@@ -5,6 +5,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.I18NBundle;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.Locale;
 
@@ -35,7 +38,9 @@ public class DungeonEscape extends Game {
     final static int BACK = 5;
     final static int SQUATSCREEN = 6;
 
-    private static I18NBundle myBundle;
+    private I18NBundle myBundle;
+    private Viewport gameViewport;
+    private Viewport fontViewport;
 
     public DungeonEscape() {
        // this.pedometerStatus = pedometerStatus;
@@ -48,6 +53,10 @@ public class DungeonEscape extends Game {
 
         setLanguage("fi", "FI", "MyBundle_fi_FI");
         createCameras();
+
+        gameViewport = new StretchViewport(screenWidth, screenHeight, screenCamera);
+        fontViewport = new FitViewport(screenWidth, screenHeight, screenCamera);
+
         batch = new SpriteBatch();
         changeScreen(SPLASHSCREEN);
     }
@@ -60,6 +69,14 @@ public class DungeonEscape extends Game {
         gameCamera.setToOrtho(false, gameWidth, gameHeight);
     }
 
+    Viewport getGameViewport() {
+        return gameViewport;
+    }
+
+    Viewport getFontViewport() {
+        return fontViewport;
+    }
+
     OrthographicCamera getScreenCamera() {
         return this.screenCamera;
     }
@@ -68,12 +85,12 @@ public class DungeonEscape extends Game {
         return this.gameCamera;
     }
 
-    static void setLanguage(String s1, String s2, String s3) {
+    void setLanguage(String s1, String s2, String s3) {
         Locale locale = new Locale(s1, s2);
-        myBundle = I18NBundle.createBundle(Gdx.files.internal(s3), locale);
+        myBundle = I18NBundle.createBundle(Gdx.files.internal(s3), locale, "UTF-8");
     }
 
-    static I18NBundle getMyBundle() {
+    I18NBundle getMyBundle() {
         return myBundle;
     }
 

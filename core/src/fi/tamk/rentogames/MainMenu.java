@@ -11,19 +11,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
-import com.badlogic.gdx.utils.I18NBundle;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
-
 public class MainMenu implements Screen {
 
     private Stage stage;
-    //private SpriteBatch batch;
     private DungeonEscape game;
 
     private  Texture background;
     private Skin skin;
-
-    private I18NBundle myBundle;
 
     MainMenu(DungeonEscape game) {
         this.game = game;
@@ -36,13 +30,11 @@ public class MainMenu implements Screen {
         //atlas = new TextureAtlas("skin.atlas");
         skin = new Skin( Gdx.files.internal("dark-peel-ui.json") );
 
-        this.stage = new Stage(new StretchViewport(game.screenWidth, game.screenHeight, game.getScreenCamera()));
+        this.stage = new Stage(game.getGameViewport());
     }
 
     @Override
     public void show() {
-        myBundle = DungeonEscape.getMyBundle();
-
         Gdx.input.setInputProcessor(stage);
 
         //Create Table
@@ -66,8 +58,7 @@ public class MainMenu implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.log("Language", "Finnish");
-                DungeonEscape.setLanguage("fi", "FI", "MyBundle_fi_FI");
-                myBundle = DungeonEscape.getMyBundle();
+                game.setLanguage("fi", "FI", "MyBundle_fi_FI");
                 setLocaleFin();
             }
         });
@@ -76,8 +67,7 @@ public class MainMenu implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.log("Language", "English");
-                DungeonEscape.setLanguage("en", "US", "MyBundle_en_US");
-                myBundle = DungeonEscape.getMyBundle();
+                game.setLanguage("en", "US", "MyBundle_en_US");
                 setLocaleEng();
             }
         });
@@ -100,9 +90,9 @@ public class MainMenu implements Screen {
         mainTable.setDebug(false);
         mainTable.center();
 
-        TextButton playButton = new TextButton(myBundle.get("playbutton"), skin);
-        TextButton settingsButton = new TextButton(myBundle.get("settingsbutton"), skin);
-        TextButton exitButton = new TextButton(myBundle.get("exitbutton"), skin);
+        TextButton playButton = new TextButton(game.getMyBundle().get("playbutton"), skin);
+        TextButton settingsButton = new TextButton(game.getMyBundle().get("settingsbutton"), skin);
+        TextButton exitButton = new TextButton(game.getMyBundle().get("exitbutton"), skin);
 
         playButton.addListener(new ChangeListener(){
             @Override
@@ -184,5 +174,7 @@ public class MainMenu implements Screen {
     public void dispose() {
         stage.dispose();
         background.dispose();
+        skin.dispose();
+        game.dispose();
     }
 }

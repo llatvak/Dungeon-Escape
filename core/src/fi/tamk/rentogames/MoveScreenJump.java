@@ -55,8 +55,8 @@ public class MoveScreenJump extends MoveScreenMove implements Screen {
 
         // Font camera
         getGame().batch.setProjectionMatrix(getGame().getScreenCamera().combined);
-        getFontRoboto().draw(getGame().batch, getMyBundle().get("jumptext"),80 , getGame().screenHeight - 50f);
-        getFontRoboto().draw(getGame().batch, getMyBundle().get("jumpcount") + ": " + getPlayer().getCountedJumps(), 120, getGame().screenHeight - 100f);
+        getFontRoboto().draw(getGame().batch, getGame().getMyBundle().get("jumptext"),80 , getGame().screenHeight - 50f);
+        getFontRoboto().draw(getGame().batch, getGame().getMyBundle().get("jumpcount") + ": " + getPlayer().getCountedJumps(), 120, getGame().screenHeight - 100f);
 
         getGame().batch.end();
 

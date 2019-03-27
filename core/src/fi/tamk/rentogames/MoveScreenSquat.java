@@ -50,8 +50,8 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
 
         // Font camera
         getGame().batch.setProjectionMatrix(getGame().getScreenCamera().combined);
-        getFontRoboto().draw(getGame().batch, getMyBundle().get("squattext"),80 , getGame().screenHeight - 50f);
-        getFontRoboto().draw(getGame().batch, getMyBundle().get("squatcount") + ": " + getPlayer().getCountedJumps(), 120, getGame().screenHeight - 100f);
+        getFontRoboto().draw(getGame().batch, getGame().getMyBundle().get("squattext"),80 , getGame().screenHeight - 50f);
+        getFontRoboto().draw(getGame().batch, getGame().getMyBundle().get("squatcount") + ": " + getPlayer().getCountedJumps(), 120, getGame().screenHeight - 100f);
 
         getGame().batch.end();
 
