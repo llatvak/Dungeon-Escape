@@ -47,7 +47,6 @@ public class MapLevel implements Disposable {
         return level;
     }
 
-
     public TiledMap getCurrentMap() {
         return currentMap;
     }
