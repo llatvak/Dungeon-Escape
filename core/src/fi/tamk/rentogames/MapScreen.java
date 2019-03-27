@@ -179,13 +179,9 @@ public class MapScreen implements Screen {
         // Update progress bar
         updateProgressBar();
 
-        // TODO update these only when they actually change
-
-
-
     }
 
-    private void updateProgressBar() {
+    private void checkProgressBar() {
         if(stepTotal > oldStepTotal){
             if(resetProgressBar) {
                 progressbarValue = 0;
@@ -193,10 +189,13 @@ public class MapScreen implements Screen {
             } else {
                 progressbarValue++;
             }
-
-            stepsProgressBar.setValue(progressbarValue);
         }
         oldStepTotal = stepTotal;
+        updateProgressBar();
+    }
+
+    private void updateProgressBar() {
+        stepsProgressBar.setValue(progressbarValue);
     }
 
     private void moveCamera() {
@@ -224,18 +223,22 @@ public class MapScreen implements Screen {
     private void changeMap() {
         Gdx.app.log("MapLevel", ": " + level);
         keyAmount = 0;
+        updateKeyLabel();
         keysCollected = false;
         mapLevel.resetMap();
         mapLevel.createTiledMap();
         player.setMap();
         player.spawn();
+
         tiledMapRenderer = mapLevel.getTiledMapRenderer();
+
     }
 
     void trapConfirm(final boolean onSquat, final boolean onJump) {
         Gdx.app.log("Button", "created");
         buttonUp = true;
 
+        //TODO localization for buttons and labels
         final TextButton confirmButton = new TextButton("Yes!", skin);
         final TextButton cancelButton = new TextButton("No", skin, "maroon");
 
@@ -313,11 +316,12 @@ public class MapScreen implements Screen {
     void addStep() {
         stepTotal++;
         updateStepsLabel();
+        checkProgressBar();
         System.out.println("Steps: " + stepTotal);
 
         if(!paused) {
             leftOverSteps++;
-            System.out.println("Steps to point: " + leftOverSteps);
+            //System.out.println("Steps to point: " + leftOverSteps);
         }
     }
 
@@ -327,7 +331,6 @@ public class MapScreen implements Screen {
 
     @Override
     public void show() {
-        Gdx.app.log("Show", "");
         InputMultiplexer multiplexer = new InputMultiplexer();
         MyInputProcessor inputProcessor = new MyInputProcessor(player);
         multiplexer.addProcessor(stage);
@@ -340,7 +343,7 @@ public class MapScreen implements Screen {
         topTable.setFillParent(true);
 
         // Debug lines
-         topTable.setDebug(true);
+        // topTable.setDebug(true);
 
         //Set alignment of contents in the table.
         topTable.top();
@@ -405,8 +408,8 @@ public class MapScreen implements Screen {
             if(stepTotal % player.STEPSTOMOVE == 0) {
                 leftOverSteps = 0;
                 player.addMovementPoint();
-                addStep();
                 resetProgressBar = true;
+                addStep();
             }
         }
     }
