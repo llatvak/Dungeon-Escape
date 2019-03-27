@@ -237,12 +237,11 @@ public class MapScreen implements Screen {
         Gdx.app.log("Button", "created");
         buttonUp = true;
 
-        //TODO localization for buttons and labels
-        final TextButton confirmButton = new TextButton(game.getMyBundle().get("readybutton", skin);
-        final TextButton cancelButton = new TextButton("No", skin, "maroon");
+        final TextButton confirmButton = new TextButton(game.getMyBundle().get("readybutton"), skin);
+        final TextButton cancelButton = new TextButton(game.getMyBundle().get("cancelbutton"), skin, "maroon");
 
-        final Label trapLabel = new Label("TRAP!",skin,"title-white");
-        final Label readyLabel = new Label("Are you ready?",skin,"title-white");
+        final Label trapLabel = new Label(game.getMyBundle().get("traplabel"),skin,"title-white");
+        final Label readyLabel = new Label(game.getMyBundle().get("trapreadiness"),skin,"title-white");
 
         trapLabel.setPosition(game.screenWidth / 2 - trapLabel.getWidth() / 2, game.screenHeight / 2 + 170f);
         readyLabel.setPosition(game.screenWidth / 2 - readyLabel.getWidth() / 2, game.screenHeight / 2 + 140f);
