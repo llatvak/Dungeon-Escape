@@ -37,6 +37,8 @@ public class MapScreen implements Screen {
     private MapScreenUI userInterface;
     private boolean paused;
 
+    private boolean debugUI = false;
+
     private Texture keyTexture;
     private Texture footMarkTexture;
     private Texture movesArrowTexture;
@@ -344,7 +346,10 @@ public class MapScreen implements Screen {
         topTable.setFillParent(true);
 
         // Debug lines
-        topTable.setDebug(true);
+        if(debugUI) {
+            topTable.setDebug(true);
+        }
+
 
         //Set alignment of contents in the table.
         topTable.top();
