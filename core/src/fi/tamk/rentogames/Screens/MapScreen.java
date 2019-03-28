@@ -7,6 +7,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -51,7 +52,7 @@ public class MapScreen implements Screen {
 
 
 
-    private int stepTotal;
+    private int stepTotal = 10000;
     private int oldStepTotal;
     private int savedSteps;
     private int leftOverSteps;
@@ -97,12 +98,12 @@ public class MapScreen implements Screen {
 
         this.stage = new Stage(game.getGameViewport());
 
-        skin = new Skin(Gdx.files.internal("uiskin.json"));
+        //skin = new Skin(Gdx.files.internal("uiskin.json"));
 
-//        skin = new Skin();
-//        skin.add("fontRoboto-Med", fontRoboto);
-//        skin.addRegions(new TextureAtlas(Gdx.files.internal("uiskin.atlas")));
-//        skin.load(Gdx.files.internal("uiskin.json"));
+        skin = new Skin();
+        skin.add("fontRoboto-Med", fontRoboto, BitmapFont.class);
+        skin.addRegions(new TextureAtlas(Gdx.files.internal("uiskin.atlas")));
+        skin.load(Gdx.files.internal("uiskin.json"));
 
 
         stepsProgressBar = new ProgressBar(0, player.STEPSTOMOVE,1,false,skin, "default-horizontal");
@@ -208,7 +209,7 @@ public class MapScreen implements Screen {
     }
 
     private void checkKeyAmount() {
-        keysCollected = keyAmount == KEYS_NEEDED;
+        keysCollected = keyAmount >= KEYS_NEEDED;
     }
 
     public void notEnoughKeys() {
@@ -343,7 +344,7 @@ public class MapScreen implements Screen {
         topTable.setFillParent(true);
 
         // Debug lines
-        //topTable.setDebug(true);
+        topTable.setDebug(true);
 
         //Set alignment of contents in the table.
         topTable.top();
@@ -368,7 +369,7 @@ public class MapScreen implements Screen {
         topTable.add(settingsButton).left().width(35).height(35).pad(5,10,0,0);
         topTable.add(footmarkImage).width(25).height(40).fillX().fillY().pad(5,5,0,0);
         topTable.add(stepsProgressBar).width(240).fillX().pad(5,0,0,5);
-        topTable.add(stepLabel).fillX().fillY().pad(5,0,0,5);
+        topTable.add(stepLabel).expandX().fillX().fillY().pad(5,0,0,5);
         topTable.row();
 
         topTable.add(keyImage).width(30).height(40).fillX().fillY().pad(0,0,5,0);
