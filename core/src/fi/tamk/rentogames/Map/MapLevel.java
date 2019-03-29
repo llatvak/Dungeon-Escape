@@ -7,6 +7,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.Disposable;
 
 import fi.tamk.rentogames.DungeonEscape;
+import fi.tamk.rentogames.Framework.Save;
 
 public class MapLevel implements Disposable {
 
@@ -25,7 +26,7 @@ public class MapLevel implements Disposable {
     }
 
     private void onCreate() {
-        setLevel(1);
+        setLevel(Save.getCurrentLevel());
         createTiledMap();
     }
 

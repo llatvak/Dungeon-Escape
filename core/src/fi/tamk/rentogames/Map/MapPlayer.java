@@ -12,6 +12,7 @@ import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
+import fi.tamk.rentogames.Framework.Save;
 import fi.tamk.rentogames.Screens.MapScreen;
 
 public class MapPlayer extends Sprite {
@@ -70,11 +71,9 @@ public class MapPlayer extends Sprite {
         this.mapLevel = mapLevel;
         this.tiledMap = mapLevel.getCurrentMap();
 
-
         setSize(spriteWidth, spriteHeight);
         setPosition(startingX, startingY);
-
-        movementPoints = 50;
+        movementPoints = Save.getMovementPoints();
     }
 
     public void setMap() {
@@ -179,13 +178,15 @@ public class MapPlayer extends Sprite {
     public void addMovementPoint() {
         Gdx.app.log("Movementpoint", "added");
         movementPoints++;
+        Save.saveMovementPoints(movementPoints);
         mapScreen.updateMovesLabel();
 
     }
 
     private void removeMovementPoint() {
         if(movementPoints > 0) {
-            movementPoints--;
+            movementPoints --;
+            Save.saveMovementPoints(movementPoints);
             mapScreen.updateMovesLabel();
         }
 

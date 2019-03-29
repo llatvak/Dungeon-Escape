@@ -24,6 +24,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import fi.tamk.rentogames.DungeonEscape;
 import fi.tamk.rentogames.Framework.Fonts;
+import fi.tamk.rentogames.Framework.Save;
 import fi.tamk.rentogames.Map.MapLevel;
 import fi.tamk.rentogames.Map.MapPlayer;
 import fi.tamk.rentogames.Interface.MapScreenUI;
@@ -55,7 +56,7 @@ public class MapScreen implements Screen {
 
 
 
-    private int stepTotal = 10000;
+    private int stepTotal = 0;
     private int oldStepTotal;
     private int savedSteps;
     private int leftOverSteps;
@@ -88,6 +89,8 @@ public class MapScreen implements Screen {
     }
 
     private void onCreate() {
+        progressbarValue = Save.getProgressBarValue();
+        countMovementPoints();
         mapLevel = new MapLevel(game);
         tiledMap = mapLevel.getCurrentMap();
         tiledMapRenderer = mapLevel.getTiledMapRenderer();
@@ -113,6 +116,8 @@ public class MapScreen implements Screen {
         stepsProgressBar = new ProgressBar(0, player.STEPSTOMOVE,1,false,skin, "default-horizontal");
         stepsProgressBar.setAnimateDuration(0.5f);
 
+        updateProgressBar();
+        stepTotal = Save.getProgressBarValue();
 
         keyTexture = new Texture("keyicon.png");
         footMarkTexture = new Texture("footmarkicon.png");
@@ -146,6 +151,7 @@ public class MapScreen implements Screen {
         }
 
         checkKeyAmount();
+
         player.checkCollisions();
     }
 
@@ -165,9 +171,9 @@ public class MapScreen implements Screen {
         game.batch.begin();
 
         // Draw fonts
-       // fontRoboto.draw(game.batch, game.getMyBundle().get("stepcounter") + ": " + stepTotal, 10f , game.screenHeight - 40f);
-       // fontRoboto.draw(game.batch,"" + player.movementPoints, 320 , game.screenHeight - 12f);
-       // fontRoboto.draw(game.batch,game.getMyBundle().get("keys") + ": " + keyAmount + "/3", 10f , game.screenHeight - 70f);
+        // fontRoboto.draw(game.batch, game.getMyBundle().get("stepcounter") + ": " + stepTotal, 10f , game.screenHeight - 40f);
+        // fontRoboto.draw(game.batch,"" + player.movementPoints, 320 , game.screenHeight - 12f);
+        // fontRoboto.draw(game.batch,game.getMyBundle().get("keys") + ": " + keyAmount + "/3", 10f , game.screenHeight - 70f);
 
         // View game camera
         game.batch.setProjectionMatrix(game.getGameCamera().combined);
@@ -189,7 +195,7 @@ public class MapScreen implements Screen {
         stage.draw();
 
         // Update progress bar
-        updateProgressBar();
+        //updateProgressBar();
     }
 
     private void checkProgressBar() {
@@ -224,9 +230,12 @@ public class MapScreen implements Screen {
     }
 
     public void changeLevel() {
-        if(level < 3) {
-            level++;
+        if(Save.getCurrentLevel() < 3) {
+            level = Save.getCurrentLevel() + 1;
+        } else {
+            level = 1;
         }
+        Save.saveCurrentLevel(level);
         mapLevel.setLevel(level);
         changeMap();
     }
@@ -326,6 +335,11 @@ public class MapScreen implements Screen {
         updateStepsLabel();
         checkProgressBar();
         System.out.println("Steps: " + stepTotal);
+        if(stepTotal > 10) {
+            Save.saveCurrentProgressbar(progressbarValue + 1);
+        } else {
+            Save.saveCurrentProgressbar(progressbarValue);
+        }
 
         if(!paused) {
             leftOverSteps++;
