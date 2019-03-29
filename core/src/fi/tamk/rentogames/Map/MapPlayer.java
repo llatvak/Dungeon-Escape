@@ -8,6 +8,7 @@ import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
@@ -306,6 +307,8 @@ public class MapPlayer extends Sprite {
                     mapScreen.updateKeyLabel();
                     if (getBoundingRectangle().overlaps(rectangle)) {
                         clearKeys(rectangle.getX(), rectangle.getY());
+                        //TODO Better way to clear rectangle from tiled map object
+                        rectangle.setPosition(1,1);
                     }
                     Gdx.app.log("Collected", "keys: " + mapScreen.keyAmount);
                 }
