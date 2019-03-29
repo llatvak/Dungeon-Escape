@@ -112,7 +112,7 @@ public class MapScreen implements Screen {
         stepsProgressBar.setAnimateDuration(0.5f);
 
 
-        keyTexture = new Texture("key.png");
+        keyTexture = new Texture("keyicon.png");
         footMarkTexture = new Texture("footmarkicon.png");
         movesArrowTexture = new Texture("movesicon.png");
 
@@ -377,7 +377,7 @@ public class MapScreen implements Screen {
         topTable.add(stepLabel).expandX().fillX().fillY().pad(5,0,0,5);
         topTable.row();
 
-        topTable.add(keyImage).width(30).height(40).fillX().fillY().pad(0,0,5,0);
+        topTable.add(keyImage).width(40).height(40).fillX().fillY().pad(5,10,5,0);
         topTable.add(keyLabel).width(30).fillX().fillY().pad(0,0,5,5)     ;
         topTable.add(movesImage).right().width(30).height(40).fillX().fillY().pad(0,5,5,5);
         topTable.add(movesLabel).width(40).fillY().pad(0,0,5,5);
