@@ -24,9 +24,9 @@ public class DungeonEscape extends Game {
     public final float gameWidth = 360f / 100f;
     public final float gameHeight = 640f / 100f;
 
-	public SpriteBatch batch;
+    public SpriteBatch batch;
 
-	private OrthographicCamera screenCamera;
+    private OrthographicCamera screenCamera;
     private OrthographicCamera gameCamera;
 
     private MapScreen mapScreen;
@@ -46,11 +46,11 @@ public class DungeonEscape extends Game {
 
     private I18NBundle myBundle;
     private Viewport gameViewport;
-    private Viewport fontViewport;
+
 
 
     public DungeonEscape() {
-       // :D
+        // :D
     }
 
     @Override
@@ -76,10 +76,6 @@ public class DungeonEscape extends Game {
 
     public Viewport getGameViewport() {
         return gameViewport;
-    }
-
-    public Viewport getFontViewport() {
-        return fontViewport;
     }
 
     public OrthographicCamera getScreenCamera() {
@@ -182,5 +178,3 @@ public class DungeonEscape extends Game {
         batch.dispose();
     }
 }
-
-

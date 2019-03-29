@@ -16,11 +16,11 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
 
     public MoveScreenSquat(DungeonEscape game, MapScreen mapScreen) {
         super(game, mapScreen);
-        onCreates();
+        onCreate();
     }
 
     // Sets up the world for box2D and camera used
-    private void onCreates() {
+    private void onCreate() {
         getGame().batch = getGame().getBatch();
 
         // Arrow trap in squat screen drawn on rectangle
