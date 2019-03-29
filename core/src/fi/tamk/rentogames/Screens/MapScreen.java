@@ -38,12 +38,8 @@ public class MapScreen implements Screen {
     private MapScreenUI userInterface;
     private boolean paused;
 
-    private boolean debugUI = true;
+    private boolean debugUI = false;
 
-    private Texture keyTexture;
-    private Texture footMarkTexture;
-    private Texture movesArrowTexture;
-    private Texture controlsArrowTexture;
 
     // Map
     private TiledMap tiledMap;
@@ -76,8 +72,18 @@ public class MapScreen implements Screen {
     ImageButton keyImage;
     ImageButton footmarkImage;
     ImageButton movesImage;
-    ImageButton sidecontrolsImage;
+    ImageButton leftControlsImage;
+    ImageButton rightControlsImage;
+    ImageButton upControlsImage;
+    ImageButton downControlsImage;
 
+    private Texture keyTexture;
+    private Texture footMarkTexture;
+    private Texture movesArrowTexture;
+    private Texture leftArrowTexture;
+    private Texture rightArrowTexture;
+    private Texture upArrowTexture;
+    private Texture downArrowTexture;
 
     private Label stepLabel;
     private Label movesLabel;
@@ -122,14 +128,21 @@ public class MapScreen implements Screen {
         keyTexture = new Texture("keyicon.png");
         footMarkTexture = new Texture("footmarkicon.png");
         movesArrowTexture = new Texture("movesicon.png");
-        controlsArrowTexture = new Texture("sidearrow.png");
+        leftArrowTexture = new Texture("arrowleft.png");
+        rightArrowTexture = new Texture("arrowright.png");
+        upArrowTexture = new Texture("arrowup.png");
+        downArrowTexture = new Texture("arrowdown.png");
+
 
         //Create buttons and bars
         settingsButton = new ImageButton(skin, "settings");
         keyImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(keyTexture)));
         footmarkImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(footMarkTexture)));
         movesImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(movesArrowTexture)));
-        sidecontrolsImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(controlsArrowTexture)));
+        leftControlsImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(leftArrowTexture)));
+        rightControlsImage =  new ImageButton(new TextureRegionDrawable(new TextureRegion(rightArrowTexture)));
+        upControlsImage =  new ImageButton(new TextureRegionDrawable(new TextureRegion(upArrowTexture)));
+        downControlsImage =  new ImageButton(new TextureRegionDrawable(new TextureRegion(downArrowTexture)));
 
 
         stepLabel = new Label("" + stepTotal, skin,"white");
@@ -361,17 +374,21 @@ public class MapScreen implements Screen {
 
         //Create Table
         Table topTable = new Table();
+        Table controlsTable = new Table();
         //Set table to fill stage
         topTable.setFillParent(true);
+        controlsTable.setFillParent(true);
 
         // Debug lines
         if(debugUI) {
             topTable.setDebug(true);
+            controlsTable.setDebug(true);
         }
 
 
         //Set alignment of contents in the table.
         topTable.top();
+        controlsTable.center();
 
         //Add listeners to buttons
         settingsButton.addListener(new ChangeListener(){
@@ -401,10 +418,19 @@ public class MapScreen implements Screen {
         topTable.add(movesImage).right().width(30).height(40).fillX().fillY().pad(0,5,5,5);
         topTable.add(movesLabel).width(40).fillY().pad(0,0,5,5);
         topTable.row();
-        topTable.add(sidecontrolsImage).center().height(20).width(20).pad(10,10,5,5);
+
+        controlsTable.add(upControlsImage).colspan(2).center().height(20).width(20).pad(0,0,50,0);
+        controlsTable.row();
+
+        controlsTable.add(leftControlsImage).expandX().center().height(20).width(20).pad(0,30,0,0);
+        controlsTable.add(rightControlsImage).expandX().center().height(20).width(20).pad(0,0,0,30);
+        controlsTable.row();
+
+        controlsTable.add(downControlsImage).colspan(2).center().height(20).width(20).pad(50,0,0,0);
 
         //Add table to stage
         stage.addActor(topTable);
+        stage.addActor(controlsTable);
     }
     @Override
     public void resize(int width, int height) {
