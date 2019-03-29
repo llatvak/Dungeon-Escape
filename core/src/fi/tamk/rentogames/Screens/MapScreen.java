@@ -419,14 +419,14 @@ public class MapScreen implements Screen {
         topTable.add(movesLabel).width(40).fillY().pad(0,0,5,5);
         topTable.row();
 
-        controlsTable.add(upControlsImage).colspan(2).center().height(20).width(20).pad(0,0,50,0);
+        controlsTable.add(upControlsImage).colspan(2).center().height(20).width(20).pad(0,0,70,0);
         controlsTable.row();
 
-        controlsTable.add(leftControlsImage).expandX().center().height(20).width(20).pad(0,30,0,0);
-        controlsTable.add(rightControlsImage).expandX().center().height(20).width(20).pad(0,0,0,30);
+        controlsTable.add(leftControlsImage).expandX().center().height(20).width(20).pad(0,0,0,0);
+        controlsTable.add(rightControlsImage).expandX().center().height(20).width(20).pad(0,0,0,0);
         controlsTable.row();
 
-        controlsTable.add(downControlsImage).colspan(2).center().height(20).width(20).pad(50,0,0,0);
+        controlsTable.add(downControlsImage).colspan(2).center().height(20).width(20).pad(70,0,0,0);
 
         //Add table to stage
         stage.addActor(topTable);
