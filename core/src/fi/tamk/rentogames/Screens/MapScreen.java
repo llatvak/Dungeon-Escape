@@ -541,5 +541,9 @@ public class MapScreen implements Screen {
         keyTexture.dispose();
         footMarkTexture.dispose();
         movesArrowTexture.dispose();
+        leftArrowTexture.dispose();
+        rightArrowTexture.dispose();
+        upArrowTexture.dispose();
+        downArrowTexture.dispose();
     }
 }

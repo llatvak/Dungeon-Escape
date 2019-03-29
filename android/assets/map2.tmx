@@ -5,7 +5,7 @@
  </tileset>
  <layer id="1" name="Walls" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJzzZmBg8KYCno0DuzNAgCceNYTMmA01A5/8SDEDGyDHDGLcQw8zGKhgBi7zBsIvyGCopjFSzcCH5zEwPCCkBgAetolf
+   eJzzZmBg8KYCno0DuzNAgCceNYTMmA01A5/8SDEDGyDHDGLcQw8zGKhgxmDyCzIYqmmMVDPw4XkMDA8IqQEAKS2J+g==
   </data>
  </layer>
  <layer id="12" name="PassableWalls" width="17" height="17">
@@ -15,12 +15,12 @@
  </layer>
  <layer id="2" name="Road" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYKA9uEMFM6RHzYDrRceU2j+QZkij8Slxx0CHB6XxQon9g9UMYgAA2ZMD7A==
+   eJxjYKA9uEMFM6RHzYDrRceU2j+QZkij8QfKHdQwg9J4ocT+wWoGMQAAqysD0Q==
   </data>
  </layer>
  <layer id="3" name="Keys" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFpIBvA+2AYQaoGZ6jcTM0AQDOPgLj
+   eJxjYBgFpICvA+2AYQa+DbQDqAxG0wfpAABK3gLh
   </data>
  </layer>
  <layer id="4" name="Story" width="17" height="17">
@@ -30,7 +30,7 @@
  </layer>
  <layer id="5" name="SquatTrap" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFQxGsGGgHjAKsYOVAO2AIAgCl1gFS
+   eJxjYBgFQxGsGGgHjIJRQCUAANpzAKk=
   </data>
  </layer>
  <layer id="6" name="JumpTrap" width="17" height="17">
@@ -47,7 +47,7 @@
   <object id="4" x="479.667" y="629.334">
    <point/>
   </object>
-  <object id="5" x="605.666" y="690.333">
+  <object id="5" x="542.999" y="821">
    <point/>
   </object>
   <object id="8" x="542" y="310">
@@ -55,9 +55,6 @@
   </object>
  </objectgroup>
  <objectgroup color="#fd9a21" id="10" name="squat-trap">
-  <object id="7" x="543" y="812">
-   <point/>
-  </object>
   <object id="9" x="544" y="433">
    <point/>
   </object>
