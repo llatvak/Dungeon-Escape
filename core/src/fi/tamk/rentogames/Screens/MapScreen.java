@@ -37,11 +37,12 @@ public class MapScreen implements Screen {
     private MapScreenUI userInterface;
     private boolean paused;
 
-    private boolean debugUI = false;
+    private boolean debugUI = true;
 
     private Texture keyTexture;
     private Texture footMarkTexture;
     private Texture movesArrowTexture;
+    private Texture controlsArrowTexture;
 
     // Map
     private TiledMap tiledMap;
@@ -74,6 +75,7 @@ public class MapScreen implements Screen {
     ImageButton keyImage;
     ImageButton footmarkImage;
     ImageButton movesImage;
+    ImageButton sidecontrolsImage;
 
 
     private Label stepLabel;
@@ -115,12 +117,15 @@ public class MapScreen implements Screen {
         keyTexture = new Texture("keyicon.png");
         footMarkTexture = new Texture("footmarkicon.png");
         movesArrowTexture = new Texture("movesicon.png");
+        controlsArrowTexture = new Texture("sidearrow.png");
 
         //Create buttons and bars
         settingsButton = new ImageButton(skin, "settings");
         keyImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(keyTexture)));
         footmarkImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(footMarkTexture)));
         movesImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(movesArrowTexture)));
+        sidecontrolsImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(controlsArrowTexture)));
+
 
         stepLabel = new Label("" + stepTotal, skin,"white");
         movesLabel = new Label("" + player.movementPoints, skin,"white");
@@ -381,6 +386,8 @@ public class MapScreen implements Screen {
         topTable.add(keyLabel).width(30).fillX().fillY().pad(0,0,5,5)     ;
         topTable.add(movesImage).right().width(30).height(40).fillX().fillY().pad(0,5,5,5);
         topTable.add(movesLabel).width(40).fillY().pad(0,0,5,5);
+        topTable.row();
+        topTable.add(sidecontrolsImage).center().height(20).width(20).pad(10,10,5,5);
 
         //Add table to stage
         stage.addActor(topTable);
