@@ -200,6 +200,7 @@ public class MapScreenUI extends UI {
                 trapLabel.remove();
                 readyLabel.remove();
                 buttonUp = false;
+                mapScreen.buttonUp = false;
                 // Using boolean values checks trapscreen
                 if(onSquat) {
                     mapScreen.goToSquatTrap();
@@ -220,6 +221,7 @@ public class MapScreenUI extends UI {
                 trapLabel.remove();
                 readyLabel.remove();
                 buttonUp = false;
+                mapScreen.buttonUp = false;
                 player.addMovementPoint();
             }
         });
