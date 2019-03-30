@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 import fi.tamk.rentogames.DungeonEscape;
+import fi.tamk.rentogames.Framework.Save;
 
 public class MainMenu implements Screen {
 
@@ -61,6 +62,7 @@ public class MainMenu implements Screen {
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.log("Language", "Finnish");
                 game.setLanguage("fi", "FI", "MyBundle_fi_FI");
+                Save.saveLanguage("MyBundle_fi_FI");
                 setLocaleFin();
             }
         });
@@ -70,6 +72,7 @@ public class MainMenu implements Screen {
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.log("Language", "English");
                 game.setLanguage("en", "US", "MyBundle_en_US");
+                Save.saveLanguage("MyBundle_en_US");
                 setLocaleEng();
             }
         });

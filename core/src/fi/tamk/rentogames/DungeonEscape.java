@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.Locale;
 
+import fi.tamk.rentogames.Framework.Save;
 import fi.tamk.rentogames.Screens.MainMenu;
 import fi.tamk.rentogames.Screens.MapScreen;
 import fi.tamk.rentogames.Screens.MoveScreenJump;
@@ -57,7 +58,8 @@ public class DungeonEscape extends Game {
     public void create () {
         System.out.println(Gdx.graphics.getWidth() +" x "+ Gdx.graphics.getHeight());
 
-        setLanguage("fi", "FI", "MyBundle_fi_FI");
+        setStartLanguage();
+
         createCameras();
 
         gameViewport = new FitViewport(screenWidth, screenHeight, screenCamera);
@@ -160,6 +162,16 @@ public class DungeonEscape extends Game {
 
     public SpriteBatch getBatch() {
         return batch;
+    }
+
+    public void setStartLanguage() {
+        if(Save.getLanguagePrefs().equals("MyBundle_fi_FI")) {
+            setLanguage("fi", "FI", "MyBundle_fi_FI");
+        } else if(Save.getLanguagePrefs().equals("MyBundle_en_US")) {
+            setLanguage("en", "US", "MyBundle_en_US");
+        } else {
+            setLanguage("fi", "FI", "MyBundle_fi_FI");
+        }
     }
 
 
