@@ -25,15 +25,16 @@ public class MapScreenUI extends UI {
 
     private boolean debugUI = false;
 
-    DungeonEscape game;
-    MapScreen mapScreen;
-    MapPlayer player;
+    private DungeonEscape game;
+    private MapScreen mapScreen;
+    private MapPlayer player;
 
     private Skin skin;
     private Stage stage;
 
-    public ProgressBar stepsProgressBar;
     //Create buttons and bars
+    private ProgressBar stepsProgressBar;
+
     private ImageButton settingsButton;
     private ImageButton keyImage;
     private ImageButton footmarkImage;
@@ -58,7 +59,7 @@ public class MapScreenUI extends UI {
     private boolean resetProgressBar = false;
     private int progressbarValue = 0;
 
-    public boolean buttonUp;
+    private boolean buttonUp;
 
     public MapScreenUI(DungeonEscape game, MapScreen mapScreen, MapPlayer player){
         this.game = game;
@@ -113,7 +114,6 @@ public class MapScreenUI extends UI {
             controlsTable.setDebug(true);
         }
 
-
         //Set alignment of contents in the table.
         topTable.top();
         controlsTable.center();
@@ -129,10 +129,6 @@ public class MapScreenUI extends UI {
         });
 
         stage.addActor(settingsButton);
-
-        //Window window = new Window("Window", skin);
-        //TextButton button = new TextButton("TRAP!", skin);
-
 
         //Add buttons and progress bar to table
         topTable.add(settingsButton).left().width(35).height(35).pad(5,10,0,0);

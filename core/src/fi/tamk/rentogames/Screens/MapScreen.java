@@ -76,6 +76,7 @@ public class MapScreen implements Screen {
         // TODO updating only when values change not every frame
         userInterface.updateMovesLabel();
         userInterface.updateKeyLabel();
+        userInterface.updateStepsLabel();
     }
 
     @Override
