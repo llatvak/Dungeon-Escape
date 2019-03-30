@@ -8,7 +8,6 @@ import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
@@ -61,7 +60,6 @@ public class MapPlayer extends Sprite {
     private String levelChangeObject = "level-change";
     private String storyObject = "story-object";
     private String keyObject = "keys";
-
 
 
 
@@ -179,7 +177,7 @@ public class MapPlayer extends Sprite {
         Gdx.app.log("Movementpoint", "added");
         movementPoints++;
         Save.saveMovementPoints(movementPoints);
-        mapScreen.updateMovesLabel();
+
 
     }
 
@@ -187,7 +185,7 @@ public class MapPlayer extends Sprite {
         if(movementPoints > 0) {
             movementPoints --;
             Save.saveMovementPoints(movementPoints);
-            mapScreen.updateMovesLabel();
+            //mapScreen.updateMovesLabel();
         }
 
     }
@@ -305,7 +303,7 @@ public class MapPlayer extends Sprite {
 
                 if(layer.equals(keyObject) ) {
                     mapScreen.keyAmount++;
-                    mapScreen.updateKeyLabel();
+                   // mapScreen.updateKeyLabel();
                     if (getBoundingRectangle().overlaps(rectangle)) {
                         clearKeys(rectangle.getX(), rectangle.getY());
                         //TODO Better way to clear rectangle from tiled map object

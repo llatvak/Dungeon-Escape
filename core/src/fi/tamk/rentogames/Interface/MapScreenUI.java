@@ -3,13 +3,19 @@ package fi.tamk.rentogames.Interface;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import fi.tamk.rentogames.DungeonEscape;
+import fi.tamk.rentogames.Framework.Save;
 import fi.tamk.rentogames.Map.MapPlayer;
 import fi.tamk.rentogames.Screens.MapScreen;
 
@@ -17,52 +23,262 @@ import static fi.tamk.rentogames.Screens.MapScreen.KEYS_NEEDED;
 
 public class MapScreenUI extends UI {
 
+    private boolean debugUI = false;
+
     DungeonEscape game;
     MapScreen mapScreen;
     MapPlayer player;
 
-    private ProgressBar stepsProgressBar;
+    private Skin skin;
+    private Stage stage;
+
+    public ProgressBar stepsProgressBar;
     //Create buttons and bars
-    ImageButton settingsButton;
-    ImageButton keyImage;
-    ImageButton footmarkImage;
-    ImageButton movesImage;
+    private ImageButton settingsButton;
+    private ImageButton keyImage;
+    private ImageButton footmarkImage;
+    private ImageButton movesImage;
+    private ImageButton leftControlsImage;
+    private ImageButton rightControlsImage;
+    private ImageButton upControlsImage;
+    private ImageButton downControlsImage;
+
+    private Texture keyTexture;
+    private Texture footMarkTexture;
+    private Texture movesArrowTexture;
+    private Texture leftArrowTexture;
+    private Texture rightArrowTexture;
+    private Texture upArrowTexture;
+    private Texture downArrowTexture;
 
     private Label stepLabel;
     private Label movesLabel;
     private Label keyLabel;
 
-    private Texture keyTexture;
-    private Texture footMarkTexture;
-    private Texture movesArrowTexture;
+    private boolean resetProgressBar = false;
+    private int progressbarValue = 0;
 
+    public boolean buttonUp;
 
     public MapScreenUI(DungeonEscape game, MapScreen mapScreen, MapPlayer player){
         this.game = game;
         this.mapScreen = mapScreen;
         this.player = player;
+        this.stage = new Stage(game.getGameViewport());
         onCreate();
     }
 
     private void onCreate() {
-        Skin skin = new Skin(Gdx.files.internal("uiskin.json"));
-//        skin = new Skin();
-//        skin.add("fontRoboto-Med", fontRoboto);
-//        skin.addRegions(new TextureAtlas(Gdx.files.internal("uiskin.atlas")));
-//        skin.load(Gdx.files.internal("uiskin.json"));
+        progressbarValue = Save.getProgressBarValue();
 
-        keyTexture = new Texture("key.png");
+        skin = new Skin(Gdx.files.internal("uiskin.json"));
+
+        keyTexture = new Texture("keyicon.png");
         footMarkTexture = new Texture("footmarkicon.png");
         movesArrowTexture = new Texture("movesicon.png");
+        leftArrowTexture = new Texture("arrowleft.png");
+        rightArrowTexture = new Texture("arrowright.png");
+        upArrowTexture = new Texture("arrowup.png");
+        downArrowTexture = new Texture("arrowdown.png");
 
         //Create buttons and bars
         settingsButton = new ImageButton(skin, "settings");
         keyImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(keyTexture)));
         footmarkImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(footMarkTexture)));
         movesImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(movesArrowTexture)));
+        upControlsImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(upArrowTexture)));
+        downControlsImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(downArrowTexture)));
+        leftControlsImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(leftArrowTexture)));
+        rightControlsImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(rightArrowTexture)));
 
         stepLabel = new Label("" + mapScreen.getStepTotal(), skin,"white");
         movesLabel = new Label("" + player.movementPoints, skin,"white");
         keyLabel = new Label("" + mapScreen.keyAmount + "/" + KEYS_NEEDED, skin,"white");
+
+        stepsProgressBar = new ProgressBar(0, player.STEPSTOMOVE,1,false,skin, "default-horizontal");
+        stepsProgressBar.setAnimateDuration(0.5f);
+    }
+
+    public void createUI() {
+        //Create Table
+        Table topTable = new Table();
+        Table controlsTable = new Table();
+        //Set table to fill stage
+        topTable.setFillParent(true);
+        controlsTable.setFillParent(true);
+
+        // Debug lines
+        if(debugUI) {
+            topTable.setDebug(true);
+            controlsTable.setDebug(true);
+        }
+
+
+        //Set alignment of contents in the table.
+        topTable.top();
+        controlsTable.center();
+
+        //Add listeners to buttons
+        settingsButton.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeListener.ChangeEvent event, Actor actor) {
+                Gdx.app.log("Settings", "going to settings");
+                game.setPreviousScreen(DungeonEscape.MAPSCREEN);
+                game.changeScreen(DungeonEscape.SETTINGSSCREEN);
+            }
+        });
+
+        stage.addActor(settingsButton);
+
+        //Window window = new Window("Window", skin);
+        //TextButton button = new TextButton("TRAP!", skin);
+
+
+        //Add buttons and progress bar to table
+        topTable.add(settingsButton).left().width(35).height(35).pad(5,10,0,0);
+        topTable.add(footmarkImage).width(25).height(40).fillX().fillY().pad(5,5,0,0);
+        topTable.add(stepsProgressBar).width(240).fillX().pad(5,0,0,5);
+        topTable.add(stepLabel).expandX().fillX().fillY().pad(5,0,0,5);
+        topTable.row();
+
+        topTable.add(keyImage).width(40).height(40).fillX().fillY().pad(5,10,5,0);
+        topTable.add(keyLabel).width(30).fillX().fillY().pad(0,0,5,5)     ;
+        topTable.add(movesImage).right().width(30).height(40).fillX().fillY().pad(0,5,5,5);
+        topTable.add(movesLabel).width(40).fillY().pad(0,0,5,5);
+        topTable.row();
+
+        controlsTable.add(upControlsImage).colspan(2).center().height(20).width(20).pad(0,0,70,0);
+        controlsTable.row();
+
+        controlsTable.add(leftControlsImage).expandX().center().height(20).width(20).pad(0,0,0,0);
+        controlsTable.add(rightControlsImage).expandX().center().height(20).width(20).pad(0,0,0,0);
+        controlsTable.row();
+
+        controlsTable.add(downControlsImage).colspan(2).center().height(20).width(20).pad(70,0,0,0);
+
+        //Add table to stage
+        stage.addActor(topTable);
+        stage.addActor(controlsTable);
+    }
+
+    public void createConfirmButtons(final boolean onSquat, final boolean onJump){
+        Gdx.app.log("Button", "created");
+        buttonUp = true;
+
+        final TextButton confirmButton = new TextButton(game.getMyBundle().get("readybutton"), skin);
+        final TextButton cancelButton = new TextButton(game.getMyBundle().get("cancelbutton"), skin, "maroon");
+
+        final Label trapLabel = new Label(game.getMyBundle().get("traplabel"),skin,"title-white");
+        final Label readyLabel = new Label(game.getMyBundle().get("trapreadiness"),skin,"title-white");
+
+        trapLabel.setPosition(game.screenWidth / 2 - trapLabel.getWidth() / 2, game.screenHeight / 2 + 170f);
+        readyLabel.setPosition(game.screenWidth / 2 - readyLabel.getWidth() / 2, game.screenHeight / 2 + 140f);
+
+
+        confirmButton.setWidth(110f);
+        confirmButton.setHeight(60f);
+        cancelButton.setColor(48,192,12,1);
+        confirmButton.setPosition(game.screenWidth / 2 + 60f, game.screenHeight / 2 + 70f);
+
+        cancelButton.setWidth(110f);
+        cancelButton.setHeight(60f);
+        cancelButton.setColor(185,22,22,1);
+        cancelButton.setPosition(game.screenWidth / 2 - 170f, game.screenHeight / 2 + 70f);
+
+
+        stage.addActor(trapLabel);
+        stage.addActor(readyLabel);
+        stage.addActor(cancelButton);
+        stage.addActor(confirmButton);
+
+        confirmButton.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeEvent event, Actor actor){
+                Gdx.app.log("Trap", "going");
+                confirmButton.remove();
+                cancelButton.remove();
+                trapLabel.remove();
+                readyLabel.remove();
+                buttonUp = false;
+                // Using boolean values checks trapscreen
+                if(onSquat) {
+                    mapScreen.goToSquatTrap();
+                }
+                if(onJump) {
+                    mapScreen.goToJumpTrap();
+                }
+                player.addMovementPoint();
+            }
+        });
+
+        cancelButton.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeEvent event, Actor actor){
+                Gdx.app.log("Trap", "cancel");
+                confirmButton.remove();
+                cancelButton.remove();
+                trapLabel.remove();
+                readyLabel.remove();
+                buttonUp = false;
+                player.addMovementPoint();
+            }
+        });
+    }
+
+    public boolean isButtonUp() {
+        return buttonUp;
+    }
+
+    public int getProgressbarValue() {
+        return progressbarValue;
+    }
+
+    public void checkProgressBar() {
+        if(mapScreen.getStepTotal() > mapScreen.getOldStepTotal()){
+            if(resetProgressBar) {
+                progressbarValue = 0;
+                resetProgressBar = false;
+            } else {
+                progressbarValue++;
+            }
+        }
+        mapScreen.setOldStepTotal( mapScreen.getStepTotal() );
+        updateProgressBar();
+    }
+
+    public void resetProgressBar() {
+        resetProgressBar = true;
+    }
+
+    public void updateProgressBar() {
+        stepsProgressBar.setValue(progressbarValue);
+    }
+
+    public void updateMovesLabel() {
+        movesLabel.setText("" + player.movementPoints);
+   }
+
+    public void updateStepsLabel() {
+        stepLabel.setText("" + mapScreen.getStepTotal());
+    }
+
+    public void updateKeyLabel() {
+        keyLabel.setText("" + mapScreen.getKeyAmount() + "/" + KEYS_NEEDED);
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    public void dispose(){
+        stage.dispose();
+        skin.dispose();
+        keyTexture.dispose();
+        footMarkTexture.dispose();
+        movesArrowTexture.dispose();
+        leftArrowTexture.dispose();
+        rightArrowTexture.dispose();
+        upArrowTexture.dispose();
+        downArrowTexture.dispose();
     }
 }
