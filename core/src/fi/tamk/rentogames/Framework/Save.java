@@ -39,4 +39,15 @@ public abstract class Save {
         prefs = Gdx.app.getPreferences("dungeonescapegame");
         return prefs.getInteger("currentprogressbar", 0);
     }
+
+    public static void saveLanguage(String languagePrefs) {
+        prefs = Gdx.app.getPreferences("dungeonescapegame");
+        prefs.putString("language", languagePrefs);
+        prefs.flush();
+    }
+
+    public static String getLanguagePrefs() {
+        prefs = Gdx.app.getPreferences("dungeonescapegame");
+        return prefs.getString("language");
+    }
 }
