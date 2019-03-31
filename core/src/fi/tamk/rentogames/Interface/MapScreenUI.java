@@ -129,16 +129,16 @@ public class MapScreenUI extends UI {
         stage.addActor(backButton);
 
         //Add buttons and progress bar to table
-        topTable.add(backButton).left().width(35).height(35).pad(5,10,0,0);
+        topTable.add(backButton).left().width(35).height(35).pad(5,15,0,0);
         topTable.add(footmarkImage).width(25).height(40).fillX().fillY().pad(5,5,0,0);
         topTable.add(stepsProgressBar).width(240).fillX().pad(5,0,0,5);
         topTable.add(stepLabel).expandX().fillX().fillY().pad(5,0,0,5);
         topTable.row();
 
-        topTable.add(keyImage).width(40).height(40).fillX().fillY().pad(5,10,5,0);
+        topTable.add(keyImage).width(40).height(40).fillX().fillY().pad(15,15,5,0);
         topTable.add(keyLabel).width(30).fillX().fillY().pad(0,0,5,5)     ;
-        topTable.add(movesImage).right().width(30).height(40).fillX().fillY().pad(0,5,5,5);
-        topTable.add(movesLabel).width(40).fillY().pad(0,0,5,5);
+        topTable.add(movesImage).right().width(30).height(40).fillX().fillY().pad(10,5,5,5);
+        topTable.add(movesLabel).width(40).fillY().pad(10,2,5,5);
         topTable.row();
 
         controlsTable.add(upControlsImage).colspan(2).center().height(20).width(20).pad(0,0,70,0);
