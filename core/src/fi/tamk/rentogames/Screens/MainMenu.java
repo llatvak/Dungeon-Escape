@@ -61,7 +61,6 @@ public class MainMenu implements Screen {
         //Create buttons
         ImageButton FinFlag = new ImageButton(new TextureRegionDrawable(new TextureRegion(finFlagTexture)));
         ImageButton EngFlag = new ImageButton(new TextureRegionDrawable(new TextureRegion(engFlagTexture)));
-        TextButton langEngButton = new TextButton("ENG", skin);
         ImageButton soundButton = new ImageButton(skin, "sound");
 
         //Add listeners to buttons
