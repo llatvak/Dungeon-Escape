@@ -76,8 +76,15 @@ public class MapScreen implements Screen {
         // TODO updating only when values change not every frame
         userInterface.updateMovesLabel();
         userInterface.updateKeyLabel();
-        userInterface.updateStepsLabel();
+
+        if(!player.allowMovement) {
+            userInterface.setOutOfMovesIcon();
+        } else {
+            userInterface.setMovesIcon();
+        }
+
     }
+
 
     @Override
     public void render(float delta) {

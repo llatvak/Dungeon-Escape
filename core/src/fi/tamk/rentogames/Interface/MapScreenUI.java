@@ -39,6 +39,7 @@ public class MapScreenUI extends UI {
     private ImageButton keyImage;
     private ImageButton footmarkImage;
     private ImageButton movesImage;
+    private ImageButton movesOutImage;
     private ImageButton leftControlsImage;
     private ImageButton rightControlsImage;
     private ImageButton upControlsImage;
@@ -47,6 +48,7 @@ public class MapScreenUI extends UI {
     private Texture keyTexture;
     private Texture footMarkTexture;
     private Texture movesArrowTexture;
+    private Texture movesOutArrowTexture;
     private Texture leftArrowTexture;
     private Texture rightArrowTexture;
     private Texture upArrowTexture;
@@ -77,6 +79,7 @@ public class MapScreenUI extends UI {
         keyTexture = new Texture("keyicon.png");
         footMarkTexture = new Texture("footmarkicon.png");
         movesArrowTexture = new Texture("movesicon.png");
+        movesOutArrowTexture = new Texture("movesouticon.png");
         leftArrowTexture = new Texture("arrowleft.png");
         rightArrowTexture = new Texture("arrowright.png");
         upArrowTexture = new Texture("arrowup.png");
@@ -87,6 +90,7 @@ public class MapScreenUI extends UI {
         keyImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(keyTexture)));
         footmarkImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(footMarkTexture)));
         movesImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(movesArrowTexture)));
+        movesOutImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(movesOutArrowTexture)));
         upControlsImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(upArrowTexture)));
         downControlsImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(downArrowTexture)));
         leftControlsImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(leftArrowTexture)));
@@ -248,6 +252,27 @@ public class MapScreenUI extends UI {
 
     public void updateProgressBar() {
         stepsProgressBar.setValue(progressbarValue);
+    }
+
+    public boolean redMovesIcon = false;
+    public boolean whitesMovesIcon = false;
+
+    public void setOutOfMovesIcon() {
+        if(!redMovesIcon) {
+            movesImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(movesOutArrowTexture)));
+            createUI();
+            redMovesIcon = true;
+            whitesMovesIcon = false;
+        }
+    }
+
+    public void setMovesIcon() {
+        if(!whitesMovesIcon) {
+            movesImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(movesArrowTexture)));
+            createUI();
+            whitesMovesIcon = true;
+            redMovesIcon = false;
+        }
     }
 
     public void updateMovesLabel() {

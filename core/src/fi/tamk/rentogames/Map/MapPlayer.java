@@ -177,17 +177,13 @@ public class MapPlayer extends Sprite {
         Gdx.app.log("Movementpoint", "added");
         movementPoints++;
         Save.saveMovementPoints(movementPoints);
-
-
     }
 
     private void removeMovementPoint() {
         if(movementPoints > 0) {
             movementPoints --;
             Save.saveMovementPoints(movementPoints);
-            //mapScreen.updateMovesLabel();
         }
-
     }
 
     public void checkAllowedMoves() {
