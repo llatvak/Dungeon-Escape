@@ -175,7 +175,7 @@ public class MapPlayer extends Sprite {
 
     public void addMovementPoint() {
         Gdx.app.log("Movementpoint", "added");
-        movementPoints++;
+        movementPoints = movementPoints + 5;
         Save.saveMovementPoints(movementPoints);
     }
 
