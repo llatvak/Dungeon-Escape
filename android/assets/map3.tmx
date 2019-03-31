@@ -5,7 +5,7 @@
  </tileset>
  <layer id="1" name="Walls" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJzzZmBg8KYCno0DuzNAgCceNYTMmA01A588shmkAlxmEOuOwWwGuh/R1dMiPPDFy3A1g5BeUtMpsWbgwvQ0Ax+ex8DwgJAaABorfUM=
+   eJzzZmBg8KYCno0DuzNAgCceNYTMmA01A588PjMIAWLNwOWOoWwGLcKDlHgZbmYQwsSmU3LNINY91DQDH57HwPCAkBoAG12DUQ==
   </data>
  </layer>
  <layer id="12" name="PassableWalls" width="17" height="17">
@@ -15,12 +15,12 @@
  </layer>
  <layer id="2" name="Road" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYKA9uEMFM6RJVEsKJsU+bOKD2QxCfqRFeOACw9kMUvQi6yElDkg1ezCYQQwAAExcBgg=
+   eJxjYKA9uEMFM6Qp1IsPk2I/NvVD2QxahAexYDiaQQkgNQ4ImTUYzCAGAADbzwT6
   </data>
  </layer>
  <layer id="3" name="Keys" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFwxl8HWgHDCFASViNhjP5AAAiBwLg
+   eJxjYBgF9AJfBtoBowAvoCR+RuOWfAAAiz8C3Q==
   </data>
  </layer>
  <layer id="4" name="Story" width="17" height="17">
@@ -35,7 +35,7 @@
  </layer>
  <layer id="6" name="JumpTrap" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYBgZ4DsDw4KBdsMoGAWjABMAAL/zAZg=
+   eJxjYBgFQwmUMjA8GGg3jIJRQE0AAMZ1AVY=
   </data>
  </layer>
  <objectgroup color="#0de214" id="8" name="level-change">
@@ -44,7 +44,7 @@
   </object>
  </objectgroup>
  <objectgroup color="#e8e801" id="13" name="keys">
-  <object id="4" x="95.667" y="499.667">
+  <object id="4" x="415.667" y="366.334">
    <point/>
   </object>
   <object id="5" x="543.666" y="750.333">
@@ -60,7 +60,7 @@
   </object>
  </objectgroup>
  <objectgroup color="#ec182d" id="9" name="jump-trap">
-  <object id="6" x="468.333" y="237.667">
+  <object id="6" x="415" y="433.667">
    <point/>
   </object>
  </objectgroup>
