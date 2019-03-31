@@ -277,7 +277,7 @@ public class MapScreenUI {
 
     public void updateMovesLabel() {
         movesLabel.setText("" + player.movementPoints);
-   }
+    }
 
     public void updateStepsLabel() {
         stepLabel.setText("" + mapScreen.getStepTotal());

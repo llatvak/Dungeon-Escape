@@ -74,6 +74,7 @@ public class MapScreen implements Screen {
         player.checkCollisions();
 
         // TODO updating only when values change not every frame
+        userInterface.updateStepsLabel();
         userInterface.updateMovesLabel();
         userInterface.updateKeyLabel();
 
@@ -234,6 +235,7 @@ public class MapScreen implements Screen {
                 player.addMovementPoint();
                 userInterface.resetProgressBar();
                 addStep();
+                System.out.println("stepit nyt" + stepTotal);
             }
         }
     }
