@@ -62,7 +62,7 @@ public class MainMenu implements Screen {
         ImageButton FinFlag = new ImageButton(new TextureRegionDrawable(new TextureRegion(finFlagTexture)));
         ImageButton EngFlag = new ImageButton(new TextureRegionDrawable(new TextureRegion(engFlagTexture)));
         ImageButton soundButton = new ImageButton(skin, "sound");
-        TextButton resetButton = new TextButton("reset", skin);
+        TextButton resetButton = new TextButton("Reset", skin);
 
         //Add listeners to buttons
         FinFlag.addListener(new ChangeListener(){
@@ -105,9 +105,9 @@ public class MainMenu implements Screen {
             resetButton.addListener(new ChangeListener(){
                 @Override
                 public void changed(ChangeListener.ChangeEvent event, Actor actor) {
-                    Gdx.app.log("Game", "reset");
+                    Gdx.app.log("Game", "Reset");
                     Save.saveCurrentLevel(1);
-                    Save.saveMovementPoints(20);
+                    Save.saveMovementPoints(50);
                     Save.saveCurrentProgressbar(0);
                 }
             });
@@ -166,8 +166,8 @@ public class MainMenu implements Screen {
         mainTable.add(playButton).width(200).height(70).fillX().colspan(2);
 
         mainTable.row().pad(0,0,10,0);
-        mainTable.add(infoButton).right().width(95).height(50).fillX().pad(0,0,0,5);
-        mainTable.add(helpButton).left().width(95).height(50).fillX().pad(0,5,0,0);
+        //mainTable.add(infoButton).right().width(95).height(50).fillX().pad(0,0,0,5);
+        //mainTable.add(helpButton).left().width(95).height(50).fillX().pad(0,5,0,0);
 
         mainTable.row().pad(10,0,0,0);
         mainTable.add(exitButton).width(200).height(50).fillX().colspan(2);

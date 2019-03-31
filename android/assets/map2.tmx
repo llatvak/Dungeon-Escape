@@ -5,7 +5,7 @@
  </tileset>
  <layer id="1" name="Walls" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJzzZmBg8KYCno0DuzNAgCceNYTMmA01A5/8SDRDGorJNQOGB8oMGJBmIN8vhMKSnmYwEGHWUEtjxJiBD89jYHhASA0AJnSOWQ==
+   eJzzZmBg8KYCno0DuzNAgCceNYTMmA01A5/8SDQDnznEmEHILfQwAxlQYgYhN9LLDELmDLU0RowZ+PA8BoYHhNQAAEhNkAg=
   </data>
  </layer>
  <layer id="12" name="PassableWalls" width="17" height="17">
@@ -15,7 +15,7 @@
  </layer>
  <layer id="2" name="Road" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYKA9uEMFM6RHzaC6GQMNpBko98dgCUtpBur4B2bWcDGDGAAAsD4Ccg==
+   eJxjYKA9uEMFM6RHzcAwYzC5hRK9lPploP2AbMZgcstgMIMYAACOoQLD
   </data>
  </layer>
  <layer id="3" name="Keys" width="17" height="17">
