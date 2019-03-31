@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -46,7 +47,7 @@ public class MainMenu implements Screen {
         //Set table to fill stage
         topTable.setFillParent(true);
         // Debug lines
-        topTable.setDebug(false);
+        topTable.setDebug(true);
 
         //Set alignment of contents in the table.
         topTable.top();
@@ -55,6 +56,8 @@ public class MainMenu implements Screen {
         //Create buttons
         TextButton langFinButton = new TextButton("FIN", skin);
         TextButton langEngButton = new TextButton("ENG", skin);
+        ImageButton infoButton = new ImageButton(skin, "help");
+        ImageButton soundButton = new ImageButton(skin, "sound");
 
         //Add listeners to buttons
         langFinButton.addListener(new ChangeListener(){
@@ -77,10 +80,26 @@ public class MainMenu implements Screen {
             }
         });
 
+        infoButton.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Gdx.app.log("Info", "pressed");
+            }
+        });
+
+        soundButton.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Gdx.app.log("Sound", "pressed");
+            }
+        });
+
         //Add buttons to table
         topTable.row().pad(10,5,0,5);
-        topTable.add(langFinButton).width(32).height(32).fillX().uniformX();
-        topTable.add(langEngButton).width(32).height(32).fillX().uniformX();
+        topTable.add(langFinButton).width(40).height(40).fillX();
+        topTable.add(langEngButton).width(40).height(40).fillX();
+        topTable.add(infoButton).right().width(40).height(40).fillX().expandX();
+        topTable.add(soundButton).right().width(40).height(40).fillX();
 
 
         //Add table to stage
@@ -96,7 +115,7 @@ public class MainMenu implements Screen {
         mainTable.center();
 
         TextButton playButton = new TextButton(game.getMyBundle().get("playbutton"), skin);
-        TextButton settingsButton = new TextButton(game.getMyBundle().get("settingsbutton"), skin);
+        TextButton tutorialButton = new TextButton(game.getMyBundle().get("howtoplaybutton"), skin);
         TextButton exitButton = new TextButton(game.getMyBundle().get("exitbutton"), skin);
 
         playButton.addListener(new ChangeListener(){
@@ -106,11 +125,11 @@ public class MainMenu implements Screen {
             }
         });
 
-        settingsButton.addListener(new ChangeListener(){
+        tutorialButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
-                game.setPreviousScreen(DungeonEscape.MAINMENU);
-                game.changeScreen(DungeonEscape.SETTINGSSCREEN);
+                Gdx.app.log("Tutorial", "pressed");
+                // game.changeScreen(DungeonEscape.TUTORIALSCREEN);
             }
         });
 
@@ -125,7 +144,7 @@ public class MainMenu implements Screen {
         mainTable.add(playButton).width(200).height(70).fillX().uniformX();
 
         mainTable.row().pad(10,0,10,0);
-        mainTable.add(settingsButton).width(200).height(40).fillX().uniformX();
+        mainTable.add(tutorialButton).width(200).height(40).fillX().uniformX();
 
         mainTable.row();
         mainTable.add(exitButton).width(200).height(40).fillX().uniformX();
