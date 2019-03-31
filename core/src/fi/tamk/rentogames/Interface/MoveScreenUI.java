@@ -61,9 +61,8 @@ public class MoveScreenUI {
     public void createUI() {
 
         // set to true to show skip screen button
-        boolean testing = true;
-        if(testing) {
-            skipButton.setPosition(game.screenWidth - skipButton.getWidth(), game.screenHeight - skipButton.getHeight());
+        if(game.testing) {
+            skipButton.setPosition(game.screenWidth - skipButton.getWidth() - 5, game.screenHeight - skipButton.getHeight() - 5);
 
             skipButton.addListener(new ChangeListener(){
                 @Override

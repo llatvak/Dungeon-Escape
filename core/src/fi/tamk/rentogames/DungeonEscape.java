@@ -25,6 +25,9 @@ public class DungeonEscape extends Game {
     public final float gameWidth = 360f / 100f;
     public final float gameHeight = 640f / 100f;
 
+    // Change this to enable testing features like skipping traps and reseting game saves
+    public boolean testing = true;
+
     public SpriteBatch batch;
 
     private OrthographicCamera screenCamera;
@@ -36,8 +39,6 @@ public class DungeonEscape extends Game {
     private boolean moveScreenStatus;
 
     private int previousScreen;
-
-
     private int activeScreen;
     private final static int SPLASHSCREEN = 0;
     public final static int MAINMENU = 1;
@@ -49,7 +50,6 @@ public class DungeonEscape extends Game {
 
     private I18NBundle myBundle;
     private Viewport gameViewport;
-
 
 
     public DungeonEscape() {

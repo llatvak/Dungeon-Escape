@@ -62,6 +62,7 @@ public class MainMenu implements Screen {
         ImageButton FinFlag = new ImageButton(new TextureRegionDrawable(new TextureRegion(finFlagTexture)));
         ImageButton EngFlag = new ImageButton(new TextureRegionDrawable(new TextureRegion(engFlagTexture)));
         ImageButton soundButton = new ImageButton(skin, "sound");
+        TextButton resetButton = new TextButton("reset", skin);
 
         //Add listeners to buttons
         FinFlag.addListener(new ChangeListener(){
@@ -96,6 +97,20 @@ public class MainMenu implements Screen {
         topTable.add(FinFlag).width(40).height(40).fillX();
         topTable.add(EngFlag).width(40).height(40).fillX();
         topTable.add(soundButton).right().width(40).height(40).fillX().expandX();
+        topTable.row().pad(10,5,0,5);
+
+
+        // Gametesting reset button
+        if(game.testing) {
+            resetButton.addListener(new ChangeListener(){
+                @Override
+                public void changed(ChangeListener.ChangeEvent event, Actor actor) {
+                    Gdx.app.log("Game", "reset");
+                }
+            });
+
+            topTable.add(resetButton).right().colspan(3).width(50).height(50).fillX().pad(520,10,0,5);
+        }
 
 
         //Add table to stage
@@ -148,11 +163,13 @@ public class MainMenu implements Screen {
         mainTable.add(playButton).width(200).height(70).fillX().colspan(2);
 
         mainTable.row().pad(0,0,10,0);
-        mainTable.add(infoButton).right().width(95).height(40).fillX().pad(0,0,0,5);
-        mainTable.add(helpButton).left().width(95).height(40).fillX().pad(0,5,0,0);
+        mainTable.add(infoButton).right().width(95).height(50).fillX().pad(0,0,0,5);
+        mainTable.add(helpButton).left().width(95).height(50).fillX().pad(0,5,0,0);
 
         mainTable.row().pad(10,0,0,0);
-        mainTable.add(exitButton).width(200).height(40).fillX().colspan(2);
+        mainTable.add(exitButton).width(200).height(50).fillX().colspan(2);
+        mainTable.row().pad(10,0,30,0);
+
 
         stage.addActor(mainTable);
     }
