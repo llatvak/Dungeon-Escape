@@ -47,7 +47,7 @@ public class MainMenu implements Screen {
         //Set table to fill stage
         topTable.setFillParent(true);
         // Debug lines
-        topTable.setDebug(true);
+        topTable.setDebug(false);
 
         //Set alignment of contents in the table.
         topTable.top();
@@ -56,7 +56,6 @@ public class MainMenu implements Screen {
         //Create buttons
         TextButton langFinButton = new TextButton("FIN", skin);
         TextButton langEngButton = new TextButton("ENG", skin);
-        ImageButton infoButton = new ImageButton(skin, "help");
         ImageButton soundButton = new ImageButton(skin, "sound");
 
         //Add listeners to buttons
@@ -80,13 +79,6 @@ public class MainMenu implements Screen {
             }
         });
 
-        infoButton.addListener(new ChangeListener(){
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                Gdx.app.log("Info", "pressed");
-            }
-        });
-
         soundButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -98,8 +90,7 @@ public class MainMenu implements Screen {
         topTable.row().pad(10,5,0,5);
         topTable.add(langFinButton).width(40).height(40).fillX();
         topTable.add(langEngButton).width(40).height(40).fillX();
-        topTable.add(infoButton).right().width(40).height(40).fillX().expandX();
-        topTable.add(soundButton).right().width(40).height(40).fillX();
+        topTable.add(soundButton).right().width(40).height(40).fillX().expandX();
 
 
         //Add table to stage
@@ -115,8 +106,9 @@ public class MainMenu implements Screen {
         mainTable.center();
 
         TextButton playButton = new TextButton(game.getMyBundle().get("playbutton"), skin);
-        TextButton tutorialButton = new TextButton(game.getMyBundle().get("howtoplaybutton"), skin);
         TextButton exitButton = new TextButton(game.getMyBundle().get("exitbutton"), skin);
+        ImageButton infoButton = new ImageButton(skin, "info");
+        ImageButton helpButton = new ImageButton(skin, "help");
 
         playButton.addListener(new ChangeListener(){
             @Override
@@ -125,10 +117,17 @@ public class MainMenu implements Screen {
             }
         });
 
-        tutorialButton.addListener(new ChangeListener(){
+        infoButton.addListener(new ChangeListener(){
             @Override
-            public void changed(ChangeListener.ChangeEvent event, Actor actor) {
-                Gdx.app.log("Tutorial", "pressed");
+            public void changed(ChangeEvent event, Actor actor) {
+                Gdx.app.log("Info", "pressed");
+            }
+        });
+
+        helpButton.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Gdx.app.log("Help", "pressed");
                 // game.changeScreen(DungeonEscape.TUTORIALSCREEN);
             }
         });
@@ -140,14 +139,15 @@ public class MainMenu implements Screen {
             }
         });
 
+        mainTable.row().pad(0,0,20,0);
+        mainTable.add(playButton).width(200).height(70).fillX().colspan(2);
+
         mainTable.row().pad(0,0,10,0);
-        mainTable.add(playButton).width(200).height(70).fillX().uniformX();
+        mainTable.add(infoButton).right().width(95).height(40).fillX().pad(0,0,0,5);
+        mainTable.add(helpButton).left().width(95).height(40).fillX().pad(0,5,0,0);
 
-        mainTable.row().pad(10,0,10,0);
-        mainTable.add(tutorialButton).width(200).height(40).fillX().uniformX();
-
-        mainTable.row();
-        mainTable.add(exitButton).width(200).height(40).fillX().uniformX();
+        mainTable.row().pad(10,0,0,0);
+        mainTable.add(exitButton).width(200).height(40).fillX().colspan(2);
 
         stage.addActor(mainTable);
     }

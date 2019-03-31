@@ -71,7 +71,8 @@ public class MoveScreenUI extends UI {
             stage.addActor(skipButton);
         }
 
-        backButton.setPosition(10, game.screenHeight - 60);
+        backButton.setPosition(5, game.screenHeight - 45);
+        backButton.setSize(35,35);
         exerciseLabel.setPosition(game.screenWidth / 2 - exerciseLabel.getWidth() / 2 ,game.screenHeight - 110);
         counterLabel.setPosition(game.screenWidth / 2 - counterLabel.getWidth() / 2,game.screenHeight - 170);
 

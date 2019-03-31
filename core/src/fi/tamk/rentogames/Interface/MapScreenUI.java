@@ -35,7 +35,7 @@ public class MapScreenUI extends UI {
     //Create buttons and bars
     private ProgressBar stepsProgressBar;
 
-    private ImageButton settingsButton;
+    private ImageButton backButton;
     private ImageButton keyImage;
     private ImageButton footmarkImage;
     private ImageButton movesImage;
@@ -83,7 +83,7 @@ public class MapScreenUI extends UI {
         downArrowTexture = new Texture("arrowdown.png");
 
         //Create buttons and bars
-        settingsButton = new ImageButton(skin, "settings");
+        backButton = new ImageButton(skin, "left");
         keyImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(keyTexture)));
         footmarkImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(footMarkTexture)));
         movesImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(movesArrowTexture)));
@@ -117,19 +117,19 @@ public class MapScreenUI extends UI {
         }
 
         //Add listeners to buttons
-        settingsButton.addListener(new ChangeListener(){
+        backButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
                 Gdx.app.log("Settings", "going to settings");
                 game.setPreviousScreen(DungeonEscape.MAPSCREEN);
-                game.changeScreen(DungeonEscape.SETTINGSSCREEN);
+                game.changeScreen(DungeonEscape.MAINMENU);
             }
         });
 
-        stage.addActor(settingsButton);
+        stage.addActor(backButton);
 
         //Add buttons and progress bar to table
-        topTable.add(settingsButton).left().width(35).height(35).pad(5,10,0,0);
+        topTable.add(backButton).left().width(35).height(35).pad(5,10,0,0);
         topTable.add(footmarkImage).width(25).height(40).fillX().fillY().pad(5,5,0,0);
         topTable.add(stepsProgressBar).width(240).fillX().pad(5,0,0,5);
         topTable.add(stepLabel).expandX().fillX().fillY().pad(5,0,0,5);
