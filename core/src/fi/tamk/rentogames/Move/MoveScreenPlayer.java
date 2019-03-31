@@ -33,6 +33,8 @@ public class MoveScreenPlayer {
 
     private int squatStateTime = 0;
 
+    private int movesRequired = 3;
+
 
     public MoveScreenPlayer(World w) {
         // Creates body to world and gets definitions and fixtures to it
@@ -103,7 +105,7 @@ public class MoveScreenPlayer {
         // Counts player jumps
         countJumps();
         // When X amount of jumps is done player character jumps over trap
-        if(Gdx.input.getAccelerometerY() > 14 && countedJumps >= 12 && !playerMoving) {
+        if(Gdx.input.getAccelerometerY() > 14 && countedJumps >= movesRequired * 2 && !playerMoving) {
             playerBody.applyLinearImpulse(new Vector2(4f, 6f),
                     playerBody.getWorldCenter(), true);
             playerMoving = true;
@@ -185,6 +187,10 @@ public class MoveScreenPlayer {
     // Returns counted jumps
     public int getCountedJumps() {
         return countedJumps/2;
+    }
+
+    public int getMovesRequired() {
+        return movesRequired;
     }
 
     public void dispose() {

@@ -37,6 +37,8 @@ public class DungeonEscape extends Game {
 
     private int previousScreen;
 
+
+    private int activeScreen;
     private final static int SPLASHSCREEN = 0;
     public final static int MAINMENU = 1;
     public final static int SETTINGSSCREEN = 2;
@@ -65,7 +67,7 @@ public class DungeonEscape extends Game {
         gameViewport = new FitViewport(screenWidth, screenHeight, screenCamera);
 
         batch = new SpriteBatch();
-        changeScreen(MAPSCREEN);
+        changeScreen(JUMPSCREEN);
     }
 
     private void createCameras() {
@@ -108,44 +110,56 @@ public class DungeonEscape extends Game {
 
         switch(screen) {
             case SPLASHSCREEN:
+                activeScreen = SPLASHSCREEN;
                 SplashScreen splashScreen = new SplashScreen(this);
                 setScreen(splashScreen);
                 break;
 
             case MAINMENU:
+                activeScreen = MAINMENU;
                 MainMenu mainMenu = new MainMenu(this);
                 setScreen(mainMenu);
                 break;
 
             case SETTINGSSCREEN:
+                activeScreen = SETTINGSSCREEN;
                 SettingsScreen settingsScreen = new SettingsScreen(this);
                 setScreen(settingsScreen);
                 break;
 
             case MAPSCREEN:
+                activeScreen = MAPSCREEN;
                 mapScreen = new MapScreen(this);
                 mapScreenStatus = true;
                 this.setScreen(mapScreen);
                 break;
 
             case JUMPSCREEN:
-                MoveScreenJump moveScreenJump = new MoveScreenJump(this, mapScreen.getMapScreen());
+                activeScreen = JUMPSCREEN;
+                //MoveScreenJump moveScreenJump = new MoveScreenJump(this, mapScreen.getMapScreen());
+                MoveScreenJump moveScreenJump = new MoveScreenJump(this, new MapScreen(this));
                 moveScreenStatus = true;
                 this.setScreen(moveScreenJump);
                 break;
 
             case BACK:
                 if(previousScreen == MAINMENU) {
+                    activeScreen = MAINMENU;
                     mainMenu = new MainMenu(this);
                     this.setScreen(mainMenu);
+
                 } else if (previousScreen == MAPSCREEN) {
+                    activeScreen = MAPSCREEN;
                     mapScreen = mapScreen.getMapScreen();
                     this.setScreen(mapScreen);
+
                 }
                 break;
 
             case SQUATSCREEN:
-                MoveScreenSquat moveScreenSquat = new MoveScreenSquat(this, mapScreen.getMapScreen());
+                activeScreen = SQUATSCREEN;
+               // MoveScreenSquat moveScreenSquat = new MoveScreenSquat(this, mapScreen.getMapScreen());
+                MoveScreenSquat moveScreenSquat = new MoveScreenSquat(this, new MapScreen(this));
                 moveScreenStatus = true;
                 this.setScreen(moveScreenSquat);
                 break;
@@ -162,6 +176,10 @@ public class DungeonEscape extends Game {
 
     public SpriteBatch getBatch() {
         return batch;
+    }
+
+    public int getActiveScreen() {
+        return activeScreen;
     }
 
     public void setStartLanguage() {

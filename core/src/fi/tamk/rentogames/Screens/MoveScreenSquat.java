@@ -5,11 +5,17 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import fi.tamk.rentogames.DungeonEscape;
+import fi.tamk.rentogames.Interface.MoveScreenUI;
 import fi.tamk.rentogames.Move.MoveScreenMove;
 
 public class MoveScreenSquat extends MoveScreenMove implements Screen {
+
+    private MoveScreenUI userInterface;
+    private Stage stage;
+
     // Arrow trap
     private Texture arrowTexture;
     private Rectangle arrowRect;
@@ -21,6 +27,8 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
 
     // Sets up the world for box2D and camera used
     private void onCreate() {
+        userInterface = new MoveScreenUI(getGame(), getPlayer());
+        stage = userInterface.getStage();
         getGame().batch = getGame().getBatch();
 
         // Arrow trap in squat screen drawn on rectangle
@@ -30,8 +38,11 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
 
     @Override
     public void show() {
+        Gdx.input.setInputProcessor(stage);
+        Gdx.input.setCatchBackKey(true);
         getMapScreen().saveSteps();
         getGame().setMoveScreenStatus(true);
+        userInterface.createUI();
     }
 
     @Override
@@ -52,24 +63,27 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
         getPlayer().draw(getGame().batch);
 
         // Font camera
-        getGame().batch.setProjectionMatrix(getGame().getScreenCamera().combined);
-        getFontRoboto().draw(getGame().batch, getGame().getMyBundle().get("squattext"),80 , getGame().screenHeight - 50f);
-        getFontRoboto().draw(getGame().batch, getGame().getMyBundle().get("squatcount") + ": " + getPlayer().getCountedJumps(), 120, getGame().screenHeight - 100f);
+        //getGame().batch.setProjectionMatrix(getGame().getScreenCamera().combined);
 
         getGame().batch.end();
 
         update();
 
         doPhysicsStep(delta);
+
+        stage.act(Gdx.graphics.getDeltaTime());
+        // Call draw on every actor
+        stage.draw();
+        userInterface.updateCounterLabel();
     }
 
     private void update() {
         // Player jumping and checking user input
         getPlayer().playerSquat();
-        getPlayer().checkInput();
+        //getPlayer().checkInput();
 
         // Moves the arrow
-        if(getPlayer().getCountedJumps() >= 6) {
+        if(getPlayer().getCountedJumps() >= getPlayer().getMovesRequired()) {
             arrowRect.setX(arrowRect.getX() - 0.1f);
         }
 

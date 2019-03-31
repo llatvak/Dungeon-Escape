@@ -9,7 +9,7 @@ com.badlogic.gdx.graphics.Color: {
 },
 com.badlogic.gdx.graphics.g2d.BitmapFont: {
 	font: { file: Roboto-Medium.fnt },
-	font-title: { file: Roboto-Medium.fnt  }
+	font-title: { file: Roboto-Bold.fnt  }
 },
 com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	dialogDim: {

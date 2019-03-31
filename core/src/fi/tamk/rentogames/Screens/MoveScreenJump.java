@@ -4,14 +4,18 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import fi.tamk.rentogames.DungeonEscape;
+import fi.tamk.rentogames.Interface.MoveScreenUI;
 import fi.tamk.rentogames.Move.MoveScreenMove;
 
 public class MoveScreenJump extends MoveScreenMove implements Screen {
 
-    private Texture spikeTexture;
+    private MoveScreenUI userInterface;
+    private Stage stage;
 
+    private Texture spikeTexture;
     // Spike attributes
     private float spikeX;
     private float spikeY;
@@ -25,6 +29,8 @@ public class MoveScreenJump extends MoveScreenMove implements Screen {
 
     // Sets up the world for box2D and camera used
     private void onCreates() {
+        userInterface = new MoveScreenUI(getGame(), getPlayer());
+        stage = userInterface.getStage();
         // Setting the background texture and camera
         spikeTexture = new Texture(Gdx.files.internal("floorspikes.png"));
 
@@ -36,8 +42,11 @@ public class MoveScreenJump extends MoveScreenMove implements Screen {
 
     @Override
     public void show() {
+        Gdx.input.setInputProcessor(stage);
+        Gdx.input.setCatchBackKey(true);
         getMapScreen().saveSteps();
         getGame().setMoveScreenStatus(true);
+        userInterface.createUI();
     }
 
     @Override
@@ -57,21 +66,24 @@ public class MoveScreenJump extends MoveScreenMove implements Screen {
         getPlayer().draw(getGame().batch);
 
         // Font camera
-        getGame().batch.setProjectionMatrix(getGame().getScreenCamera().combined);
-        getFontRoboto().draw(getGame().batch, getGame().getMyBundle().get("jumptext"),80 , getGame().screenHeight - 50f);
-        getFontRoboto().draw(getGame().batch, getGame().getMyBundle().get("jumpcount") + ": " + getPlayer().getCountedJumps(), 120, getGame().screenHeight - 100f);
+        // getGame().batch.setProjectionMatrix(getGame().getScreenCamera().combined);
 
         getGame().batch.end();
 
         update();
 
         doPhysicsStep(delta);
+
+        stage.act(Gdx.graphics.getDeltaTime());
+        // Call draw on every actor
+        stage.draw();
+        userInterface.updateCounterLabel();
     }
 
     private void update() {
         // Player jumping and checking user input
         getPlayer().playerJump();
-        getPlayer().checkInput();
+        //getPlayer().checkInput();
 
         // When player sprite moves out of boundaries go to map screen
         if(getPlayer().getPlayerY() < -1f) {

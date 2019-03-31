@@ -107,16 +107,14 @@ public class MapScreenUI extends UI {
         //Set table to fill stage
         topTable.setFillParent(true);
         controlsTable.setFillParent(true);
-
+        //Set alignment of contents in the table.
+        topTable.top();
+        controlsTable.center();
         // Debug lines
         if(debugUI) {
             topTable.setDebug(true);
             controlsTable.setDebug(true);
         }
-
-        //Set alignment of contents in the table.
-        topTable.top();
-        controlsTable.center();
 
         //Add listeners to buttons
         settingsButton.addListener(new ChangeListener(){
