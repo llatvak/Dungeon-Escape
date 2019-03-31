@@ -143,9 +143,9 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 	menu-down: { up: menu-down, down: menu-down-down },
 	menu-middle: { up: menu-middle, down: menu-down-middle },
 	sound: {
-		imageUp: image-sound-off,
+		imageUp: image-sound,
 		imageDown: image-sound-down,
-		imageChecked: image-sound,
+		imageChecked: image-sound-off,
 		up: button-orange,
 		down: button-orange-down
 	},

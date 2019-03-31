@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import fi.tamk.rentogames.DungeonEscape;
 import fi.tamk.rentogames.Framework.Save;
@@ -53,13 +55,17 @@ public class MainMenu implements Screen {
         topTable.top();
         topTable.left();
 
+        Texture finFlagTexture = new Texture("FIN.png");
+        Texture engFlagTexture = new Texture("ENG.png");
+
         //Create buttons
-        TextButton langFinButton = new TextButton("FIN", skin);
+        ImageButton FinFlag = new ImageButton(new TextureRegionDrawable(new TextureRegion(finFlagTexture)));
+        ImageButton EngFlag = new ImageButton(new TextureRegionDrawable(new TextureRegion(engFlagTexture)));
         TextButton langEngButton = new TextButton("ENG", skin);
         ImageButton soundButton = new ImageButton(skin, "sound");
 
         //Add listeners to buttons
-        langFinButton.addListener(new ChangeListener(){
+        FinFlag.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.log("Language", "Finnish");
@@ -69,7 +75,7 @@ public class MainMenu implements Screen {
             }
         });
 
-        langEngButton.addListener(new ChangeListener(){
+        EngFlag.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.log("Language", "English");
@@ -88,8 +94,8 @@ public class MainMenu implements Screen {
 
         //Add buttons to table
         topTable.row().pad(10,5,0,5);
-        topTable.add(langFinButton).width(40).height(40).fillX();
-        topTable.add(langEngButton).width(40).height(40).fillX();
+        topTable.add(FinFlag).width(40).height(40).fillX();
+        topTable.add(EngFlag).width(40).height(40).fillX();
         topTable.add(soundButton).right().width(40).height(40).fillX().expandX();
 
 
