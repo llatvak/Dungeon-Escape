@@ -21,7 +21,7 @@ import fi.tamk.rentogames.Screens.MapScreen;
 
 import static fi.tamk.rentogames.Screens.MapScreen.KEYS_NEEDED;
 
-public class MapScreenUI extends UI {
+public class MapScreenUI {
 
     private boolean debugUI = false;
 

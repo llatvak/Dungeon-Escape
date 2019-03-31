@@ -29,7 +29,7 @@ public class MoveScreenJump extends MoveScreenMove implements Screen {
 
     // Sets up the world for box2D and camera used
     private void onCreates() {
-        userInterface = new MoveScreenUI(getGame(), getPlayer());
+        userInterface = new MoveScreenUI(getGame(), getPlayer(), getMapScreen());
         stage = userInterface.getStage();
         // Setting the background texture and camera
         spikeTexture = new Texture(Gdx.files.internal("floorspikes.png"));

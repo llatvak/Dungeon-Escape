@@ -11,16 +11,18 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 import fi.tamk.rentogames.DungeonEscape;
 import fi.tamk.rentogames.Move.MoveScreenPlayer;
+import fi.tamk.rentogames.Screens.MapScreen;
 import fi.tamk.rentogames.Screens.MoveScreenJump;
 import fi.tamk.rentogames.Screens.MoveScreenSquat;
 
-public class MoveScreenUI extends UI {
+public class MoveScreenUI {
 
     // set this to true to see debug lines
     private boolean debugUI = true;
 
     private DungeonEscape game;
     private MoveScreenPlayer player;
+    private MapScreen mapScreen;
     private MoveScreenJump moveScreenJump;
     private MoveScreenSquat moveScreenSquat;
 
@@ -32,9 +34,10 @@ public class MoveScreenUI extends UI {
     private Label exerciseLabel;
     private TextButton skipButton;
 
-    public MoveScreenUI(DungeonEscape game, MoveScreenPlayer player) {
+    public MoveScreenUI(DungeonEscape game, MoveScreenPlayer player, MapScreen mapScreen) {
         this.game = game;
         this.player = player;
+        this.mapScreen = mapScreen;
         this.stage = new Stage(game.getGameViewport());
         onCreate();
     }
@@ -60,11 +63,13 @@ public class MoveScreenUI extends UI {
         // set to true to show skip screen button
         boolean testing = true;
         if(testing) {
+            skipButton.setPosition(game.screenWidth - skipButton.getWidth(), game.screenHeight - skipButton.getHeight());
+
             skipButton.addListener(new ChangeListener(){
                 @Override
                 public void changed(ChangeListener.ChangeEvent event, Actor actor) {
                     Gdx.app.log("Screen", "going to mapscreen");
-                    game.changeScreen(DungeonEscape.MAPSCREEN);
+                    game.setScreen(mapScreen);
                 }
             });
 
@@ -73,14 +78,14 @@ public class MoveScreenUI extends UI {
 
         backButton.setPosition(5, game.screenHeight - 45);
         backButton.setSize(35,35);
-        exerciseLabel.setPosition(game.screenWidth / 2 - exerciseLabel.getWidth() / 2 ,game.screenHeight - 110);
+        exerciseLabel.setPosition(game.screenWidth / 2 - exerciseLabel.getWidth() / 2,game.screenHeight - 110);
         counterLabel.setPosition(game.screenWidth / 2 - counterLabel.getWidth() / 2,game.screenHeight - 170);
 
         backButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
                 Gdx.app.log("Screen", "going to mapscreen");
-                game.changeScreen(DungeonEscape.MAPSCREEN);
+                game.setScreen(mapScreen);
             }
         });
 

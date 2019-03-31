@@ -27,7 +27,7 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
 
     // Sets up the world for box2D and camera used
     private void onCreate() {
-        userInterface = new MoveScreenUI(getGame(), getPlayer());
+        userInterface = new MoveScreenUI(getGame(), getPlayer(), getMapScreen());
         stage = userInterface.getStage();
         getGame().batch = getGame().getBatch();
 
