@@ -106,6 +106,9 @@ public class MainMenu implements Screen {
                 @Override
                 public void changed(ChangeListener.ChangeEvent event, Actor actor) {
                     Gdx.app.log("Game", "reset");
+                    Save.saveCurrentLevel(1);
+                    Save.saveMovementPoints(20);
+                    Save.saveCurrentProgressbar(0);
                 }
             });
 
