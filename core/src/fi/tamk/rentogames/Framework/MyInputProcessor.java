@@ -66,16 +66,16 @@ public class MyInputProcessor implements InputProcessor, Disposable {
         int screenWidthHalf = Gdx.graphics.getWidth() / 2;
         int screenHeightHalf = Gdx.graphics.getHeight() / 2;
 
-        if(!player.moving && player.allowMovement && y < screenHeightHalf - 100) {
+        if(!player.moving && player.allowMovement && y < screenHeightHalf - 45) {
             player.setUpMove();
         }
-        if(!player.moving && player.allowMovement && y > screenHeightHalf + 100) {
+        if(!player.moving && player.allowMovement && y > screenHeightHalf + 45) {
             player.setDownMove();
         }
-        if(!player.moving && player.allowMovement && x < screenWidthHalf - 100  ) {
+        if(!player.moving && player.allowMovement && x < screenWidthHalf - 45  ) {
             player.setLeftMove();
         }
-        if(!player.moving && player.allowMovement && x > screenWidthHalf + 100) {
+        if(!player.moving && player.allowMovement && x > screenWidthHalf + 45) {
             player.setRightMove();
         }
 
