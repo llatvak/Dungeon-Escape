@@ -3,19 +3,22 @@
  <tileset firstgid="1" name="RPGpack_sheet" tilewidth="64" tileheight="64" tilecount="260" columns="20">
   <image source="RPGpack_sheet.png" width="1280" height="832"/>
  </tileset>
+ <tileset firstgid="261" name="Dungeon-tileset" tilewidth="64" tileheight="64" tilecount="24" columns="8">
+  <image source="Dungeon-tileset.png" width="512" height="192"/>
+ </tileset>
  <layer id="1" name="Walls" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJzzZmBg8KYCno0HMxCQJ2QGMqDUDErcQQ2/jJoxasZwMwMfnsfA8ICQGgDxOZFJ
+   eJxjZWRgYMOC2YFYFIjFgFgciFnxqOMFYj4smB8qDwKsBNThk0MGlJoBcocgGWYIIPkFlxpCZiC7ZdSMUTOGgxmwMgIbBpUb8xgYHhBSAwAQSBFe
   </data>
  </layer>
- <layer id="12" name="PassableWalls" width="17" height="17">
+ <layer id="12" name="VisualObjects" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYKA9KKaDHaNgFIyCoQkA3vMAdA==
+   eJxjYKAtEGJkaCiG0KOASoALGKZQesiDUb8MTkBPvwAAT4IDcg==
   </data>
  </layer>
  <layer id="2" name="Road" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYKAtcAfiO0DsSYEZ0kiYUjMoBaNmjJoxagZ1AQA6ogM4
+   eJxjYKA9EGakTL8kIwJTagalYNSMUTNGzSAesBFhBgCHCQHW
   </data>
  </layer>
  <layer id="3" name="Keys" width="17" height="17">

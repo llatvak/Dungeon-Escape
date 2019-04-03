@@ -3,24 +3,22 @@
  <tileset firstgid="1" name="RPGpack_sheet" tilewidth="64" tileheight="64" tilecount="260" columns="20">
   <image source="RPGpack_sheet.png" width="1280" height="832"/>
  </tileset>
+ <tileset firstgid="261" name="Dungeon-tileset" tilewidth="64" tileheight="64" tilecount="24" columns="8">
+  <image source="Dungeon-tileset.png" width="512" height="192"/>
+ </tileset>
  <layer id="1" name="Walls" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJzzZmBg8KYCno0DuzNAgCceNYTMmA01A588PjMIAWLNwOWOoWwGLcKDlHgZbmYQwsSmU3LNINY91DQDH57HwPCAkBoAG12DUQ==
-  </data>
- </layer>
- <layer id="12" name="PassableWalls" width="17" height="17">
-  <data encoding="base64" compression="zlib">
-   eJxjYKA9KKaDHaNgFIyCoQkA3vMAdA==
+   eJxjZWRgYMOBRYFYDIjF8ahhB2JeIObDgUHyIMCKRw0/DjM4kOwHAZh7YJiTCDP4oXpxAV4SzGBF8w+MTYoZvHjY5JghihQ+5JpBbniA5ASwpAlBEs3AlS6Gmhmw9MlJgRnY4oFYM2BxgS1dEmsGKeECUoOeJ5ExrNwgpAYAvW0PCA==
   </data>
  </layer>
  <layer id="2" name="Road" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYKA9uEMFM6Qp1IsPk2I/NvVD2QxahAexYDiaQQkgNQ4ImTUYzCAGAADbzwT6
+   eJxjYKA9EGak3AxJCswA6cWFybEfF3uomkFpeJALRs3ANIPUeKC1e+gBAKGbA1U=
   </data>
  </layer>
  <layer id="3" name="Keys" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYBgF9AJfBtoBowAvoCR+RuOWfAAAiz8C3Q==
+   eJxjYBgF9AJfBtoBWMBgdNNQBKPhSD4AAIq+At0=
   </data>
  </layer>
  <layer id="4" name="Story" width="17" height="17">
@@ -30,12 +28,17 @@
  </layer>
  <layer id="5" name="SquatTrap" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYBgF9AYrB9oBo2AUDCIAAAoyAKo=
+   eJxjYBgFAwFWDrQDRsEoGCQAAAeOAKo=
   </data>
  </layer>
  <layer id="6" name="JumpTrap" width="17" height="17">
   <data encoding="base64" compression="zlib">
    eJxjYBgFQwmUMjA8GGg3jIJRQE0AAMZ1AVY=
+  </data>
+ </layer>
+ <layer id="12" name="VisualObjects" width="17" height="17">
+  <data encoding="base64" compression="zlib">
+   eJxjYKAt4GJkaBBmBNNDFoD8AKVxsocKwOZ+EJAC8qWHWDwNxfDHBZDjAsofUEDPsAUA8boFkg==
   </data>
  </layer>
  <objectgroup color="#0de214" id="8" name="level-change">
@@ -47,7 +50,7 @@
   <object id="4" x="415.667" y="366.334">
    <point/>
   </object>
-  <object id="5" x="543.666" y="750.333">
+  <object id="5" x="606.333" y="494.333">
    <point/>
   </object>
   <object id="11" x="415" y="818">
@@ -55,7 +58,7 @@
   </object>
  </objectgroup>
  <objectgroup color="#fd9a21" id="10" name="squat-trap">
-  <object id="10" x="542.667" y="364.333">
+  <object id="10" x="606.667" y="365.666">
    <point/>
   </object>
  </objectgroup>
