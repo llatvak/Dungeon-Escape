@@ -29,6 +29,7 @@ public class MapScreenUI {
     private DungeonEscape game;
     private MapScreen mapScreen;
     private MapPlayer player;
+    private Tutorials tutorials;
 
     private Skin skin;
     private Stage stage;
@@ -68,6 +69,7 @@ public class MapScreenUI {
         this.game = game;
         this.mapScreen = mapScreen;
         this.player = player;
+        this.tutorials = new Tutorials();
         this.stage = new Stage(game.getGameViewport());
         onCreate();
     }
@@ -226,32 +228,49 @@ public class MapScreenUI {
         });
     }
 
+    public void changeTutorialLabel(int tutorial) {
+        switch(tutorial) {
+            case 1: tutorials.createFirstTutorial();
+                break;
+            case 2: tutorials.createSecondTutorial();
+                break;
+            case 3: tutorials.createThirdTutorial();
+                break;
+            case 4: tutorials.createFirstTutorial();
+                break;
+        }
+    }
+
     public void createTutorialWindow(){
-        Gdx.app.log("Tutorial", "window");
+        Gdx.app.log("Tutorial", "created");
 
-        Dialog tutorialWindow = new Dialog("You're finally awake.. ",skin );
-        TextButton confirmButton = new TextButton("OK!", skin );
+        tutorials.createTutorialTable();
         Table textTable = new Table();
-        Label firstLine = new Label(
-                "You have been imprisoned with no memory of the past. " +
-                      "You have managed to free yourself from your cell but now you must find a way to escape the dungeon. "
-                ,skin);
 
+        Dialog tutorialWindow = new Dialog(tutorials.getDialogTitle(),skin );
+        TextButton confirmButton = new TextButton("OK!", skin );
 
-        firstLine.setWrap(true);
-        firstLine.setWidth(100);
         textTable.setDebug(false);
-        textTable.add(firstLine).width(270f).height(90f).left();
+        textTable.add(tutorials.getLabel()).width(270f).height(90f).left();
 
-        tutorialWindow.row();
         tutorialWindow.setMovable(false);
         tutorialWindow.setModal(true);
         tutorialWindow.setSize(300,280);
         tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, game.screenHeight / 2 - 60);
         tutorialWindow.getContentTable().add(textTable);
         tutorialWindow.button(confirmButton);
+
+        confirmButton.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeEvent event, Actor actor){
+                tutorials.createSecondTutorial();
+
+            }
+        });
         stage.addActor(tutorialWindow);
     }
+
+
 
     public boolean isButtonUp() {
         return buttonUp;

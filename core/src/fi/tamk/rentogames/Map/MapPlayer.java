@@ -60,7 +60,9 @@ public class MapPlayer extends Sprite {
     private String levelChangeObject = "level-change";
     private String storyObject = "story-object";
     private String keyObject = "keys";
-    private String tutorialObject = "tutorials";
+    private String tutorialObject1 = "tutorial1";
+    private String tutorialObject2 = "tutorial2";
+    private String tutorialObject3 = "tutorial3";
 
 
 
@@ -261,7 +263,9 @@ public class MapPlayer extends Sprite {
         checkObjectCollision(keyObject);
         checkObjectCollision(storyObject);
         checkObjectCollision(levelChangeObject);
-        checkObjectCollision(tutorialObject);
+        checkObjectCollision(tutorialObject1);
+        //checkObjectCollision(tutorialObject2);
+        checkObjectCollision(tutorialObject3);
     }
 
 
@@ -322,8 +326,12 @@ public class MapPlayer extends Sprite {
                     //mapScreen.goToStoryScreen();
                 }
 
-                if(layer.equals(tutorialObject) ) {
-                    mapScreen.createTutorialWindow();
+                if(layer.equals(tutorialObject1) ) {
+                    mapScreen.createTutorial(1);
+                }
+
+                if(layer.equals(tutorialObject3) ) {
+                    mapScreen.createTutorial(3);
                 }
             }
         }
