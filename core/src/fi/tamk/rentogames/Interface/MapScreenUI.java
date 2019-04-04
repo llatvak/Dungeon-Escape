@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
@@ -223,6 +224,33 @@ public class MapScreenUI {
                 player.addMovementPoint();
             }
         });
+    }
+
+    public void createTutorialWindow(){
+        Gdx.app.log("Tutorial", "window");
+
+        Dialog tutorialWindow = new Dialog("You're finally awake.. ",skin );
+        TextButton confirmButton = new TextButton("OK!", skin );
+        Table textTable = new Table();
+        Label firstLine = new Label(
+                "You have been imprisoned with no memory of the past. " +
+                      "You have managed to free yourself from your cell but now you must find a way to escape the dungeon. "
+                ,skin);
+
+
+        firstLine.setWrap(true);
+        firstLine.setWidth(100);
+        textTable.setDebug(false);
+        textTable.add(firstLine).width(270f).height(90f).left();
+
+        tutorialWindow.row();
+        tutorialWindow.setMovable(false);
+        tutorialWindow.setModal(true);
+        tutorialWindow.setSize(300,280);
+        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, game.screenHeight / 2 - 60);
+        tutorialWindow.getContentTable().add(textTable);
+        tutorialWindow.button(confirmButton);
+        stage.addActor(tutorialWindow);
     }
 
     public boolean isButtonUp() {

@@ -171,6 +171,9 @@ public class MapScreen implements Screen {
         // Needs new class StoryScreen
         game.changeScreen(DungeonEscape.JUMPSCREEN);
     }
+    public void createTutorialWindow() {
+        userInterface.createTutorialWindow();
+    }
 
     public void addStep() {
         stepTotal++;
