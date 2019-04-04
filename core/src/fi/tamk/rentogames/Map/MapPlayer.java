@@ -272,9 +272,9 @@ public class MapPlayer extends Sprite {
         boolean onSquatTrap;
 
         // Get the down trap rectangles layer
-        MapLayer downTrapObjectLayer = tiledMap.getLayers().get(layer);
+        MapLayer objectLayer = tiledMap.getLayers().get(layer);
         // All the rectangles of the layer
-        MapObjects mapObjects = downTrapObjectLayer.getObjects();
+        MapObjects mapObjects = objectLayer.getObjects();
         // Cast it to RectangleObjects array
         Array<RectangleMapObject> rectangleObjects = mapObjects.getByType(RectangleMapObject.class);
         // Iterate all the rectangles

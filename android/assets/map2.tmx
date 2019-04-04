@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="17" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="14" nextobjectid="10">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="17" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="15" nextobjectid="10">
  <tileset firstgid="1" name="RPGpack_sheet" tilewidth="64" tileheight="64" tilecount="260" columns="20">
   <image source="RPGpack_sheet.png" width="1280" height="832"/>
  </tileset>
@@ -11,6 +11,7 @@
    eJxjZWRgYMOB2YFYDIhZCajhBWI+HJgfiEGAkJqRZoYokOak0Ax8biFkhgA07sg1gwOaNsQpMAPZH5SaAUujghSYgS9OSPELuemDmDgZbGldFJoOsGFxaJwQUgMA5GUPyg==
   </data>
  </layer>
+ <objectgroup id="14" name="tutorials"/>
  <layer id="12" name="VisualObjects" width="17" height="17">
   <data encoding="base64" compression="zlib">
    eJxjYKAt4GJkaCiG0AMKQO5gGATuoAaA+QXKHrIA2R9Q/pAFwyVOYICe+QUALS4D+A==
