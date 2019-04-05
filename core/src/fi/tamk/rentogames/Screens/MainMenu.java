@@ -109,6 +109,8 @@ public class MainMenu implements Screen {
                     Save.saveCurrentLevel(1);
                     Save.saveMovementPoints(50);
                     Save.saveCurrentProgressbar(0);
+                    Save.saveCurrentPlayerX(513f);
+                    Save.saveCurrentPlayerY(65f);
                 }
             });
 

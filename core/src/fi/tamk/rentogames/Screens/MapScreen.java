@@ -58,7 +58,6 @@ public class MapScreen implements Screen {
         userInterface = new MapScreenUI(game, this, player);
         tutorials = new Tutorials();
         stage = userInterface.getStage();
-
         countMovementPointsOnRender();
         // userInterface.updateProgressBar();
         // stepTotal = Save.getProgressBarValue();

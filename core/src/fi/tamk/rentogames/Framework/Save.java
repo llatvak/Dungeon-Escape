@@ -50,4 +50,27 @@ public abstract class Save {
         prefs = Gdx.app.getPreferences("dungeonescapegame");
         return prefs.getString("language");
     }
+
+    public static void saveCurrentPlayerX(float x) {
+        prefs = Gdx.app.getPreferences("dungeonescapegame");
+        prefs.putFloat("playerX", x);
+        prefs.flush();
+    }
+
+    public static float getCurrentPlayerX() {
+        prefs = Gdx.app.getPreferences("dungeonescapegame");
+        return prefs.getFloat("playerX", 513f);
+    }
+
+    public static void saveCurrentPlayerY(float y) {
+        prefs = Gdx.app.getPreferences("dungeonescapegame");
+        prefs.putFloat("playerY", y);
+        prefs.flush();
+    }
+
+    public static float getCurrentPlayerY() {
+        prefs = Gdx.app.getPreferences("dungeonescapegame");
+        return prefs.getFloat("playerY", 65f);
+    }
+
 }

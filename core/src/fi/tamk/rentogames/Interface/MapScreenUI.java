@@ -127,7 +127,9 @@ public class MapScreenUI {
         backButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
-                Gdx.app.log("Settings", "going to settings");
+                Gdx.app.log("Button", "back");
+                Save.saveCurrentPlayerX(player.getX());
+                Save.saveCurrentPlayerY(player.getY());
                 game.setPreviousScreen(DungeonEscape.MAPSCREEN);
                 game.changeScreen(DungeonEscape.MAINMENU);
             }
