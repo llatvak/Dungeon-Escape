@@ -103,8 +103,8 @@ public class MapScreenUI {
         movesLabel = new Label("" + player.movementPoints, skin,"white");
         keyLabel = new Label("" + mapScreen.keyAmount + "/" + KEYS_NEEDED, skin,"white");
 
-        stepsProgressBar = new ProgressBar(0, player.STEPSTOMOVE,1,false,skin, "default-horizontal");
-        stepsProgressBar.setAnimateDuration(0.5f);
+        // stepsProgressBar = new ProgressBar(0, player.STEPSTOMOVE,1,false,skin, "default-horizontal");
+        // stepsProgressBar.setAnimateDuration(0.5f);
     }
 
     public void createUI() {
@@ -138,7 +138,7 @@ public class MapScreenUI {
         //Add buttons and progress bar to table
         topTable.add(backButton).left().width(35).height(35).pad(5,15,0,0);
         topTable.add(footmarkImage).width(25).height(40).fillX().fillY().pad(5,5,0,0);
-        topTable.add(stepsProgressBar).width(240).fillX().pad(5,0,0,5);
+        // topTable.add(stepsProgressBar).width(240).fillX().pad(5,0,0,5);
         topTable.add(stepLabel).expandX().fillX().fillY().pad(5,0,0,5);
         topTable.row();
 
@@ -270,8 +270,6 @@ public class MapScreenUI {
         stage.addActor(tutorialWindow);
     }
 
-
-
     public boolean isButtonUp() {
         return buttonUp;
     }
@@ -280,21 +278,14 @@ public class MapScreenUI {
         return progressbarValue;
     }
 
-    public void checkProgressBar() {
-        if(mapScreen.getStepTotal() > mapScreen.getOldStepTotal()){
-            if(resetProgressBar) {
-                progressbarValue = 0;
-                resetProgressBar = false;
-            } else {
-                progressbarValue++;
-            }
-        }
-        mapScreen.setOldStepTotal( mapScreen.getStepTotal() );
+    public void addProgressBarValue(int valueToAdd) {
+        progressbarValue = progressbarValue + valueToAdd;
         updateProgressBar();
     }
 
     public void resetProgressBar() {
-        resetProgressBar = true;
+        progressbarValue = 0;
+        updateProgressBar();
     }
 
     public void updateProgressBar() {

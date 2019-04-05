@@ -40,7 +40,7 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
     public void show() {
         Gdx.input.setInputProcessor(stage);
         Gdx.input.setCatchBackKey(true);
-        getMapScreen().saveSteps();
+        getMapScreen().saveStepsOnPause();
         getGame().setMoveScreenStatus(true);
         userInterface.createUI();
     }

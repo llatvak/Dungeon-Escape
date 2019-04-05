@@ -1,59 +1,71 @@
 package fi.tamk.rentogames;
 
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
+
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
+
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
 
-public class AndroidLauncher extends AndroidApplication implements SensorEventListener, StepListener{
-	private StepDetector simpleStepDetector;
-	private SensorManager sensorManager;
-	private Sensor accel;
+public class AndroidLauncher extends AndroidApplication {
 	private DungeonEscape game;
+	MyService mService;
+	boolean mBound = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		// Get an instance of the SensorManager
-		sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-		accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-		simpleStepDetector = new StepDetector();
-		simpleStepDetector.registerListener(this);
+		game = new DungeonEscape();
+
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		initialize(game = new DungeonEscape(), config);
-		startPedometer();
-	}
+		initialize(game, config);
 
-	@Override
-	public void onAccuracyChanged(Sensor sensor, int accuracy) {
-	}
+		Intent intent = new Intent(this, MyService.class);
 
-	@Override
-	public void onSensorChanged(SensorEvent event) {
-		if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-			simpleStepDetector.updateAccel(
-					event.timestamp, event.values[0], event.values[1], event.values[2]);
+		if(Build.VERSION.SDK_INT>=26) {
+			startForegroundService(intent);
+		}else{
+			startService(intent);
 		}
 	}
 
 	@Override
-	public void step(long timeNs) {
-		game.addSteps();
+	protected void onStart() {
+		super.onStart();
+		// Bind to LocalService
+		Intent intent = new Intent(this, MyService.class);
+		bindService(intent, connection, Context.BIND_AUTO_CREATE);
 	}
+	@Override
+	protected void onStop() {
+		super.onStop();
+		unbindService(connection);
+		mBound = false;
+	}
+	private ServiceConnection connection = new ServiceConnection() {
 
-	public void startPedometer() {
-		System.out.println("start pedometer");
-		sensorManager.registerListener(AndroidLauncher.this, accel, SensorManager.SENSOR_DELAY_FASTEST);
-	}
+		@Override
+		public void onServiceConnected(ComponentName className,
+									   IBinder service) {
+			// We've bound to LocalService, cast the IBinder and get LocalService instance
+			MyService.LocalBinder binder = (MyService.LocalBinder) service;
+			mService = binder.getService();
+			mBound = true;
+			game.setGetSteps(mService);
+		}
 
-	public void stopPedometer() {
-		System.out.println("stop pedometer");
-		sensorManager.unregisterListener(AndroidLauncher.this);
-	}
+		@Override
+		public void onServiceDisconnected(ComponentName arg0) {
+			mBound = false;
+		}
+	};
+
 
 }

@@ -33,8 +33,10 @@ public class MapScreen implements Screen {
 
     private int stepTotal = 0;
     private int oldStepTotal;
-    private int savedSteps;
-    private int leftOverSteps;
+    private int pauseSteps;
+    private int stepsToPoint;
+    private boolean pointAdded;
+    private int stepsDuringPointsAdd;
 
     private int level = 1;
     public static final int KEYS_NEEDED = 3;
@@ -57,14 +59,13 @@ public class MapScreen implements Screen {
         tutorials = new Tutorials();
         stage = userInterface.getStage();
 
-        countMovementPoints();
-        userInterface.updateProgressBar();
-        stepTotal = Save.getProgressBarValue();
+        countMovementPointsOnRender();
+        // userInterface.updateProgressBar();
+        // stepTotal = Save.getProgressBarValue();
     }
 
     private void update() {
-        player.receiveSteps(stepTotal);
-        countMovementPoints();
+        countMovementPointsOnRender();
         player.checkAllowedMoves();
 
         if(!userInterface.isButtonUp()) {
@@ -73,11 +74,24 @@ public class MapScreen implements Screen {
             }
         }
 
+        //  int stepDelta;
+        oldStepTotal = stepTotal;
+        stepTotal = game.getStepCount();
+        if(stepTotal > oldStepTotal) {
+            System.out.println("Actual steps: " + game.getStepCount());
+            //  stepDelta = stepTotal - oldStepTotal
+            //  stepsToPoint++;
+            userInterface.updateStepsLabel();
+//            userInterface.addProgressBarValue(stepDelta);
+//            if(userInterface.getProgressbarValue() % player.STEPSTOMOVE == 0) {
+//                userInterface.resetProgressBar();
+//            }
+//            Save.saveCurrentProgressbar(userInterface.getProgressbarValue());
+        }
         checkKeyAmount();
         player.checkCollisions();
 
         // TODO updating only when values change not every frame
-        userInterface.updateStepsLabel();
         userInterface.updateMovesLabel();
         userInterface.updateKeyLabel();
 
@@ -86,9 +100,7 @@ public class MapScreen implements Screen {
         } else {
             userInterface.setMovesIcon();
         }
-
     }
-
 
     @Override
     public void render(float delta) {
@@ -125,6 +137,54 @@ public class MapScreen implements Screen {
         game.getGameCamera().position.x = player.getX()/100f + 32f/100f;
         game.getGameCamera().position.y = player.getY()/100f + 32f/100f;
         game.getGameCamera().update();
+    }
+
+    private void countMovementPointsOnRender() {
+        // Checks if total step amount is divisible by the amount needed to move
+        if(stepTotal > 0) {
+            if(stepTotal % player.STEPSTOMOVE == 0 && !pointAdded) {
+                stepsDuringPointsAdd = stepTotal;
+                stepsToPoint = 0;
+                player.addMovementPoint();
+                // userInterface.resetProgressBar();
+                pointAdded = true;
+            }
+
+            // checks if step count is above the number required for points
+            if(pointAdded) {
+                if(stepTotal == stepsDuringPointsAdd + 1) {
+                    pointAdded = false;
+                }
+            }
+        }
+    }
+
+    private void countMovementPointsToAdd() {
+        int stepsWhilePaused = countStepsDeltaOnResume();
+        System.out.println("Steps while paused: " + stepsWhilePaused);
+        int pointsToAdd;
+
+        pointsToAdd = stepsWhilePaused / player.STEPSTOMOVE;
+        player.addMultipleMovementPoints(pointsToAdd);
+        stepsToPoint = 0;
+    }
+
+    // Save current step count
+    public void saveStepsOnPause() {
+        pauseSteps = stepTotal;
+        System.out.println("Paused steps count: " + pauseSteps);
+    }
+
+    // Make saved steps actual step count
+    public void subtractSteps() {
+        stepTotal = pauseSteps;
+    }
+
+    // Get difference between total steps and saved steps
+    private int countStepsDeltaOnResume() {
+        int stepdelta = game.getStepCount() - pauseSteps;
+        System.out.println("Stepdelta: " + stepdelta);
+        return stepdelta;
     }
 
     private void checkKeyAmount() {
@@ -179,27 +239,26 @@ public class MapScreen implements Screen {
         userInterface.createTutorialWindow();
     }
 
-    public void addStep() {
-        stepTotal++;
-        System.out.println("Steps: " + stepTotal);
-        userInterface.updateStepsLabel();
-        userInterface.checkProgressBar();
-
-        if(stepTotal > 10) {
-            Save.saveCurrentProgressbar(userInterface.getProgressbarValue() + 1);
-        } else {
-            Save.saveCurrentProgressbar(userInterface.getProgressbarValue());
-        }
-
-        if(!paused) {
-            leftOverSteps++;
-            //System.out.println("Steps to point: " + leftOverSteps);
-        }
-    }
-
-    public MapScreen getMapScreen() {
-        return this;
-    }
+    // Not used at the moment
+//    public void addStep() {
+//        stepTotal++;
+//        System.out.println("Map Steps: " + stepTotal);
+//        userInterface.updateStepsLabel();
+//        userInterface.addProgressBarValue();
+//
+//        Save.saveCurrentProgressbar(userInterface.getProgressbarValue());
+//
+//        if(stepTotal > 10) {
+//            Save.saveCurrentProgressbar(userInterface.getProgressbarValue() + 1);
+//        } else {
+//           Save.saveCurrentProgressbar(userInterface.getProgressbarValue());
+//        }
+//
+//        if(!paused) {
+//             stepsToPoint++;
+//            //System.out.println("Steps to point: " + stepsToPoint);
+//        }
+//    }
 
     @Override
     public void show() {
@@ -212,6 +271,11 @@ public class MapScreen implements Screen {
         userInterface.createUI();
     }
     @Override
+    public void hide() {
+        Gdx.app.log("Mapscreen", "hidden");
+    }
+
+    @Override
     public void resize(int width, int height) {
         // Updates the stage viewport where font is
         stage.getViewport().update(width, height);
@@ -223,60 +287,14 @@ public class MapScreen implements Screen {
     public void pause() {
         paused = true;
         Gdx.app.log("Mapscreen", "paused");
-        saveSteps();
+        saveStepsOnPause();
     }
 
     @Override
     public void resume() {
         paused = false;
         Gdx.app.log("Mapscreen", "resume");
-        countMovementPointsDelta();
-        //System.out.println(stepTotal);
-    }
-
-    private void countMovementPoints() {
-        // Checks if total step amount is divisible by the amount needed to move
-        if(stepTotal > 0) {
-            if(stepTotal % player.STEPSTOMOVE == 0) {
-                leftOverSteps = 0;
-                player.addMovementPoint();
-                userInterface.resetProgressBar();
-                addStep();
-                System.out.println("stepit nyt" + stepTotal);
-            }
-        }
-    }
-
-    private void countMovementPointsDelta() {
-        int stepsDuringPause = getStepsDelta();
-        int pointsToAdd;
-
-        pointsToAdd = stepsDuringPause / player.STEPSTOMOVE;
-        addMultipleMovementPoints(pointsToAdd);
-        leftOverSteps = 0;
-    }
-
-    private void addMultipleMovementPoints(int points) {
-        player.movementPoints = player.movementPoints + points;
-    }
-
-    public void resetSteps() {
-        stepTotal = 0;
-    }
-
-    // Save current step count
-    public void saveSteps() {
-        savedSteps = stepTotal;
-    }
-
-    // Make saved steps actual step count
-    public void subtractSteps() {
-        stepTotal = savedSteps;
-    }
-
-    // Get difference between total steps and saved steps
-    private int getStepsDelta() {
-        return stepTotal - savedSteps;
+        countMovementPointsToAdd();
     }
 
     public int getKeyAmount() {
@@ -298,10 +316,8 @@ public class MapScreen implements Screen {
     public int getOldStepTotal() {
         return oldStepTotal;
     }
-
-    @Override
-    public void hide() {
-        Gdx.app.log("Mapscreen", "hidden");
+    public MapScreen getMapScreen() {
+        return this;
     }
 
     @Override

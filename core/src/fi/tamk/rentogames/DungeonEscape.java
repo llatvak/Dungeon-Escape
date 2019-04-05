@@ -52,6 +52,9 @@ public class DungeonEscape extends Game {
     private Viewport gameViewport;
 
 
+    private int stepTotal; // renderissä
+    private int oldStepTotal;
+
     public DungeonEscape() {
         // :D
     }
@@ -192,16 +195,29 @@ public class DungeonEscape extends Game {
         }
     }
 
-
-    public void addSteps() {
-        // Is map screen open
-        if(mapScreenStatus) {
-            // Is movement screen open
-            if(!moveScreenStatus) {
-                mapScreen.addStep();
-            }
+    public int getStepCount() {
+        if(stepGetter!= null){
+            stepTotal += stepGetter.getNumSteps();
         }
+        return stepTotal;
     }
+
+    private GetSteps stepGetter;
+
+    public void setGetSteps(GetSteps sg){
+        stepGetter = sg;
+    }
+
+    // Not used
+//    public void addSteps() {
+//        // Is map screen open
+//        if(mapScreenStatus) {
+//            // Is movement screen open
+//            if(!moveScreenStatus) {
+//                mapScreen.addStep();
+//            }
+//        }
+//    }
 
     @Override
     public void dispose () {

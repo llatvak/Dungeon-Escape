@@ -42,6 +42,7 @@ public class MapPlayer extends Sprite {
 
     // Amount of steps to move one tile
     public final int STEPSTOMOVE = 10;
+    public final int ADDEDPOINTS = 5;
     public int movementPoints;
     public boolean allowMovement;
     private float movementSpeed = 4f;
@@ -172,14 +173,14 @@ public class MapPlayer extends Sprite {
         setY(spriteY);
     }
 
-    public void receiveSteps(int stepTotal){
-        // Movement
-    }
-
     public void addMovementPoint() {
         Gdx.app.log("Movementpoint", "added");
-        movementPoints = movementPoints + 5;
+        movementPoints = movementPoints + ADDEDPOINTS;
         Save.saveMovementPoints(movementPoints);
+    }
+
+    public void addMultipleMovementPoints(int points) {
+        movementPoints = movementPoints + points * ADDEDPOINTS;
     }
 
     private void removeMovementPoint() {
@@ -326,13 +327,13 @@ public class MapPlayer extends Sprite {
                     //mapScreen.goToStoryScreen();
                 }
 
-                if(layer.equals(tutorialObject1) ) {
-                    mapScreen.createTutorial(1);
-                }
-
-                if(layer.equals(tutorialObject3) ) {
-                    mapScreen.createTutorial(3);
-                }
+//                if(layer.equals(tutorialObject1) ) {
+//                    mapScreen.createTutorial(1);
+//                }
+//
+//                if(layer.equals(tutorialObject3) ) {
+//                    mapScreen.createTutorial(3);
+//                }
             }
         }
     }
