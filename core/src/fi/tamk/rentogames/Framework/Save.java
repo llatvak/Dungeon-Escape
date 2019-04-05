@@ -73,4 +73,14 @@ public abstract class Save {
         return prefs.getFloat("playerY", 65f);
     }
 
+    public static void saveCurrentKeyAmount(float keys) {
+        prefs = Gdx.app.getPreferences("dungeonescapegame");
+        prefs.putFloat("keyAmount", keys);
+        prefs.flush();
+    }
+
+    public static float getCurrentKeyAmount() {
+        prefs = Gdx.app.getPreferences("dungeonescapegame");
+        return prefs.getFloat("keyAmount", 0);
+    }
 }
