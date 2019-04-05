@@ -225,7 +225,7 @@ public class MapScreenUI {
                 readyLabel.remove();
                 buttonUp = false;
                 mapScreen.buttonUp = false;
-                player.addMovementPoint();
+                player.removeMultipleMovementPoints();
             }
         });
     }

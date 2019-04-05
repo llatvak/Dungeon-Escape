@@ -194,6 +194,13 @@ public class MapPlayer extends Sprite {
         }
     }
 
+    public void removeMultipleMovementPoints() {
+        if(movementPoints > 0) {
+            movementPoints = movementPoints - ADDEDPOINTS;
+            Save.saveMovementPoints(movementPoints);
+        }
+    }
+
     public void checkAllowedMoves() {
         allowMovement = movementPoints > 0;
     }
