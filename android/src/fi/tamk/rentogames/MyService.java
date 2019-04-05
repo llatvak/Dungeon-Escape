@@ -21,6 +21,8 @@ import com.badlogic.gdx.backends.android.AndroidFiles;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 
+import fi.tamk.rentogames.Framework.GetSteps;
+
 public class MyService extends Service implements SensorEventListener, StepListener, GetSteps {
 
     private StepDetector simpleStepDetector;

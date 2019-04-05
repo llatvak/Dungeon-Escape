@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.Locale;
 
+import fi.tamk.rentogames.Framework.GetSteps;
 import fi.tamk.rentogames.Framework.Save;
 import fi.tamk.rentogames.Screens.MainMenu;
 import fi.tamk.rentogames.Screens.MapScreen;

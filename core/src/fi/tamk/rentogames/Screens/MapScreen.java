@@ -182,9 +182,9 @@ public class MapScreen implements Screen {
 
     // Get difference between total steps and saved steps
     private int countStepsDeltaOnResume() {
-        int stepdelta = game.getStepCount() - pauseSteps;
-        System.out.println("Stepdelta: " + stepdelta);
-        return stepdelta;
+        int stepDelta = game.getStepCount() - pauseSteps;
+        System.out.println("Stepdelta: " + stepDelta);
+        return stepDelta;
     }
 
     private void checkKeyAmount() {
@@ -245,9 +245,8 @@ public class MapScreen implements Screen {
 //        System.out.println("Map Steps: " + stepTotal);
 //        userInterface.updateStepsLabel();
 //        userInterface.addProgressBarValue();
-//
 //        Save.saveCurrentProgressbar(userInterface.getProgressbarValue());
-//
+
 //        if(stepTotal > 10) {
 //            Save.saveCurrentProgressbar(userInterface.getProgressbarValue() + 1);
 //        } else {
