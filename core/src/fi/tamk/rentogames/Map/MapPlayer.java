@@ -202,7 +202,12 @@ public class MapPlayer extends Sprite {
 
     public void removeMultipleMovementPoints() {
         if(movementPoints > 0) {
-            movementPoints = movementPoints - ADDEDPOINTS;
+            if(movementPoints >= ADDEDPOINTS) {
+                movementPoints = movementPoints - ADDEDPOINTS + 1;
+            } else {
+                movementPoints = 0;
+            }
+
             Save.saveMovementPoints(movementPoints);
         }
     }

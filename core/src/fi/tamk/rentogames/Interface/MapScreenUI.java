@@ -226,6 +226,7 @@ public class MapScreenUI {
                 buttonUp = false;
                 mapScreen.buttonUp = false;
                 player.moveToPreviousTile();
+                player.removeMultipleMovementPoints();
             }
         });
     }
