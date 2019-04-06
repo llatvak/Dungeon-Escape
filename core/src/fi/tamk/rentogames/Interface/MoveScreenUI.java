@@ -68,6 +68,9 @@ public class MoveScreenUI {
                 @Override
                 public void changed(ChangeListener.ChangeEvent event, Actor actor) {
                     Gdx.app.log("Screen", "going to mapscreen");
+                    for(int i=0; i<10; i++) {
+                        mapScreen.getMapPlayer().removeMovementPoint();
+                    }
                     game.setScreen(mapScreen);
                 }
             });
@@ -84,6 +87,7 @@ public class MoveScreenUI {
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
                 Gdx.app.log("Screen", "going to mapscreen");
+                mapScreen.getMapPlayer().moveToPreviousTile();
                 game.setScreen(mapScreen);
             }
         });

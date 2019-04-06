@@ -24,11 +24,11 @@ public class MoveScreenJump extends MoveScreenMove implements Screen {
 
     public MoveScreenJump(DungeonEscape game, MapScreen mapScreen) {
         super(game, mapScreen);
-        onCreates();
+        onCreate();
     }
 
     // Sets up the world for box2D and camera used
-    private void onCreates() {
+    private void onCreate() {
         userInterface = new MoveScreenUI(getGame(), getPlayer(), getMapScreen());
         stage = userInterface.getStage();
         // Setting the background texture and camera
