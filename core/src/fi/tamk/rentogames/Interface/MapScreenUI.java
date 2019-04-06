@@ -225,7 +225,7 @@ public class MapScreenUI {
                 readyLabel.remove();
                 buttonUp = false;
                 mapScreen.buttonUp = false;
-                player.removeMultipleMovementPoints();
+                player.moveToPreviousTile();
             }
         });
     }
@@ -271,6 +271,8 @@ public class MapScreenUI {
         });
         stage.addActor(tutorialWindow);
     }
+
+
 
     public boolean isButtonUp() {
         return buttonUp;

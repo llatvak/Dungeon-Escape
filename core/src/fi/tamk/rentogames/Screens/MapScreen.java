@@ -318,6 +318,10 @@ public class MapScreen implements Screen {
         return this;
     }
 
+    public MapPlayer getMapPlayer() {
+        return player;
+    }
+
     @Override
     public void dispose() {
         player.dispose();

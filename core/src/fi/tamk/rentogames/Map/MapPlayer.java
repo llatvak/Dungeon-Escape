@@ -65,6 +65,8 @@ public class MapPlayer extends Sprite {
     private String tutorialObject2 = "tutorial2";
     private String tutorialObject3 = "tutorial3";
 
+    private String currentDirection;
+
 
 
     public MapPlayer(MapScreen mapScreen, MapLevel mapLevel) {
@@ -101,6 +103,7 @@ public class MapPlayer extends Sprite {
                     spriteY -= movementSpeed;
                     movedDistance += movementSpeed;
                     if(movedDistance == TILE_SIZE) {
+                        currentDirection = "down";
                         removeMovementPoint();
                     }
                 } else {
@@ -121,6 +124,7 @@ public class MapPlayer extends Sprite {
                     spriteY += movementSpeed;
                     movedDistance += movementSpeed;
                     if(movedDistance == TILE_SIZE) {
+                        currentDirection = "up";
                         removeMovementPoint();
                     }
                 } else {
@@ -141,6 +145,7 @@ public class MapPlayer extends Sprite {
                     spriteX -= movementSpeed;
                     movedDistance += movementSpeed;
                     if(movedDistance == TILE_SIZE) {
+                        currentDirection = "left";
                         removeMovementPoint();
                     }
                 } else {
@@ -161,6 +166,7 @@ public class MapPlayer extends Sprite {
                     spriteX += movementSpeed;
                     movedDistance += movementSpeed;
                     if(movedDistance == TILE_SIZE) {
+                        currentDirection = "right";
                         removeMovementPoint();
                     }
                 } else {
@@ -187,7 +193,7 @@ public class MapPlayer extends Sprite {
         movementPoints = movementPoints + points * ADDEDPOINTS;
     }
 
-    private void removeMovementPoint() {
+    public void removeMovementPoint() {
         if(movementPoints > 0) {
             movementPoints --;
             Save.saveMovementPoints(movementPoints);
@@ -357,10 +363,34 @@ public class MapPlayer extends Sprite {
         wallCells.setCell(indexX, indexY, null);
     }
 
+    public String getCurrentDirection() {
+        return currentDirection;
+    }
 
     public void dispose() {
         getTexture().dispose();
         tiledMap.dispose();
         mapLevel.dispose();
+    }
+
+    public void moveToPreviousTile() {
+        if(currentDirection.equals("up")) {
+            System.out.println(movedDistance);
+            goUp = false;
+            movedDistance = 0;
+            setDownMove();
+        } else if(currentDirection.equals("down")) {
+            goDown = false;
+            movedDistance = 0;
+            setUpMove();
+        } else if(currentDirection.equals("left")) {
+            goLeft = false;
+            movedDistance = 0;
+            setRightMove();
+        } else if(currentDirection.equals("right")) {
+            goRight = false;
+            movedDistance = 0;
+            setLeftMove();
+        }
     }
 }

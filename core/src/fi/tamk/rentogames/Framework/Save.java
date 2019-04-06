@@ -3,7 +3,7 @@ package fi.tamk.rentogames.Framework;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 
-public abstract class Save {
+public class Save {
 
     public static Preferences prefs;
 
