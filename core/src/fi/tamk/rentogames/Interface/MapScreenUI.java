@@ -128,8 +128,6 @@ public class MapScreenUI {
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
                 Gdx.app.log("Button", "back");
-                Save.saveCurrentPlayerX(player.getX());
-                Save.saveCurrentPlayerY(player.getY());
                 game.setPreviousScreen(DungeonEscape.MAPSCREEN);
                 game.changeScreen(DungeonEscape.MAINMENU);
             }

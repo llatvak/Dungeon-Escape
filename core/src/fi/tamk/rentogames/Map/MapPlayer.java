@@ -76,8 +76,6 @@ public class MapPlayer extends Sprite {
         this.tiledMap = mapLevel.getCurrentMap();
 
         setSize(spriteWidth, spriteHeight);
-        startingX = Save.getCurrentPlayerX();
-        startingY = Save.getCurrentPlayerY();
         spriteX = startingX;
         spriteY = startingY;
         setPosition(startingX, startingY);
