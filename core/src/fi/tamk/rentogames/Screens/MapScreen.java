@@ -144,7 +144,7 @@ public class MapScreen implements Screen {
             if(stepTotal % player.STEPSTOMOVE == 0 && !pointAdded) {
                 stepsDuringPointsAdd = stepTotal;
                 stepsToPoint = 0;
-                player.addMovementPoint();
+                player.addMovementPoints();
                 // userInterface.resetProgressBar();
                 pointAdded = true;
             }

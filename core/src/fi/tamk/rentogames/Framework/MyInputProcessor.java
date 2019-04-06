@@ -44,7 +44,7 @@ public class MyInputProcessor implements InputProcessor, Disposable {
         }
 
         if(keycode == SPACE) {
-            player.addMovementPoint();
+            player.addMovementPoints();
         }
 
         if(keycode == Input.Keys.BACK){

@@ -209,7 +209,7 @@ public class MapScreenUI {
                 if(onJump) {
                     mapScreen.goToJumpTrap();
                 }
-                player.addMovementPoint();
+                player.addMovementPoints();
             }
         });
 

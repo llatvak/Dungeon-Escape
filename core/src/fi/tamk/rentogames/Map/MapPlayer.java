@@ -181,7 +181,12 @@ public class MapPlayer extends Sprite {
         setY(spriteY);
     }
 
-    public void addMovementPoint() {
+    public void addOneMovementPoint() {
+        movementPoints = movementPoints + 1;
+        Save.saveMovementPoints(movementPoints);
+    }
+
+    public void addMovementPoints() {
         Gdx.app.log("Movementpoint", "added");
         movementPoints = movementPoints + ADDEDPOINTS;
         Save.saveMovementPoints(movementPoints);
@@ -189,6 +194,7 @@ public class MapPlayer extends Sprite {
 
     public void addMultipleMovementPoints(int points) {
         movementPoints = movementPoints + points * ADDEDPOINTS;
+        Save.saveMovementPoints(movementPoints);
     }
 
     public void removeMovementPoint() {
