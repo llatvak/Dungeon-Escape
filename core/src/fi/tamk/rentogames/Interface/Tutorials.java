@@ -31,15 +31,34 @@ public class Tutorials {
         this.stage = userInterface.getStage();
         textLabel = new Label("",skin);
     }
-
-    public void createTutorialTable( ) {
-        Table textTable = new Table();
-        textTable.add(textLabel).width(270f).height(90f).left();
+    public void changeTutorialLabel(int tutorial) {
+        switch(tutorial) {
+            case 1: createTutorialOne();
+                createTutorialWindowOne();
+                break;
+            case 2: createTutorialTwo();
+                createTutorialWindowTwo();
+                break;
+            case 3: createTutorialThree();
+                createTutorialWindowThree();
+                break;
+            case 4: createTutorialFour();
+                createTutorialWindowFour();
+                break;
+            case 5: createTutorialFive();
+                createTutorialWindowFive();
+                break;
+            case 6: createNoKeysInfo();
+                createNoKeysWindow();
+                break;
+        }
     }
+
     public void createTutorialOne() {
         dialogTitle = "You're finally awake.. ";
-        textLabel.setText("You have been imprisoned with no memory of the past. " +
-                "You have managed to free yourself from your cell but now you must find a way to escape the dungeon. "
+        textLabel.setText("You have been imprisoned with no memory of the past. \n" +
+                "You have managed to free yourself from the cell but now you must find a way to escape the dungeon. \n" +
+                "Maybe you will regain your memory along the way."
         );
 
         textLabel.setWrap(true);
@@ -90,31 +109,16 @@ public class Tutorials {
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
-
-    public void changeTutorialLabel(int tutorial) {
-        switch(tutorial) {
-            case 1: createTutorialOne();
-                    createTutorialWindowOne();
-                break;
-            case 2: createTutorialTwo();
-                    createTutorialWindowTwo();
-                break;
-            case 3: createTutorialThree();
-                    createTutorialWindowThree();
-                break;
-            case 4: createTutorialFour();
-                    createTutorialWindowFour();
-                break;
-            case 5: createTutorialFive();
-                    createTutorialWindowFive();
-                break;
-        }
+    public void createNoKeysInfo() {
+        dialogTitle = "Not enough keys.";
+        textLabel.setText("You need to collect all 3 keys to open the door."
+        );
+        textLabel.setWrap(true);
+        textLabel.setWidth(100);
     }
 
     public void createTutorialWindowOne(){
         Gdx.app.log("Tutorial", "created");
-
-        createTutorialTable();
         Table textTable = new Table();
 
         Dialog tutorialWindow = new Dialog(getDialogTitle(),skin );
@@ -125,8 +129,8 @@ public class Tutorials {
 
         tutorialWindow.setMovable(false);
         tutorialWindow.setModal(true);
-        tutorialWindow.setSize(300,250);
-        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, game.screenHeight / 2 - windowHeightPos);
+        tutorialWindow.setSize(300,280);
+        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, 10);
         tutorialWindow.getContentTable().add(textTable);
         tutorialWindow.button(confirmButton);
 
@@ -142,9 +146,7 @@ public class Tutorials {
     }
 
     public void createSecondTutorialWindow(){
-        Gdx.app.log("Tutorial", "created");
-
-        createTutorialTable();
+        Gdx.app.log("Tutorial", "intro");
         Table textTable = new Table();
 
         Dialog tutorialWindow = new Dialog(getDialogTitle(),skin );
@@ -155,25 +157,16 @@ public class Tutorials {
 
         tutorialWindow.setMovable(false);
         tutorialWindow.setModal(true);
-        tutorialWindow.setSize(300,250);
-        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, game.screenHeight / 2 - windowHeightPos);
+        tutorialWindow.setSize(300,270);
+        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, 10);
         tutorialWindow.getContentTable().add(textTable);
         tutorialWindow.button(confirmButton);
 
-        confirmButton.addListener(new ChangeListener(){
-            @Override
-            public void changed(ChangeEvent event, Actor actor){
-
-
-            }
-        });
         stage.addActor(tutorialWindow);
     }
 
     public void createTutorialWindowTwo(){
-        Gdx.app.log("Tutorial", "created");
-
-        createTutorialTable();
+        Gdx.app.log("Tutorial", "character movement");
         Table textTable = new Table();
 
         Dialog tutorialWindow = new Dialog(getDialogTitle(),skin );
@@ -189,19 +182,10 @@ public class Tutorials {
         tutorialWindow.getContentTable().add(textTable);
         tutorialWindow.button(confirmButton);
 
-        confirmButton.addListener(new ChangeListener(){
-            @Override
-            public void changed(ChangeEvent event, Actor actor){
-
-
-            }
-        });
         stage.addActor(tutorialWindow);
     }
     public void createTutorialWindowThree(){
-        Gdx.app.log("Tutorial", "created");
-
-        createTutorialTable();
+        Gdx.app.log("Tutorial", "movement points");
         Table textTable = new Table();
 
         Dialog tutorialWindow = new Dialog(getDialogTitle(),skin );
@@ -221,15 +205,13 @@ public class Tutorials {
             @Override
             public void changed(ChangeEvent event, Actor actor){
                 createTutorialThreeNext();
-                createFifthTutorialWindow();
+                createTutorialWindowThreeNext();
             }
         });
         stage.addActor(tutorialWindow);
     }
-    public void createFifthTutorialWindow(){
-        Gdx.app.log("Tutorial", "created");
-
-        createTutorialTable();
+    public void createTutorialWindowThreeNext(){
+        Gdx.app.log("Tutorial", "walking");
         Table textTable = new Table();
 
         Dialog tutorialWindow = new Dialog(getDialogTitle(),skin );
@@ -245,19 +227,10 @@ public class Tutorials {
         tutorialWindow.getContentTable().add(textTable);
         tutorialWindow.button(confirmButton);
 
-        confirmButton.addListener(new ChangeListener(){
-            @Override
-            public void changed(ChangeEvent event, Actor actor){
-
-
-            }
-        });
         stage.addActor(tutorialWindow);
     }
     public void createTutorialWindowFour(){
-        Gdx.app.log("Tutorial", "created");
-
-        createTutorialTable();
+        Gdx.app.log("Tutorial", "traps");
         Table textTable = new Table();
 
         Dialog tutorialWindow = new Dialog(getDialogTitle(),skin );
@@ -273,19 +246,11 @@ public class Tutorials {
         tutorialWindow.getContentTable().add(textTable);
         tutorialWindow.button(confirmButton);
 
-        confirmButton.addListener(new ChangeListener(){
-            @Override
-            public void changed(ChangeEvent event, Actor actor){
-
-            }
-        });
         stage.addActor(tutorialWindow);
     }
 
     public void createTutorialWindowFive(){
-        Gdx.app.log("Tutorial", "created");
-
-        createTutorialTable();
+        Gdx.app.log("Tutorial", "go");
         Table textTable = new Table();
 
         Dialog tutorialWindow = new Dialog(getDialogTitle(),skin );
@@ -301,12 +266,26 @@ public class Tutorials {
         tutorialWindow.getContentTable().add(textTable);
         tutorialWindow.button(confirmButton);
 
-        confirmButton.addListener(new ChangeListener(){
-            @Override
-            public void changed(ChangeEvent event, Actor actor){
+        stage.addActor(tutorialWindow);
+    }
 
-            }
-        });
+    public void createNoKeysWindow(){
+        Gdx.app.log("Tutorial", "created");
+        Table textTable = new Table();
+
+        Dialog tutorialWindow = new Dialog(getDialogTitle(),skin );
+        TextButton confirmButton = new TextButton("OK!", skin );
+
+        textTable.setDebug(false);
+        textTable.add(getLabel()).width(270f).height(90f).left().pad(2,2,2,2);
+
+        tutorialWindow.setMovable(false);
+        tutorialWindow.setModal(true);
+        tutorialWindow.setSize(300,190);
+        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, 10);
+        tutorialWindow.getContentTable().add(textTable);
+        tutorialWindow.button(confirmButton);
+
         stage.addActor(tutorialWindow);
     }
 

@@ -288,8 +288,8 @@ public class MapPlayer extends Sprite {
         checkObjectCollision(jumpingTrap);
         checkObjectCollision(squatTrap);
         checkObjectCollision(keyObject);
-        checkObjectCollision(storyObject);
         checkObjectCollision(levelChangeObject);
+        checkObjectCollision(storyObject);
 
         if(Save.getCurrentLevel() == 1) {
             checkObjectCollision(tutorialObjectIntro);
@@ -352,7 +352,7 @@ public class MapPlayer extends Sprite {
                     if(mapScreen.keysCollected) {
                         mapScreen.changeLevel();
                     } else {
-                        mapScreen.notEnoughKeys();
+                        mapScreen.createTutorial(6);
                     }
                 }
                 if(layer.equals(storyObject) ) {

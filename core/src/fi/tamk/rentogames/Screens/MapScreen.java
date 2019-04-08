@@ -38,7 +38,7 @@ public class MapScreen implements Screen {
     private boolean pointAdded;
     private int stepsDuringPointsAdd;
 
-    private int level;
+    private int level = 1;
     public static final int KEYS_NEEDED = 3;
 
     public int keyAmount;
