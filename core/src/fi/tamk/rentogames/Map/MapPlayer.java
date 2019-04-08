@@ -11,6 +11,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
+import fi.tamk.rentogames.DungeonEscape;
 import fi.tamk.rentogames.Framework.Save;
 import fi.tamk.rentogames.Screens.MapScreen;
 
@@ -291,15 +292,18 @@ public class MapPlayer extends Sprite {
         checkObjectCollision(levelChangeObject);
         checkObjectCollision(storyObject);
 
-        if(Save.getCurrentLevel() == 1) {
-            checkObjectCollision(tutorialObjectIntro);
-            checkObjectCollision(tutorialObjectKeys);
-            checkObjectCollision(tutorialObjectMove);
+        if(DungeonEscape.tutorials) {
+            if(Save.getCurrentLevel() == 1) {
+                checkObjectCollision(tutorialObjectIntro);
+                checkObjectCollision(tutorialObjectKeys);
+                checkObjectCollision(tutorialObjectMove);
+            }
+            if(Save.getCurrentLevel() == 2) {
+                checkObjectCollision(tutorialObjectTraps);
+                checkObjectCollision(tutorialObjectGo);
+            }
         }
-        if(Save.getCurrentLevel() == 2) {
-            checkObjectCollision(tutorialObjectTraps);
-            checkObjectCollision(tutorialObjectGo);
-        }
+
     }
 
 

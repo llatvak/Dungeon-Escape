@@ -27,7 +27,8 @@ public class DungeonEscape extends Game {
     public final float gameHeight = 640f / 100f;
 
     // Change this to enable testing features like skipping traps and reseting game saves
-    public boolean testing = true;
+    public static boolean testing = true;
+    public static boolean tutorials = true;
 
     public SpriteBatch batch;
 
