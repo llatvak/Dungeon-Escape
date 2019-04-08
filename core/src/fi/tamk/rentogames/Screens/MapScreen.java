@@ -38,7 +38,7 @@ public class MapScreen implements Screen {
     private boolean pointAdded;
     private int stepsDuringPointsAdd;
 
-    private int level = 1;
+    private int level;
     public static final int KEYS_NEEDED = 3;
 
     public int keyAmount;
@@ -56,7 +56,7 @@ public class MapScreen implements Screen {
         tiledMapRenderer = mapLevel.getTiledMapRenderer();
         player = new MapPlayer(this, mapLevel);
         userInterface = new MapScreenUI(game, this, player);
-        tutorials = new Tutorials();
+        tutorials = new Tutorials(game, userInterface);
         stage = userInterface.getStage();
         countMovementPointsOnRender();
         // userInterface.updateProgressBar();
@@ -234,8 +234,7 @@ public class MapScreen implements Screen {
         game.changeScreen(DungeonEscape.JUMPSCREEN);
     }
     public void createTutorial(int tutorial) {
-        userInterface.changeTutorialLabel(tutorial);
-        userInterface.createTutorialWindow();
+        tutorials.changeTutorialLabel(tutorial);
     }
 
     // Not used at the moment
@@ -320,6 +319,10 @@ public class MapScreen implements Screen {
 
     public MapPlayer getMapPlayer() {
         return player;
+    }
+
+    public int getLevel() {
+        return this.level;
     }
 
     @Override

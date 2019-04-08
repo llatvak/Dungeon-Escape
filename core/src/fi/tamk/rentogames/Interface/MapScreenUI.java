@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
@@ -69,7 +68,7 @@ public class MapScreenUI {
         this.game = game;
         this.mapScreen = mapScreen;
         this.player = player;
-        this.tutorials = new Tutorials();
+        //this.tutorials = new Tutorials();
         this.stage = new Stage(game.getGameViewport());
         onCreate();
     }
@@ -228,50 +227,6 @@ public class MapScreenUI {
             }
         });
     }
-
-    public void changeTutorialLabel(int tutorial) {
-        switch(tutorial) {
-            case 1: tutorials.createFirstTutorial();
-                break;
-            case 2: tutorials.createSecondTutorial();
-                break;
-            case 3: tutorials.createThirdTutorial();
-                break;
-            case 4: tutorials.createFirstTutorial();
-                break;
-        }
-    }
-
-    public void createTutorialWindow(){
-        Gdx.app.log("Tutorial", "created");
-
-        tutorials.createTutorialTable();
-        Table textTable = new Table();
-
-        Dialog tutorialWindow = new Dialog(tutorials.getDialogTitle(),skin );
-        TextButton confirmButton = new TextButton("OK!", skin );
-
-        textTable.setDebug(false);
-        textTable.add(tutorials.getLabel()).width(270f).height(90f).left();
-
-        tutorialWindow.setMovable(false);
-        tutorialWindow.setModal(true);
-        tutorialWindow.setSize(300,280);
-        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, game.screenHeight / 2 - 60);
-        tutorialWindow.getContentTable().add(textTable);
-        tutorialWindow.button(confirmButton);
-
-        confirmButton.addListener(new ChangeListener(){
-            @Override
-            public void changed(ChangeEvent event, Actor actor){
-                tutorials.createSecondTutorial();
-
-            }
-        });
-        stage.addActor(tutorialWindow);
-    }
-
-
 
     public boolean isButtonUp() {
         return buttonUp;
