@@ -82,9 +82,6 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
         getPlayer().playerSquat();
         //getPlayer().checkInput();
 
-        System.out.println("Nuolen sijainti lisätty: " + arrowRect.getX() + arrowRect.getWidth()/100f);
-        System.out.println("Pelaajan sijainti: " + getPlayer().getPlayerX());
-
         // Moves the arrow
         if(getPlayer().getCountedJumps() >= getPlayer().getMovesRequired()) {
             arrowRect.setX(arrowRect.getX() - 0.1f);
