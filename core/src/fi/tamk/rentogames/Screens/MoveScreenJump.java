@@ -8,11 +8,13 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import fi.tamk.rentogames.DungeonEscape;
 import fi.tamk.rentogames.Interface.MoveScreenUI;
+import fi.tamk.rentogames.Interface.MoveTutorials;
 import fi.tamk.rentogames.Move.MoveScreenMove;
 
 public class MoveScreenJump extends MoveScreenMove implements Screen {
 
     private MoveScreenUI userInterface;
+    private MoveTutorials moveTutorials;
     private Stage stage;
 
     private Texture spikeTexture;
@@ -30,6 +32,7 @@ public class MoveScreenJump extends MoveScreenMove implements Screen {
     // Sets up the world for box2D and camera used
     private void onCreate() {
         userInterface = new MoveScreenUI(getGame(), getPlayer(), getMapScreen());
+        moveTutorials = new MoveTutorials(getGame(), userInterface);
         stage = userInterface.getStage();
         // Setting the background texture and camera
         spikeTexture = new Texture(Gdx.files.internal("floorspikes.png"));
@@ -47,6 +50,7 @@ public class MoveScreenJump extends MoveScreenMove implements Screen {
         getMapScreen().saveStepsOnPause();
         getGame().setMoveScreenStatus(true);
         userInterface.createUI();
+        moveTutorials.createFirstTutorial();
     }
 
     @Override

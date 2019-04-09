@@ -21,7 +21,6 @@ public class MapTutorials {
     private MapScreenUI userInterface;
     private DungeonEscape game;
     private Skin skin;
-    private Table textTable;
     private Label textLabel;
     private String dialogTitle;
     private Stage stage;
@@ -353,9 +352,6 @@ public class MapTutorials {
         stage.addActor(tutorialWindow);
     }
 
-    public Table getTable() {
-        return this.textTable;
-    }
     public String getDialogTitle() {
         return this.dialogTitle;
     }

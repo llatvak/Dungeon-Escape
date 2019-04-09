@@ -27,7 +27,7 @@ public class DungeonEscape extends Game {
     public final float gameHeight = 640f / 100f;
 
     // Change this to enable testing features like skipping traps and reseting game saves
-    public static boolean testing = false;
+    public static boolean testing = true;
     public static boolean tutorials = false;
 
     public SpriteBatch batch;
@@ -72,7 +72,7 @@ public class DungeonEscape extends Game {
         gameViewport = new FitViewport(screenWidth, screenHeight, screenCamera);
 
         batch = new SpriteBatch();
-        changeScreen(MAPSCREEN);
+        changeScreen(JUMPSCREEN);
     }
 
     private void createCameras() {
@@ -141,8 +141,8 @@ public class DungeonEscape extends Game {
 
             case JUMPSCREEN:
                 activeScreen = JUMPSCREEN;
-                MoveScreenJump moveScreenJump = new MoveScreenJump(this, mapScreen.getMapScreen());
-                //MoveScreenJump moveScreenJump = new MoveScreenJump(this, new MapScreen(this));
+                //MoveScreenJump moveScreenJump = new MoveScreenJump(this, mapScreen.getMapScreen());
+                MoveScreenJump moveScreenJump = new MoveScreenJump(this, new MapScreen(this));
                 moveScreenStatus = true;
                 this.setScreen(moveScreenJump);
                 break;
