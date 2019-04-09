@@ -27,6 +27,11 @@ public class MapPlayer extends Sprite {
     private float spriteWidth = 62f;
     private float spriteHeight = 62f;
 
+    private final int SPRITEDOWN = 1;
+    private final int SPRITEUP = 2;
+    private final int SPRITERIGHT = 3;
+    private final int SPRITELEFT = 4;
+
     // Starting location
     private float startingX = 8 * TILE_SIZE + 1f;
     private float startingY = TILE_SIZE + 1f;
@@ -69,10 +74,19 @@ public class MapPlayer extends Sprite {
     private String tutorialObjectTraps = "tutorial-traps";
     private String tutorialObjectGo = "tutorial-go";
 
-
+    private Texture playerDown;
+    private Texture playerUp;
+    private Texture playerRight;
+    private Texture playerLeft;
 
     public MapPlayer(MapScreen mapScreen, MapLevel mapLevel) {
-        super( new Texture("player.png"));
+        playerDown = new Texture("playerdown.png");
+        playerUp = new Texture("playerup.png");
+        playerRight = new Texture("playerright.png");
+        playerLeft = new Texture("playerleft.png");
+        setTexture(playerUp);
+
+
         this.mapScreen = mapScreen;
         this.mapLevel = mapLevel;
         this.tiledMap = mapLevel.getCurrentMap();
@@ -82,6 +96,21 @@ public class MapPlayer extends Sprite {
         spriteY = startingY;
         setPosition(startingX, startingY);
         movementPoints = Save.getMovementPoints();
+    }
+
+    public void setSpriteDirection(int direction) {
+        switch (direction) {
+            case 1: setTexture(playerDown);
+            break;
+            case 2: setTexture(playerUp);
+            break;
+            case 3: setTexture(playerRight);
+                    this.flip(true,false);
+            break;
+            case 4: setTexture(playerLeft);
+                    this.flip(true,false);
+            break;
+        }
     }
 
     public void setMap() {
@@ -100,6 +129,7 @@ public class MapPlayer extends Sprite {
             getMyCorners(spriteX, spriteY - 1 * moveAmount);
             if(downLeftCollision && downRightCollision) {
                 if (movedDistance < TILE_SIZE) {
+                    setSpriteDirection(SPRITEDOWN);
                     spriteY -= movementSpeed;
                     movedDistance += movementSpeed;
                     if(movedDistance == TILE_SIZE) {
@@ -121,6 +151,7 @@ public class MapPlayer extends Sprite {
             getMyCorners(spriteX, spriteY + 1 * moveAmount);
             if(upLeftCollision && downRightCollision) {
                 if (movedDistance < TILE_SIZE) {
+                    setSpriteDirection(SPRITEUP);
                     spriteY += movementSpeed;
                     movedDistance += movementSpeed;
                     if(movedDistance == TILE_SIZE) {
@@ -142,6 +173,7 @@ public class MapPlayer extends Sprite {
             getMyCorners(spriteX - 2, spriteY);
             if(upLeftCollision && downLeftCollision) {
                 if (movedDistance < TILE_SIZE) {
+                    setSpriteDirection(SPRITELEFT);
                     spriteX -= movementSpeed;
                     movedDistance += movementSpeed;
                     if(movedDistance == TILE_SIZE) {
@@ -163,6 +195,7 @@ public class MapPlayer extends Sprite {
             getMyCorners(spriteX + 1 , spriteY);
             if(upRightCollision && downRightCollision) {
                 if(movedDistance < TILE_SIZE) {
+                    setSpriteDirection(SPRITERIGHT);
                     spriteX += movementSpeed;
                     movedDistance += movementSpeed;
                     if(movedDistance == TILE_SIZE) {
@@ -307,8 +340,6 @@ public class MapPlayer extends Sprite {
 
     }
 
-
-
     private void checkObjectCollision(String layer) {
         // Boolean values for stepping on up/down trap
         boolean onJumpTrap;
@@ -394,12 +425,6 @@ public class MapPlayer extends Sprite {
         return currentDirection;
     }
 
-    public void dispose() {
-        getTexture().dispose();
-        tiledMap.dispose();
-        mapLevel.dispose();
-    }
-
     public void moveToPreviousTile() {
         if(currentDirection.equals("up")) {
             System.out.println(movedDistance);
@@ -420,4 +445,15 @@ public class MapPlayer extends Sprite {
             setLeftMove();
         }
     }
+
+    public void dispose() {
+        getTexture().dispose();
+        playerDown.dispose();
+        playerUp.dispose();
+        playerRight.dispose();
+        playerLeft.dispose();
+        tiledMap.dispose();
+        mapLevel.dispose();
+    }
+
 }
