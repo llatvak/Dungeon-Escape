@@ -82,7 +82,7 @@ public class DungeonEscape extends Game {
 
         // Load music
         GameAudio.loadMusic("menumusic.ogg", "menumusic");
-        GameAudio.loadMusic("mapscreenmusic.wav", "mapscreenmusic");
+        GameAudio.loadMusic("mapscreenmusic.ogg", "mapscreenmusic");
 
         changeScreen(MAPSCREEN);
     }
