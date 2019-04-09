@@ -236,5 +236,7 @@ public class DungeonEscape extends Game {
     @Override
     public void dispose () {
         batch.dispose();
+        GameAudio gameAudio = new GameAudio();
+        gameAudio.dispose();
     }
 }

@@ -3,10 +3,11 @@ package fi.tamk.rentogames.Framework;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.utils.Disposable;
 
 import java.util.HashMap;
 
-public class GameAudio {
+public class GameAudio implements Disposable {
 
     private static HashMap<String, Sound> sounds;
     private static HashMap<String, Music> musics;
@@ -52,5 +53,16 @@ public class GameAudio {
 
     public static void stopMusic(String name) {
         musics.get(name).stop();
+    }
+
+    @Override
+    public void dispose() {
+        for(Sound s: sounds.values()) {
+            s.dispose();
+        }
+
+        for(Music m: musics.values()) {
+            m.dispose();
+        }
     }
 }
