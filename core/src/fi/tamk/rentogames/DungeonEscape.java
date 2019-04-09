@@ -72,7 +72,7 @@ public class DungeonEscape extends Game {
         gameViewport = new FitViewport(screenWidth, screenHeight, screenCamera);
 
         batch = new SpriteBatch();
-        changeScreen(JUMPSCREEN);
+        changeScreen(MAINMENU);
     }
 
     private void createCameras() {
@@ -141,8 +141,8 @@ public class DungeonEscape extends Game {
 
             case JUMPSCREEN:
                 activeScreen = JUMPSCREEN;
-                //MoveScreenJump moveScreenJump = new MoveScreenJump(this, mapScreen.getMapScreen());
-                MoveScreenJump moveScreenJump = new MoveScreenJump(this, new MapScreen(this));
+                MoveScreenJump moveScreenJump = new MoveScreenJump(this, mapScreen.getMapScreen());
+                //MoveScreenJump moveScreenJump = new MoveScreenJump(this, new MapScreen(this));
                 moveScreenStatus = true;
                 this.setScreen(moveScreenJump);
                 break;

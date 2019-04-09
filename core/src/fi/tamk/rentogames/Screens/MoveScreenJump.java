@@ -14,7 +14,7 @@ import fi.tamk.rentogames.Move.MoveScreenMove;
 public class MoveScreenJump extends MoveScreenMove implements Screen {
 
     private MoveScreenUI userInterface;
-    private MoveTutorials moveTutorials;
+    private MoveTutorials tutorials;
     private Stage stage;
 
     private Texture spikeTexture;
@@ -32,7 +32,7 @@ public class MoveScreenJump extends MoveScreenMove implements Screen {
     // Sets up the world for box2D and camera used
     private void onCreate() {
         userInterface = new MoveScreenUI(getGame(), getPlayer(), getMapScreen());
-        moveTutorials = new MoveTutorials(getGame(), userInterface);
+        tutorials = new MoveTutorials(getGame(), userInterface);
         stage = userInterface.getStage();
         // Setting the background texture and camera
         spikeTexture = new Texture(Gdx.files.internal("floorspikes.png"));
@@ -50,7 +50,7 @@ public class MoveScreenJump extends MoveScreenMove implements Screen {
         getMapScreen().saveStepsOnPause();
         getGame().setMoveScreenStatus(true);
         userInterface.createUI();
-        moveTutorials.createFirstTutorial();
+        tutorials.createJumpTutorial();
     }
 
     @Override

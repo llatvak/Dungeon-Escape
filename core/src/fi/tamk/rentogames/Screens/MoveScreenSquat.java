@@ -9,11 +9,13 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import fi.tamk.rentogames.DungeonEscape;
 import fi.tamk.rentogames.Interface.MoveScreenUI;
+import fi.tamk.rentogames.Interface.MoveTutorials;
 import fi.tamk.rentogames.Move.MoveScreenMove;
 
 public class MoveScreenSquat extends MoveScreenMove implements Screen {
 
     private MoveScreenUI userInterface;
+    private MoveTutorials tutorials;
     private Stage stage;
 
     // Arrow trap
@@ -28,6 +30,7 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
     // Sets up the world for box2D and camera used
     private void onCreate() {
         userInterface = new MoveScreenUI(getGame(), getPlayer(), getMapScreen());
+        tutorials = new MoveTutorials(getGame(), userInterface);
         stage = userInterface.getStage();
         getGame().batch = getGame().getBatch();
 
@@ -43,6 +46,7 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
         getMapScreen().saveStepsOnPause();
         getGame().setMoveScreenStatus(true);
         userInterface.createUI();
+        tutorials.createSquatTutorial();
     }
 
     @Override

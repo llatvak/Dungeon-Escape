@@ -33,9 +33,13 @@ public class MoveTutorials {
         textLabel = new Label("",skin);
     }
 
-    public void createFirstTutorial() {
+    public void createJumpTutorial() {
         createSpikesTutorial();
         createSpikesTutorialWindow();
+    }
+    public void createSquatTutorial() {
+        createArrowTutorial();
+        createArrowTutorialWindow();
     }
     public void createIntroTutorial() {
         dialogTitle = "What is that?";
@@ -47,7 +51,15 @@ public class MoveTutorials {
     }
     public void createSpikesTutorial() {
         dialogTitle = "What should I do?";
-        textLabel.setText("Get over the spikes by doing 3 jumps."
+        textLabel.setText("Get over the spikes by doing\n3 jumps."
+        );
+
+        textLabel.setWrap(true);
+        textLabel.setWidth(100);
+    }
+    public void createArrowTutorial() {
+        dialogTitle = "What should I do?";
+        textLabel.setText("Dodge the arrow by doing\n3 squats."
         );
 
         textLabel.setWrap(true);
@@ -99,20 +111,55 @@ public class MoveTutorials {
     public void createSpikesTutorialWindow(){
         Gdx.app.log("Tutorial", "spikes");
         Table textTable = new Table();
-
-        Texture arrowTexture = new Texture("arrowup.png");
-        ImageButton arrowImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(arrowTexture)));
+        Texture standTexture = new Texture("tutorialstand.png");
+        Texture jumpTexture = new Texture("tutorialjump.png");
+        ImageButton standImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(standTexture)));
+        ImageButton jumpImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(jumpTexture)));
         Dialog tutorialWindow = new Dialog(getDialogTitle(),skin );
         TextButton confirmButton = new TextButton("OK!", skin );
 
-        textTable.setDebug(true);
-        textTable.add(getLabel()).width(270f).height(50f).left();
-       // textTable.row();
-        //textTable.add(arrowImage).width(50).height(50);
+        textTable.setDebug(false);
+        textTable.add(getLabel()).width(270f).height(50f).left().colspan(2);
+        textTable.row();
+        textTable.add(standImage).width(100).height(100).right();
+        textTable.add(jumpImage).width(100).height(100).left();
 
         tutorialWindow.setMovable(false);
         tutorialWindow.setModal(true);
-        tutorialWindow.setSize(300,150);
+        tutorialWindow.setSize(300,260);
+        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, 280);
+        tutorialWindow.getContentTable().add(textTable);
+        tutorialWindow.button(confirmButton);
+
+        confirmButton.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeEvent event, Actor actor){
+                createPhoneTutorial();
+                createPhoneTutorialWindow();
+
+            }
+        });
+        stage.addActor(tutorialWindow);
+    }
+    public void createArrowTutorialWindow(){
+        Gdx.app.log("Tutorial", "arrow");
+        Table textTable = new Table();
+        Texture standTexture = new Texture("tutorialstand.png");
+        Texture squatTexture = new Texture("tutorialsquat.png");
+        ImageButton standImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(standTexture)));
+        ImageButton squatImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(squatTexture)));
+        Dialog tutorialWindow = new Dialog(getDialogTitle(),skin );
+        TextButton confirmButton = new TextButton("OK!", skin );
+
+        textTable.setDebug(false);
+        textTable.add(getLabel()).width(270f).height(50f).left().colspan(2);
+        textTable.row();
+        textTable.add(standImage).width(100).height(100).right();
+        textTable.add(squatImage).width(100).height(100).left();
+
+        tutorialWindow.setMovable(false);
+        tutorialWindow.setModal(true);
+        tutorialWindow.setSize(300,260);
         tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, 280);
         tutorialWindow.getContentTable().add(textTable);
         tutorialWindow.button(confirmButton);
@@ -132,19 +179,19 @@ public class MoveTutorials {
         Gdx.app.log("Tutorial", "phone");
         Table textTable = new Table();
 
-        Texture arrowTexture = new Texture("arrowup.png");
-        ImageButton arrowImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(arrowTexture)));
+        Texture phoneTexture = new Texture("phone.png");
+        ImageButton phoneImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(phoneTexture)));
         Dialog tutorialWindow = new Dialog(getDialogTitle(),skin );
         TextButton confirmButton = new TextButton("OK!", skin );
 
         textTable.setDebug(false);
         textTable.add(getLabel()).width(270f).height(90f).left();
-       // textTable.row();
-       // textTable.add(arrowImage).width(50).height(50);
+        textTable.row();
+        textTable.add(phoneImage).width(90).height(90);
 
         tutorialWindow.setMovable(false);
         tutorialWindow.setModal(true);
-        tutorialWindow.setSize(300,270);
+        tutorialWindow.setSize(300,280);
         tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, 300);
         tutorialWindow.getContentTable().add(textTable);
         tutorialWindow.button(confirmButton);
