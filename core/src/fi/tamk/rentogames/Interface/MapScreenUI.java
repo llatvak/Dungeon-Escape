@@ -28,7 +28,7 @@ public class MapScreenUI {
     private DungeonEscape game;
     private MapScreen mapScreen;
     private MapPlayer player;
-    private Tutorials tutorials;
+    private MapTutorials mapTutorials;
 
     private Skin skin;
     private Stage stage;
@@ -68,7 +68,7 @@ public class MapScreenUI {
         this.game = game;
         this.mapScreen = mapScreen;
         this.player = player;
-        //this.tutorials = new Tutorials();
+        //this.mapTutorials = new MapTutorials();
         this.stage = new Stage(game.getGameViewport());
         onCreate();
     }

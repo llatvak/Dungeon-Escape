@@ -12,7 +12,7 @@ import fi.tamk.rentogames.DungeonEscape;
 import fi.tamk.rentogames.Framework.MyInputProcessor;
 import fi.tamk.rentogames.Framework.Save;
 import fi.tamk.rentogames.Interface.MapScreenUI;
-import fi.tamk.rentogames.Interface.Tutorials;
+import fi.tamk.rentogames.Interface.MapTutorials;
 import fi.tamk.rentogames.Map.MapLevel;
 import fi.tamk.rentogames.Map.MapPlayer;
 
@@ -22,7 +22,7 @@ public class MapScreen implements Screen {
     private MapPlayer player;
     private MapLevel mapLevel;
     private MapScreenUI userInterface;
-    private Tutorials tutorials;
+    private MapTutorials mapTutorials;
     private boolean paused;
 
     // Map
@@ -57,7 +57,7 @@ public class MapScreen implements Screen {
         tiledMapRenderer = mapLevel.getTiledMapRenderer();
         player = new MapPlayer(this, mapLevel);
         userInterface = new MapScreenUI(game, this, player);
-        tutorials = new Tutorials(game, userInterface);
+        mapTutorials = new MapTutorials(game, userInterface);
         stage = userInterface.getStage();
         countMovementPointsOnRender();
         // userInterface.updateProgressBar();
@@ -235,7 +235,7 @@ public class MapScreen implements Screen {
         game.changeScreen(DungeonEscape.JUMPSCREEN);
     }
     public void createTutorial(int tutorial) {
-        tutorials.changeTutorialLabel(tutorial);
+        mapTutorials.changeTutorialLabel(tutorial);
     }
 
     // Not used at the moment

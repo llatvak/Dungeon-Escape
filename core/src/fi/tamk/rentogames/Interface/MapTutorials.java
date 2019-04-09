@@ -16,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import fi.tamk.rentogames.DungeonEscape;
 
-public class Tutorials {
+public class MapTutorials {
 
     private MapScreenUI userInterface;
     private DungeonEscape game;
@@ -28,7 +28,7 @@ public class Tutorials {
 
     private float windowHeightPos = 70f;
 
-    public Tutorials(DungeonEscape game, MapScreenUI userInterface) {
+    public MapTutorials(DungeonEscape game, MapScreenUI userInterface) {
         this.skin = new Skin(Gdx.files.internal("uiskin.json"));
         this.game = game;
         this.userInterface = userInterface;

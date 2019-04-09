@@ -36,6 +36,7 @@ public class MapPlayer extends Sprite {
 
     // Movement direction
     public boolean moving;
+    private String currentDirection;
     private boolean goUp;
     private boolean goDown;
     private boolean goRight;
@@ -67,11 +68,11 @@ public class MapPlayer extends Sprite {
     private String tutorialObjectMove = "tutorial-movement";
     private String tutorialObjectTraps = "tutorial-traps";
     private String tutorialObjectGo = "tutorial-go";
-    private String currentDirection;
+
 
 
     public MapPlayer(MapScreen mapScreen, MapLevel mapLevel) {
-        super( new Texture("velho.png"));
+        super( new Texture("player.png"));
         this.mapScreen = mapScreen;
         this.mapLevel = mapLevel;
         this.tiledMap = mapLevel.getCurrentMap();

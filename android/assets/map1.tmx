@@ -15,7 +15,7 @@
  </layer>
  <layer id="2" name="Road" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYKA94KdQvygSptQMSsGoGaNmjJpBXQAAo4EBdQ==
+   eJxjYKA94KdQvwgSptQMSsGoGaNmjJpBXQAAelEBZA==
   </data>
  </layer>
  <layer id="3" name="Keys" width="17" height="17">
