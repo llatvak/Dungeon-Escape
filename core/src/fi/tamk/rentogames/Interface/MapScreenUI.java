@@ -131,6 +131,38 @@ public class MapScreenUI {
                 game.changeScreen(DungeonEscape.MAINMENU);
             }
         });
+        upControlsImage.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeListener.ChangeEvent event, Actor actor) {
+                if(!player.moving && player.allowMovement) {
+                    player.setUpMove();
+                }
+            }
+        });
+        downControlsImage.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeListener.ChangeEvent event, Actor actor) {
+                if(!player.moving && player.allowMovement) {
+                    player.setDownMove();
+                }
+            }
+        });
+        leftControlsImage.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeListener.ChangeEvent event, Actor actor) {
+                if(!player.moving && player.allowMovement) {
+                    player.setLeftMove();
+                }
+            }
+        });
+        rightControlsImage.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeListener.ChangeEvent event, Actor actor) {
+                if(!player.moving && player.allowMovement) {
+                    player.setRightMove();
+                }
+            }
+        });
 
         stage.addActor(backButton);
 
