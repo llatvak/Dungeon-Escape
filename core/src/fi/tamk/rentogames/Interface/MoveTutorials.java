@@ -127,7 +127,7 @@ public class MoveTutorials {
         tutorialWindow.setMovable(false);
         tutorialWindow.setModal(true);
         tutorialWindow.setSize(300,260);
-        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, 280);
+        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, 300);
         tutorialWindow.getContentTable().add(textTable);
         tutorialWindow.button(confirmButton);
 
@@ -160,7 +160,7 @@ public class MoveTutorials {
         tutorialWindow.setMovable(false);
         tutorialWindow.setModal(true);
         tutorialWindow.setSize(300,260);
-        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, 280);
+        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, 300);
         tutorialWindow.getContentTable().add(textTable);
         tutorialWindow.button(confirmButton);
 

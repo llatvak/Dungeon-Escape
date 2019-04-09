@@ -50,7 +50,10 @@ public class MoveScreenJump extends MoveScreenMove implements Screen {
         getMapScreen().saveStepsOnPause();
         getGame().setMoveScreenStatus(true);
         userInterface.createUI();
-        tutorials.createJumpTutorial();
+
+        if(DungeonEscape.tutorials) {
+            tutorials.createJumpTutorial();
+        }
     }
 
     @Override
