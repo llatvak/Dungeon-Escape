@@ -53,7 +53,7 @@ public abstract class MoveScreenMove implements Screen {
         player = new MoveScreenPlayer(world);
         new MoveScreenGround(world, game.gameWidth);
 
-        backgroundTexture = new Texture(Gdx.files.internal("dungeonbg.png"));
+        backgroundTexture = new Texture(Gdx.files.internal("backgrounddungeon.png"));
 
         game.getGameCamera().setToOrtho(false, game.gameWidth, game.gameHeight);
 

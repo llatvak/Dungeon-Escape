@@ -51,6 +51,7 @@ public class MapScreen implements Screen {
         onCreate();
     }
     private void onCreate() {
+        System.out.println("create");
         mapLevel = new MapLevel(game);
         tiledMap = mapLevel.getCurrentMap();
         tiledMapRenderer = mapLevel.getTiledMapRenderer();
@@ -259,6 +260,7 @@ public class MapScreen implements Screen {
 
     @Override
     public void show() {
+        System.out.println("showi");
         InputMultiplexer multiplexer = new InputMultiplexer();
         MyInputProcessor inputProcessor = new MyInputProcessor(player);
         multiplexer.addProcessor(stage);

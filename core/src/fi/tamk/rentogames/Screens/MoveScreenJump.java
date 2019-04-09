@@ -35,7 +35,7 @@ public class MoveScreenJump extends MoveScreenMove implements Screen {
         spikeTexture = new Texture(Gdx.files.internal("floorspikes.png"));
 
         spikeX = getGame().gameWidth/2 + spikeTexture.getWidth()/100f/2;
-        spikeY = spikeTexture.getHeight()/100f/6;
+        spikeY = spikeTexture.getHeight()/100f - 1.6f;
         spikeWidth = spikeTexture.getWidth()/100f;
         spikeHeight = spikeTexture.getHeight()/100f;
     }

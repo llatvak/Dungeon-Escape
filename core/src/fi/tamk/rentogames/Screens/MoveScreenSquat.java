@@ -87,8 +87,13 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
             arrowRect.setX(arrowRect.getX() - 0.1f);
         }
 
+        if(arrowRect.getX() + arrowRect.getWidth()/100f < getPlayer().getPlayerX() + 4) {
+            getPlayer().playerDodge();
+        }
+
         // Player runs when arrow is passed
-        if(arrowRect.getX() + arrowRect.getWidth()/100f < getPlayer().getPlayerX()) {
+        if(arrowRect.getX() + arrowRect.getWidth()/100f < getPlayer().getPlayerX() - 1) {
+            getPlayer().setPlayerSquat(false);
             getPlayer().playerRun();
         }
 
