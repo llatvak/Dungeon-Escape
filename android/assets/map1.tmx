@@ -42,22 +42,22 @@
   </data>
  </layer>
  <objectgroup color="#8b01c1" id="18" name="tutorial-movement">
-  <object id="13" x="544" y="749.333">
+  <object id="13" x="544" y="817.333">
    <point/>
   </object>
  </objectgroup>
  <objectgroup color="#0a2eff" id="15" name="tutorial-keys">
-  <object id="12" x="544" y="498.667">
+  <object id="12" x="544" y="496">
    <point/>
   </object>
  </objectgroup>
  <objectgroup color="#0abeff" id="14" name="tutorial-intro">
-  <object id="8" x="542.667" y="937.33">
+  <object id="8" x="544" y="943.997">
    <point/>
   </object>
  </objectgroup>
  <objectgroup color="#0de214" id="8" name="level-change">
-  <object id="2" x="545.333" y="117.333">
+  <object id="2" x="546.666" y="116">
    <point/>
   </object>
  </objectgroup>

@@ -1,14 +1,18 @@
 package fi.tamk.rentogames.Interface;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import fi.tamk.rentogames.DungeonEscape;
 
@@ -33,20 +37,20 @@ public class Tutorials {
     }
     public void changeTutorialLabel(int tutorial) {
         switch(tutorial) {
-            case 1: createTutorialOne();
-                createTutorialWindowOne();
+            case 1: createIntroTutorial();
+                createIntroTutorialWindow();
                 break;
-            case 2: createTutorialTwo();
-                createTutorialWindowTwo();
+            case 2: createKeysTutorial();
+                createKeysTutorialWindow();
                 break;
-            case 3: createTutorialThree();
-                createTutorialWindowThree();
+            case 3: createMovementPointsTutorial();
+                createMovementPointsTutorialWindow();
                 break;
-            case 4: createTutorialFour();
-                createTutorialWindowFour();
+            case 4: createTrapsTutorial();
+                createTrapsTutorialWindow();
                 break;
-            case 5: createTutorialFive();
-                createTutorialWindowFive();
+            case 5: createGoalTutorial();
+                createGoalTutorialWindow();
                 break;
             case 6: createNoKeysInfo();
                 createNoKeysWindow();
@@ -54,7 +58,7 @@ public class Tutorials {
         }
     }
 
-    public void createTutorialOne() {
+    public void createIntroTutorial() {
         dialogTitle = "You're finally awake.. ";
         textLabel.setText("You have been imprisoned with no memory of the past. \n" +
                 "You have managed to free yourself from the cell but now you must find a way to escape the dungeon. \n" +
@@ -64,7 +68,7 @@ public class Tutorials {
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
-    public void createTutorialOneNext() {
+    public void createCharacterTutorial() {
         dialogTitle = "How to move.. ";
         textLabel.setText("You can move by tapping or pressing on the direction you want to go. To move upwards press the top indicator near the character."
         );
@@ -72,37 +76,43 @@ public class Tutorials {
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
-    public void createTutorialTwo() {
+    public void createKeysTutorial() {
         dialogTitle = "How to proceed.. ";
         textLabel.setText("Your goal is to find three keys to unlock the door to the next level. On top left you can see the key count."
         );
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
-    public void createTutorialThree() {
+    public void createMovementPointsTutorial() {
         dialogTitle = "So many numbers..";
         textLabel.setText("Movement requires that you have movement points. These are shown on the top right of the screen next to the four-way arrow icon."
         );
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
-    public void createTutorialThreeNext() {
+    public void createStepsTutorial() {
         dialogTitle = "I need to... walk?! ";
         textLabel.setText("To gather movement points you need to walk in real life. For every X amount of steps you will receive 5 movement points."
         );
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
-    public void createTutorialFour() {
-        dialogTitle = "I smell danger... or is that sweat? ";
-        textLabel.setText("Watch out! The dungeon is riddled with traps like the one in front of you. \n" +
-                "To get past these traps you need to either jump or squat multiple times.\n" +
+    public void createTrapsTutorial() {
+        dialogTitle = "I smell danger... ";
+        textLabel.setText("Watch out! The dungeon is riddled with traps like the one in front of you."
+        );
+        textLabel.setWrap(true);
+        textLabel.setWidth(100);
+    }
+    public void createTrapsTutorialTwo() {
+        dialogTitle = "... or is that sweat? ";
+        textLabel.setText("To get past these traps you need to either jump or squat multiple times.\n\n" +
                 "If you don’t feel like doing the exercises right now you can also skip the trap by spending X amount of movement points."
         );
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
-    public void createTutorialFive() {
+    public void createGoalTutorial() {
         dialogTitle = "Escape!";
         textLabel.setText("Now get going, the guards are coming. You must escape!"
         );
@@ -111,14 +121,14 @@ public class Tutorials {
     }
     public void createNoKeysInfo() {
         dialogTitle = "Not enough keys.";
-        textLabel.setText("You need to collect all 3 keys to open the door."
+        textLabel.setText("You need to collect all three keys to open the door."
         );
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
 
-    public void createTutorialWindowOne(){
-        Gdx.app.log("Tutorial", "created");
+    public void createIntroTutorialWindow(){
+        Gdx.app.log("Tutorial", "intro");
         Table textTable = new Table();
 
         Dialog tutorialWindow = new Dialog(getDialogTitle(),skin );
@@ -137,23 +147,27 @@ public class Tutorials {
         confirmButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-                createTutorialOneNext();
-                createSecondTutorialWindow();
+                createCharacterTutorial();
+                createCharacterTutorialWindow();
 
             }
         });
         stage.addActor(tutorialWindow);
     }
 
-    public void createSecondTutorialWindow(){
-        Gdx.app.log("Tutorial", "intro");
+    public void createCharacterTutorialWindow(){
+        Gdx.app.log("Tutorial", "character movement");
         Table textTable = new Table();
 
+        Texture upArrowTexture = new Texture("arrowup.png");
+        ImageButton upControlsImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(upArrowTexture)));
         Dialog tutorialWindow = new Dialog(getDialogTitle(),skin );
         TextButton confirmButton = new TextButton("OK!", skin );
 
         textTable.setDebug(false);
         textTable.add(getLabel()).width(270f).height(90f).left();
+        textTable.row();
+        textTable.add(upControlsImage).width(50).height(50);
 
         tutorialWindow.setMovable(false);
         tutorialWindow.setModal(true);
@@ -165,15 +179,18 @@ public class Tutorials {
         stage.addActor(tutorialWindow);
     }
 
-    public void createTutorialWindowTwo(){
+    public void createKeysTutorialWindow(){
         Gdx.app.log("Tutorial", "character movement");
         Table textTable = new Table();
-
+        Texture keyTexture = new Texture("tutorialkey.png");
+        ImageButton keyImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(keyTexture)));
         Dialog tutorialWindow = new Dialog(getDialogTitle(),skin );
         TextButton confirmButton = new TextButton("OK!", skin );
 
         textTable.setDebug(false);
         textTable.add(getLabel()).width(270f).height(90f).left();
+        textTable.row();
+        textTable.add(keyImage);
 
         tutorialWindow.setMovable(false);
         tutorialWindow.setModal(true);
@@ -184,19 +201,22 @@ public class Tutorials {
 
         stage.addActor(tutorialWindow);
     }
-    public void createTutorialWindowThree(){
+    public void createMovementPointsTutorialWindow(){
         Gdx.app.log("Tutorial", "movement points");
         Table textTable = new Table();
-
+        Texture movesArrowTexture = new Texture("tutorialmp.png");
+        ImageButton movesImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(movesArrowTexture)));
         Dialog tutorialWindow = new Dialog(getDialogTitle(),skin );
         TextButton confirmButton = new TextButton("OK!", skin );
 
         textTable.setDebug(false);
-        textTable.add(getLabel()).width(270f).height(90f).left();
+        textTable.add(getLabel()).width(270f).height(100f).left();
+        textTable.row();
+        textTable.add(movesImage).width(70).height(70);
 
         tutorialWindow.setMovable(false);
         tutorialWindow.setModal(true);
-        tutorialWindow.setSize(300,210);
+        tutorialWindow.setSize(300,280);
         tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, game.screenHeight / 2 - windowHeightPos);
         tutorialWindow.getContentTable().add(textTable);
         tutorialWindow.button(confirmButton);
@@ -204,33 +224,69 @@ public class Tutorials {
         confirmButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-                createTutorialThreeNext();
-                createTutorialWindowThreeNext();
+                createStepsTutorial();
+                createStepsTutorialWindow();
             }
         });
         stage.addActor(tutorialWindow);
     }
-    public void createTutorialWindowThreeNext(){
-        Gdx.app.log("Tutorial", "walking");
+    public void createStepsTutorialWindow(){
+        Gdx.app.log("Tutorial", "steps");
         Table textTable = new Table();
-
+        Texture stepsTexture = new Texture("tutorialsteps.png");
+        ImageButton stepsImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(stepsTexture)));
         Dialog tutorialWindow = new Dialog(getDialogTitle(),skin );
         TextButton confirmButton = new TextButton("OK!", skin );
 
         textTable.setDebug(false);
         textTable.add(getLabel()).width(270f).height(90f).left();
+        textTable.row();
+        textTable.add(stepsImage).width(70).height(70);
 
         tutorialWindow.setMovable(false);
         tutorialWindow.setModal(true);
-        tutorialWindow.setSize(300,210);
+        tutorialWindow.setSize(300,260);
         tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, game.screenHeight / 2 - windowHeightPos);
         tutorialWindow.getContentTable().add(textTable);
         tutorialWindow.button(confirmButton);
 
         stage.addActor(tutorialWindow);
     }
-    public void createTutorialWindowFour(){
+    public void createTrapsTutorialWindow(){
         Gdx.app.log("Tutorial", "traps");
+        Table textTable = new Table();
+        Texture trapOneTexture = new Texture("tutorialtrap1.png");
+        Texture trapTwoTexture = new Texture("tutorialtrap2.png");
+        ImageButton trapOneImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(trapOneTexture)));
+        ImageButton trapTwoImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(trapTwoTexture)));
+        Dialog tutorialWindow = new Dialog(getDialogTitle(),skin );
+        TextButton confirmButton = new TextButton("OK!", skin );
+
+        textTable.setDebug(false);
+        textTable.add(getLabel()).width(270f).height(90f).left().colspan(2);
+        textTable.row();
+        textTable.add(trapOneImage).width(70).height(70);
+        textTable.add(trapTwoImage).width(70).height(70);
+
+        tutorialWindow.setMovable(false);
+        tutorialWindow.setModal(true);
+        tutorialWindow.setSize(300,270);
+        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, game.screenHeight / 2 - windowHeightPos - 150f);
+        tutorialWindow.getContentTable().add(textTable);
+        tutorialWindow.button(confirmButton);
+
+        confirmButton.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeEvent event, Actor actor){
+                createTrapsTutorialTwo();
+                createTrapsTutorialWindowTwo();
+            }
+        });
+
+        stage.addActor(tutorialWindow);
+    }
+    public void createTrapsTutorialWindowTwo(){
+        Gdx.app.log("Tutorial", "traps 2");
         Table textTable = new Table();
 
         Dialog tutorialWindow = new Dialog(getDialogTitle(),skin );
@@ -241,7 +297,7 @@ public class Tutorials {
 
         tutorialWindow.setMovable(false);
         tutorialWindow.setModal(true);
-        tutorialWindow.setSize(300,350);
+        tutorialWindow.setSize(300,300);
         tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, game.screenHeight / 2 - windowHeightPos - 100f);
         tutorialWindow.getContentTable().add(textTable);
         tutorialWindow.button(confirmButton);
@@ -249,8 +305,8 @@ public class Tutorials {
         stage.addActor(tutorialWindow);
     }
 
-    public void createTutorialWindowFive(){
-        Gdx.app.log("Tutorial", "go");
+    public void createGoalTutorialWindow(){
+        Gdx.app.log("Tutorial", "goal");
         Table textTable = new Table();
 
         Dialog tutorialWindow = new Dialog(getDialogTitle(),skin );
@@ -272,16 +328,24 @@ public class Tutorials {
     public void createNoKeysWindow(){
         Gdx.app.log("Tutorial", "created");
         Table textTable = new Table();
-
+        Texture keyTexture = new Texture("keyicon.png");
+        ImageButton keyImageOne = new ImageButton(new TextureRegionDrawable(new TextureRegion(keyTexture)));
+        ImageButton keyImageTwo = new ImageButton(new TextureRegionDrawable(new TextureRegion(keyTexture)));
+        ImageButton keyImageThree = new ImageButton(new TextureRegionDrawable(new TextureRegion(keyTexture)));
         Dialog tutorialWindow = new Dialog(getDialogTitle(),skin );
         TextButton confirmButton = new TextButton("OK!", skin );
 
         textTable.setDebug(false);
-        textTable.add(getLabel()).width(270f).height(90f).left().pad(2,2,2,2);
+        textTable.add(getLabel()).width(270f).height(70f).left().pad(2,2,2,2).colspan(3);
+        textTable.row();
+        textTable.add(keyImageOne).right();
+        textTable.add(keyImageTwo);
+        textTable.add(keyImageThree).left();
+
 
         tutorialWindow.setMovable(false);
         tutorialWindow.setModal(true);
-        tutorialWindow.setSize(300,190);
+        tutorialWindow.setSize(300,210);
         tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, 10);
         tutorialWindow.getContentTable().add(textTable);
         tutorialWindow.button(confirmButton);
