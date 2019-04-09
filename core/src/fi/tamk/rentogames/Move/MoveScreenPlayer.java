@@ -14,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import fi.tamk.rentogames.Framework.Utils;
 
+import static com.badlogic.gdx.Input.Keys.SPACE;
 import static com.badlogic.gdx.Input.Keys.UP;
 
 public class MoveScreenPlayer {
@@ -254,6 +255,9 @@ public class MoveScreenPlayer {
                     playerBody.applyLinearImpulse(new Vector2(4f, 6f),
                             playerBody.getWorldCenter(), true);
                     playerMoving = true;
+                }
+                if (keycode == SPACE) {
+                    countedJumps++;
                 }
                 return true;
             }

@@ -1,6 +1,7 @@
 package fi.tamk.rentogames.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,6 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import fi.tamk.rentogames.DungeonEscape;
 import fi.tamk.rentogames.Interface.MoveScreenUI;
 import fi.tamk.rentogames.Move.MoveScreenMove;
+
+import static com.badlogic.gdx.Input.Keys.UP;
 
 public class MoveScreenJump extends MoveScreenMove implements Screen {
 
@@ -47,6 +50,20 @@ public class MoveScreenJump extends MoveScreenMove implements Screen {
         getMapScreen().saveStepsOnPause();
         getGame().setMoveScreenStatus(true);
         userInterface.createUI();
+    }
+    public void input() {
+        Gdx.input.setInputProcessor(new InputAdapter() {
+            @Override
+            public boolean keyDown(int keycode) {
+
+                if(keycode == UP) {
+                    System.out.print(keycode + " ");
+
+                }
+                return true;
+
+            }
+        });
     }
 
     @Override
