@@ -38,22 +38,22 @@ public class Tutorials {
     public void changeTutorialLabel(int tutorial) {
         switch(tutorial) {
             case 1: createIntroTutorial();
-                createIntroTutorialWindow();
+                    createIntroTutorialWindow();
                 break;
             case 2: createKeysTutorial();
-                createKeysTutorialWindow();
+                    createKeysTutorialWindow();
                 break;
             case 3: createMovementPointsTutorial();
-                createMovementPointsTutorialWindow();
+                    createMovementPointsTutorialWindow();
                 break;
             case 4: createTrapsTutorial();
-                createTrapsTutorialWindow();
+                    createTrapsTutorialWindow();
                 break;
             case 5: createGoalTutorial();
-                createGoalTutorialWindow();
+                    createGoalTutorialWindow();
                 break;
             case 6: createNoKeysInfo();
-                createNoKeysWindow();
+                    createNoKeysWindow();
                 break;
         }
     }
@@ -105,7 +105,7 @@ public class Tutorials {
         textLabel.setWidth(100);
     }
     public void createTrapsTutorialTwo() {
-        dialogTitle = "... or is that sweat? ";
+        dialogTitle = "...or is that sweat? ";
         textLabel.setText("To get past these traps you need to either jump or squat multiple times.\n\n" +
                 "If you don’t feel like doing the exercises right now you can also skip the trap by spending X amount of movement points."
         );
@@ -159,15 +159,15 @@ public class Tutorials {
         Gdx.app.log("Tutorial", "character movement");
         Table textTable = new Table();
 
-        Texture upArrowTexture = new Texture("arrowup.png");
-        ImageButton upControlsImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(upArrowTexture)));
+        Texture arrowTexture = new Texture("arrowup.png");
+        ImageButton arrowImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(arrowTexture)));
         Dialog tutorialWindow = new Dialog(getDialogTitle(),skin );
         TextButton confirmButton = new TextButton("OK!", skin );
 
         textTable.setDebug(false);
         textTable.add(getLabel()).width(270f).height(90f).left();
         textTable.row();
-        textTable.add(upControlsImage).width(50).height(50);
+        textTable.add(arrowImage).width(50).height(50);
 
         tutorialWindow.setMovable(false);
         tutorialWindow.setModal(true);
@@ -204,7 +204,7 @@ public class Tutorials {
     public void createMovementPointsTutorialWindow(){
         Gdx.app.log("Tutorial", "movement points");
         Table textTable = new Table();
-        Texture movesArrowTexture = new Texture("tutorialmp.png");
+        Texture movesArrowTexture = new Texture("tutorialmoves.png");
         ImageButton movesImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(movesArrowTexture)));
         Dialog tutorialWindow = new Dialog(getDialogTitle(),skin );
         TextButton confirmButton = new TextButton("OK!", skin );

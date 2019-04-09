@@ -31,7 +31,7 @@ public class MainMenu implements Screen {
     }
 
     private void onCreate() {
-        background = new Texture("menu.png");
+        background = new Texture("settings.png");
 
         //atlas = new TextureAtlas("skin.atlas");
         skin = new Skin( Gdx.files.internal("uiskin.json") );
