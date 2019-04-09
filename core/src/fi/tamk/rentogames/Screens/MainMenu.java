@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import fi.tamk.rentogames.DungeonEscape;
+import fi.tamk.rentogames.Framework.GameAudio;
 import fi.tamk.rentogames.Framework.Save;
 
 public class MainMenu implements Screen {
@@ -41,6 +42,10 @@ public class MainMenu implements Screen {
 
     @Override
     public void show() {
+        GameAudio.playMusic("menumusic");
+        GameAudio.setMusicVolume("menumusic", 0.1f);
+        GameAudio.loopMusic("menumusic");
+
         Gdx.input.setInputProcessor(stage);
 
         //Create Table
@@ -209,7 +214,6 @@ public class MainMenu implements Screen {
 
     @Override
     public void pause() {
-
     }
 
     @Override
@@ -219,7 +223,7 @@ public class MainMenu implements Screen {
 
     @Override
     public void hide() {
-
+        GameAudio.stopMusic("menumusic");
     }
 
     @Override

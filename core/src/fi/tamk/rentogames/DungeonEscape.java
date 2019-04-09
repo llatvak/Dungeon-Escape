@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.Locale;
 
+import fi.tamk.rentogames.Framework.GameAudio;
 import fi.tamk.rentogames.Framework.GetSteps;
 import fi.tamk.rentogames.Framework.Save;
 import fi.tamk.rentogames.Screens.MainMenu;
@@ -72,7 +73,18 @@ public class DungeonEscape extends Game {
         gameViewport = new FitViewport(screenWidth, screenHeight, screenCamera);
 
         batch = new SpriteBatch();
-        changeScreen(MAINMENU);
+
+        //Load sounds
+        GameAudio.loadSound("jumpsound.ogg", "jumpsound");
+        GameAudio.loadSound("dooropensound.wav", "dooropensound");
+        GameAudio.loadSound("walksound.wav", "walksound");
+        GameAudio.loadSound("runsound.wav", "runsound");
+
+        // Load music
+        GameAudio.loadMusic("menumusic.ogg", "menumusic");
+        GameAudio.loadMusic("mapscreenmusic.wav", "mapscreenmusic");
+
+        changeScreen(MAPSCREEN);
     }
 
     private void createCameras() {
