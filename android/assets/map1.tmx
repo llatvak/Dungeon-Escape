@@ -1,29 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="17" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="21" nextobjectid="15">
- <tileset firstgid="1" name="RPGpack_sheet" tilewidth="64" tileheight="64" tilecount="260" columns="20">
-  <image source="RPGpack_sheet.png" width="1280" height="832"/>
- </tileset>
- <tileset firstgid="261" name="Dungeon-tileset" tilewidth="64" tileheight="64" tilecount="24" columns="8">
-  <image source="Dungeon-tileset.png" width="512" height="192"/>
+ <tileset firstgid="1" name="Dungeon-tileset" tilewidth="64" tileheight="64" tilecount="32" columns="8">
+  <image source="Dungeon-tileset.png" width="512" height="256"/>
  </tileset>
  <layer id="1" name="Walls" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjZWRgYMOC2YFYFIjFgFgciFnxqOMFYj4smB8qDwKsBNThk0MGlJoBcocgGWYIIPkFlxpCZiC7ZdSMUTOGgxmwMgIbBpUb8xgYHhBSAwAQSBFe
+   eJxjZGBgYMKCmYFYEIiFgFgYiBnxqOMEYi4smBsqzwDVj08dPjlkQKkZIHfwkmEGD5JfcKkhZAayW0bNGDVjOJgBKyOwYVC5IcnAkEBIDQAG3gsT
   </data>
  </layer>
  <layer id="12" name="VisualObjects" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYKAtEGJkaCiG0KOASoALGKZQesiDUb8MTkBPvwAAT4IDcg==
+   eJxjYKAt4GNgaIDSo4BKgA0apmwD7A5qgFG/DE5AT78AAAu+As0=
   </data>
  </layer>
  <layer id="2" name="Road" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYKA9EGakTL8kIwJTagalYNSMUTNGzSAesBFhBgCHCQHW
+   eJxjYKA94KdQvygSptQMSsGoGaNmjJpBXQAAo4EBdQ==
   </data>
  </layer>
  <layer id="3" name="Keys" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYBj84MtAOwAJDBa3UMsdn6lkzigYBeQCAPB1A9A=
+   eJxjYBj8QGagHYAEBotbBos7RsEooBQAAByTAFU=
   </data>
  </layer>
  <layer id="4" name="Story" width="17" height="17">
