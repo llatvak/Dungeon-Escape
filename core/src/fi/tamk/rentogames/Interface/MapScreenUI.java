@@ -115,7 +115,7 @@ public class MapScreenUI {
         controlsTable.setFillParent(true);
         //Set alignment of contents in the table.
         topTable.top();
-        controlsTable.center();
+        controlsTable.bottom();
         // Debug lines
         if(debugUI) {
             topTable.setDebug(true);
@@ -168,25 +168,26 @@ public class MapScreenUI {
 
         //Add buttons and progress bar to table
         topTable.add(backButton).left().width(35).height(35).pad(5,15,0,0);
-        topTable.add(footmarkImage).width(25).height(40).fillX().fillY().pad(5,5,0,0);
+        topTable.add(footmarkImage).colspan(2).right().expandX().width(25).height(40).fillX().fillY().pad(5,5,0,0);
         // topTable.add(stepsProgressBar).width(240).fillX().pad(5,0,0,5);
-        topTable.add(stepLabel).expandX().fillX().fillY().pad(5,0,0,5);
+        topTable.add(stepLabel).fillX().fillY().pad(5,0,0,5);
         topTable.row();
 
         topTable.add(keyImage).width(40).height(40).fillX().fillY().pad(15,15,5,0);
         topTable.add(keyLabel).width(30).fillX().fillY().pad(0,0,5,5)     ;
-        topTable.add(movesImage).right().width(30).height(40).fillX().fillY().pad(10,5,5,5);
+        topTable.add(movesImage).expandX().right().width(30).height(40).fillX().fillY().pad(10,5,5,5);
         topTable.add(movesLabel).width(40).fillY().pad(10,2,5,5);
         topTable.row();
 
-        controlsTable.add(upControlsImage).colspan(2).center().height(20).width(20).pad(0,0,70,0);
+        float arrowSize = 40;
+        controlsTable.add(upControlsImage).colspan(2).center().height(arrowSize).width(arrowSize).pad(0,0,20,0);
         controlsTable.row();
 
-        controlsTable.add(leftControlsImage).expandX().center().height(20).width(20).pad(0,0,0,0);
-        controlsTable.add(rightControlsImage).expandX().center().height(20).width(20).pad(0,0,0,0);
+        controlsTable.add(leftControlsImage).expandX().right().height(arrowSize).width(arrowSize).pad(0,0,0,40);
+        controlsTable.add(rightControlsImage).expandX().left().height(arrowSize).width(arrowSize).pad(0,40,0,0);
         controlsTable.row();
 
-        controlsTable.add(downControlsImage).colspan(2).center().height(20).width(20).pad(70,0,0,0);
+        controlsTable.add(downControlsImage).colspan(2).center().height(arrowSize).width(arrowSize).pad(20,0,0,0);
 
         //Add table to stage
         stage.addActor(topTable);

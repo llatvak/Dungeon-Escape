@@ -230,7 +230,6 @@ public class MapScreen implements Screen {
     }
     public void createStoryWindow() {
         Gdx.app.log("Story", "going to story screen");
-        // Needs new class StoryScreen
         story.createStoryPart(1);
     }
     public void createTutorial(int tutorial) {

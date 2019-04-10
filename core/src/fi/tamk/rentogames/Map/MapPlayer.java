@@ -324,7 +324,10 @@ public class MapPlayer extends Sprite {
         checkObjectCollision(squatTrap);
         checkObjectCollision(keyObject);
         checkObjectCollision(levelChangeObject);
-        checkObjectCollision(storyObject);
+
+        if(DungeonEscape.story) {
+            checkObjectCollision(storyObject);
+        }
 
         if(DungeonEscape.tutorials) {
             if(Save.getCurrentLevel() == 1) {
