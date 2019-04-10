@@ -13,6 +13,7 @@ import fi.tamk.rentogames.Framework.MyInputProcessor;
 import fi.tamk.rentogames.Framework.Save;
 import fi.tamk.rentogames.Interface.MapScreenUI;
 import fi.tamk.rentogames.Interface.MapTutorials;
+import fi.tamk.rentogames.Interface.Story;
 import fi.tamk.rentogames.Map.MapLevel;
 import fi.tamk.rentogames.Map.MapPlayer;
 
@@ -23,6 +24,7 @@ public class MapScreen implements Screen {
     private MapLevel mapLevel;
     private MapScreenUI userInterface;
     private MapTutorials mapTutorials;
+    private Story story;
     private boolean paused;
 
     // Map
@@ -31,7 +33,7 @@ public class MapScreen implements Screen {
 
     private Stage stage;
 
-    private int stepTotal = 50;
+    private int stepTotal;
     private int oldStepTotal;
     private int pauseSteps;
     private int stepsToPoint;
@@ -58,6 +60,7 @@ public class MapScreen implements Screen {
         player = new MapPlayer(this, mapLevel);
         userInterface = new MapScreenUI(game, this, player);
         mapTutorials = new MapTutorials(game, userInterface);
+        story = new Story(game, userInterface);
         stage = userInterface.getStage();
         countMovementPointsOnRender();
         // userInterface.updateProgressBar();
@@ -191,10 +194,6 @@ public class MapScreen implements Screen {
         keysCollected = keyAmount >= KEYS_NEEDED;
     }
 
-    public void notEnoughKeys() {
-        System.out.println("No keys");
-    }
-
     public void changeLevel() {
         if(Save.getCurrentLevel() < 3) {
             level = Save.getCurrentLevel() + 1;
@@ -229,10 +228,10 @@ public class MapScreen implements Screen {
         Gdx.app.log("Up trap", "going to jumping trap");
         game.changeScreen(DungeonEscape.JUMPSCREEN);
     }
-    public void goToStoryScreen() {
+    public void createStoryWindow() {
         Gdx.app.log("Story", "going to story screen");
         // Needs new class StoryScreen
-        game.changeScreen(DungeonEscape.JUMPSCREEN);
+        story.createStoryPart(1);
     }
     public void createTutorial(int tutorial) {
         mapTutorials.changeTutorialLabel(tutorial);

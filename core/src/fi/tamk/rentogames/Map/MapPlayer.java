@@ -392,7 +392,7 @@ public class MapPlayer extends Sprite {
                     }
                 }
                 if(layer.equals(storyObject) ) {
-                    //mapScreen.goToStoryScreen();
+                    mapScreen.createStoryWindow();
                 }
                 if(layer.equals(tutorialObjectIntro) ) {
                     mapScreen.createTutorial(1);
