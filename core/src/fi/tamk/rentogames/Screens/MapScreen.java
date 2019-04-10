@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import fi.tamk.rentogames.DungeonEscape;
+import fi.tamk.rentogames.Framework.GameAudio;
 import fi.tamk.rentogames.Framework.MyInputProcessor;
 import fi.tamk.rentogames.Framework.Save;
 import fi.tamk.rentogames.Interface.MapScreenUI;
@@ -33,7 +34,7 @@ public class MapScreen implements Screen {
 
     private Stage stage;
 
-    private int stepTotal;
+    private int stepTotal = 0;
     private int oldStepTotal;
     private int pauseSteps;
     private int stepsToPoint;
@@ -197,8 +198,10 @@ public class MapScreen implements Screen {
     public void changeLevel() {
         if(Save.getCurrentLevel() < 3) {
             level = Save.getCurrentLevel() + 1;
+            GameAudio.playSound("dooropensound");
         } else {
             level = 1;
+            GameAudio.playSound("dooropensound");
         }
         Save.saveCurrentLevel(level);
         mapLevel.setLevel(level);
@@ -258,6 +261,9 @@ public class MapScreen implements Screen {
 
     @Override
     public void show() {
+        GameAudio.playMusic("mapscreenmusic");
+        GameAudio.setMusicVolume("mapscreenmusic", 1f);
+        GameAudio.loopMusic("mapscreenmusic");
         System.out.println("showi");
         InputMultiplexer multiplexer = new InputMultiplexer();
         MyInputProcessor inputProcessor = new MyInputProcessor(player);

@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import fi.tamk.rentogames.DungeonEscape;
+import fi.tamk.rentogames.Framework.GameAudio;
 import fi.tamk.rentogames.Interface.MoveScreenUI;
 import fi.tamk.rentogames.Interface.MoveTutorials;
 import fi.tamk.rentogames.Move.MoveScreenMove;
@@ -21,6 +22,9 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
     // Arrow trap
     private Texture arrowTexture;
     private Rectangle arrowRect;
+
+    boolean squatInitialized = true;
+    boolean runInitialized = true;
 
     public MoveScreenSquat(DungeonEscape game, MapScreen mapScreen) {
         super(game, mapScreen);
@@ -96,12 +100,20 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
 
         if(arrowRect.getX() + arrowRect.getWidth()/100f < getPlayer().getPlayerX() + 4) {
             getPlayer().playerDodge();
+            if(squatInitialized) {
+                GameAudio.playSound("jumpsound");
+            }
+            squatInitialized = false;
         }
 
         // Player runs when arrow is passed
         if(arrowRect.getX() + arrowRect.getWidth()/100f < getPlayer().getPlayerX() - 1) {
+            if(runInitialized) {
+                GameAudio.playSound("runsound");
+            }
             getPlayer().setPlayerSquat(false);
             getPlayer().playerRun();
+            runInitialized = false;
         }
 
         // When player sprite moves out of boundaries go to map screen

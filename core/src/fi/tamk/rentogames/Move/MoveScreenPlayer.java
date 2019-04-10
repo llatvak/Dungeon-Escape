@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import fi.tamk.rentogames.Framework.GameAudio;
 import fi.tamk.rentogames.Framework.Utils;
 
 import static com.badlogic.gdx.Input.Keys.SPACE;
@@ -173,6 +174,7 @@ public class MoveScreenPlayer {
                     playerBody.getWorldCenter(), true);
             playerMoving = true;
             playerJumping = true;
+            GameAudio.playSound("jumpsound");
         }
         // Run animation when move screen comes visible
         if(playerBody.getPosition().y <= 1.25f && playerBody.getPosition().x < 1) {
@@ -274,6 +276,7 @@ public class MoveScreenPlayer {
     }
 
     public void setPlayerSquat(boolean dodgeTrap) {
+
         playerSquatting = dodgeTrap;
     }
 

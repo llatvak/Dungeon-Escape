@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
 import fi.tamk.rentogames.DungeonEscape;
+import fi.tamk.rentogames.Framework.GameAudio;
 import fi.tamk.rentogames.Framework.Save;
 import fi.tamk.rentogames.Screens.MapScreen;
 
@@ -258,21 +259,25 @@ public class MapPlayer extends Sprite {
     public void setLeftMove() {
         goLeft = true;
         moving = true;
+        GameAudio.playSound("walksound");
     }
 
     public void setRightMove() {
         goRight = true;
         moving = true;
+        GameAudio.playSound("walksound");
     }
 
     public void setDownMove() {
         goDown = true;
         moving = true;
+        GameAudio.playSound("walksound");
     }
 
     public void setUpMove() {
         goUp = true;
         moving = true;
+        GameAudio.playSound("walksound");
     }
 
     private boolean isFree(float x, float y) {
