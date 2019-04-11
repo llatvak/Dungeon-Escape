@@ -63,6 +63,7 @@ public class MapScreenUI {
     private int progressbarValue = 0;
 
     private boolean buttonUp;
+    private boolean backButtonInitialized = false;
 
     public MapScreenUI(DungeonEscape game, MapScreen mapScreen, MapPlayer player){
         this.game = game;
@@ -127,8 +128,11 @@ public class MapScreenUI {
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
                 Gdx.app.log("Button", "back");
-                game.setPreviousScreen(DungeonEscape.MAPSCREEN);
-                game.changeScreen(DungeonEscape.MAINMENU);
+                if(!backButtonInitialized) {
+                    game.setPreviousScreen(DungeonEscape.MAPSCREEN);
+                    game.changeScreen(DungeonEscape.MAINMENU);
+                }
+                backButtonInitialized = true;
             }
         });
         upControlsImage.addListener(new ChangeListener(){
@@ -318,6 +322,10 @@ public class MapScreenUI {
 
     public Stage getStage() {
         return stage;
+    }
+
+    public void setBackButtonInitialized(boolean initialized) {
+        backButtonInitialized = initialized;
     }
 
     public void dispose(){

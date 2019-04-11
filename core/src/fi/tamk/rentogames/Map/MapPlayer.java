@@ -259,25 +259,25 @@ public class MapPlayer extends Sprite {
     public void setLeftMove() {
         goLeft = true;
         moving = true;
-        GameAudio.playSound("walksound");
+        GameAudio.playSound("walksound", Save.getCurrentAudioSetting());
     }
 
     public void setRightMove() {
         goRight = true;
         moving = true;
-        GameAudio.playSound("walksound");
+        GameAudio.playSound("walksound", Save.getCurrentAudioSetting());
     }
 
     public void setDownMove() {
         goDown = true;
         moving = true;
-        GameAudio.playSound("walksound");
+        GameAudio.playSound("walksound", Save.getCurrentAudioSetting());
     }
 
     public void setUpMove() {
         goUp = true;
         moving = true;
-        GameAudio.playSound("walksound");
+        GameAudio.playSound("walksound", Save.getCurrentAudioSetting());
     }
 
     private boolean isFree(float x, float y) {

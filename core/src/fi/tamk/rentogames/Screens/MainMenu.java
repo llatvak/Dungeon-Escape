@@ -14,6 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
+import java.util.Map;
+
 import fi.tamk.rentogames.DungeonEscape;
 import fi.tamk.rentogames.Framework.GameAudio;
 import fi.tamk.rentogames.Framework.Save;
@@ -25,6 +27,10 @@ public class MainMenu implements Screen {
 
     private  Texture background;
     private Skin skin;
+
+    private static boolean resetButtonInitialized = false;
+    private boolean soundButtonInitialized = false;
+
 
     public MainMenu(DungeonEscape game) {
         this.game = game;
@@ -43,8 +49,8 @@ public class MainMenu implements Screen {
     @Override
     public void show() {
         GameAudio.playMusic("menumusic");
-        GameAudio.setMusicVolume("menumusic", 0.1f);
         GameAudio.loopMusic("menumusic");
+        playMenuAudio();
 
         Gdx.input.setInputProcessor(stage);
 
@@ -66,8 +72,8 @@ public class MainMenu implements Screen {
         //Create buttons
         ImageButton FinFlag = new ImageButton(new TextureRegionDrawable(new TextureRegion(finFlagTexture)));
         ImageButton EngFlag = new ImageButton(new TextureRegionDrawable(new TextureRegion(engFlagTexture)));
-        ImageButton soundButton = new ImageButton(skin, "sound");
-        TextButton resetButton = new TextButton("Reset", skin);
+        final ImageButton soundButton = new ImageButton(skin, "sound");
+        final TextButton resetButton = new TextButton("Reset", skin);
 
         //Add listeners to buttons
         FinFlag.addListener(new ChangeListener(){
@@ -94,6 +100,17 @@ public class MainMenu implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.log("Sound", "pressed");
+                if(!soundButtonInitialized) {
+                    System.out.println("muted");
+                    Save.saveAudioSettings(0f);
+                    soundButtonInitialized = true;
+                    playMenuAudio();
+                } else {
+                    System.out.println("unmuted");
+                    Save.saveAudioSettings(0.2f);
+                    soundButtonInitialized = false;
+                    playMenuAudio();
+                }
             }
         });
 
@@ -116,6 +133,8 @@ public class MainMenu implements Screen {
                     Save.saveCurrentProgressbar(0);
                     Save.saveCurrentPlayerX(513f);
                     Save.saveCurrentPlayerY(65f);
+                    resetButtonInitialized = true;
+
                 }
             });
 
@@ -143,7 +162,11 @@ public class MainMenu implements Screen {
         playButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.changeScreen(DungeonEscape.MAPSCREEN);
+                if(game.getPreviousScreen() == DungeonEscape.MAPSCREEN) {
+                    game.changeScreen(DungeonEscape.BACK);
+                } else {
+                    game.changeScreen(DungeonEscape.MAPSCREEN);
+                }
             }
         });
 
@@ -190,6 +213,18 @@ public class MainMenu implements Screen {
 
     private void setLocaleEng() {
         gameInit();
+    }
+
+    public static Boolean getResetButtonInitialized() {
+        return resetButtonInitialized;
+    }
+
+    public static void setResetButtonInitialized(boolean reset) {
+        resetButtonInitialized = reset;
+    }
+
+    public void playMenuAudio() {
+        GameAudio.setMusicVolume("menumusic", Save.getCurrentAudioSetting());
     }
 
     @Override

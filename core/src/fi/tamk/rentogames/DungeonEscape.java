@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -85,7 +86,7 @@ public class DungeonEscape extends Game {
         GameAudio.loadMusic("menumusic.ogg", "menumusic");
         GameAudio.loadMusic("mapscreenmusic.ogg", "mapscreenmusic");
 
-        changeScreen(MAPSCREEN);
+        changeScreen(SPLASHSCREEN);
     }
 
     private void createCameras() {
@@ -184,6 +185,8 @@ public class DungeonEscape extends Game {
         }
     }
 
+    public int getPreviousScreen() { return previousScreen; }
+
     public void setPreviousScreen(int screen) {
         this.previousScreen = screen;
     }
@@ -206,7 +209,7 @@ public class DungeonEscape extends Game {
         } else if(Save.getLanguagePrefs().equals("MyBundle_en_US")) {
             setLanguage("en", "US", "MyBundle_en_US");
         } else {
-            setLanguage("fi", "FI", "MyBundle_fi_FI");
+            setLanguage("en", "US", "MyBundle_en_US");
         }
     }
 

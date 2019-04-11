@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import fi.tamk.rentogames.DungeonEscape;
 import fi.tamk.rentogames.Framework.GameAudio;
+import fi.tamk.rentogames.Framework.Save;
 import fi.tamk.rentogames.Interface.MoveScreenUI;
 import fi.tamk.rentogames.Interface.MoveTutorials;
 import fi.tamk.rentogames.Move.MoveScreenMove;
@@ -101,7 +102,7 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
         if(arrowRect.getX() + arrowRect.getWidth()/100f < getPlayer().getPlayerX() + 4) {
             getPlayer().playerDodge();
             if(squatInitialized) {
-                GameAudio.playSound("jumpsound");
+                GameAudio.playSound("jumpsound", Save.getCurrentAudioSetting());
             }
             squatInitialized = false;
         }
@@ -109,7 +110,7 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
         // Player runs when arrow is passed
         if(arrowRect.getX() + arrowRect.getWidth()/100f < getPlayer().getPlayerX() - 1) {
             if(runInitialized) {
-                GameAudio.playSound("runsound");
+                GameAudio.playSound("runsound", Save.getCurrentAudioSetting());
             }
             getPlayer().setPlayerSquat(false);
             getPlayer().playerRun();
