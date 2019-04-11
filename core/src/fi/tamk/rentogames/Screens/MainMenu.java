@@ -19,6 +19,7 @@ import java.util.Map;
 import fi.tamk.rentogames.DungeonEscape;
 import fi.tamk.rentogames.Framework.GameAudio;
 import fi.tamk.rentogames.Framework.Save;
+import fi.tamk.rentogames.Map.MapPlayer;
 
 public class MainMenu implements Screen {
 

@@ -454,6 +454,10 @@ public class MapPlayer extends Sprite {
         }
     }
 
+    public Texture getPlayerUpTexture() {
+        return playerUp;
+    }
+
     public void dispose() {
         getTexture().dispose();
         playerDown.dispose();

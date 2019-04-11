@@ -266,6 +266,7 @@ public class MapScreen implements Screen {
             mapLevel.setLevel(Save.getCurrentLevel());
             player.movementPoints = Save.getMovementPoints();
             changeMap();
+            player.setTexture(player.getPlayerUpTexture());
             MainMenu.setResetButtonInitialized(false);
         }
         GameAudio.playMusic("mapscreenmusic");
