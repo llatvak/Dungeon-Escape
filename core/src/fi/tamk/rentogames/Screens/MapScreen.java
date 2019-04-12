@@ -49,6 +49,8 @@ public class MapScreen implements Screen {
 
     public boolean buttonUp;
 
+
+
     public MapScreen(DungeonEscape game) {
         this.game = game;
         onCreate();
@@ -71,9 +73,9 @@ public class MapScreen implements Screen {
     private void update() {
         countMovementPointsOnRender();
         player.checkAllowedMoves();
-
+       // input();
         if(!userInterface.isButtonUp()) {
-            if(player.moving) {
+            if(player.buttonPressed) {
                 player.move();
             }
         }
@@ -104,6 +106,25 @@ public class MapScreen implements Screen {
         } else {
             userInterface.setMovesIcon();
         }
+    }
+
+    public void input() {
+        int screenWidthHalf = Gdx.graphics.getWidth() / 2;
+        int screenHeightHalf = Gdx.graphics.getHeight() / 2;
+
+        if(Gdx.input.isTouched()) {
+            System.out.println(screenWidthHalf - Gdx.input.getY());
+            if(!player.moving && player.allowMovement && Gdx.input.getY()  < 280) {
+                player.setUpMove(true);
+            }
+
+            if(!player.moving && player.allowMovement && Gdx.input.getY()  > 350) {
+                player.setDownMove(true);
+            }
+        }
+
+
+
     }
 
     @Override
