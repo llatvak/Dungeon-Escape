@@ -179,15 +179,15 @@ public class MapScreenUI {
         topTable.add(movesLabel).width(40).fillY().pad(10,2,5,5);
         topTable.row();
 
-        float arrowSize = 40;
-        controlsTable.add(upControlsImage).colspan(2).center().height(arrowSize).width(arrowSize).pad(0,0,20,0);
+        float arrowSize = 45;
+        controlsTable.add(upControlsImage).colspan(2).center().height(arrowSize).width(arrowSize).pad(0,0,30,0);
         controlsTable.row();
 
-        controlsTable.add(leftControlsImage).expandX().right().height(arrowSize).width(arrowSize).pad(0,0,0,40);
-        controlsTable.add(rightControlsImage).expandX().left().height(arrowSize).width(arrowSize).pad(0,40,0,0);
+        controlsTable.add(leftControlsImage).expandX().right().height(arrowSize).width(arrowSize).pad(0,0,0,50);
+        controlsTable.add(rightControlsImage).expandX().left().height(arrowSize).width(arrowSize).pad(0,50,0,0);
         controlsTable.row();
 
-        controlsTable.add(downControlsImage).colspan(2).center().height(arrowSize).width(arrowSize).pad(20,0,0,0);
+        controlsTable.add(downControlsImage).colspan(2).center().height(arrowSize).width(arrowSize).pad(30,0,0,0);
 
         //Add table to stage
         stage.addActor(topTable);

@@ -73,11 +73,9 @@ public class MapScreen implements Screen {
     private void update() {
         countMovementPointsOnRender();
         player.checkAllowedMoves();
-       // input();
+        //input();
         if(!userInterface.isButtonUp()) {
-            if(player.buttonPressed) {
-                player.move();
-            }
+            player.move();
         }
 
         //  int stepDelta;
@@ -115,11 +113,11 @@ public class MapScreen implements Screen {
         if(Gdx.input.isTouched()) {
             System.out.println(screenWidthHalf - Gdx.input.getY());
             if(!player.moving && player.allowMovement && Gdx.input.getY()  < 280) {
-                player.setUpMove(true);
+                player.setUpMove();
             }
 
             if(!player.moving && player.allowMovement && Gdx.input.getY()  > 350) {
-                player.setDownMove(true);
+                player.setDownMove();
             }
         }
 
