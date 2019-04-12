@@ -217,10 +217,10 @@ public class MapScreen implements Screen {
     public void changeLevel() {
         if(Save.getCurrentLevel() < 3) {
             level = Save.getCurrentLevel() + 1;
-            GameAudio.playSound("dooropensound");
+            GameAudio.playSound("dooropensound", Save.getCurrentAudioSetting());
         } else {
             level = 1;
-            GameAudio.playSound("dooropensound");
+            GameAudio.playSound("dooropensound", Save.getCurrentAudioSetting());
         }
         Save.saveCurrentLevel(level);
         mapLevel.setLevel(level);
@@ -280,8 +280,16 @@ public class MapScreen implements Screen {
 
     @Override
     public void show() {
+        userInterface.setBackButtonInitialized(false);
+        if(MainMenu.getResetButtonInitialized()) {
+            mapLevel.setLevel(Save.getCurrentLevel());
+            player.movementPoints = Save.getMovementPoints();
+            changeMap();
+            player.setTexture(player.getPlayerUpTexture());
+            MainMenu.setResetButtonInitialized(false);
+        }
         GameAudio.playMusic("mapscreenmusic");
-        GameAudio.setMusicVolume("mapscreenmusic", 1f);
+        GameAudio.setMusicVolume("mapscreenmusic", Save.getCurrentAudioSetting());
         GameAudio.loopMusic("mapscreenmusic");
         System.out.println("showi");
         InputMultiplexer multiplexer = new InputMultiplexer();
@@ -295,6 +303,7 @@ public class MapScreen implements Screen {
     @Override
     public void hide() {
         Gdx.app.log("Mapscreen", "hidden");
+        userInterface.setBackButtonInitialized(true);
     }
 
     @Override

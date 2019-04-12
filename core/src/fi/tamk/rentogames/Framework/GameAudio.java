@@ -27,8 +27,8 @@ public class GameAudio implements Disposable {
         musics.put(name, music);
     }
 
-    public static void playSound(String name) {
-        sounds.get(name).play();
+    public static void playSound(String name, float volume) {
+        sounds.get(name).play(volume);
     }
 
     public static void loopSound(String name) {

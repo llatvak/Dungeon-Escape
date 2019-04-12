@@ -57,30 +57,21 @@ public class Save {
         prefs.flush();
     }
 
-    public static float getCurrentPlayerX() {
-        prefs = Gdx.app.getPreferences("dungeonescapegame");
-        return prefs.getFloat("playerX", 513f);
-    }
-
     public static void saveCurrentPlayerY(float y) {
         prefs = Gdx.app.getPreferences("dungeonescapegame");
         prefs.putFloat("playerY", y);
         prefs.flush();
     }
 
-    public static float getCurrentPlayerY() {
+    public static void saveAudioSettings(float audioLevel) {
+        //Number 1 for max volume 0 for mute
         prefs = Gdx.app.getPreferences("dungeonescapegame");
-        return prefs.getFloat("playerY", 65f);
-    }
-
-    public static void saveCurrentKeyAmount(float keys) {
-        prefs = Gdx.app.getPreferences("dungeonescapegame");
-        prefs.putFloat("keyAmount", keys);
+        prefs.putFloat("audioSetting", audioLevel);
         prefs.flush();
     }
 
-    public static float getCurrentKeyAmount() {
+    public static float getCurrentAudioSetting() {
         prefs = Gdx.app.getPreferences("dungeonescapegame");
-        return prefs.getFloat("keyAmount", 0);
+        return prefs.getFloat("audioSetting", 1f);
     }
 }
