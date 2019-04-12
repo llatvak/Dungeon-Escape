@@ -39,7 +39,7 @@ public class SplashScreen implements Screen {
         Texture tamkTex = new Texture(Gdx.files.internal("tamklogo.png"));
         tamkImg = new Image(tamkTex);
 
-        Texture tikoTex = new Texture(Gdx.files.internal("tikologo.jpg"));
+        Texture tikoTex = new Texture(Gdx.files.internal("tikologo.png"));
         tikoImg = new Image(tikoTex);
 
         Texture msmlTex = new Texture(Gdx.files.internal("msmllogo.jpg"));
@@ -50,8 +50,8 @@ public class SplashScreen implements Screen {
     public void show() {
         // Setting sizes
         rentoImg.setSize(256,160);
-        tamkImg.setSize(310, 114);
-        tikoImg.setSize(292, 125);
+        tamkImg.setSize(367, 88);
+        tikoImg.setSize(282, 111);
         msmlImg.setSize(297, 183);
 
         // Centering images
@@ -62,8 +62,8 @@ public class SplashScreen implements Screen {
 
         // Setting position of the images
         rentoImg.setPosition(stage.getWidth() / 2 - 128, stage.getHeight() - 100);
-        tamkImg.setPosition(stage.getWidth() / 2 - 155, stage.getHeight()  + 200);
-        tikoImg.setPosition(stage.getWidth() / 2 - 146, stage.getHeight() + 100);
+        tamkImg.setPosition(stage.getWidth() / 2 - 183.5f, stage.getHeight()  + 200);
+        tikoImg.setPosition(stage.getWidth() / 2 - 141, stage.getHeight() + 100);
         msmlImg.setPosition(stage.getWidth() / 2 - 148.5f, stage.getHeight() + 300);
 
         // Adding effects to images
@@ -76,13 +76,13 @@ public class SplashScreen implements Screen {
         tamkImg.addAction(sequence(alpha(0), scaleTo(.1f, .1f),
                 parallel(fadeIn(2f, Interpolation.pow2),
                         scaleTo(1f, 1f, 2.5f, Interpolation.pow5),
-                        moveTo(stage.getWidth() / 2 - 155, stage.getHeight() / 2 + 60, 2f, Interpolation.swing)),
+                        moveTo(stage.getWidth() / 2 - 183.5f, stage.getHeight() / 2 + 60, 2f, Interpolation.swing)),
                 delay(0.5f),  fadeOut(0.5f)));
 
         tikoImg.addAction(sequence(alpha(0), scaleTo(.1f, .1f),
                 parallel(fadeIn(2f, Interpolation.pow2),
                         scaleTo(1f, 1f, 2.5f, Interpolation.pow5),
-                        moveTo(stage.getWidth() / 2 - 146, stage.getHeight() / 2 - 120, 2f, Interpolation.swing)),
+                        moveTo(stage.getWidth() / 2 - 141, stage.getHeight() / 2 - 120, 2f, Interpolation.swing)),
                 delay(0.5f),  fadeOut(0.5f)));
 
         msmlImg.addAction(sequence(alpha(0), scaleTo(.1f, .1f),
