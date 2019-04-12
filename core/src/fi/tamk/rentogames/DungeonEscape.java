@@ -85,7 +85,7 @@ public class DungeonEscape extends Game {
         GameAudio.loadMusic("menumusic.ogg", "menumusic");
         GameAudio.loadMusic("mapscreenmusic.ogg", "mapscreenmusic");
 
-        changeScreen(SPLASHSCREEN);
+        changeScreen(MAINMENU);
     }
 
     private void createCameras() {

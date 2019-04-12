@@ -67,7 +67,7 @@ public class MapPlayer extends Sprite {
     private String jumpingTrap = "jump-trap";
     private String squatTrap = "squat-trap";
     private String levelChangeObject = "level-change";
-    private String storyObject = "story-object";
+    private String storyObject = "story-1";
     private String keyObject = "keys";
     private String tutorialObjectIntro = "tutorial-intro";
     private String tutorialObjectKeys = "tutorial-keys";
