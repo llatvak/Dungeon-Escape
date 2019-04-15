@@ -42,24 +42,20 @@ public class MoveTutorials {
     }
     public void createSpikesTutorial() {
         dialogTitle = game.getMyBundle().get("movestutorialtitle");
-        textLabel.setText(game.getMyBundle().get("jumptutorialtext")
-        );
-
+        textLabel.setText(game.getMyBundle().get("jumptutorialtext"));
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
     public void createArrowTutorial() {
         dialogTitle = game.getMyBundle().get("movestutorialtitle");
-        textLabel.setText(game.getMyBundle().get("squattutorialtext")
-        );
+        textLabel.setText(game.getMyBundle().get("squattutorialtext"));
 
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
     public void createPhoneTutorial() {
         dialogTitle = game.getMyBundle().get("phonetutorialtitle");
-        textLabel.setText(game.getMyBundle().get("phonetutorialtext")
-        );
+        textLabel.setText(game.getMyBundle().get("phonetutorialtext"));
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }

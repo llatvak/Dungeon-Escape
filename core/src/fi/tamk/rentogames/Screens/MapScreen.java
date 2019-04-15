@@ -120,9 +120,6 @@ public class MapScreen implements Screen {
                 player.setDownMove();
             }
         }
-
-
-
     }
 
     @Override

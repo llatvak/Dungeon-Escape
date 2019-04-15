@@ -336,7 +336,7 @@ public class MapPlayer extends Sprite {
 
         if(DungeonEscape.tutorials) {
             if(Save.getCurrentLevel() == 1) {
-                checkObjectCollision(tutorialObjectIntro);
+                //checkObjectCollision(tutorialObjectIntro);
                 checkObjectCollision(tutorialObjectKeys);
                 checkObjectCollision(tutorialObjectMove);
             }
@@ -402,9 +402,9 @@ public class MapPlayer extends Sprite {
                 if(layer.equals(storyObject) ) {
                     mapScreen.createStoryWindow();
                 }
-                if(layer.equals(tutorialObjectIntro) ) {
-                    mapScreen.createTutorial(1);
-                }
+//                if(layer.equals(tutorialObjectIntro) ) {
+//                    mapScreen.createTutorial(1);
+//                }
                 if(layer.equals(tutorialObjectKeys) ) {
                     mapScreen.createTutorial(2);
                 }
