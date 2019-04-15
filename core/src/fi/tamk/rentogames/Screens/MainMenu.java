@@ -71,6 +71,10 @@ public class MainMenu implements Screen {
         ImageButton FinFlag = new ImageButton(new TextureRegionDrawable(new TextureRegion(finFlagTexture)));
         ImageButton EngFlag = new ImageButton(new TextureRegionDrawable(new TextureRegion(engFlagTexture)));
         final ImageButton soundButton = new ImageButton(skin, "sound");
+        if(Save.getCurrentAudioSetting() == 0f) {
+            soundButton.setChecked(true);
+            soundButtonInitialized = true;
+        }
         final TextButton resetButton = new TextButton("Reset", skin);
 
         //Add listeners to buttons
