@@ -29,8 +29,10 @@ public class DungeonEscape extends Game {
 
     // Change this to enable testing features like skipping traps and reseting game saves
     public static boolean testing = true;
-    public static boolean tutorials = false;
+    public static boolean tutorials = true;
     public static boolean story = false;
+    private boolean jumpTutorials = true;
+    private boolean squatTutorials = true;
 
     public SpriteBatch batch;
 
@@ -218,7 +220,13 @@ public class DungeonEscape extends Game {
         }
         return stepTotal;
     }
+    public boolean isJumpTutorials() {
+        return jumpTutorials;
+    }
 
+    public void setJumpTutorials(boolean jumpTutorials) {
+        this.jumpTutorials = jumpTutorials;
+    }
     private GetSteps stepGetter;
 
     public void setGetSteps(GetSteps sg){
@@ -241,5 +249,14 @@ public class DungeonEscape extends Game {
         batch.dispose();
         GameAudio gameAudio = new GameAudio();
         gameAudio.dispose();
+    }
+
+
+    public boolean isSquatTutorials() {
+        return squatTutorials;
+    }
+
+    public void setSquatTutorials(boolean squatTutorials) {
+        this.squatTutorials = squatTutorials;
     }
 }
