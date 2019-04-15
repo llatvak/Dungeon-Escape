@@ -247,9 +247,9 @@ public class MapScreen implements Screen {
         Gdx.app.log("Up trap", "going to jumping trap");
         game.changeScreen(DungeonEscape.JUMPSCREEN);
     }
-    public void createStoryWindow() {
+    public void createStoryWindow(int part) {
         Gdx.app.log("Story", "going to story screen");
-        story.createStoryPart(1);
+        story.createStoryPart(part);
     }
     public void createTutorial(int tutorial) {
         mapTutorials.changeTutorialLabel(tutorial);

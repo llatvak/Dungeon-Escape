@@ -8,8 +8,9 @@ com.badlogic.gdx.graphics.Color: {
 	light_green: { a: 1.0, b: 0.3647059, g: 0.8352941, r: 0.38039216 }
 },
 com.badlogic.gdx.graphics.g2d.BitmapFont: {
-	font: { file: Roboto-Medium.fnt },
-	font-title: { file: Roboto-Bold.fnt  }
+	font: { file: Roboto-Regular.fnt },
+	font-title: { file: Roboto-Bold.fnt },
+	font-border: { file: Roboto-Regular.fnt }
 },
 com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	dialogDim: {
@@ -291,8 +292,8 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		fontColor: { a: 1, b: 0.7, g: 0.7, r: 0.7 }
 	},
 	default: {
-		font: font,
-		fontColor: { a: 1, b: 0.08235294, g: 0.627451, r: 1 }
+		font: font-border,
+		fontColor: { a: 1, b: 1, g: 1, r: 1 }
 	},
 	error: {
 		font: font,

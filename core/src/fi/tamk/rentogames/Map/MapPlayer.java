@@ -67,7 +67,11 @@ public class MapPlayer extends Sprite {
     private String jumpingTrap = "jump-trap";
     private String squatTrap = "squat-trap";
     private String levelChangeObject = "level-change";
-    private String storyObject = "story-1";
+    private String storyObjectOne = "story-1";
+    private String storyObjectTwo = "story-2";
+    private String storyObjectThree = "story-3";
+    private String storyObjectFour = "story-4";
+    private String storyObjectFive = "story-5";
     private String keyObject = "keys";
     private String tutorialObjectIntro = "tutorial-intro";
     private String tutorialObjectKeys = "tutorial-keys";
@@ -331,12 +335,16 @@ public class MapPlayer extends Sprite {
         checkObjectCollision(levelChangeObject);
 
         if(DungeonEscape.story) {
-            checkObjectCollision(storyObject);
+            checkObjectCollision(storyObjectOne);
+            checkObjectCollision(storyObjectTwo);
+            checkObjectCollision(storyObjectThree);
+            checkObjectCollision(storyObjectFour);
+            checkObjectCollision(storyObjectFive);
         }
 
         if(DungeonEscape.tutorials) {
             if(Save.getCurrentLevel() == 1) {
-                //checkObjectCollision(tutorialObjectIntro);
+                checkObjectCollision(tutorialObjectIntro);
                 checkObjectCollision(tutorialObjectKeys);
                 checkObjectCollision(tutorialObjectMove);
             }
@@ -399,12 +407,24 @@ public class MapPlayer extends Sprite {
                         mapScreen.createTutorial(6);
                     }
                 }
-                if(layer.equals(storyObject) ) {
-                    mapScreen.createStoryWindow();
+                if(layer.equals(storyObjectOne) ) {
+                    mapScreen.createStoryWindow(1);
                 }
-//                if(layer.equals(tutorialObjectIntro) ) {
-//                    mapScreen.createTutorial(1);
-//                }
+                if(layer.equals(storyObjectTwo) ) {
+                    mapScreen.createStoryWindow(2);
+                }
+                if(layer.equals(storyObjectThree) ) {
+                    mapScreen.createStoryWindow(3);
+                }
+                if(layer.equals(storyObjectFour) ) {
+                    mapScreen.createStoryWindow(4);
+                }
+                if(layer.equals(storyObjectFive) ) {
+                    mapScreen.createStoryWindow(5);
+                }
+                if(layer.equals(tutorialObjectIntro) ) {
+                    mapScreen.createTutorial(1);
+                }
                 if(layer.equals(tutorialObjectKeys) ) {
                     mapScreen.createTutorial(2);
                 }
