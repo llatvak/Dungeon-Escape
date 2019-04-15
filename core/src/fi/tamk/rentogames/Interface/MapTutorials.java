@@ -18,19 +18,17 @@ import fi.tamk.rentogames.DungeonEscape;
 
 public class MapTutorials {
 
-    private MapScreenUI userInterface;
     private DungeonEscape game;
     private Skin skin;
     private Label textLabel;
     private String dialogTitle;
     private Stage stage;
 
-    private float windowHeightPos = 70f;
+    private float windowHeightPos = 90f;
 
     public MapTutorials(DungeonEscape game, MapScreenUI userInterface) {
         this.skin = new Skin(Gdx.files.internal("uiskin.json"));
         this.game = game;
-        this.userInterface = userInterface;
         this.stage = userInterface.getStage();
         textLabel = new Label("",skin);
     }
@@ -151,13 +149,13 @@ public class MapTutorials {
         TextButton confirmButton = new TextButton("OK!", skin );
 
         textTable.setDebug(false);
-        textTable.add(getLabel()).width(270f).height(120f).left();
+        textTable.add(getLabel()).width(270f).height(150f).left();
         textTable.row();
         textTable.add(arrowImage).width(50).height(50);
 
         tutorialWindow.setMovable(false);
         tutorialWindow.setModal(true);
-        tutorialWindow.setSize(300,280);
+        tutorialWindow.setSize(300,290);
         tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, 10);
         tutorialWindow.getContentTable().add(textTable);
         tutorialWindow.button(confirmButton);
@@ -196,13 +194,13 @@ public class MapTutorials {
         TextButton confirmButton = new TextButton("OK!", skin );
 
         textTable.setDebug(false);
-        textTable.add(getLabel()).width(270f).height(100f).left();
+        textTable.add(getLabel()).width(270f).height(150f).left();
         textTable.row();
         textTable.add(movesImage).width(70).height(70);
 
         tutorialWindow.setMovable(false);
         tutorialWindow.setModal(true);
-        tutorialWindow.setSize(300,280);
+        tutorialWindow.setSize(300,310);
         tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, game.screenHeight / 2 - windowHeightPos);
         tutorialWindow.getContentTable().add(textTable);
         tutorialWindow.button(confirmButton);
@@ -225,13 +223,13 @@ public class MapTutorials {
         TextButton confirmButton = new TextButton("OK!", skin );
 
         textTable.setDebug(false);
-        textTable.add(getLabel()).width(270f).height(90f).left();
+        textTable.add(getLabel()).width(270f).height(110f).left();
         textTable.row();
         textTable.add(stepsImage).width(70).height(70);
 
         tutorialWindow.setMovable(false);
         tutorialWindow.setModal(true);
-        tutorialWindow.setSize(300,260);
+        tutorialWindow.setSize(300,280);
         tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, game.screenHeight / 2 - windowHeightPos);
         tutorialWindow.getContentTable().add(textTable);
         tutorialWindow.button(confirmButton);

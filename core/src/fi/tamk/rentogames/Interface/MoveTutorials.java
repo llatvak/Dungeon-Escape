@@ -136,14 +136,14 @@ public class MoveTutorials {
         TextButton confirmButton = new TextButton("OK!", skin );
 
         textTable.setDebug(false);
-        textTable.add(getLabel()).width(270f).height(90f).left();
+        textTable.add(getLabel()).width(270f).height(100f).left();
         textTable.row();
         textTable.add(phoneImage).width(90).height(90);
 
         tutorialWindow.setMovable(false);
         tutorialWindow.setModal(true);
-        tutorialWindow.setSize(300,280);
-        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, 300);
+        tutorialWindow.setSize(300,300);
+        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, 280);
         tutorialWindow.getContentTable().add(textTable);
         tutorialWindow.button(confirmButton);
 

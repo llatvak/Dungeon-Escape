@@ -14,12 +14,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
-import java.util.Map;
-
 import fi.tamk.rentogames.DungeonEscape;
 import fi.tamk.rentogames.Framework.GameAudio;
 import fi.tamk.rentogames.Framework.Save;
-import fi.tamk.rentogames.Map.MapPlayer;
 
 public class MainMenu implements Screen {
 
@@ -139,7 +136,7 @@ public class MainMenu implements Screen {
                 }
             });
 
-            topTable.add(resetButton).right().colspan(3).width(50).height(50).fillX().pad(520,10,0,5);
+            topTable.add(resetButton).right().colspan(3).width(70).height(50).fillX().pad(520,10,0,5);
         }
 
 
