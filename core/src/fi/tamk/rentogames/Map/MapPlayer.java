@@ -77,7 +77,6 @@ public class MapPlayer extends Sprite {
     private String tutorialObjectKeys = "tutorial-keys";
     private String tutorialObjectMove = "tutorial-movement";
     private String tutorialObjectTraps = "tutorial-traps";
-    private String tutorialObjectGo = "tutorial-go";
 
     private Texture playerDown;
     private Texture playerUp;
@@ -350,7 +349,6 @@ public class MapPlayer extends Sprite {
             }
             if(Save.getCurrentLevel() == 2) {
                 checkObjectCollision(tutorialObjectTraps);
-                checkObjectCollision(tutorialObjectGo);
             }
         }
 

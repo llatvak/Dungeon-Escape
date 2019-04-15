@@ -18,7 +18,6 @@ import fi.tamk.rentogames.DungeonEscape;
 
 public class MoveTutorials {
 
-    private MoveScreenUI userInterface;
     private DungeonEscape game;
     private Skin skin;
     private Label textLabel;
@@ -28,7 +27,6 @@ public class MoveTutorials {
     public MoveTutorials(DungeonEscape game, MoveScreenUI userInterface) {
         this.skin = new Skin(Gdx.files.internal("uiskin.json"));
         this.game = game;
-        this.userInterface = userInterface;
         this.stage = userInterface.getStage();
         textLabel = new Label("",skin);
     }
@@ -58,41 +56,6 @@ public class MoveTutorials {
         textLabel.setText(game.getMyBundle().get("phonetutorialtext"));
         textLabel.setWrap(true);
         textLabel.setWidth(100);
-    }
-    public void createActionTutorial() {
-        dialogTitle = "Time to exercise!";
-        textLabel.setText("Let’s go!"
-        );
-        textLabel.setWrap(true);
-        textLabel.setWidth(100);
-    }
-
-    public void createActionTutorialWindow(){
-        Gdx.app.log("Tutorial", "intro");
-        Table textTable = new Table();
-
-        Dialog tutorialWindow = new Dialog(getDialogTitle(),skin );
-        TextButton confirmButton = new TextButton("OK!", skin );
-
-        textTable.setDebug(false);
-        textTable.add(getLabel()).width(270f).height(90f).left();
-
-        tutorialWindow.setMovable(false);
-        tutorialWindow.setModal(true);
-        tutorialWindow.setSize(300,180);
-        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, 250);
-        tutorialWindow.getContentTable().add(textTable);
-        tutorialWindow.button(confirmButton);
-
-        confirmButton.addListener(new ChangeListener(){
-            @Override
-            public void changed(ChangeEvent event, Actor actor){
-                createSpikesTutorial();
-                createSpikesTutorialWindow();
-
-            }
-        });
-        stage.addActor(tutorialWindow);
     }
 
     public void createSpikesTutorialWindow(){
@@ -128,6 +91,7 @@ public class MoveTutorials {
         });
         stage.addActor(tutorialWindow);
     }
+
     public void createArrowTutorialWindow(){
         Gdx.app.log("Tutorial", "arrow");
         Table textTable = new Table();
@@ -186,8 +150,6 @@ public class MoveTutorials {
         confirmButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-               // createActionTutorial();
-               // createActionTutorialWindow();
 
             }
         });
