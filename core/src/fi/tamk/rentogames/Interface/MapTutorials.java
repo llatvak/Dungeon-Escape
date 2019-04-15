@@ -58,56 +58,44 @@ public class MapTutorials {
     }
 
     public void createIntroTutorial() {
-        dialogTitle = "You're finally awake.. ";
-        textLabel.setText("You have been imprisoned with no memory of the past. \n" +
-                "You have managed to free yourself from the cell but now you must find a way to escape the dungeon. \n" +
-                "Maybe you will regain your memory along the way."
-        );
-
+        dialogTitle = game.getMyBundle().get("mapintrotutorialtitle");
+        textLabel.setText(game.getMyBundle().get("mapintrotutorialtext"));
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
     public void createCharacterTutorial() {
-        dialogTitle = "How to move.. ";
-        textLabel.setText("You can move by tapping or pressing on the direction you want to go. To move upwards press the top indicator near the character."
-        );
-
+        dialogTitle = game.getMyBundle().get("mapcharactertutorialtitle");
+        textLabel.setText(game.getMyBundle().get("mapcharactertutorialtext"));
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
     public void createKeysTutorial() {
-        dialogTitle = "How to proceed.. ";
-        textLabel.setText("Your goal is to find three keys to unlock the door to the next level. On top left you can see the key count."
-        );
+        dialogTitle = game.getMyBundle().get("mapkeystutorialtitle");
+        textLabel.setText(game.getMyBundle().get("mapkeystutorialtext"));
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
     public void createMovementPointsTutorial() {
-        dialogTitle = "So many numbers..";
-        textLabel.setText("Movement requires that you have movement points. These are shown on the top right of the screen next to the four-way arrow icon."
-        );
+        dialogTitle = game.getMyBundle().get("mappointstutorialtitle");
+        textLabel.setText(game.getMyBundle().get("mappointstutorialtext"));
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
     public void createStepsTutorial() {
-        dialogTitle = "I need to... walk?! ";
-        textLabel.setText("To gather movement points you need to walk in real life. For every X amount of steps you will receive 5 movement points."
-        );
+        dialogTitle = game.getMyBundle().get("mapstepstutorialtitle");
+        textLabel.setText(game.getMyBundle().get("mapstepstutorialtext"));
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
     public void createTrapsTutorial() {
-        dialogTitle = "I smell danger... ";
-        textLabel.setText("Watch out! The dungeon is riddled with traps like the one in front of you."
-        );
+        dialogTitle = game.getMyBundle().get("maptrapstutorialtitle");
+        textLabel.setText(game.getMyBundle().get("maptrapstutorialtext"));
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
     public void createTrapsTutorialTwo() {
-        dialogTitle = "...or is that sweat? ";
-        textLabel.setText("To get past these traps you need to either jump or squat multiple times.\n\n" +
-                "If you don’t feel like doing the exercises right now you can also skip the trap by spending X amount of movement points."
-        );
+        dialogTitle = game.getMyBundle().get("maptrapstutorialtitletwo");
+        textLabel.setText(game.getMyBundle().get("maptrapstutorialtexttwo"));
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
@@ -119,9 +107,8 @@ public class MapTutorials {
         textLabel.setWidth(100);
     }
     public void createNoKeysInfo() {
-        dialogTitle = "Not enough keys.";
-        textLabel.setText("You need to collect all three keys to open the door."
-        );
+        dialogTitle = game.getMyBundle().get("mapnokeysinfotitle");
+        textLabel.setText(game.getMyBundle().get("mapnokeysinfotext"));
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
@@ -164,13 +151,13 @@ public class MapTutorials {
         TextButton confirmButton = new TextButton("OK!", skin );
 
         textTable.setDebug(false);
-        textTable.add(getLabel()).width(270f).height(90f).left();
+        textTable.add(getLabel()).width(270f).height(120f).left();
         textTable.row();
         textTable.add(arrowImage).width(50).height(50);
 
         tutorialWindow.setMovable(false);
         tutorialWindow.setModal(true);
-        tutorialWindow.setSize(300,270);
+        tutorialWindow.setSize(300,280);
         tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, 10);
         tutorialWindow.getContentTable().add(textTable);
         tutorialWindow.button(confirmButton);
@@ -187,13 +174,13 @@ public class MapTutorials {
         TextButton confirmButton = new TextButton("OK!", skin );
 
         textTable.setDebug(false);
-        textTable.add(getLabel()).width(270f).height(90f).left();
+        textTable.add(getLabel()).width(270f).height(110f).left();
         textTable.row();
         textTable.add(keyImage);
 
         tutorialWindow.setMovable(false);
         tutorialWindow.setModal(true);
-        tutorialWindow.setSize(300,250);
+        tutorialWindow.setSize(300,280);
         tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, game.screenHeight / 2 - windowHeightPos);
         tutorialWindow.getContentTable().add(textTable);
         tutorialWindow.button(confirmButton);

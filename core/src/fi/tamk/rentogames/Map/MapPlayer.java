@@ -414,9 +414,6 @@ public class MapPlayer extends Sprite {
                 if(layer.equals(tutorialObjectTraps) ) {
                     mapScreen.createTutorial(4);
                 }
-                if(layer.equals(tutorialObjectGo) ) {
-                    mapScreen.createTutorial(5);
-                }
             }
         }
     }
