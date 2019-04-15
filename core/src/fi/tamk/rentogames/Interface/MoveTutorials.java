@@ -32,7 +32,6 @@ public class MoveTutorials {
         this.stage = userInterface.getStage();
         textLabel = new Label("",skin);
     }
-
     public void createJumpTutorial() {
         createSpikesTutorial();
         createSpikesTutorialWindow();
@@ -41,33 +40,25 @@ public class MoveTutorials {
         createArrowTutorial();
         createArrowTutorialWindow();
     }
-    public void createIntroTutorial() {
-        dialogTitle = "What is that?";
-        textLabel.setText("Here you can see the trap in front of you."
-        );
-
-        textLabel.setWrap(true);
-        textLabel.setWidth(100);
-    }
     public void createSpikesTutorial() {
-        dialogTitle = "What should I do?";
-        textLabel.setText("Get over the spikes by doing\n3 jumps."
+        dialogTitle = game.getMyBundle().get("movestutorialtitle");
+        textLabel.setText(game.getMyBundle().get("jumptutorialtext")
         );
 
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
     public void createArrowTutorial() {
-        dialogTitle = "What should I do?";
-        textLabel.setText("Dodge the arrow by doing\n3 squats."
+        dialogTitle = game.getMyBundle().get("movestutorialtitle");
+        textLabel.setText(game.getMyBundle().get("squattutorialtext")
         );
 
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
     public void createPhoneTutorial() {
-        dialogTitle = "Are you sure this works?";
-        textLabel.setText("To maximize the accuracy of the sensor hold your phone in upright position so that the screen is facing towards you."
+        dialogTitle = game.getMyBundle().get("phonetutorialtitle");
+        textLabel.setText(game.getMyBundle().get("phonetutorialtext")
         );
         textLabel.setWrap(true);
         textLabel.setWidth(100);
@@ -80,7 +71,7 @@ public class MoveTutorials {
         textLabel.setWidth(100);
     }
 
-    public void createIntroTutorialWindow(){
+    public void createActionTutorialWindow(){
         Gdx.app.log("Tutorial", "intro");
         Table textTable = new Table();
 
@@ -207,28 +198,6 @@ public class MoveTutorials {
         stage.addActor(tutorialWindow);
     }
 
-    public void createActionTutorialWindow(){
-        Gdx.app.log("Tutorial", "action");
-        Table textTable = new Table();
-
-        Texture arrowTexture = new Texture("arrowup.png");
-        ImageButton arrowImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(arrowTexture)));
-        Dialog tutorialWindow = new Dialog(getDialogTitle(),skin );
-        TextButton confirmButton = new TextButton("OK!", skin );
-
-        textTable.setDebug(false);
-        textTable.add(getLabel()).width(270f).height(30f);
-        // textTable.row();
-        // textTable.add(arrowImage).width(50).height(50);
-
-        tutorialWindow.setMovable(false);
-        tutorialWindow.setModal(true);
-        tutorialWindow.setSize(300,150);
-        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, 300);
-        tutorialWindow.getContentTable().add(textTable);
-        tutorialWindow.button(confirmButton);
-
-    }
     public String getDialogTitle() {
         return this.dialogTitle;
     }
