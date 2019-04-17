@@ -30,7 +30,7 @@ public class DungeonEscape extends Game {
     // Change this to enable testing features like skipping traps and reseting game saves
     public static boolean testing = true;
     public static boolean tutorials = true;
-    public static boolean story = false;
+    public static boolean story = true;
     private boolean jumpTutorials = true;
     private boolean squatTutorials = true;
 

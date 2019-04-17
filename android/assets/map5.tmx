@@ -1,26 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="17" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="20" nextobjectid="17">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="17" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="16" nextobjectid="24">
  <tileset firstgid="1" name="Dungeon-tileset" tilewidth="64" tileheight="64" tilecount="32" columns="8">
   <image source="Dungeon-tileset.png" width="512" height="256"/>
  </tileset>
  <layer id="1" name="Walls" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjZGBgYMKBmYFYCIgZCajhBGIuHJibAQIIqRlpZggCMSuFZuBzCyEzeBggcUeuGSwMkLQhTIEZyP6g1AxYGuWlwAx8cUKKX8hNH8TEyWBL66AwE8KBQWlDkoEhgZAaAPxzCvs=
-  </data>
- </layer>
- <layer id="12" name="VisualObjects" width="17" height="17">
-  <data encoding="base64" compression="zlib">
-   eJxjYKAtYGNgaIDSAwoGizuoAWB+gbKHLED2B5Q/ZMFwiRMYoGd+AQDFbQNJ
+   eJxjZGBgYMKBBYFYCIiF8ahhBmJOIObCgUHyIMCIRw03ATO4oGbgk0c2Ax1woYmT6g50PeSagQ9Q6g5CZuCyC90MZDXExAsl7sAHCJlByE2E4gWbGYTMpbYZxPqf2DRGiV+wyTMQoQZWRmDDoHJDkoEhgZAaAP1+CbY=
   </data>
  </layer>
  <layer id="2" name="Road" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYKA94KeCGSKjZmCYMZjcQoleSv0y0H5ANmMwuWUwmEEMAAA3wQF4
+   eJxjYKA94KeCGSIkqkXG6OKU2k2uGfgwpe4gZAYuu7CFD6n+I9cd5IYHOeFPjBmU+JscMyhND4TMHgxmEAMA17sENA==
   </data>
  </layer>
  <layer id="3" name="Keys" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFpACZgXbAMAXDJVyHiz/oCQC69ABV
+   eJxjYBh+QGagHTDEwUgNv5Hq74EGANkkAFU=
   </data>
  </layer>
  <layer id="4" name="Story" width="17" height="17">
@@ -30,52 +25,47 @@
  </layer>
  <layer id="5" name="SquatTrap" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFQxFID7QDRsEooBIAAFAIABw=
+   eJxjYBgFIxlID7QDRsGIBwBIcAAc
   </data>
  </layer>
  <layer id="6" name="JumpTrap" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2BoA6mBdsAooAgAADIEABs=
+   eJxjYBgFQwVIDbQDRsEooAEAAE50ABs=
   </data>
  </layer>
- <objectgroup color="#0fa8a8" id="14" name="tutorial-traps">
-  <object id="12" x="473.333" y="816">
-   <point/>
-  </object>
- </objectgroup>
- <objectgroup id="19" name="tutorial-go">
-  <object id="13" x="478.667" y="617.333">
-   <point/>
-  </object>
- </objectgroup>
+ <layer id="12" name="VisualObjects" width="17" height="17">
+  <data encoding="base64" compression="zlib">
+   eJxjYKAtYGNgaOCH0KNgFIyCIQJA+RZK0xwAAL3iASg=
+  </data>
+ </layer>
  <objectgroup color="#0de214" id="8" name="level-change">
-  <object id="2" x="542.666" y="117.333">
+  <object id="2" x="544" y="121.333">
    <point/>
   </object>
  </objectgroup>
  <objectgroup color="#e8e801" id="13" name="keys">
-  <object id="4" x="605" y="624.001">
+  <object id="18" x="157.333" y="236">
    <point/>
   </object>
-  <object id="5" x="544.332" y="818.333">
+  <object id="19" x="928" y="494.667">
    <point/>
   </object>
-  <object id="8" x="542" y="310">
+  <object id="20" x="548" y="744">
    <point/>
   </object>
  </objectgroup>
  <objectgroup color="#fd9a21" id="10" name="squat-trap">
-  <object id="9" x="544" y="433">
+  <object id="22" x="606.667" y="492">
    <point/>
   </object>
  </objectgroup>
  <objectgroup color="#ec182d" id="9" name="jump-trap">
-  <object id="10" x="480" y="686.667">
+  <object id="21" x="350.667" y="428">
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="11" name="story-1">
-  <object id="16" x="541.333" y="240">
+ <objectgroup id="11" name="story-2">
+  <object id="23" x="608" y="298.667">
    <point/>
   </object>
  </objectgroup>

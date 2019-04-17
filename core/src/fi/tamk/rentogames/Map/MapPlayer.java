@@ -334,11 +334,15 @@ public class MapPlayer extends Sprite {
         checkObjectCollision(levelChangeObject);
 
         if(DungeonEscape.story) {
-            checkObjectCollision(storyObjectOne);
-            checkObjectCollision(storyObjectTwo);
-            checkObjectCollision(storyObjectThree);
-            checkObjectCollision(storyObjectFour);
-            checkObjectCollision(storyObjectFive);
+            if(Save.getCurrentLevel() == 2) {
+                checkObjectCollision(storyObjectOne);
+            }
+            if(Save.getCurrentLevel() == 5) {
+                checkObjectCollision(storyObjectTwo);
+            }
+//            checkObjectCollision(storyObjectThree);
+//            checkObjectCollision(storyObjectFour);
+//            checkObjectCollision(storyObjectFive);
         }
 
         if(DungeonEscape.tutorials) {
