@@ -217,7 +217,7 @@ public class MapTutorials {
     public void createStepsTutorialWindow(){
         Gdx.app.log("Tutorial", "steps");
         Table textTable = new Table();
-        Texture stepsTexture = new Texture("tutorialsteps1.png");
+        Texture stepsTexture = new Texture("tutorialsteps.png");
         ImageButton stepsImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(stepsTexture)));
         Dialog tutorialWindow = new Dialog(getDialogTitle(),skin );
         TextButton confirmButton = new TextButton("OK!", skin );
@@ -239,8 +239,8 @@ public class MapTutorials {
     public void createTrapsTutorialWindow(){
         Gdx.app.log("Tutorial", "traps");
         Table textTable = new Table();
-        Texture trapOneTexture = new Texture("tutorialtrap1.png");
-        Texture trapTwoTexture = new Texture("tutorialtrap2.png");
+        Texture trapOneTexture = new Texture("tutorialtrapspikes.png");
+        Texture trapTwoTexture = new Texture("tutorialtraparrow.png");
         ImageButton trapOneImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(trapOneTexture)));
         ImageButton trapTwoImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(trapTwoTexture)));
         Dialog tutorialWindow = new Dialog(getDialogTitle(),skin );

@@ -34,7 +34,7 @@ public class MapScreen implements Screen {
 
     private Stage stage;
 
-    private int stepTotal = 0;
+    private int stepTotal = 120;
     private int oldStepTotal;
     private int pauseSteps;
     private int stepsToPoint;
