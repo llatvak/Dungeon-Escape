@@ -217,7 +217,7 @@ public class MapTutorials {
     public void createStepsTutorialWindow(){
         Gdx.app.log("Tutorial", "steps");
         Table textTable = new Table();
-        Texture stepsTexture = new Texture("tutorialsteps.png");
+        Texture stepsTexture = new Texture("tutorialsteps1.png");
         ImageButton stepsImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(stepsTexture)));
         Dialog tutorialWindow = new Dialog(getDialogTitle(),skin );
         TextButton confirmButton = new TextButton("OK!", skin );
