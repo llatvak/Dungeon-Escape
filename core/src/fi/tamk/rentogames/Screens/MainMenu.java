@@ -104,6 +104,8 @@ public class MainMenu implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.log("Info", "pressed");
+
+                // Tänne credits
             }
         });
 

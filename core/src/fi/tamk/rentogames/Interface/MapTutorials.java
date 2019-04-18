@@ -124,7 +124,7 @@ public class MapTutorials {
         tutorialWindow.setMovable(false);
         tutorialWindow.setModal(true);
         tutorialWindow.setSize(300,280);
-        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, 10);
+        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, 230);
         tutorialWindow.getContentTable().add(textTable);
         tutorialWindow.button(confirmButton);
 
@@ -156,7 +156,7 @@ public class MapTutorials {
         tutorialWindow.setMovable(false);
         tutorialWindow.setModal(true);
         tutorialWindow.setSize(300,290);
-        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, 10);
+        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, 230);
         tutorialWindow.getContentTable().add(textTable);
         tutorialWindow.button(confirmButton);
 
@@ -179,7 +179,7 @@ public class MapTutorials {
         tutorialWindow.setMovable(false);
         tutorialWindow.setModal(true);
         tutorialWindow.setSize(300,280);
-        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, game.screenHeight / 2 - windowHeightPos);
+        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, 230);
         tutorialWindow.getContentTable().add(textTable);
         tutorialWindow.button(confirmButton);
 
@@ -201,7 +201,7 @@ public class MapTutorials {
         tutorialWindow.setMovable(false);
         tutorialWindow.setModal(true);
         tutorialWindow.setSize(300,310);
-        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, game.screenHeight / 2 - windowHeightPos);
+        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, 230);
         tutorialWindow.getContentTable().add(textTable);
         tutorialWindow.button(confirmButton);
 
@@ -230,7 +230,7 @@ public class MapTutorials {
         tutorialWindow.setMovable(false);
         tutorialWindow.setModal(true);
         tutorialWindow.setSize(300,280);
-        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, game.screenHeight / 2 - windowHeightPos);
+        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, 230);
         tutorialWindow.getContentTable().add(textTable);
         tutorialWindow.button(confirmButton);
 
@@ -330,7 +330,7 @@ public class MapTutorials {
         tutorialWindow.setMovable(false);
         tutorialWindow.setModal(true);
         tutorialWindow.setSize(300,210);
-        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, 10);
+        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, 230);
         tutorialWindow.getContentTable().add(textTable);
         tutorialWindow.button(confirmButton);
 
