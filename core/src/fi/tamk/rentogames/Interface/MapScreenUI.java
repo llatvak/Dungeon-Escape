@@ -202,7 +202,7 @@ public class MapScreenUI {
         Gdx.app.log("Button", "created");
         buttonUp = true;
 
-        final TextButton confirmButton = new TextButton(game.getMyBundle().get("readybutton"), skin);
+        final TextButton confirmButton = new TextButton(game.getMyBundle().get("confirmbutton"), skin);
         final TextButton cancelButton = new TextButton(game.getMyBundle().get("cancelbutton"), skin, "maroon");
 
         final Label trapLabel = new Label(game.getMyBundle().get("traplabel"),skin,"title-white");

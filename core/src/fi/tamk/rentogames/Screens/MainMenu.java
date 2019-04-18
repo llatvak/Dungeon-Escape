@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -71,11 +72,12 @@ public class MainMenu implements Screen {
         ImageButton FinFlag = new ImageButton(new TextureRegionDrawable(new TextureRegion(finFlagTexture)));
         ImageButton EngFlag = new ImageButton(new TextureRegionDrawable(new TextureRegion(engFlagTexture)));
         final ImageButton soundButton = new ImageButton(skin, "sound");
+        final ImageButton infoButton = new ImageButton(skin, "info");
+
         if(Save.getCurrentAudioSetting() == 0f) {
             soundButton.setChecked(true);
             soundButtonInitialized = true;
         }
-        final TextButton resetButton = new TextButton("Reset", skin);
 
         //Add listeners to buttons
         FinFlag.addListener(new ChangeListener(){
@@ -95,6 +97,13 @@ public class MainMenu implements Screen {
                 game.setLanguage("en", "US", "MyBundle_en_US");
                 Save.saveLanguage("MyBundle_en_US");
                 setLocaleEng();
+            }
+        });
+
+        infoButton.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Gdx.app.log("Info", "pressed");
             }
         });
 
@@ -120,29 +129,9 @@ public class MainMenu implements Screen {
         topTable.row().pad(10,5,0,5);
         topTable.add(FinFlag).width(40).height(40).fillX();
         topTable.add(EngFlag).width(40).height(40).fillX();
-        topTable.add(soundButton).right().width(40).height(40).fillX().expandX();
+        topTable.add(infoButton).right().width(40).height(40).fillX().expandX();
+        topTable.add(soundButton).right().width(40).height(40).fillX();
         topTable.row().pad(10,5,0,5);
-
-
-        // Gametesting reset button
-        if(game.testing) {
-            resetButton.addListener(new ChangeListener(){
-                @Override
-                public void changed(ChangeListener.ChangeEvent event, Actor actor) {
-                    Gdx.app.log("Game", "Reset");
-                    Save.saveCurrentLevel(1);
-                    Save.saveMovementPoints(50);
-                    Save.saveCurrentProgressbar(0);
-                    Save.saveCurrentPlayerX(513f);
-                    Save.saveCurrentPlayerY(65f);
-                    resetButtonInitialized = true;
-
-                }
-            });
-
-            topTable.add(resetButton).right().colspan(3).width(70).height(50).fillX().pad(520,10,0,5);
-        }
-
 
         //Add table to stage
         stage.addActor(topTable);
@@ -151,15 +140,29 @@ public class MainMenu implements Screen {
     }
 
     private void gameInit() {
-        Table mainTable = new Table();
+        final Table mainTable = new Table();
+        final Table newGameTable = new Table();
         mainTable.setFillParent(true);
         mainTable.setDebug(false);
         mainTable.center();
 
-        TextButton playButton = new TextButton(game.getMyBundle().get("playbutton"), skin);
-        TextButton exitButton = new TextButton(game.getMyBundle().get("exitbutton"), skin);
-        ImageButton infoButton = new ImageButton(skin, "info");
-        ImageButton helpButton = new ImageButton(skin, "help");
+        newGameTable.setFillParent(true);
+        newGameTable.setDebug(false);
+
+        final TextButton playButton = new TextButton(game.getMyBundle().get("playbutton"), skin);
+        final TextButton resetButton = new TextButton(game.getMyBundle().get("newgame"), skin);
+        final TextButton exitButton = new TextButton(game.getMyBundle().get("exitbutton"), skin);
+        final TextButton confirmButton = new TextButton(game.getMyBundle().get("confirmbutton"), skin);
+        final TextButton cancelButton = new TextButton(game.getMyBundle().get("cancelbutton"), skin);
+        final Dialog newGameWindow = new Dialog(game.getMyBundle().get("confirmnewgame"), skin);
+
+        newGameTable.add(cancelButton).pad(10,10,10,10).width(80);
+        newGameTable.add(confirmButton).pad(10,10,10,10).width(80);
+        newGameWindow.setMovable(false);
+        newGameWindow.setModal(true);
+        newGameWindow.setSize(200,150);
+        newGameWindow.setPosition(game.screenWidth / 2 - newGameWindow.getWidth() / 2,  250f);
+        newGameWindow.getContentTable().add(newGameTable);
 
         playButton.addListener(new ChangeListener(){
             @Override
@@ -172,20 +175,36 @@ public class MainMenu implements Screen {
             }
         });
 
-        infoButton.addListener(new ChangeListener(){
+        resetButton.addListener(new ChangeListener(){
             @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                Gdx.app.log("Info", "pressed");
+            public void changed(ChangeListener.ChangeEvent event, Actor actor) {
+                stage.addActor(newGameWindow);
             }
         });
 
-        helpButton.addListener(new ChangeListener(){
+        confirmButton.addListener(new ChangeListener(){
             @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                Gdx.app.log("Help", "pressed");
-                // game.changeScreen(DungeonEscape.TUTORIALSCREEN);
+            public void changed(ChangeListener.ChangeEvent event, Actor actor) {
+
+                Gdx.app.log("Game", "Reset");
+                Save.saveCurrentLevel(1);
+                Save.saveMovementPoints(50);
+                Save.saveCurrentProgressbar(0);
+                Save.saveCurrentPlayerX(513f);
+                Save.saveCurrentPlayerY(65f);
+                resetButtonInitialized = true;
+                newGameWindow.remove();
+                game.changeScreen(DungeonEscape.MAPSCREEN);
             }
         });
+
+        cancelButton.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeListener.ChangeEvent event, Actor actor) {
+                newGameWindow.remove();
+            }
+        });
+
 
         exitButton.addListener(new ChangeListener(){
             @Override
@@ -195,11 +214,11 @@ public class MainMenu implements Screen {
         });
 
         mainTable.row().pad(0,0,20,0);
-        mainTable.add(playButton).width(200).height(70).fillX().colspan(2);
+        mainTable.add(playButton).width(200).height(70).fillX().colspan(2).padTop(50);
 
         mainTable.row().pad(0,0,10,0);
-        //mainTable.add(infoButton).right().width(95).height(50).fillX().pad(0,0,0,5);
-        //mainTable.add(helpButton).left().width(95).height(50).fillX().pad(0,5,0,0);
+        mainTable.add(resetButton).right().colspan(2).width(200).height(50).fillX();
+        mainTable.row().pad(0,0,10,0);
 
         mainTable.row().pad(10,0,0,0);
         mainTable.add(exitButton).width(200).height(50).fillX().colspan(2);
