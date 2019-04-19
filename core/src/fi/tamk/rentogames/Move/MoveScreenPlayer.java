@@ -19,6 +19,11 @@ import fi.tamk.rentogames.Framework.Utils;
 import static com.badlogic.gdx.Input.Keys.SPACE;
 import static com.badlogic.gdx.Input.Keys.UP;
 
+/**
+ * @author
+ * @author
+ * @version
+ */
 public class MoveScreenPlayer {
     // Box2D player body
     private Body playerBody;
@@ -53,6 +58,9 @@ public class MoveScreenPlayer {
     private int movesRequired = 3;
 
 
+    /**
+     * @param w
+     */
     public MoveScreenPlayer(World w) {
         // Creates body to world and gets definitions and fixtures to it
         playerBody = w.createBody(getDefinitionOfBody());
@@ -91,6 +99,9 @@ public class MoveScreenPlayer {
         return playerBody.getPosition().y;
     }
 
+    /**
+     * @param b
+     */
     // Draws the player using current animation texture
     // Also draws the player on the player body in Box2D
     public void draw(Batch b) {
@@ -158,6 +169,9 @@ public class MoveScreenPlayer {
         currentFrameTexture = squatAnimation.getKeyFrame(stateTime, true);
     }
 
+    /**
+     *
+     */
     // Method for player jumping
     public void playerJump() {
         // Counts time of program running
@@ -216,6 +230,9 @@ public class MoveScreenPlayer {
 
     }
 
+    /**
+     *
+     */
     public void playerSquat() {
         // Counts time of program running
         stateTime += Gdx.graphics.getDeltaTime();
@@ -235,11 +252,17 @@ public class MoveScreenPlayer {
         }
     }
 
+    /**
+     *
+     */
     public void playerDodge() {
         currentFrameTexture = squatAnimation.getKeyFrame(stateTime, false);
         playerSquatting = true;
     }
 
+    /**
+     *
+     */
     // Method for running after arrow is passed
     public void playerRun() {
         playerBody.setLinearVelocity(3f, 0);
@@ -276,11 +299,17 @@ public class MoveScreenPlayer {
         return movesRequired;
     }
 
+    /**
+     * @param dodgeTrap
+     */
     public void setPlayerSquat(boolean dodgeTrap) {
 
         playerSquatting = dodgeTrap;
     }
 
+    /**
+     *
+     */
     public void dispose() {
         playerJumpsheetTexture.dispose();
         playerRunsheetTexture.dispose();

@@ -20,20 +20,49 @@ import fi.tamk.rentogames.Screens.MoveScreenSquat;
 import fi.tamk.rentogames.Screens.SettingsScreen;
 import fi.tamk.rentogames.Screens.SplashScreen;
 
+/**
+ * @author
+ * @author
+ * @version
+ */
 public class DungeonEscape extends Game {
+    /**
+     *
+     */
     public final float screenWidth = 360f;
+    /**
+     *
+     */
     public final float screenHeight = 640f;
 
+    /**
+     *
+     */
     public final float gameWidth = 360f / 100f;
+    /**
+     *
+     */
     public final float gameHeight = 640f / 100f;
 
     // Change this to enable testing features like skipping traps and reseting game saves
+    /**
+     *
+     */
     public static boolean testing = true;
+    /**
+     *
+     */
     public static boolean tutorials = true;
+    /**
+     *
+     */
     public static boolean story = true;
     private boolean jumpTutorials = true;
     private boolean squatTutorials = true;
 
+    /**
+     *
+     */
     public SpriteBatch batch;
 
     private OrthographicCamera screenCamera;
@@ -47,11 +76,29 @@ public class DungeonEscape extends Game {
     private int previousScreen;
     private int activeScreen;
     private final static int SPLASHSCREEN = 0;
+    /**
+     *
+     */
     public final static int MAINMENU = 1;
+    /**
+     *
+     */
     public final static int SETTINGSSCREEN = 2;
+    /**
+     *
+     */
     public final static int MAPSCREEN = 3;
+    /**
+     *
+     */
     public final static int JUMPSCREEN = 4;
+    /**
+     *
+     */
     public final static int BACK = 5;
+    /**
+     *
+     */
     public final static int SQUATSCREEN = 6;
 
     private I18NBundle myBundle;
@@ -61,6 +108,9 @@ public class DungeonEscape extends Game {
     private int stepTotal; // renderissä
     private int oldStepTotal;
 
+    /**
+     *
+     */
     public DungeonEscape() {
         // :D
     }
@@ -110,6 +160,11 @@ public class DungeonEscape extends Game {
         return this.gameCamera;
     }
 
+    /**
+     * @param s1
+     * @param s2
+     * @param s3
+     */
     public void setLanguage(String s1, String s2, String s3) {
         Locale locale = new Locale(s1, s2);
         myBundle = I18NBundle.createBundle(Gdx.files.internal(s3), locale, "UTF-8");
@@ -126,6 +181,9 @@ public class DungeonEscape extends Game {
         batch.end();
     }
 
+    /**
+     * @param screen
+     */
     public void changeScreen(int screen) {
 
         switch(screen) {
@@ -192,6 +250,9 @@ public class DungeonEscape extends Game {
         this.previousScreen = screen;
     }
 
+    /**
+     * @param status
+     */
     public void setMoveScreenStatus(boolean status) {
         this.moveScreenStatus = status;
     }
@@ -214,12 +275,19 @@ public class DungeonEscape extends Game {
         }
     }
 
+    /**
+     * @return
+     */
     public int getStepCount() {
         if(stepGetter!= null){
             stepTotal += stepGetter.getNumSteps();
         }
         return stepTotal;
     }
+
+    /**
+     * @return
+     */
     public boolean isJumpTutorials() {
         return jumpTutorials;
     }
@@ -252,6 +320,9 @@ public class DungeonEscape extends Game {
     }
 
 
+    /**
+     * @return
+     */
     public boolean isSquatTutorials() {
         return squatTutorials;
     }

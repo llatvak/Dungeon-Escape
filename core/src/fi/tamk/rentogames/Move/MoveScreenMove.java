@@ -12,6 +12,11 @@ import fi.tamk.rentogames.DungeonEscape;
 import fi.tamk.rentogames.Framework.Fonts;
 import fi.tamk.rentogames.Screens.MapScreen;
 
+/**
+ * @author
+ * @author
+ * @version
+ */
 public abstract class MoveScreenMove implements Screen {
 
     // Current screen and game
@@ -35,6 +40,10 @@ public abstract class MoveScreenMove implements Screen {
     // Fonts
     private BitmapFont fontRoboto;
 
+    /**
+     * @param game
+     * @param mapScreen
+     */
     public MoveScreenMove(DungeonEscape game, MapScreen mapScreen) {
         // Current game and screen
         this.game = game;
@@ -62,6 +71,9 @@ public abstract class MoveScreenMove implements Screen {
         fontRoboto = fonts.createMediumFont();
     }
 
+    /**
+     *
+     */
     public void debug() {
         // Is script working correctly
         if(DEBUG_PHYSICS) {
@@ -122,6 +134,9 @@ public abstract class MoveScreenMove implements Screen {
     }
 
 
+    /**
+     * @param deltaTime
+     */
     public void doPhysicsStep(float deltaTime) {
         float TIME_STEP = 1/60f;
         float frameTime = deltaTime;

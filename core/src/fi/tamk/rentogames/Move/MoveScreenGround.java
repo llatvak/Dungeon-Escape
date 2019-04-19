@@ -5,9 +5,18 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+/**
+ * @author
+ * @author
+ * @version
+ */
 public class MoveScreenGround {
     private float gameWidth;
 
+    /**
+     * @param w
+     * @param gW
+     */
     public MoveScreenGround(World w, Float gW) {
         // Current world
         gameWidth = gW;

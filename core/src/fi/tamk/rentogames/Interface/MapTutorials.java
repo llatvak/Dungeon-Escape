@@ -16,6 +16,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import fi.tamk.rentogames.DungeonEscape;
 
+/**
+ * @author
+ * @author
+ * @version
+ */
 public class MapTutorials {
 
     private DungeonEscape game;
@@ -26,12 +31,20 @@ public class MapTutorials {
 
     private float windowHeightPos = 90f;
 
+    /**
+     * @param game
+     * @param userInterface
+     */
     public MapTutorials(DungeonEscape game, MapScreenUI userInterface) {
         this.skin = new Skin(Gdx.files.internal("uiskin.json"));
         this.game = game;
         this.stage = userInterface.getStage();
         textLabel = new Label("",skin);
     }
+
+    /**
+     * @param tutorial
+     */
     public void changeTutorialLabel(int tutorial) {
         switch(tutorial) {
             case 1: createIntroTutorial();
@@ -61,30 +74,35 @@ public class MapTutorials {
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
+
     public void createCharacterTutorial() {
         dialogTitle = game.getMyBundle().get("mapcharactertutorialtitle");
         textLabel.setText(game.getMyBundle().get("mapcharactertutorialtext"));
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
+
     public void createKeysTutorial() {
         dialogTitle = game.getMyBundle().get("mapkeystutorialtitle");
         textLabel.setText(game.getMyBundle().get("mapkeystutorialtext"));
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
+
     public void createMovementPointsTutorial() {
         dialogTitle = game.getMyBundle().get("mappointstutorialtitle");
         textLabel.setText(game.getMyBundle().get("mappointstutorialtext"));
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
+
     public void createStepsTutorial() {
         dialogTitle = game.getMyBundle().get("mapstepstutorialtitle");
         textLabel.setText(game.getMyBundle().get("mapstepstutorialtext"));
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
+
     public void createTrapsTutorial() {
         dialogTitle = game.getMyBundle().get("maptrapstutorialtitle");
         textLabel.setText(game.getMyBundle().get("maptrapstutorialtext"));

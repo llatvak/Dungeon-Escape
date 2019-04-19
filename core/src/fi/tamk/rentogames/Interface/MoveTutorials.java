@@ -16,6 +16,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import fi.tamk.rentogames.DungeonEscape;
 
+/**
+ * @author
+ * @author
+ * @version
+ */
 public class MoveTutorials {
 
     private DungeonEscape game;
@@ -24,16 +29,28 @@ public class MoveTutorials {
     private String dialogTitle;
     private Stage stage;
 
+    /**
+     * @param game
+     * @param userInterface
+     */
     public MoveTutorials(DungeonEscape game, MoveScreenUI userInterface) {
         this.skin = new Skin(Gdx.files.internal("uiskin.json"));
         this.game = game;
         this.stage = userInterface.getStage();
         textLabel = new Label("",skin);
     }
+
+    /**
+     *
+     */
     public void createJumpTutorial() {
         createSpikesTutorial();
         createSpikesTutorialWindow();
     }
+
+    /**
+     *
+     */
     public void createSquatTutorial() {
         createArrowTutorial();
         createArrowTutorialWindow();

@@ -14,10 +14,18 @@ import static com.badlogic.gdx.Input.Keys.SPACE;
 //        MyInputProcessor inputProcessor = new MyInputProcessor();
 //        Gdx.input.setInputProcessor(inputProcessor);
 
+/**
+ * @author
+ * @author
+ * @version
+ */
 public class MyInputProcessor implements InputProcessor, Disposable {
 
     private MapPlayer player;
 
+    /**
+     * @param player
+     */
     public MyInputProcessor(MapPlayer player) {
         this.player = player;
     }

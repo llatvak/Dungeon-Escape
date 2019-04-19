@@ -7,6 +7,11 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.utils.Disposable;
 
+/**
+ * @author
+ * @author
+ * @version
+ */
 public class Fonts implements Disposable {
 
     private final static int SMALL = 0;
@@ -29,6 +34,9 @@ public class Fonts implements Disposable {
         return fontRobotoSm;
     }
 
+    /**
+     * @return
+     */
     public BitmapFont createMediumFont() {
         fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Regular.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();

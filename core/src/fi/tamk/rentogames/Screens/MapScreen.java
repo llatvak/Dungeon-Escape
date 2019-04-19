@@ -18,6 +18,11 @@ import fi.tamk.rentogames.Interface.Story;
 import fi.tamk.rentogames.Map.MapLevel;
 import fi.tamk.rentogames.Map.MapPlayer;
 
+/**
+ * @author
+ * @author
+ * @version
+ */
 public class MapScreen implements Screen {
 
     private DungeonEscape game;
@@ -42,15 +47,29 @@ public class MapScreen implements Screen {
     private int stepsDuringPointsAdd;
 
     private int level = 1;
+    /**
+     *
+     */
     public static final int KEYS_NEEDED = 3;
 
+    /**
+     *
+     */
     public int keyAmount;
+    /**
+     *
+     */
     public boolean keysCollected = true;
 
+    /**
+     *
+     */
     public boolean buttonUp;
 
 
-
+    /**
+     * @param game
+     */
     public MapScreen(DungeonEscape game) {
         this.game = game;
         onCreate();
@@ -189,12 +208,18 @@ public class MapScreen implements Screen {
         stepsToPoint = 0;
     }
 
+    /**
+     *
+     */
     // Save current step count
     public void saveStepsOnPause() {
         pauseSteps = stepTotal;
         System.out.println("Paused steps count: " + pauseSteps);
     }
 
+    /**
+     *
+     */
     // Make saved steps actual step count
     public void subtractSteps() {
         stepTotal = pauseSteps;
@@ -211,6 +236,9 @@ public class MapScreen implements Screen {
         keysCollected = keyAmount >= KEYS_NEEDED;
     }
 
+    /**
+     *
+     */
     public void changeLevel() {
         if(Save.getCurrentLevel() < 5) {
             level = Save.getCurrentLevel() + 1;
@@ -234,23 +262,44 @@ public class MapScreen implements Screen {
         player.spawn();
         tiledMapRenderer = mapLevel.getTiledMapRenderer();
     }
+
+    /**
+     * @param onSquat
+     * @param onJump
+     */
     public void trapConfirm(final boolean onSquat, final boolean onJump) {
         Gdx.app.log("Button", "created");
         buttonUp = true;
         userInterface.createConfirmButtons(onSquat,onJump);
     }
+
+    /**
+     *
+     */
     public void goToSquatTrap() {
         Gdx.app.log("Down trap", "going to crouching trap");
         game.changeScreen(DungeonEscape.SQUATSCREEN);
     }
+
+    /**
+     *
+     */
     public void goToJumpTrap() {
         Gdx.app.log("Up trap", "going to jumping trap");
         game.changeScreen(DungeonEscape.JUMPSCREEN);
     }
+
+    /**
+     * @param part
+     */
     public void createStoryWindow(int part) {
         Gdx.app.log("Story", "going to story screen");
         story.createStoryPart(part);
     }
+
+    /**
+     * @param tutorial
+     */
     public void createTutorial(int tutorial) {
         mapTutorials.changeTutorialLabel(tutorial);
     }

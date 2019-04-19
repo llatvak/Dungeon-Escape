@@ -12,6 +12,11 @@ import fi.tamk.rentogames.DungeonEscape;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
+/**
+ * @author
+ * @author
+ * @version
+ */
 public class SplashScreen implements Screen {
 
     private final DungeonEscape game;
@@ -26,6 +31,9 @@ public class SplashScreen implements Screen {
     //Test to count switching screen (does not reflect the actual runtime ATM)!
     private float stateTime = 0;
 
+    /**
+     * @param game
+     */
     public SplashScreen(final DungeonEscape game) {
         // Using DungeonEscape class camera to set viewport to stage
         this.game = game;
