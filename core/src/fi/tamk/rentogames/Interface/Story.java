@@ -55,7 +55,7 @@ public class Story {
     public void createStoryTextTwo() {
         textLabel.setText(game.getMyBundle().get("story2"));
         textLabel.setWrap(true);
-        storyBackground = new Texture("story1.png");
+        storyBackground = new Texture("story2.png");
     }
     public void createStoryTextThree() {
         textLabel.setText(game.getMyBundle().get("story3"));
