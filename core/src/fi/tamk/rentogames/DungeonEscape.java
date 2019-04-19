@@ -130,12 +130,14 @@ public class DungeonEscape extends Game {
         //Load sounds
         GameAudio.loadSound("jumpsound.ogg", "jumpsound");
         GameAudio.loadSound("dooropensound.wav", "dooropensound");
-        GameAudio.loadSound("walksound.wav", "walksound");
+        GameAudio.loadSound("walksoundnew.wav", "walksound");
         GameAudio.loadSound("runsound.wav", "runsound");
+        GameAudio.loadSound("keysound.wav", "keysound");
 
         // Load music
         GameAudio.loadMusic("menumusic.ogg", "menumusic");
         GameAudio.loadMusic("mapscreenmusic.ogg", "mapscreenmusic");
+        GameAudio.loadMusic("movescreenmusic.mp3", "movescreenmusic");
 
         changeScreen(MAINMENU);
     }
