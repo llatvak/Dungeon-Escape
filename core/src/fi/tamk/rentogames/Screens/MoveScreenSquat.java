@@ -50,7 +50,7 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
 
         // Arrow trap in squat screen drawn on rectangle
         arrowTexture = new Texture(Gdx.files.internal("arrow.png"));
-        arrowRect = new Rectangle(getGame().gameWidth + arrowTexture.getWidth()/100f, 1.7f, arrowTexture.getWidth()/100f, arrowTexture.getHeight()/100f);
+        arrowRect = new Rectangle(getGame().gameWidth + arrowTexture.getWidth()/100f, 1.8f, arrowTexture.getWidth()/100f, arrowTexture.getHeight()/100f);
     }
 
     /**
@@ -109,10 +109,12 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
 
         // Moves the arrow
         if(getPlayer().getCountedJumps() >= getPlayer().getMovesRequired()) {
-            arrowRect.setX(arrowRect.getX() - 0.1f);
+            arrowRect.setX(arrowRect.getX() - 0.08f);
         }
 
-        if(arrowRect.getX() + arrowRect.getWidth()/100f < getPlayer().getPlayerX() + 4) {
+        if(arrowRect.getX() + arrowRect.getWidth()/100f < getPlayer().getPlayerX() + 2f) {
+            System.out.println("nuoli x + nuolen pituus: " + arrowRect.getX() + arrowRect.getWidth()/100f);
+            System.out.println("pelaaja x + luku: " + getPlayer().getPlayerX() + 11.4f);
             getPlayer().playerDodge();
             if(squatInitialized) {
                 GameAudio.playSound("jumpsound", Save.getCurrentAudioSetting());
@@ -121,7 +123,7 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
         }
 
         // Player runs when arrow is passed
-        if(arrowRect.getX() + arrowRect.getWidth()/100f < getPlayer().getPlayerX() - 1) {
+        if(arrowRect.getX() + arrowRect.getWidth()/100f < getPlayer().getPlayerX() - 2) {
             if(runInitialized) {
                 GameAudio.playSound("runsound", Save.getCurrentAudioSetting());
             }
