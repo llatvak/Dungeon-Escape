@@ -452,6 +452,7 @@ public class MapPlayer extends Sprite {
                     mapScreen.keyAmount++;
                    // mapScreen.updateKeyLabel();
                     if (getBoundingRectangle().overlaps(rectangle)) {
+                        GameAudio.playSound("keysound", Save.getCurrentAudioSetting());
                         clearKeys(rectangle.getX(), rectangle.getY());
                         //TODO Better way to clear rectangle from tiled map object
                         rectangle.setPosition(1,1);

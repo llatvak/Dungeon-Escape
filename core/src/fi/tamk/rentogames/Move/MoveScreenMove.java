@@ -10,6 +10,8 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import fi.tamk.rentogames.DungeonEscape;
 import fi.tamk.rentogames.Framework.Fonts;
+import fi.tamk.rentogames.Framework.GameAudio;
+import fi.tamk.rentogames.Framework.Save;
 import fi.tamk.rentogames.Screens.MapScreen;
 
 /**
@@ -69,6 +71,10 @@ public abstract class MoveScreenMove implements Screen {
         // Setting up fonts
         Fonts fonts = new Fonts();
         fontRoboto = fonts.createMediumFont();
+
+        GameAudio.playMusic("movescreenmusic");
+        GameAudio.setMusicVolume("movescreenmusic", Save.getCurrentAudioSetting());
+        GameAudio.loopMusic("movescreenmusic");
     }
 
     /**

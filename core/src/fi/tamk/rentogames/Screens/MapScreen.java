@@ -350,6 +350,7 @@ public class MapScreen implements Screen {
     public void hide() {
         Gdx.app.log("Mapscreen", "hidden");
         userInterface.setBackButtonInitialized(true);
+        GameAudio.stopMusic("mapscreenmusic");
     }
 
     @Override

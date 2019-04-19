@@ -153,6 +153,7 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
 
     @Override
     public void hide() {
+        GameAudio.stopMusic("movescreenmusic");
         getMapScreen().subtractSteps();
         getGame().setMoveScreenStatus(false);
     }
