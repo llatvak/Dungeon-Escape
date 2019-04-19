@@ -65,7 +65,7 @@ public class MoveScreenUI {
 
         counterLabel = new Label("" + player.getCountedJumps() + "/" + player.getMovesRequired(), skin, "title-white");
         backButton = new ImageButton(skin, "left");
-        skipButton = new TextButton("Skip", skin);
+        skipButton = new TextButton(game.getMyBundle().get("skipbutton"), skin);
 
     }
 
@@ -73,24 +73,21 @@ public class MoveScreenUI {
      *
      */
     public void createUI() {
+        skipButton.setPosition(game.screenWidth - skipButton.getWidth() - 5, game.screenHeight - skipButton.getHeight() - 5);
 
-        // set to true to show skip screen button
-        if(game.testing) {
-            skipButton.setPosition(game.screenWidth - skipButton.getWidth() - 5, game.screenHeight - skipButton.getHeight() - 5);
-
-            skipButton.addListener(new ChangeListener(){
-                @Override
-                public void changed(ChangeListener.ChangeEvent event, Actor actor) {
-                    Gdx.app.log("Screen", "going to mapscreen");
-                    for(int i=0; i<10; i++) {
-                        mapScreen.getMapPlayer().removeMovementPoint();
-                    }
-                    game.setScreen(mapScreen);
+        skipButton.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeListener.ChangeEvent event, Actor actor) {
+                Gdx.app.log("Screen", "going to mapscreen");
+                for(int i=0; i<10; i++) {
+                    mapScreen.getMapPlayer().removeMovementPoint();
                 }
-            });
+                game.setScreen(mapScreen);
+            }
+        });
 
-            stage.addActor(skipButton);
-        }
+        stage.addActor(skipButton);
+
 
         backButton.setPosition(5, game.screenHeight - 45);
         backButton.setSize(35,35);
