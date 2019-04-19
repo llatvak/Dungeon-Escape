@@ -8,12 +8,16 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 
 import fi.tamk.rentogames.DungeonEscape;
 import fi.tamk.rentogames.Framework.GameAudio;
@@ -116,7 +120,7 @@ public class MainMenu implements Screen {
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.log("Info", "pressed");
 
-                // Tänne credits
+                createCreditsWindow();
             }
         });
 
@@ -151,6 +155,8 @@ public class MainMenu implements Screen {
 
         gameInit();
     }
+
+
 
     private void gameInit() {
         final Table mainTable = new Table();
@@ -240,6 +246,51 @@ public class MainMenu implements Screen {
 
         stage.addActor(mainTable);
     }
+
+    private void createCreditsWindow() {
+        Table creditsTable = new Table();
+        final Dialog creditsWindow = new Dialog("Created by:",skin );
+        Texture rentoLogo = new Texture("rentologosmall.png");
+        Image rentoImage = new Image(rentoLogo);
+        Label createdText = new Label(game.getMyBundle().get("createdtext"),skin);
+        createdText.setAlignment(Align.center);
+        createdText.setWrap(true);
+        Label extraText = new Label(game.getMyBundle().get("musicCredits"),skin);
+        extraText.setWrap(true);
+        Label uiskinText = new Label(game.getMyBundle().get("uiskincredits"),skin);
+        uiskinText.setWrap(true);
+        TextButton confirmButton = new TextButton("OK!", skin );
+
+        creditsTable.setDebug(false);
+        creditsTable.add(rentoImage).height(144).width(256);
+        creditsTable.row();
+        creditsTable.add(createdText).width(330);
+        creditsTable.row();
+        creditsTable.add(extraText).width(330).padTop(40);
+        creditsTable.row();
+        creditsTable.add(uiskinText).width(330).padTop(40);
+
+        final ScrollPane scroller = new ScrollPane(creditsTable);
+        final Table table = new Table();
+        table.setFillParent(true);
+        table.add(scroller).fill().expand();
+
+        creditsWindow.setMovable(false);
+        creditsWindow.setModal(true);
+        creditsWindow.setSize(340,620);
+        creditsWindow.setPosition(game.screenWidth / 2 - creditsWindow.getWidth() / 2, 10);
+        creditsWindow.getContentTable().add(table);
+        creditsWindow.button(confirmButton);
+
+        confirmButton.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeEvent event, Actor actor){
+                creditsWindow.remove();
+            }
+        });
+        stage.addActor(creditsWindow);
+    }
+
 
     private void setLocaleFin() {
         gameInit();
