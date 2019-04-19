@@ -240,7 +240,7 @@ public class MapScreen implements Screen {
      *
      */
     public void changeLevel() {
-        if(Save.getCurrentLevel() < 5) {
+        if(Save.getCurrentLevel() < 7) {
             level = Save.getCurrentLevel() + 1;
             GameAudio.playSound("dooropensound", Save.getCurrentAudioSetting());
         } else {

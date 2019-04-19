@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="17" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="16" nextobjectid="30">
+ <tileset firstgid="1" name="Dungeon-tileset" tilewidth="64" tileheight="64" tilecount="32" columns="8">
+  <image source="Dungeon-tileset.png" width="512" height="256"/>
+ </tileset>
+ <layer id="1" name="Walls" width="17" height="17">
+  <data encoding="base64" compression="zlib">
+   eJxjZGBgYMKBBYFYCIiF8ahhBmJOIObCgRnQaHQ2CHNDzWDAIkeJGcQAZHW4zMDnDmQ5cszABmjpDkKAkBnExgsuM7DZNRBmUMMv9ApTQnGLyy58biRkBrawwGYGrIzAhkHlhiQDQwIhNQAlQwac
+  </data>
+ </layer>
+ <layer id="2" name="Road" width="17" height="17">
+  <data encoding="base64" compression="zlib">
+   eJxjYKAtEEGjqWUGMeaJEIGJtRuXO4gBg8kMSsMDm5tIjZfhZAY9wpRUQK7duNxCawAA84oEnQ==
+  </data>
+ </layer>
+ <layer id="3" name="Keys" width="17" height="17">
+  <data encoding="base64" compression="zlib">
+   eJxjYKAtkKGx+aOAemA0rkgHo2FGOQAA4QQAVQ==
+  </data>
+ </layer>
+ <layer id="4" name="Story" width="17" height="17">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIKBAwAEhAAB
+  </data>
+ </layer>
+ <layer id="5" name="SquatTrap" width="17" height="17">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2BwAemBdsAooCsAADjUABw=
+  </data>
+ </layer>
+ <layer id="6" name="JumpTrap" width="17" height="17">
+  <data encoding="base64" compression="zlib">
+   eJxjYBg5QGqgHTDIwGh4UB+MhinpAADDDABP
+  </data>
+ </layer>
+ <layer id="12" name="VisualObjects" width="17" height="17">
+  <data encoding="base64" compression="zlib">
+   eJxjYKA/4B8AO0fBKBgFgxMAAEF0ABA=
+  </data>
+ </layer>
+ <objectgroup color="#0de214" id="8" name="level-change">
+  <object id="2" x="802.667" y="112">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#e8e801" id="13" name="keys">
+  <object id="23" x="481.333" y="105.333">
+   <point/>
+  </object>
+  <object id="24" x="797.333" y="496">
+   <point/>
+  </object>
+  <object id="25" x="286.667" y="809.333">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#fd9a21" id="10" name="squat-trap">
+  <object id="29" x="798.667" y="622.667">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ec182d" id="9" name="jump-trap">
+  <object id="26" x="541.333" y="234.667">
+   <point/>
+  </object>
+  <object id="27" x="548" y="493.333">
+   <point/>
+  </object>
+  <object id="28" x="546.667" y="814.667">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="11" name="story-object"/>
+</map>
