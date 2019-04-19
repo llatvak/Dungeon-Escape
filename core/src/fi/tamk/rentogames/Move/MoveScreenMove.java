@@ -15,9 +15,9 @@ import fi.tamk.rentogames.Framework.Save;
 import fi.tamk.rentogames.Screens.MapScreen;
 
 /**
- * @author
- * @author
- * @version
+ * @author Lauri Latva-Kyyny
+ * @author  Miko Kauhanen
+ * @version 1.0
  */
 public abstract class MoveScreenMove implements Screen {
 

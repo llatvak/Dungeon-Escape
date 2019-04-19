@@ -15,9 +15,9 @@ import fi.tamk.rentogames.Interface.MoveTutorials;
 import fi.tamk.rentogames.Move.MoveScreenMove;
 
 /**
- * @author
- * @author
- * @version
+ * @author Lauri Latva-Kyyny
+ * @author  Miko Kauhanen
+ * @version 1.0
  */
 public class MoveScreenSquat extends MoveScreenMove implements Screen {
 

@@ -15,9 +15,9 @@ import static com.badlogic.gdx.Input.Keys.SPACE;
 //        Gdx.input.setInputProcessor(inputProcessor);
 
 /**
- * @author
- * @author
- * @version
+ * @author Lauri Latva-Kyyny
+ * @author  Miko Kauhanen
+ * @version 1.0
  */
 public class MyInputProcessor implements InputProcessor, Disposable {
 

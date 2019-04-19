@@ -7,9 +7,9 @@ import com.badlogic.gdx.math.MathUtils;
 This class holds general utilities
  */
 /**
- * @author
- * @author
- * @version
+ * @author Lauri Latva-Kyyny
+ * @author  Miko Kauhanen
+ * @version 1.0
  */
 public class Utils {
     // Method for creating a random number

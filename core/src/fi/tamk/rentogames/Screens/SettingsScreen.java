@@ -16,9 +16,9 @@ import fi.tamk.rentogames.DungeonEscape;
 import fi.tamk.rentogames.Framework.Fonts;
 
 /**
- * @author
- * @author
- * @version
+ * @author Lauri Latva-Kyyny
+ * @author  Miko Kauhanen
+ * @version 1.0
  */
 public class SettingsScreen implements Screen {
     private Stage stage;

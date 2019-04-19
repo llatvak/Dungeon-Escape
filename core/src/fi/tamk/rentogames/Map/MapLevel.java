@@ -10,9 +10,9 @@ import fi.tamk.rentogames.DungeonEscape;
 import fi.tamk.rentogames.Framework.Save;
 
 /**
- * @author
- * @author
- * @version
+ * @author Lauri Latva-Kyyny
+ * @author  Miko Kauhanen
+ * @version 1.0
  */
 public class MapLevel implements Disposable {
 

@@ -13,9 +13,9 @@ import fi.tamk.rentogames.DungeonEscape;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
 /**
- * @author
- * @author
- * @version
+ * @author Lauri Latva-Kyyny
+ * @author  Miko Kauhanen
+ * @version 1.0
  */
 public class SplashScreen implements Screen {
 
