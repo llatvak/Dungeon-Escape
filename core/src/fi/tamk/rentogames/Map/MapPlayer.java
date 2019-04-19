@@ -340,6 +340,9 @@ public class MapPlayer extends Sprite {
             if(Save.getCurrentLevel() == 5) {
                 checkObjectCollision(storyObjectTwo);
             }
+
+//            checkObjectCollision(storyObjectOne);
+//            checkObjectCollision(storyObjectTwo);
 //            checkObjectCollision(storyObjectThree);
 //            checkObjectCollision(storyObjectFour);
 //            checkObjectCollision(storyObjectFive);
