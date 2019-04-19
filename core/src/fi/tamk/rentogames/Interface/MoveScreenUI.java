@@ -16,9 +16,9 @@ import fi.tamk.rentogames.Screens.MoveScreenJump;
 import fi.tamk.rentogames.Screens.MoveScreenSquat;
 
 /**
- * @author
- * @author
- * @version
+ * @author Lauri Latva-Kyyny
+ * @author  Miko Kauhanen
+ * @version 1.0
  */
 public class MoveScreenUI {
 

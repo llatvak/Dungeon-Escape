@@ -21,9 +21,9 @@ import fi.tamk.rentogames.Screens.SettingsScreen;
 import fi.tamk.rentogames.Screens.SplashScreen;
 
 /**
- * @author
- * @author
- * @version
+ * @author Lauri Latva-Kyyny
+ * @author  Miko Kauhanen
+ * @version 1.0
  */
 public class DungeonEscape extends Game {
     /**

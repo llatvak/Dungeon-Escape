@@ -8,9 +8,9 @@ import com.badlogic.gdx.utils.Disposable;
 import java.util.HashMap;
 
 /**
- * @author
- * @author
- * @version
+ * @author Lauri Latva-Kyyny
+ * @author  Miko Kauhanen
+ * @version 1.0
  */
 public class GameAudio implements Disposable {
 
@@ -52,14 +52,6 @@ public class GameAudio implements Disposable {
      */
     public static void playSound(String name, float volume) {
         sounds.get(name).play(volume);
-    }
-
-    public static void loopSound(String name) {
-        sounds.get(name).loop();
-    }
-
-    public static void stopSound(String name) {
-        sounds.get(name).stop();
     }
 
     /**

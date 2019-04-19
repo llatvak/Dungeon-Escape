@@ -19,9 +19,9 @@ import fi.tamk.rentogames.Map.MapLevel;
 import fi.tamk.rentogames.Map.MapPlayer;
 
 /**
- * @author
- * @author
- * @version
+ * @author Lauri Latva-Kyyny
+ * @author  Miko Kauhanen
+ * @version 1.0
  */
 public class MapScreen implements Screen {
 

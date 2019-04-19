@@ -15,9 +15,9 @@ import fi.tamk.rentogames.Interface.MoveTutorials;
 import fi.tamk.rentogames.Move.MoveScreenMove;
 
 /**
- * @author
- * @author
- * @version
+ * @author Lauri Latva-Kyyny
+ * @author  Miko Kauhanen
+ * @version 1.0
  */
 public class MoveScreenSquat extends MoveScreenMove implements Screen {
 
@@ -50,7 +50,7 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
 
         // Arrow trap in squat screen drawn on rectangle
         arrowTexture = new Texture(Gdx.files.internal("arrow.png"));
-        arrowRect = new Rectangle(getGame().gameWidth + arrowTexture.getWidth()/100f, 1.7f, arrowTexture.getWidth()/100f, arrowTexture.getHeight()/100f);
+        arrowRect = new Rectangle(getGame().gameWidth + arrowTexture.getWidth()/100f, 1.8f, arrowTexture.getWidth()/100f, arrowTexture.getHeight()/100f);
     }
 
     /**
@@ -109,10 +109,10 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
 
         // Moves the arrow
         if(getPlayer().getCountedJumps() >= getPlayer().getMovesRequired()) {
-            arrowRect.setX(arrowRect.getX() - 0.1f);
+            arrowRect.setX(arrowRect.getX() - 0.08f);
         }
 
-        if(arrowRect.getX() + arrowRect.getWidth()/100f < getPlayer().getPlayerX() + 4) {
+        if(arrowRect.getX() + arrowRect.getWidth()/100f < getPlayer().getPlayerX() + 2f) {
             getPlayer().playerDodge();
             if(squatInitialized) {
                 GameAudio.playSound("jumpsound", Save.getCurrentAudioSetting());
@@ -121,7 +121,7 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
         }
 
         // Player runs when arrow is passed
-        if(arrowRect.getX() + arrowRect.getWidth()/100f < getPlayer().getPlayerX() - 1) {
+        if(arrowRect.getX() + arrowRect.getWidth()/100f < getPlayer().getPlayerX() - 2) {
             if(runInitialized) {
                 GameAudio.playSound("runsound", Save.getCurrentAudioSetting());
             }
