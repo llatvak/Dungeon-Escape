@@ -184,7 +184,7 @@ public class MapTutorials {
     public void createKeysTutorialWindow(){
         Gdx.app.log("Tutorial", "character movement");
         Table textTable = new Table();
-        Texture keyTexture = new Texture("tutorialkey.png");
+        Texture keyTexture = new Texture("tutorialkeys.png");
         ImageButton keyImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(keyTexture)));
         Dialog tutorialWindow = new Dialog(getDialogTitle(),skin );
         TextButton confirmButton = new TextButton("OK!", skin );
