@@ -15,6 +15,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import fi.tamk.rentogames.DungeonEscape;
 import fi.tamk.rentogames.Framework.Fonts;
 
+/**
+ * @author
+ * @author
+ * @version
+ */
 public class SettingsScreen implements Screen {
     private Stage stage;
     private DungeonEscape game;
@@ -24,6 +29,9 @@ public class SettingsScreen implements Screen {
 
     BitmapFont fontRoboto;
 
+    /**
+     * @param game
+     */
     public SettingsScreen(DungeonEscape game) {
         this.game = game;
         onCreate();

@@ -11,6 +11,11 @@ import fi.tamk.rentogames.Interface.MoveScreenUI;
 import fi.tamk.rentogames.Interface.MoveTutorials;
 import fi.tamk.rentogames.Move.MoveScreenMove;
 
+/**
+ * @author
+ * @author
+ * @version
+ */
 public class MoveScreenJump extends MoveScreenMove implements Screen {
 
     private MoveScreenUI userInterface;
@@ -24,6 +29,10 @@ public class MoveScreenJump extends MoveScreenMove implements Screen {
     private float spikeWidth;
     private float spikeHeight;
 
+    /**
+     * @param game
+     * @param mapScreen
+     */
     public MoveScreenJump(DungeonEscape game, MapScreen mapScreen) {
         super(game, mapScreen);
         onCreate();

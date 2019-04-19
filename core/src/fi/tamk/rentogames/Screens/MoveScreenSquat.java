@@ -14,6 +14,11 @@ import fi.tamk.rentogames.Interface.MoveScreenUI;
 import fi.tamk.rentogames.Interface.MoveTutorials;
 import fi.tamk.rentogames.Move.MoveScreenMove;
 
+/**
+ * @author
+ * @author
+ * @version
+ */
 public class MoveScreenSquat extends MoveScreenMove implements Screen {
 
     private MoveScreenUI userInterface;
@@ -24,9 +29,13 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
     private Texture arrowTexture;
     private Rectangle arrowRect;
 
-    boolean squatInitialized = true;
-    boolean runInitialized = true;
+    private boolean squatInitialized = true;
+    private boolean runInitialized = true;
 
+    /**
+     * @param game
+     * @param mapScreen
+     */
     public MoveScreenSquat(DungeonEscape game, MapScreen mapScreen) {
         super(game, mapScreen);
         onCreate();
@@ -44,6 +53,9 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
         arrowRect = new Rectangle(getGame().gameWidth + arrowTexture.getWidth()/100f, 1.7f, arrowTexture.getWidth()/100f, arrowTexture.getHeight()/100f);
     }
 
+    /**
+     *
+     */
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);

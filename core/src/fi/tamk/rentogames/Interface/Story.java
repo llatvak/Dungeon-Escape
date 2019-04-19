@@ -15,6 +15,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import fi.tamk.rentogames.DungeonEscape;
 
+/**
+ * @author
+ * @author
+ * @version
+ */
 public class Story {
 
     private DungeonEscape game;
@@ -23,6 +28,10 @@ public class Story {
     private Texture storyBackground;
     private Stage stage;
 
+    /**
+     * @param game
+     * @param userInterface
+     */
     public Story(DungeonEscape game,MapScreenUI userInterface) {
         this.skin = new Skin(Gdx.files.internal("uiskin.json"));
         this.game = game;
@@ -31,6 +40,9 @@ public class Story {
         textLabel.setColor(1,1,1,1);
     }
 
+    /**
+     * @param tutorial
+     */
     public void createStoryPart(int tutorial) {
         switch(tutorial) {
             case 1: createStoryTextOne();

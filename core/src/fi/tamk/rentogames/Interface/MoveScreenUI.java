@@ -15,6 +15,11 @@ import fi.tamk.rentogames.Screens.MapScreen;
 import fi.tamk.rentogames.Screens.MoveScreenJump;
 import fi.tamk.rentogames.Screens.MoveScreenSquat;
 
+/**
+ * @author
+ * @author
+ * @version
+ */
 public class MoveScreenUI {
 
     // set this to true to see debug lines
@@ -34,6 +39,11 @@ public class MoveScreenUI {
     private Label exerciseLabel;
     private TextButton skipButton;
 
+    /**
+     * @param game
+     * @param player
+     * @param mapScreen
+     */
     public MoveScreenUI(DungeonEscape game, MoveScreenPlayer player, MapScreen mapScreen) {
         this.game = game;
         this.player = player;
@@ -58,6 +68,10 @@ public class MoveScreenUI {
         skipButton = new TextButton("Skip", skin);
 
     }
+
+    /**
+     *
+     */
     public void createUI() {
 
         // set to true to show skip screen button
@@ -97,6 +111,9 @@ public class MoveScreenUI {
         stage.addActor(counterLabel);
     }
 
+    /**
+     *
+     */
     public void updateCounterLabel() {
         counterLabel.setText("" + player.getCountedJumps() + "/" + player.getMovesRequired());
     }
@@ -105,6 +122,9 @@ public class MoveScreenUI {
         return this.stage;
     }
 
+    /**
+     *
+     */
     public void dispose(){
         //stage.dispose();
         skin.dispose();

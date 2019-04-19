@@ -21,6 +21,11 @@ import fi.tamk.rentogames.Screens.MapScreen;
 
 import static fi.tamk.rentogames.Screens.MapScreen.KEYS_NEEDED;
 
+/**
+ * @author
+ * @author
+ * @version
+ */
 public class MapScreenUI {
 
     private boolean debugUI = false;
@@ -65,6 +70,11 @@ public class MapScreenUI {
     private boolean buttonUp;
     private boolean backButtonInitialized = false;
 
+    /**
+     * @param game
+     * @param mapScreen
+     * @param player
+     */
     public MapScreenUI(DungeonEscape game, MapScreen mapScreen, MapPlayer player){
         this.game = game;
         this.mapScreen = mapScreen;
@@ -107,6 +117,9 @@ public class MapScreenUI {
         // stepsProgressBar.setAnimateDuration(0.5f);
     }
 
+    /**
+     *
+     */
     public void createUI() {
         //Create Table
         Table topTable = new Table();
@@ -198,6 +211,10 @@ public class MapScreenUI {
         stage.addActor(controlsTable);
     }
 
+    /**
+     * @param onSquat
+     * @param onJump
+     */
     public void createConfirmButtons(final boolean onSquat, final boolean onJump){
         Gdx.app.log("Button", "created");
         buttonUp = true;
@@ -265,6 +282,9 @@ public class MapScreenUI {
         });
     }
 
+    /**
+     * @return
+     */
     public boolean isButtonUp() {
         return buttonUp;
     }
@@ -283,6 +303,9 @@ public class MapScreenUI {
         updateProgressBar();
     }
 
+    /**
+     *
+     */
     public void updateProgressBar() {
         stepsProgressBar.setValue(progressbarValue);
     }
@@ -290,6 +313,9 @@ public class MapScreenUI {
     public boolean redMovesIcon = false;
     public boolean whitesMovesIcon = false;
 
+    /**
+     *
+     */
     public void setOutOfMovesIcon() {
         if(!redMovesIcon) {
             movesImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(movesOutArrowTexture)));
@@ -299,6 +325,9 @@ public class MapScreenUI {
         }
     }
 
+    /**
+     *
+     */
     public void setMovesIcon() {
         if(!whitesMovesIcon) {
             movesImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(movesArrowTexture)));
@@ -308,14 +337,23 @@ public class MapScreenUI {
         }
     }
 
+    /**
+     *
+     */
     public void updateMovesLabel() {
         movesLabel.setText("" + player.movementPoints);
     }
 
+    /**
+     *
+     */
     public void updateStepsLabel() {
         stepLabel.setText("" + mapScreen.getStepTotal());
     }
 
+    /**
+     *
+     */
     public void updateKeyLabel() {
         keyLabel.setText("" + mapScreen.getKeyAmount() + "/" + KEYS_NEEDED);
     }
@@ -324,10 +362,16 @@ public class MapScreenUI {
         return stage;
     }
 
+    /**
+     * @param initialized
+     */
     public void setBackButtonInitialized(boolean initialized) {
         backButtonInitialized = initialized;
     }
 
+    /**
+     *
+     */
     public void dispose(){
         stage.dispose();
         skin.dispose();

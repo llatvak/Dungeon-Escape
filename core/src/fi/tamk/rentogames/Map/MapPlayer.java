@@ -16,6 +16,11 @@ import fi.tamk.rentogames.Framework.GameAudio;
 import fi.tamk.rentogames.Framework.Save;
 import fi.tamk.rentogames.Screens.MapScreen;
 
+/**
+ * @author
+ * @author
+ * @version
+ */
 public class MapPlayer extends Sprite {
     private MapScreen mapScreen;
     private TiledMap tiledMap;
@@ -41,6 +46,9 @@ public class MapPlayer extends Sprite {
     private float spriteY = startingY;
 
     // Movement direction
+    /**
+     *
+     */
     public boolean moving;
     private String currentDirection;
     private boolean goUp;
@@ -49,9 +57,18 @@ public class MapPlayer extends Sprite {
     private boolean goLeft;
 
     // Amount of steps to move one tile
+    /**
+     *
+     */
     public final int STEPSTOMOVE = 10;
     public final int ADDEDPOINTS = 5;
+    /**
+     *
+     */
     public int movementPoints;
+    /**
+     *
+     */
     public boolean allowMovement;
     private float movementSpeed = 4f;
     private float movedDistance;
@@ -83,6 +100,10 @@ public class MapPlayer extends Sprite {
     private Texture playerRight;
     private Texture playerLeft;
 
+    /**
+     * @param mapScreen
+     * @param mapLevel
+     */
     public MapPlayer(MapScreen mapScreen, MapLevel mapLevel) {
         playerDown = new Texture("playerdown.png");
         playerUp = new Texture("playerup.png");
@@ -121,12 +142,18 @@ public class MapPlayer extends Sprite {
         this.tiledMap = mapLevel.getCurrentMap();
     }
 
+    /**
+     *
+     */
     public void spawn() {
         spriteX = startingX;
         spriteY = startingY;
         setPosition(spriteX,spriteY);
     }
 
+    /**
+     *
+     */
     // Can this method be reduced in size?
     public void move(){
         if(goDown) {
@@ -225,17 +252,26 @@ public class MapPlayer extends Sprite {
         Save.saveMovementPoints(movementPoints);
     }
 
+    /**
+     *
+     */
     public void addMovementPoints() {
         Gdx.app.log("Movementpoint", "added");
         movementPoints = movementPoints + ADDEDPOINTS;
         Save.saveMovementPoints(movementPoints);
     }
 
+    /**
+     * @param points
+     */
     public void addMultipleMovementPoints(int points) {
         movementPoints = movementPoints + points * ADDEDPOINTS;
         Save.saveMovementPoints(movementPoints);
     }
 
+    /**
+     *
+     */
     public void removeMovementPoint() {
         if(movementPoints > 0) {
             movementPoints --;
@@ -243,6 +279,9 @@ public class MapPlayer extends Sprite {
         }
     }
 
+    /**
+     *
+     */
     public void removeMultipleMovementPoints() {
         if(movementPoints > 0) {
             if(movementPoints >= ADDEDPOINTS) {
@@ -255,28 +294,43 @@ public class MapPlayer extends Sprite {
         }
     }
 
+    /**
+     *
+     */
     public void checkAllowedMoves() {
         allowMovement = movementPoints > 0;
     }
 
+    /**
+     *
+     */
     public void setLeftMove() {
         goLeft = true;
         moving = true;
         GameAudio.playSound("walksound", Save.getCurrentAudioSetting());
     }
 
+    /**
+     *
+     */
     public void setRightMove() {
         goRight = true;
         moving = true;
         GameAudio.playSound("walksound", Save.getCurrentAudioSetting());
     }
 
+    /**
+     *
+     */
     public void setDownMove() {
         goDown = true;
         moving = true;
         GameAudio.playSound("walksound", Save.getCurrentAudioSetting());
     }
 
+    /**
+     *
+     */
     public void setUpMove() {
         goUp = true;
         moving = true;
@@ -455,6 +509,9 @@ public class MapPlayer extends Sprite {
         return currentDirection;
     }
 
+    /**
+     *
+     */
     public void moveToPreviousTile() {
         if(currentDirection.equals("up")) {
             System.out.println(movedDistance);
@@ -476,10 +533,16 @@ public class MapPlayer extends Sprite {
         }
     }
 
+    /**
+     * @return
+     */
     public Texture getPlayerUpTexture() {
         return playerUp;
     }
 
+    /**
+     *
+     */
     public void dispose() {
         getTexture().dispose();
         playerDown.dispose();

@@ -9,9 +9,14 @@ import com.badlogic.gdx.utils.Disposable;
 import fi.tamk.rentogames.DungeonEscape;
 import fi.tamk.rentogames.Framework.Save;
 
+/**
+ * @author
+ * @author
+ * @version
+ */
 public class MapLevel implements Disposable {
 
-    DungeonEscape game;
+    private DungeonEscape game;
 
     private TiledMap tiledMap;
 
@@ -20,6 +25,9 @@ public class MapLevel implements Disposable {
 
     private int level = 1;
 
+    /**
+     * @param game
+     */
     public MapLevel(DungeonEscape game) {
         this.game = game;
         onCreate();
@@ -30,12 +38,18 @@ public class MapLevel implements Disposable {
         createTiledMap();
     }
 
+    /**
+     *
+     */
     public void createTiledMap() {
         tiledMap = new TmxMapLoader().load("map"+level+".tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1/100f);
         currentMap = tiledMap;
     }
 
+    /**
+     *
+     */
     public void resetMap(){
         Gdx.app.log("MapLevel", "reset");
         // reset all the vars that should be reset before the next mapLevel

@@ -19,6 +19,11 @@ import fi.tamk.rentogames.DungeonEscape;
 import fi.tamk.rentogames.Framework.GameAudio;
 import fi.tamk.rentogames.Framework.Save;
 
+/**
+ * @author
+ * @author
+ * @version
+ */
 public class MainMenu implements Screen {
 
     private Stage stage;
@@ -27,10 +32,16 @@ public class MainMenu implements Screen {
     private  Texture background;
     private Skin skin;
 
+    /**
+     *
+     */
     private static boolean resetButtonInitialized = false;
     private boolean soundButtonInitialized = false;
 
 
+    /**
+     * @param game
+     */
     public MainMenu(DungeonEscape game) {
         this.game = game;
         onCreate();
@@ -238,10 +249,16 @@ public class MainMenu implements Screen {
         gameInit();
     }
 
+    /**
+     * @return
+     */
     public static Boolean getResetButtonInitialized() {
         return resetButtonInitialized;
     }
 
+    /**
+     * @param reset
+     */
     public static void setResetButtonInitialized(boolean reset) {
         resetButtonInitialized = reset;
     }
