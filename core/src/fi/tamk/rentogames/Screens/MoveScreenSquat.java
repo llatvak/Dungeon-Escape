@@ -113,8 +113,6 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
         }
 
         if(arrowRect.getX() + arrowRect.getWidth()/100f < getPlayer().getPlayerX() + 2f) {
-            System.out.println("nuoli x + nuolen pituus: " + arrowRect.getX() + arrowRect.getWidth()/100f);
-            System.out.println("pelaaja x + luku: " + getPlayer().getPlayerX() + 11.4f);
             getPlayer().playerDodge();
             if(squatInitialized) {
                 GameAudio.playSound("jumpsound", Save.getCurrentAudioSetting());
