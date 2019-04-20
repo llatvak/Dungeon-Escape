@@ -17,7 +17,6 @@ import fi.tamk.rentogames.Screens.MainMenu;
 import fi.tamk.rentogames.Screens.MapScreen;
 import fi.tamk.rentogames.Screens.MoveScreenJump;
 import fi.tamk.rentogames.Screens.MoveScreenSquat;
-import fi.tamk.rentogames.Screens.SettingsScreen;
 import fi.tamk.rentogames.Screens.SplashScreen;
 
 /**
@@ -200,13 +199,6 @@ public class DungeonEscape extends Game {
                 MainMenu mainMenu = new MainMenu(this);
                 setScreen(mainMenu);
                 break;
-
-            case SETTINGSSCREEN:
-                activeScreen = SETTINGSSCREEN;
-                SettingsScreen settingsScreen = new SettingsScreen(this);
-                setScreen(settingsScreen);
-                break;
-
             case MAPSCREEN:
                 activeScreen = MAPSCREEN;
                 mapScreen = new MapScreen(this);

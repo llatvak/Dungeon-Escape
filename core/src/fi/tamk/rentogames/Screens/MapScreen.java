@@ -26,7 +26,7 @@ import fi.tamk.rentogames.Map.MapPlayer;
  * Implements interface screen which is used to switch screens when necessary.
  *</p>
  *
- * @author  Miko Kauhanen
+ * @author Miko Kauhanen
  * @author Lauri Latva-Kyyny
  * @version 1.0
  */
