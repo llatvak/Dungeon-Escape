@@ -22,8 +22,11 @@ import fi.tamk.rentogames.Screens.MapScreen;
 import static fi.tamk.rentogames.Screens.MapScreen.KEYS_NEEDED;
 
 /**
+ *
+ *
+ *
+ * @author Miko Kauhanen
  * @author Lauri Latva-Kyyny
- * @author  Miko Kauhanen
  * @version 1.0
  */
 public class MapScreenUI {

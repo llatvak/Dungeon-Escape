@@ -80,7 +80,7 @@ public class MoveScreenUI {
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
                 Gdx.app.log("Screen", "going to mapscreen");
                 for(int i=0; i<10; i++) {
-                    mapScreen.getMapPlayer().removeMovementPoint();
+                    mapScreen.getMapPlayer().removeOneMovementPoint();
                 }
                 game.setScreen(mapScreen);
             }

@@ -122,9 +122,9 @@ public class MapScreen implements Screen {
      * Constructor that receives the main game class.
      *
      *<p>
-     * Receives the main game class {@link DungeonEscape}. Calls create method.
+     * Receives the main game object {@link DungeonEscape}. Calls create method.
      *</p>
-     * @param game main game class
+     * @param game main game object
      */
     public MapScreen(DungeonEscape game) {
         this.game = game;
@@ -147,7 +147,7 @@ public class MapScreen implements Screen {
         mapTutorials = new MapTutorials(game, userInterface);
         story = new Story(game, userInterface);
         stage = userInterface.getStage();
-        //countMovementPointsOnRender();
+        //addMovementPointsOnRender();
     }
 
     /**
@@ -160,14 +160,17 @@ public class MapScreen implements Screen {
      *</p>
      */
     private void update() {
-        countMovementPointsOnRender();
+        // Adds movement points
+        addMovementPointsOnRender();
+        // Checks if player can move
         player.checkAllowedMoves();
 
-        // If no button is up check player movement
+        // If no button is up allow player movement
         if(!userInterface.isButtonUp()) {
             player.move();
         }
 
+        // Sets
         int oldStepTotal = stepTotal;
         stepTotal = game.getStepCount();
 
@@ -188,15 +191,6 @@ public class MapScreen implements Screen {
         }
     }
 
-    /**
-     * Renders screen.
-     *
-     *<p>
-     * Draws all screen elements from screen camera and game camera.
-     * Checks camera movement, acts stage actors. Calls user interaction method.
-     *</p>
-     * @param delta time since last frame
-     */
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 0);
@@ -249,7 +243,7 @@ public class MapScreen implements Screen {
      * Only allows one movement point addition until one step is added.
      *</p>
      */
-    private void countMovementPointsOnRender() {
+    private void addMovementPointsOnRender() {
         // Checks if total step amount is divisible by the amount needed to move
         if(stepTotal > 0) {
             if(stepTotal % player.STEPSTOMOVE == 0 && !pointAdded) {
@@ -280,7 +274,7 @@ public class MapScreen implements Screen {
         int pointsToAdd;
 
         pointsToAdd = stepsWhilePaused / player.STEPSTOMOVE;
-        player.addMultipleMovementPoints(pointsToAdd);
+        player.addMovementPoints(pointsToAdd);
     }
 
     /**
@@ -441,7 +435,6 @@ public class MapScreen implements Screen {
         GameAudio.playMusic("mapscreenmusic");
         GameAudio.setMusicVolume("mapscreenmusic", Save.getCurrentAudioSetting());
         GameAudio.loopMusic("mapscreenmusic");
-        System.out.println("showi");
         InputMultiplexer multiplexer = new InputMultiplexer();
         MyInputProcessor inputProcessor = new MyInputProcessor(player);
         multiplexer.addProcessor(stage);
@@ -450,6 +443,7 @@ public class MapScreen implements Screen {
 
         userInterface.createUI();
     }
+
     @Override
     public void hide() {
         Gdx.app.log("Mapscreen", "hidden");
