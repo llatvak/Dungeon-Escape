@@ -15,9 +15,18 @@ import fi.tamk.rentogames.Framework.Save;
 import fi.tamk.rentogames.Screens.MapScreen;
 
 /**
+ * Abstract class to hold all common variables and methods for move screens.
+ *
+ * <p>
+ * Used for creating Box2D world and player to each move screen.
+ * Generates background music and camera to each move screen.
+ * Implements interface screen which is used to switch screens when necessary.
+ * </p>
+ *
  * @author Lauri Latva-Kyyny
  * @author  Miko Kauhanen
  * @version 1.0
+ * @see <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/Screen.html">https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/Screen.html</a>
  */
 public abstract class MoveScreenMove implements Screen {
 
@@ -43,8 +52,17 @@ public abstract class MoveScreenMove implements Screen {
     private BitmapFont fontRoboto;
 
     /**
-     * @param game
-     * @param mapScreen
+     * Constructor that receives the game and map screen {@link MapScreen}.
+     *
+     * <p>
+     * Receives the game and map screen screen from main class {@link DungeonEscape}.
+     * Map screen is used to switch the screen back and game is used to access
+     * Uses screen interface to generate move screens.
+     * Calls create method to create all variables needed to generate move screens.
+     * </p>
+     *
+     * @param game current game received from main class
+     * @param mapScreen map screen received from main class to switch screens
      */
     public MoveScreenMove(DungeonEscape game, MapScreen mapScreen) {
         // Current game and screen
@@ -78,7 +96,13 @@ public abstract class MoveScreenMove implements Screen {
     }
 
     /**
+     * Enables debug for Box2D bodies.
      *
+     * <p>
+     * If variable debug physics is true renders the debug shapes else continues without rendering.
+     * </p>
+     *
+     * @see <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Box2DDebugRenderer.html"> https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Box2DDebugRenderer.html> </a>
      */
     public void debug() {
         // Is script working correctly
@@ -125,7 +149,6 @@ public abstract class MoveScreenMove implements Screen {
         return backgroundTexture;
     }
 
-
     public MoveScreenPlayer getPlayer() {
         return player;
     }
@@ -134,16 +157,23 @@ public abstract class MoveScreenMove implements Screen {
         return fontRoboto;
     }
 
-
     public MapScreen getMapScreen() {
         return mapScreen;
     }
 
-
     /**
-     * @param deltaTime
+     * Updates the world with steps
+     *
+     * <p>
+     * Calls the step several times with fixed value.
+     * When game renders slowly stays in while loop longer and when game runs
+     * faster stays less in loop.
+     * </p>
+     *
+     * @param deltaTime how long was it from last render call
      */
     public void doPhysicsStep(float deltaTime) {
+        // Current frame rate in game
         float TIME_STEP = 1/60f;
         float frameTime = deltaTime;
         if(deltaTime > 1/4f) {

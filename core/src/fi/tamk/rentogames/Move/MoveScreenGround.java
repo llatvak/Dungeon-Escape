@@ -6,6 +6,14 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 /**
+ * Creates Box2D body that is used as a ground.
+ *
+ * <p>
+ * Creates definitions and shape for Box2D object that covers the whole
+ * bottom of the game screen.
+ * Used as a ground to stop player falling out of the screen.
+ * </p>
+ *
  * @author Lauri Latva-Kyyny
  * @author  Miko Kauhanen
  * @version 1.0
@@ -14,14 +22,21 @@ public class MoveScreenGround {
     private float gameWidth;
 
     /**
-     * @param w
-     * @param gW
+     * Constructor that creates the body to the world.
+     *
+     * <p>
+     * Creates the body using received game width and world.
+     * Calls methods to set body ground body definition and fixture.
+     * </p>
+     *
+     * @param boxWorld receives box2d world from {@link MoveScreenMove} to create body
+     * @param gameScreenWidth uses game width in metrics from main class to set the floor
      */
-    public MoveScreenGround(World w, Float gW) {
+    public MoveScreenGround(World boxWorld, Float gameScreenWidth) {
         // Current world
-        gameWidth = gW;
+        gameWidth = gameScreenWidth;
         // Creates body to world and gets definitions and fixtures to it
-        Body groundBody = w.createBody(getGroundBodyDef());
+        Body groundBody = boxWorld.createBody(getGroundBodyDef());
         groundBody.createFixture(getGroundShape(), 0.0f);
     }
 
