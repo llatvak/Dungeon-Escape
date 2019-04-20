@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
@@ -19,97 +18,161 @@ import fi.tamk.rentogames.Map.MapLevel;
 import fi.tamk.rentogames.Map.MapPlayer;
 
 /**
- * @author Lauri Latva-Kyyny
+ * Brings together all the elements and renders map screen.
+ *
+ *<p>
+ * Renders tiled map, story and tutorial windows, player character and user interface.
+ * Counts the movement points from the step count and displays both in UI.
+ * Implements interface screen which is used to switch screens when necessary.
+ *</p>
+ *
  * @author  Miko Kauhanen
+ * @author Lauri Latva-Kyyny
  * @version 1.0
  */
 public class MapScreen implements Screen {
 
+    /**
+     * Main game class
+     */
     private DungeonEscape game;
+
+    /**
+     * Player character
+     */
     private MapPlayer player;
+
+    /**
+     * Tiled map level
+     */
     private MapLevel mapLevel;
+
+    /**
+     * User interface
+     */
     private MapScreenUI userInterface;
+
+    /**
+     * Tutorial windows
+     */
     private MapTutorials mapTutorials;
+
+    /**
+     * Story windows
+     */
     private Story story;
-    private boolean paused;
 
-    // Map
-    private TiledMap tiledMap;
-    private OrthogonalTiledMapRenderer tiledMapRenderer;
-
+    /**
+     * Stage for user interface elements
+     */
     private Stage stage;
 
+    /**
+     * Renderer for tiled maps
+     */
+    private OrthogonalTiledMapRenderer tiledMapRenderer;
+
+    /**
+     * Total step amount
+     */
     private int stepTotal;
-    private int oldStepTotal;
+
+    /**
+     * Step amount when game rendering is paused
+     */
     private int pauseSteps;
-    private int stepsToPoint;
+
+    /**
+     * Has movement point been added
+     */
     private boolean pointAdded;
+
+    /**
+     * Step amount when point is added
+     */
     private int stepsDuringPointsAdd;
 
-    private int level = 1;
     /**
-     *
+     * Current level. Starts from first level.
+     */
+    private int level = 1;
+
+    /**
+     * Amount of collectable keys needed to progress to next level
      */
     public static final int KEYS_NEEDED = 3;
 
     /**
-     *
+     * Current collected key amount
      */
     public int keyAmount;
+
     /**
-     *
+     * Whether all required keys have been collected
      */
-    public boolean keysCollected = true;
+    public boolean keysCollected;
 
     /**
-     *
+     * Are trap confirmation buttons up
      */
-    public boolean buttonUp;
+    public boolean trapButtonsUp;
 
 
     /**
-     * @param game
+     * Constructor that receives the main game class.
+     *
+     *<p>
+     * Receives the main game class {@link DungeonEscape}. Calls create method.
+     *</p>
+     * @param game main game class
      */
     public MapScreen(DungeonEscape game) {
         this.game = game;
         onCreate();
     }
+
+    /**
+     * Creates necessary objects for this screen when it is created.
+     *
+     *<p>
+     * Creates new level, map renderer, player, user interface, tutorials and story windows.
+     *</p>
+     */
     private void onCreate() {
-        System.out.println("create");
         mapLevel = new MapLevel(game);
-        tiledMap = mapLevel.getCurrentMap();
         tiledMapRenderer = mapLevel.getTiledMapRenderer();
+
         player = new MapPlayer(this, mapLevel);
         userInterface = new MapScreenUI(game, this, player);
         mapTutorials = new MapTutorials(game, userInterface);
         story = new Story(game, userInterface);
         stage = userInterface.getStage();
-        countMovementPointsOnRender();
-        // userInterface.updateProgressBar();
-        // stepTotal = Save.getProgressBarValue();
+        //countMovementPointsOnRender();
     }
 
+    /**
+     * Calls user interaction methods during render call.
+     *
+     *<p>
+     * Updates movement points count, step amount, key amount.
+     * Checks whether player has moved and colliding with any tiled map objects.
+     * Updates UI elements with changing values and icons.
+     *</p>
+     */
     private void update() {
         countMovementPointsOnRender();
         player.checkAllowedMoves();
-        //input();
+
+        // If no button is up check player movement
         if(!userInterface.isButtonUp()) {
             player.move();
         }
 
-        //  int stepDelta;
-        oldStepTotal = stepTotal;
+        int oldStepTotal = stepTotal;
         stepTotal = game.getStepCount();
+
         if(stepTotal > oldStepTotal) {
-            System.out.println("Actual steps: " + game.getStepCount());
-            //  stepDelta = stepTotal - oldStepTotal
-            //  stepsToPoint++;
             userInterface.updateStepsLabel();
-//            userInterface.addProgressBarValue(stepDelta);
-//            if(userInterface.getProgressbarValue() % player.STEPSTOMOVE == 0) {
-//                userInterface.resetProgressBar();
-//            }
-//            Save.saveCurrentProgressbar(userInterface.getProgressbarValue());
         }
         checkKeyAmount();
         player.checkCollisions();
@@ -125,22 +188,15 @@ public class MapScreen implements Screen {
         }
     }
 
-    public void input() {
-        int screenWidthHalf = Gdx.graphics.getWidth() / 2;
-        int screenHeightHalf = Gdx.graphics.getHeight() / 2;
-
-        if(Gdx.input.isTouched()) {
-            System.out.println(screenWidthHalf - Gdx.input.getY());
-            if(!player.moving && player.allowMovement && Gdx.input.getY()  < 280) {
-                player.setUpMove();
-            }
-
-            if(!player.moving && player.allowMovement && Gdx.input.getY()  > 350) {
-                player.setDownMove();
-            }
-        }
-    }
-
+    /**
+     * Renders screen.
+     *
+     *<p>
+     * Draws all screen elements from screen camera and game camera.
+     * Checks camera movement, acts stage actors. Calls user interaction method.
+     *</p>
+     * @param delta time since last frame
+     */
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 0);
@@ -151,7 +207,7 @@ public class MapScreen implements Screen {
         // Render all layers to screen.
         tiledMapRenderer.render();
 
-        // View font camera
+        // View screen camera
         game.batch.setProjectionMatrix(game.getScreenCamera().combined);
 
         game.batch.begin();
@@ -172,20 +228,33 @@ public class MapScreen implements Screen {
         stage.draw();
     }
 
+    /**
+     * Moves current camera.
+     *
+     *<p>
+     * Centers camera's x and y position to player's position.
+     *</p>
+     */
     private void moveCamera() {
         game.getGameCamera().position.x = player.getX()/100f + 32f/100f;
         game.getGameCamera().position.y = player.getY()/100f + 32f/100f;
         game.getGameCamera().update();
     }
 
+    /**
+     * Adds movement points when over the threshold.
+     *
+     *<p>
+     * Adds movement points every time step amount is divisible by ten.
+     * Only allows one movement point addition until one step is added.
+     *</p>
+     */
     private void countMovementPointsOnRender() {
         // Checks if total step amount is divisible by the amount needed to move
         if(stepTotal > 0) {
             if(stepTotal % player.STEPSTOMOVE == 0 && !pointAdded) {
                 stepsDuringPointsAdd = stepTotal;
-                stepsToPoint = 0;
                 player.addMovementPoints();
-                // userInterface.resetProgressBar();
                 pointAdded = true;
             }
 
@@ -198,46 +267,68 @@ public class MapScreen implements Screen {
         }
     }
 
-    private void countMovementPointsToAdd() {
+    /**
+     * Adds movement points from steps gathered while paused.
+     *
+     *<p>
+     * Divides step amount while paused with amount needed to add movement points.
+     * Adds movement points based on this number.
+     *</p>
+     */
+    private void countAfterPauseMovementPoints() {
         int stepsWhilePaused = countStepsDeltaOnResume();
-        System.out.println("Steps while paused: " + stepsWhilePaused);
         int pointsToAdd;
 
         pointsToAdd = stepsWhilePaused / player.STEPSTOMOVE;
         player.addMultipleMovementPoints(pointsToAdd);
-        stepsToPoint = 0;
     }
 
     /**
+     * Saves current step amount
      *
+     * <p>
+     * Saves step amount before pause
+     * </p>
      */
-    // Save current step count
-    public void saveStepsOnPause() {
+    void saveStepsOnPause() {
         pauseSteps = stepTotal;
-        System.out.println("Paused steps count: " + pauseSteps);
     }
 
     /**
-     *
+     * Sets saved steps to actual step amount
      */
-    // Make saved steps actual step count
-    public void subtractSteps() {
+    void setPauseSteps() {
         stepTotal = pauseSteps;
     }
 
-    // Get difference between total steps and saved steps
+    /**
+     * Counts delta between actual steps and steps while paused
+     * @return pause steps and actual steps difference
+     */
     private int countStepsDeltaOnResume() {
         int stepDelta = game.getStepCount() - pauseSteps;
-        System.out.println("Stepdelta: " + stepDelta);
         return stepDelta;
     }
 
+    /**
+     * Checks if player has enough keys.
+     *
+     * <p>
+     * Checks if player has collected enough keys to pass to next level.
+     * Changes keysCollected to true when enough keys.
+     * </p>
+     */
     private void checkKeyAmount() {
         keysCollected = keyAmount >= KEYS_NEEDED;
     }
 
     /**
+     * Changes level.
      *
+     * <p>
+     * Saves current level and changes level to next level. Plays sounds when changing level.
+     * Changes map to that levels map.
+     * </p>
      */
     public void changeLevel() {
         if(Save.getCurrentLevel() < 7) {
@@ -251,8 +342,16 @@ public class MapScreen implements Screen {
         mapLevel.setLevel(level);
         changeMap();
     }
+
+    /**
+     * Changes map.
+     *
+     * <p>
+     * Creates and changes tiled map to for next level.
+     * Resets keys, UI elements and spawns player to map starting location.
+     * </p>
+     */
     private void changeMap() {
-        Gdx.app.log("MapLevel", ": " + level);
         keyAmount = 0;
         userInterface.updateKeyLabel();
         keysCollected = false;
@@ -264,65 +363,70 @@ public class MapScreen implements Screen {
     }
 
     /**
-     * @param onSquat
-     * @param onJump
+     * Creates trap buttons.
+     *
+     * <p>
+     * Creates buttons to accept of deny entering movement screen.
+     * Changes boolean to disallow player movement when on top of a trap.
+     * </p>
+     *
+     * @param onSquat if player is on squatting trap
+     * @param onJump if player is on jumping trap
      */
     public void trapConfirm(final boolean onSquat, final boolean onJump) {
-        Gdx.app.log("Button", "created");
-        buttonUp = true;
+        trapButtonsUp = true;
         userInterface.createConfirmButtons(onSquat,onJump);
     }
 
     /**
+     * Changes to squat screen.
      *
+     * <p>
+     * Changes screen to squatting exercise screen.
+     * </p>
      */
     public void goToSquatTrap() {
-        Gdx.app.log("Down trap", "going to crouching trap");
         game.changeScreen(DungeonEscape.SQUATSCREEN);
     }
 
     /**
+     * Changes to jump screen.
      *
+     * <p>
+     * Changes screen to jumping exercise screen.
+     * </p>
      */
     public void goToJumpTrap() {
-        Gdx.app.log("Up trap", "going to jumping trap");
         game.changeScreen(DungeonEscape.JUMPSCREEN);
     }
 
     /**
-     * @param part
+     * Creates story window.
+     *
+     * <p>
+     * Creates story UI window when standing on a tiled map object.
+     * Window content changes depending on the current story part.
+     * </p>
+     *
+     * @param part current story part
      */
     public void createStoryWindow(int part) {
-        Gdx.app.log("Story", "going to story screen");
         story.createStoryPart(part);
     }
 
     /**
-     * @param tutorial
+     * Created tutorial window.
+     *
+     * <p>
+     * Creates tutorial UI window when standing on a tiled map object.
+     * Window content changes depending on the current tutorial.
+     * </p>
+     *
+     * @param tutorial current tutorial
      */
     public void createTutorial(int tutorial) {
         mapTutorials.changeTutorialLabel(tutorial);
     }
-
-    // Not used at the moment
-//    public void addStep() {
-//        stepTotal++;
-//        System.out.println("Map Steps: " + stepTotal);
-//        userInterface.updateStepsLabel();
-//        userInterface.addProgressBarValue();
-//        Save.saveCurrentProgressbar(userInterface.getProgressbarValue());
-
-//        if(stepTotal > 10) {
-//            Save.saveCurrentProgressbar(userInterface.getProgressbarValue() + 1);
-//        } else {
-//           Save.saveCurrentProgressbar(userInterface.getProgressbarValue());
-//        }
-//
-//        if(!paused) {
-//             stepsToPoint++;
-//            //System.out.println("Steps to point: " + stepsToPoint);
-//        }
-//    }
 
     @Override
     public void show() {
@@ -363,16 +467,14 @@ public class MapScreen implements Screen {
 
     @Override
     public void pause() {
-        paused = true;
         Gdx.app.log("Mapscreen", "paused");
         saveStepsOnPause();
     }
 
     @Override
     public void resume() {
-        paused = false;
         Gdx.app.log("Mapscreen", "resume");
-        countMovementPointsToAdd();
+        countAfterPauseMovementPoints();
     }
 
     public int getKeyAmount() {
@@ -383,17 +485,6 @@ public class MapScreen implements Screen {
         return stepTotal;
     }
 
-    public void setStepTotal(int stepTotal) {
-        this.stepTotal = stepTotal;
-    }
-
-    public void setOldStepTotal(int oldStepTotal) {
-        this.oldStepTotal = oldStepTotal;
-    }
-
-    public int getOldStepTotal() {
-        return oldStepTotal;
-    }
     public MapScreen getMapScreen() {
         return this;
     }

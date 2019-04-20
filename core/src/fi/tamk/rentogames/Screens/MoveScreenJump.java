@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import fi.tamk.rentogames.DungeonEscape;
 import fi.tamk.rentogames.Framework.GameAudio;
-import fi.tamk.rentogames.Framework.Save;
 import fi.tamk.rentogames.Interface.MoveScreenUI;
 import fi.tamk.rentogames.Interface.MoveTutorials;
 import fi.tamk.rentogames.Move.MoveScreenMove;
@@ -128,7 +127,7 @@ public class MoveScreenJump extends MoveScreenMove implements Screen {
     @Override
     public void hide() {
         GameAudio.stopMusic("movescreenmusic");
-        getMapScreen().subtractSteps();
+        getMapScreen().setPauseSteps();
         getGame().setMoveScreenStatus(false);
     }
 

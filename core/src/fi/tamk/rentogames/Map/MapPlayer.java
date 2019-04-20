@@ -439,7 +439,7 @@ public class MapPlayer extends Sprite {
                 if(layer.equals(jumpingTrap) ) {
                     onSquatTrap = false;
                     onJumpTrap = true;
-                    if(!mapScreen.buttonUp) {
+                    if(!mapScreen.trapButtonsUp) {
                         mapScreen.trapConfirm(onSquatTrap, onJumpTrap);
                     }
                 }
@@ -447,7 +447,7 @@ public class MapPlayer extends Sprite {
                 if(layer.equals(squatTrap) ) {
                     onJumpTrap = false;
                     onSquatTrap = true;
-                    if(!mapScreen.buttonUp) {
+                    if(!mapScreen.trapButtonsUp) {
                         mapScreen.trapConfirm(onSquatTrap, onJumpTrap);
                     }
                 }

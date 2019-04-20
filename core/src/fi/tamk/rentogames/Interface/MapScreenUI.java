@@ -254,7 +254,7 @@ public class MapScreenUI {
                 trapLabel.remove();
                 readyLabel.remove();
                 buttonUp = false;
-                mapScreen.buttonUp = false;
+                mapScreen.trapButtonsUp = false;
                 // Using boolean values checks trapscreen
                 if(onSquat) {
                     mapScreen.goToSquatTrap();
@@ -275,7 +275,7 @@ public class MapScreenUI {
                 trapLabel.remove();
                 readyLabel.remove();
                 buttonUp = false;
-                mapScreen.buttonUp = false;
+                mapScreen.trapButtonsUp = false;
                 player.moveToPreviousTile();
             }
         });
