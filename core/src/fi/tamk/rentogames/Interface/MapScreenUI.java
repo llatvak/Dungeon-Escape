@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -15,15 +14,16 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import fi.tamk.rentogames.DungeonEscape;
-import fi.tamk.rentogames.Framework.Save;
 import fi.tamk.rentogames.Map.MapPlayer;
 import fi.tamk.rentogames.Screens.MapScreen;
 
 import static fi.tamk.rentogames.Screens.MapScreen.KEYS_NEEDED;
 
 /**
+ * Creates user interface for map screen
  *
- *
+ * Creates the textures, buttons and labels for map screen.
+ * Designates their size, position and functionality.
  *
  * @author Miko Kauhanen
  * @author Lauri Latva-Kyyny
@@ -31,19 +31,40 @@ import static fi.tamk.rentogames.Screens.MapScreen.KEYS_NEEDED;
  */
 public class MapScreenUI {
 
-    private boolean debugUI = false;
-
+    /**
+     * Main game
+     */
     private DungeonEscape game;
-    private MapScreen mapScreen;
-    private MapPlayer player;
-    private MapTutorials mapTutorials;
 
+    /**
+     * Map screen
+     */
+    private MapScreen mapScreen;
+
+    /**
+     * Player
+     */
+    private MapPlayer player;
+
+    /**
+     * Skin
+     */
     private Skin skin;
+
+    /**
+     * Stage
+     */
     private Stage stage;
 
-    //Create buttons and bars
-    private ProgressBar stepsProgressBar;
+    /**
+     * Changes which color icon is showed next to movement points
+     */
+    private boolean redMovesIcon = false;
+    private boolean whitesMovesIcon = false;
 
+    /**
+     * Buttons
+     */
     private ImageButton backButton;
     private ImageButton keyImage;
     private ImageButton footmarkImage;
@@ -54,6 +75,9 @@ public class MapScreenUI {
     private ImageButton upControlsImage;
     private ImageButton downControlsImage;
 
+    /**
+     * Textures
+     */
     private Texture keyTexture;
     private Texture footMarkTexture;
     private Texture movesArrowTexture;
@@ -63,33 +87,50 @@ public class MapScreenUI {
     private Texture upArrowTexture;
     private Texture downArrowTexture;
 
+    /**
+     * Labels
+     */
     private Label stepLabel;
     private Label movesLabel;
     private Label keyLabel;
 
-    private boolean resetProgressBar = false;
-    private int progressbarValue = 0;
+    /**
+     * Are trap confirmation buttons up
+     */
+    private boolean buttonsUp;
 
-    private boolean buttonUp;
+    /**
+     * Is back button initialized
+     */
     private boolean backButtonInitialized = false;
 
     /**
-     * @param game
-     * @param mapScreen
-     * @param player
+     * Constructor that receives the main game object,  map screen object and player object.
+     * Creates stage. Calls create.
+     *
+     * @param game main game object
+     * @param mapScreen map screen object
+     * @param player player object
      */
     public MapScreenUI(DungeonEscape game, MapScreen mapScreen, MapPlayer player){
         this.game = game;
         this.mapScreen = mapScreen;
         this.player = player;
-        //this.mapTutorials = new MapTutorials();
+
+        // Get stage from main game
         this.stage = new Stage(game.getGameViewport());
         onCreate();
     }
 
+    /**
+     * Creates all static buttons and labels.
+     *
+     *<p>
+     * Creates skin from assets. Creates all textures, buttons and labels used in the user interface.
+     *
+     *</p>
+     */
     private void onCreate() {
-        progressbarValue = Save.getProgressBarValue();
-
         skin = new Skin(Gdx.files.internal("uiskin.json"));
 
         keyTexture = new Texture("keyicon.png");
@@ -101,7 +142,7 @@ public class MapScreenUI {
         upArrowTexture = new Texture("arrowup.png");
         downArrowTexture = new Texture("arrowdown.png");
 
-        //Create buttons and bars
+        //Create buttons
         backButton = new ImageButton(skin, "left");
         keyImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(keyTexture)));
         footmarkImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(footMarkTexture)));
@@ -116,12 +157,14 @@ public class MapScreenUI {
         movesLabel = new Label("" + player.movementPoints, skin,"white");
         keyLabel = new Label("" + mapScreen.keyAmount + "/" + KEYS_NEEDED, skin,"white");
 
-        // stepsProgressBar = new ProgressBar(0, player.STEPSTOMOVE,1,false,skin, "default-horizontal");
-        // stepsProgressBar.setAnimateDuration(0.5f);
     }
 
     /**
+     * Sets user interface elements to screen.
      *
+     * Creates two tables to hold all UI elements. Set their sizes and positions and adds listeners to buttons.
+     * One table holds all buttons and information elements. Other holds the controller buttons.
+     * Adds tables to stage as actors.
      */
     public void createUI() {
         //Create Table
@@ -133,11 +176,10 @@ public class MapScreenUI {
         //Set alignment of contents in the table.
         topTable.top();
         controlsTable.bottom();
+
         // Debug lines
-        if(debugUI) {
-            topTable.setDebug(true);
-            controlsTable.setDebug(true);
-        }
+        topTable.setDebug(false);
+        controlsTable.setDebug(false);
 
         //Add listeners to buttons
         backButton.addListener(new ChangeListener(){
@@ -186,15 +228,16 @@ public class MapScreenUI {
 
         stage.addActor(backButton);
 
-        //Add buttons and progress bar to table
+        //Add buttons to table
         topTable.add(backButton).left().width(35).height(35).pad(5,15,0,0);
         topTable.add(footmarkImage).colspan(2).right().expandX().width(25).height(40).fillX().fillY().pad(5,5,0,0);
-        // topTable.add(stepsProgressBar).width(240).fillX().pad(5,0,0,5);
+
         topTable.add(stepLabel).fillX().fillY().pad(5,0,0,5);
         topTable.row();
 
         topTable.add(keyImage).width(40).height(40).fillX().fillY().pad(15,15,5,0);
-        topTable.add(keyLabel).width(30).fillX().fillY().pad(0,0,5,5)     ;
+        topTable.add(keyLabel).width(30).fillX().fillY().pad(0,0,5,5);
+
         topTable.add(movesImage).expandX().right().width(30).height(40).fillX().fillY().pad(10,5,5,5);
         topTable.add(movesLabel).width(40).fillY().pad(10,2,5,5);
         topTable.row();
@@ -209,18 +252,22 @@ public class MapScreenUI {
 
         controlsTable.add(downControlsImage).colspan(2).center().height(arrowSize).width(arrowSize).pad(30,0,0,0);
 
-        //Add table to stage
+        //Add tables to stage
         stage.addActor(topTable);
         stage.addActor(controlsTable);
     }
 
     /**
+     * Creates trap confirmation buttons.
+     *
+     * Creates the buttons and label that show up when player is on top of a trap.
+     * Set their sizes and positions and adds listeners to buttons.
+     *
      * @param onSquat
      * @param onJump
      */
     public void createConfirmButtons(final boolean onSquat, final boolean onJump){
-        Gdx.app.log("Button", "created");
-        buttonUp = true;
+        buttonsUp = true;
 
         final TextButton confirmButton = new TextButton(game.getMyBundle().get("confirmbutton"), skin);
         final TextButton cancelButton = new TextButton(game.getMyBundle().get("cancelbutton"), skin, "maroon");
@@ -251,12 +298,11 @@ public class MapScreenUI {
         confirmButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-                Gdx.app.log("Trap", "going");
                 confirmButton.remove();
                 cancelButton.remove();
                 trapLabel.remove();
                 readyLabel.remove();
-                buttonUp = false;
+                buttonsUp = false;
                 mapScreen.trapButtonsUp = false;
                 // Using boolean values checks trapscreen
                 if(onSquat) {
@@ -272,12 +318,11 @@ public class MapScreenUI {
         cancelButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-                Gdx.app.log("Trap", "cancel");
                 confirmButton.remove();
                 cancelButton.remove();
                 trapLabel.remove();
                 readyLabel.remove();
-                buttonUp = false;
+                buttonsUp = false;
                 mapScreen.trapButtonsUp = false;
                 player.moveToPreviousTile();
             }
@@ -285,38 +330,16 @@ public class MapScreenUI {
     }
 
     /**
-     * @return
+     * Are trap confim buttons up
+     *
+     * @return are buttons showing
      */
     public boolean isButtonUp() {
-        return buttonUp;
-    }
-
-    public int getProgressbarValue() {
-        return progressbarValue;
-    }
-
-    public void addProgressBarValue(int valueToAdd) {
-        progressbarValue = progressbarValue + valueToAdd;
-        updateProgressBar();
-    }
-
-    public void resetProgressBar() {
-        progressbarValue = 0;
-        updateProgressBar();
+        return buttonsUp;
     }
 
     /**
-     *
-     */
-    public void updateProgressBar() {
-        stepsProgressBar.setValue(progressbarValue);
-    }
-
-    public boolean redMovesIcon = false;
-    public boolean whitesMovesIcon = false;
-
-    /**
-     *
+     * Changes movement point icon if no movement points remaining.
      */
     public void setOutOfMovesIcon() {
         if(!redMovesIcon) {
@@ -328,7 +351,7 @@ public class MapScreenUI {
     }
 
     /**
-     *
+     * Changes movement point icon when player has movement points remaining.
      */
     public void setMovesIcon() {
         if(!whitesMovesIcon) {
@@ -340,21 +363,21 @@ public class MapScreenUI {
     }
 
     /**
-     *
+     * Updates movement points amount on screen
      */
     public void updateMovesLabel() {
         movesLabel.setText("" + player.movementPoints);
     }
 
     /**
-     *
+     * Updates steps amount on screen
      */
     public void updateStepsLabel() {
         stepLabel.setText("" + mapScreen.getStepTotal());
     }
 
     /**
-     *
+     * Updates keys amount on screen
      */
     public void updateKeyLabel() {
         keyLabel.setText("" + mapScreen.getKeyAmount() + "/" + KEYS_NEEDED);
@@ -365,15 +388,14 @@ public class MapScreenUI {
     }
 
     /**
-     * @param initialized
+     * Is back button initialized
+     *
+     * @param initialized is button initialized
      */
     public void setBackButtonInitialized(boolean initialized) {
         backButtonInitialized = initialized;
     }
 
-    /**
-     *
-     */
     public void dispose(){
         stage.dispose();
         skin.dispose();

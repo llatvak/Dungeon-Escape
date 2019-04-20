@@ -12,37 +12,63 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import fi.tamk.rentogames.DungeonEscape;
 import fi.tamk.rentogames.Move.MoveScreenPlayer;
 import fi.tamk.rentogames.Screens.MapScreen;
-import fi.tamk.rentogames.Screens.MoveScreenJump;
-import fi.tamk.rentogames.Screens.MoveScreenSquat;
 
 /**
+ * Creates user interface for move screen
+ *
+ * Creates the textures, buttons and labels for movement(exercise) screen.
+ * Designates their size, position and functionality.
+ *
+ * @author Miko Kauhanen
  * @author Lauri Latva-Kyyny
- * @author  Miko Kauhanen
  * @version 1.0
  */
 public class MoveScreenUI {
 
-    // set this to true to see debug lines
-    private boolean debugUI = true;
-
+    /**
+     * Main game
+     */
     private DungeonEscape game;
-    private MoveScreenPlayer player;
-    private MapScreen mapScreen;
-    private MoveScreenJump moveScreenJump;
-    private MoveScreenSquat moveScreenSquat;
 
+    /**
+     * Map screen
+     */
+    private MapScreen mapScreen;
+
+    /**
+     * Player
+     */
+    private MoveScreenPlayer player;
+
+    /**
+     * Skin
+     */
     private Skin skin;
+
+    /**
+     * Stage
+     */
     private Stage stage;
 
+    /**
+     * Buttons
+     */
     private ImageButton backButton;
-    private Label counterLabel;
-    private Label exerciseLabel;
     private TextButton skipButton;
 
     /**
-     * @param game
-     * @param player
-     * @param mapScreen
+     * Labels
+     */
+    private Label counterLabel;
+    private Label exerciseLabel;
+
+    /**
+     * Constructor that receives the main game object, player object and map screen object.
+     * Creates stage. Calls create.
+     *
+     * @param game main game object
+     * @param player move screen player object
+     * @param mapScreen map screen object
      */
     public MoveScreenUI(DungeonEscape game, MoveScreenPlayer player, MapScreen mapScreen) {
         this.game = game;
@@ -51,11 +77,17 @@ public class MoveScreenUI {
         this.stage = new Stage(game.getGameViewport());
         onCreate();
     }
+    /**
+     * Creates all static buttons and labels.
+     *
+     *<p>
+     * Creates skin from assets. Creates all buttons and labels used in the user interface.
+     *</p>
+     */
     private void onCreate() {
-
-
         skin = new Skin(Gdx.files.internal("uiskin.json"));
 
+        // Changes labels depending on which move screen game is in
         if(game.getActiveScreen() == DungeonEscape.JUMPSCREEN) {
             exerciseLabel = new Label(game.getMyBundle().get("jumptext"), skin, "title-white");
         }
@@ -63,14 +95,19 @@ public class MoveScreenUI {
             exerciseLabel = new Label(game.getMyBundle().get("squattext"), skin, "title-white");
         }
 
+        // Amount of jumps or squats
         counterLabel = new Label("" + player.getCountedJumps() + "/" + player.getMovesRequired(), skin, "title-white");
+        // Go back to map without going over trap
         backButton = new ImageButton(skin, "left");
+        // Skip trap and go to map
         skipButton = new TextButton(game.getMyBundle().get("skipbutton"), skin);
-
     }
 
     /**
+     * Sets user interface elements to screen.
      *
+     * Set buttons and labels sizes and positions and adds listeners to buttons.
+     * Adds them stage as actors.
      */
     public void createUI() {
         skipButton.setPosition(game.screenWidth - skipButton.getWidth() - 5, game.screenHeight - skipButton.getHeight() - 5);
@@ -78,7 +115,6 @@ public class MoveScreenUI {
         skipButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
-                Gdx.app.log("Screen", "going to mapscreen");
                 for(int i=0; i<10; i++) {
                     mapScreen.getMapPlayer().removeOneMovementPoint();
                 }
@@ -109,7 +145,7 @@ public class MoveScreenUI {
     }
 
     /**
-     *
+     * Updates jump or squat count label
      */
     public void updateCounterLabel() {
         counterLabel.setText("" + player.getCountedJumps() + "/" + player.getMovesRequired());
@@ -119,11 +155,7 @@ public class MoveScreenUI {
         return this.stage;
     }
 
-    /**
-     *
-     */
     public void dispose(){
-        //stage.dispose();
         skin.dispose();
     }
 }

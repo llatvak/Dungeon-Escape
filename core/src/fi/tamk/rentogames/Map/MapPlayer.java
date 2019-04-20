@@ -149,7 +149,7 @@ public class MapPlayer extends Sprite {
     private String tutorialObjectTraps = "tutorial-traps";
 
     /**
-     * Constructor that receives the map screen class and level class.
+     * Constructor that receives the map screen object and level object.
      *
      *<p>
      * Receives the map screen object {@link MapScreen} and level object {@link MapLevel}.
