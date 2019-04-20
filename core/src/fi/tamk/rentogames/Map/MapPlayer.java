@@ -391,15 +391,19 @@ public class MapPlayer extends Sprite {
             if(Save.getCurrentLevel() == 2) {
                 checkObjectCollision(storyObjectOne);
             }
-            if(Save.getCurrentLevel() == 5) {
+            if(Save.getCurrentLevel() == 4) {
                 checkObjectCollision(storyObjectTwo);
             }
+            if(Save.getCurrentLevel() == 6) {
+                checkObjectCollision(storyObjectThree);
+            }
+            if(Save.getCurrentLevel() == 8) {
+                checkObjectCollision(storyObjectFour);
+            }
+            if(Save.getCurrentLevel() == 10) {
+                checkObjectCollision(storyObjectFive);
+            }
 
-            //checkObjectCollision(storyObjectOne);
-            //checkObjectCollision(storyObjectTwo);
-            //checkObjectCollision(storyObjectThree);
-            //checkObjectCollision(storyObjectFour);
-            //checkObjectCollision(storyObjectFive);
         }
 
         if(DungeonEscape.tutorials) {

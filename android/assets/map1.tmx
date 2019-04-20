@@ -39,7 +39,7 @@
   </data>
  </layer>
  <objectgroup color="#8b01c1" id="18" name="tutorial-movement">
-  <object id="13" x="544" y="562.666">
+  <object id="13" x="544" y="748.666">
    <point/>
   </object>
  </objectgroup>
@@ -71,29 +71,4 @@
  </objectgroup>
  <objectgroup id="10" name="squat-trap"/>
  <objectgroup color="#ec182d" id="9" name="jump-trap"/>
- <objectgroup id="11" name="story-1">
-  <object id="15" x="545.334" y="878.667">
-   <point/>
-  </object>
- </objectgroup>
- <objectgroup id="21" name="story-2">
-  <object id="17" x="545.833" y="814.167">
-   <point/>
-  </object>
- </objectgroup>
- <objectgroup id="22" name="story-3">
-  <object id="18" x="541.333" y="750.667">
-   <point/>
-  </object>
- </objectgroup>
- <objectgroup id="23" name="story-4">
-  <object id="19" x="541.333" y="685.333">
-   <point/>
-  </object>
- </objectgroup>
- <objectgroup id="24" name="story-5">
-  <object id="20" x="542.667" y="626.667">
-   <point/>
-  </object>
- </objectgroup>
 </map>

@@ -5,17 +5,17 @@
  </tileset>
  <layer id="1" name="Walls" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjZGBgYMKBBYFYCIiF8ahhBmJOIObCgUHyIMCIRw03ATO4oGbgk0c2Ax1woYmT6g50PeSagQ9Q6g5CZuCyC90MZDXExAsl7sAHCJlByE2E4gWbGYTMpbYZxPqf2DRGiV+wyTMQoQZWRmDDoHJDkoEhgZAaAP1+CbY=
+   eJxjZGBgYMKBBYFYCIiF8ahhBmJOIObCgUHyIMCIRw03ATO4oGbgk0c2Ax1woYkTawYuu8k1Ax8g1S+E3IgepsSagayGmHihxB34ACEzCLmJUBqjlRmEzMUXt7j8T+v8gkuegQg1sDICGwaVG5IMDAmE1AAAdCYJjg==
   </data>
  </layer>
  <layer id="2" name="Road" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYKA94KeCGSIkqkXG6OKU2k2uGfgwpe4gZAYuu7CFD6n+I9cd5IYHOeFPjBmU+JscMyhND4TMHgxmEAMA17sENA==
+   eJxjYKA94KeCGSIkqkXG6OKk2oeuh1wz8GF8ZuBSh8+NxAJcbqTEDEJqicHE2kcuoJUZlKRTcsMfl9mDwQxiAABO2gRI
   </data>
  </layer>
  <layer id="3" name="Keys" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYBh+QGagHTDEwUgNv5Hq74EGANkkAFU=
+   eJxjYBh+QGagHTDEwWj4kQ9Gw450AADRtABV
   </data>
  </layer>
  <layer id="4" name="Story" width="17" height="17">
@@ -50,7 +50,7 @@
   <object id="19" x="928" y="494.667">
    <point/>
   </object>
-  <object id="20" x="548" y="744">
+  <object id="20" x="545.333" y="812">
    <point/>
   </object>
  </objectgroup>
@@ -61,11 +61,6 @@
  </objectgroup>
  <objectgroup color="#ec182d" id="9" name="jump-trap">
   <object id="21" x="350.667" y="428">
-   <point/>
-  </object>
- </objectgroup>
- <objectgroup id="11" name="story-2">
-  <object id="23" x="608" y="298.667">
    <point/>
   </object>
  </objectgroup>

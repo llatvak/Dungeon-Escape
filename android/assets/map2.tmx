@@ -43,11 +43,6 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="19" name="tutorial-go">
-  <object id="13" x="478.667" y="617.333">
-   <point/>
-  </object>
- </objectgroup>
  <objectgroup color="#0de214" id="8" name="level-change">
   <object id="2" x="542.666" y="117.333">
    <point/>
