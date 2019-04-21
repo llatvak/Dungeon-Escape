@@ -116,7 +116,7 @@ public class Story {
         storyBackground = new Texture("story5.png");
     }
     private void createGameEnd() {
-        textLabel.setText("Thanks for playing!");
+        textLabel.setText(game.getMyBundle().get("ending"));
         textLabel.setWrap(true);
         gameEnd = true;
         storyBackground = new Texture("story-empty.png");

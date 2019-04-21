@@ -171,7 +171,7 @@ public class DungeonEscape extends Game {
 
         Save.saveCurrentSteps(Save.getStepAmount());
 
-        changeScreen(MAINMENU);
+        changeScreen(SPLASHSCREEN);
     }
 
     /**
