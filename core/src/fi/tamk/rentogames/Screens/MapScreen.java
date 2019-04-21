@@ -236,7 +236,7 @@ public class MapScreen implements Screen {
 
             // checks if step count is above the number required for points
             if(pointAdded) {
-                if(stepTotal == stepsDuringPointsAdd + 1) {
+                if(stepTotal > stepsDuringPointsAdd) {
                     pointAdded = false;
                 }
             }
