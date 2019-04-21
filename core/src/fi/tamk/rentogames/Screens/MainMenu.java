@@ -92,6 +92,15 @@ public class MainMenu implements Screen {
         createMenuButtons();
     }
 
+
+    /**
+     * Creates top buttons.
+     *
+     * <p>
+     * Creates buttons for language settings, credits window and sound settings.
+     * Defines their size, position, presentation and usage.
+     * </p>
+     */
     private void createTopButtons() {
         //Create Table
         Table topTable = new Table();
@@ -179,6 +188,14 @@ public class MainMenu implements Screen {
         stage.addActor(topTable);
     }
 
+    /**
+     * Creates middle main menu buttons.
+     *
+     * <p>
+     * Creates buttons for playing the game, starting a new game and exiting the game.
+     * Defines their size, position, presentation and usage.
+     * </p>
+     */
     private void createMenuButtons() {
         final Table menuTable = new Table();
         final Table newGameTable = new Table();
@@ -268,6 +285,13 @@ public class MainMenu implements Screen {
         stage.addActor(menuTable);
     }
 
+    /**
+     * Creates credits window.
+     *
+     * <p>
+     * Creates window credits text and image. Defines its size, position, presentation and usage.
+     * </p>
+     */
     private void createCreditsWindow() {
         Table creditsTable = new Table();
         final Dialog creditsWindow = new Dialog(game.getMyBundle().get("createdby"), skin);
@@ -317,6 +341,12 @@ public class MainMenu implements Screen {
         stage.addActor(creditsWindow);
     }
 
+    /**
+     * Plays menu music
+     */
+    private void playMenuAudio() {
+        GameAudio.setMusicVolume("menumusic", Save.getCurrentAudioSetting());
+    }
 
     private void setLocaleFin() {
         createMenuButtons();
@@ -326,22 +356,12 @@ public class MainMenu implements Screen {
         createMenuButtons();
     }
 
-    /**
-     * @return
-     */
-    public static Boolean getResetButtonInitialized() {
+    static Boolean getResetButtonInitialized() {
         return resetButtonInitialized;
     }
 
-    /**
-     * @param reset
-     */
-    public static void setResetButtonInitialized(boolean reset) {
+    static void setResetButtonInitialized(boolean reset) {
         resetButtonInitialized = reset;
-    }
-
-    public void playMenuAudio() {
-        GameAudio.setMusicVolume("menumusic", Save.getCurrentAudioSetting());
     }
 
     @Override
