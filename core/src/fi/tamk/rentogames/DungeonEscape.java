@@ -171,6 +171,8 @@ public class DungeonEscape extends Game {
         GameAudio.loadMusic("mapscreenmusic.ogg", "mapscreenmusic");
         GameAudio.loadMusic("movescreenmusic.mp3", "movescreenmusic");
 
+        Save.saveCurrentSteps(Save.getStepAmount());
+
         changeScreen(MAINMENU);
     }
 

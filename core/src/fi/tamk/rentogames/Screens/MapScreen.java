@@ -129,6 +129,10 @@ public class MapScreen implements Screen {
         mapTutorials = new MapTutorials(game, userInterface);
         story = new Story(game, userInterface);
         stage = userInterface.getStage();
+
+        if(Save.getStepAmount() > 0) {
+            countPausedMovementpoints();
+        }
         //addMovementPointsOnRender();
     }
 
@@ -401,6 +405,12 @@ public class MapScreen implements Screen {
         mapTutorials.createTutorial(tutorial);
     }
 
+    public void countPausedMovementpoints() {
+        int pausedPoints = Save.getStepAmount() / 10;
+        player.addMovementPoints(pausedPoints);
+        Save.saveCurrentSteps(0);
+    }
+
     @Override
     public void show() {
         userInterface.setBackButtonInitialized(false);
@@ -440,6 +450,7 @@ public class MapScreen implements Screen {
     @Override
     public void pause() {
         saveStepsOnPause();
+        Save.saveCurrentSteps(getStepTotal());
     }
 
     @Override
