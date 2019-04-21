@@ -148,12 +148,13 @@ public class MoveScreenJump extends MoveScreenMove implements Screen {
     }
 
     /**
-     * Updates game status.
+     * Updates jump screen status.
      *
      * <p>
      * Calls jump method from {@link fi.tamk.rentogames.Move.MoveScreenPlayer} to check if player jumped in real life.
      * Switches screen back to map screen when move screen's player is out of boundaries of the screen.
      * </p>
+     *
      */
     private void update() {
         // Player jumping and checking user input
