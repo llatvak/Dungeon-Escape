@@ -248,7 +248,6 @@ public class MainMenu implements Screen {
                 Gdx.app.log("Game", "Reset");
                 Save.saveCurrentLevel(1);
                 Save.saveMovementPoints(50);
-                Save.saveCurrentProgressbar(0);
                 Save.saveCurrentPlayerX(513f);
                 Save.saveCurrentPlayerY(65f);
                 resetButtonInitialized = true;
