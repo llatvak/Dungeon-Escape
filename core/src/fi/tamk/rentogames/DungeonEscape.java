@@ -56,8 +56,8 @@ public class DungeonEscape extends Game {
      *
      */
     public static boolean story = true;
-    private boolean jumpTutorials = false;
-    private boolean squatTutorials = false;
+    private boolean jumpTutorials = true;
+    private boolean squatTutorials = true;
 
     /**
      *

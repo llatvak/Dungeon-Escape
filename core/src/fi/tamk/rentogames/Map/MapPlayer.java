@@ -163,7 +163,7 @@ public class MapPlayer extends Sprite {
         setSize(spriteWidth, spriteHeight);
         setPosition(spriteX, spriteY);
         setTextures();
-        movementPoints = Save.getMovementPoints();
+        movementPoints = Save.getMovementPoints() + 500;
     }
 
     /**
