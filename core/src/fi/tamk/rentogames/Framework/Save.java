@@ -38,7 +38,7 @@ public class Save {
      */
     public static int getMovementPoints() {
         prefs = Gdx.app.getPreferences("dungeonescapegame");
-        return prefs.getInteger("movementpoints", 0);
+        return prefs.getInteger("movementpoints", 40);
     }
 
     /**
