@@ -405,7 +405,11 @@ public class MapScreen implements Screen {
         mapTutorials.createTutorial(tutorial);
     }
 
-    public void countPausedMovementpoints() {
+
+    /**
+     * Counts paused movement points using steps calculated during game paused.
+     */
+    private void countPausedMovementpoints() {
         int pausedPoints = Save.getStepAmount() / 10;
         player.addMovementPoints(pausedPoints);
         Save.saveCurrentSteps(0);
