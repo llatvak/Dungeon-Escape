@@ -234,7 +234,7 @@ public class MainMenu implements Screen {
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
                 Save.saveCurrentLevel(1);
-                Save.saveMovementPoints(50);
+                Save.saveMovementPoints(30);
                 Save.saveCurrentPlayerX(513f);
                 Save.saveCurrentPlayerY(65f);
                 resetButtonInitialized = true;
