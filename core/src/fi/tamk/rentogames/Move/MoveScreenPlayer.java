@@ -34,35 +34,89 @@ import static com.badlogic.gdx.Input.Keys.UP;
  */
 public class MoveScreenPlayer {
     // Box2D player body
+    /**
+     *
+     */
     private Body playerBody;
 
     // player animation and texture
+    /**
+     *
+     */
     private Texture playerIdleTexture;
+    /**
+     *
+     */
     private Texture playerJumpsheetTexture;
+    /**
+     *
+     */
     private Texture playerRunsheetTexture;
+    /**
+     *
+     */
     private Texture playerSquatsheetTexture;
 
     // Animations
+    /**
+     *
+     */
     private Animation<TextureRegion> jumpAnimation;
+    /**
+     *
+     */
     private Animation<TextureRegion> runAnimation;
+    /**
+     *
+     */
     private Animation<TextureRegion> squatAnimation;
 
+    /**
+     *
+     */
     private float stateTime;
 
     // Current frame textures
+    /**
+     *
+     */
     private TextureRegion currentFrameTexture;
 
     //player jump variables
+    /**
+     *
+     */
     private boolean playerJumped = false;
+    /**
+     *
+     */
     private int countedJumps = 0;
+    /**
+     *
+     */
     private boolean playerMoving = false;
 
+    /**
+     *
+     */
     private boolean playerSquatting = false;
+    /**
+     *
+     */
     private boolean playerRunning = false;
+    /**
+     *
+     */
     private boolean playerJumping = false;
 
+    /**
+     *
+     */
     private int squatStateTime = 0;
 
+    /**
+     *
+     */
     private int movesRequired = 3;
 
 
@@ -86,6 +140,9 @@ public class MoveScreenPlayer {
         createSquatAnimation();
     }
 
+    /**
+     * @return
+     */
     // Defines the player body type and sets position
     private BodyDef getDefinitionOfBody() {
         BodyDef myBodyDef = new BodyDef();
@@ -94,6 +151,9 @@ public class MoveScreenPlayer {
         return myBodyDef;
     }
 
+    /**
+     * @return
+     */
     // Sets player body shape and size and returns the shape
     private PolygonShape getPlayerShape() {
         PolygonShape playerBox = new PolygonShape();
@@ -101,11 +161,17 @@ public class MoveScreenPlayer {
         return playerBox;
     }
 
+    /**
+     * @return
+     */
     // Gets player X position and returns it
     public float getPlayerX() {
         return playerBody.getPosition().x;
     }
 
+    /**
+     * @return
+     */
     // Gets player Y position and returns it
     public float getPlayerY() {
         return playerBody.getPosition().y;
@@ -127,6 +193,9 @@ public class MoveScreenPlayer {
 
     }
 
+    /**
+     *
+     */
     // Creates jump animation
     private void createJumpAnimation() {
         // Rows and columns in texture sheet
@@ -145,6 +214,9 @@ public class MoveScreenPlayer {
         currentFrameTexture = jumpAnimation.getKeyFrame(stateTime, true);
     }
 
+    /**
+     *
+     */
     // Creates run animation
     private void createRunAnimation() {
         // Rows and columns in texture sheet
@@ -163,6 +235,9 @@ public class MoveScreenPlayer {
         currentFrameTexture = runAnimation.getKeyFrame(stateTime, true);
     }
 
+    /**
+     *
+     */
     // Creates squat animation
     private void createSquatAnimation() {
         // Rows and columns in texture sheet
@@ -212,6 +287,9 @@ public class MoveScreenPlayer {
         }
     }
 
+    /**
+     *
+     */
     // Counts player jumps
     private void countJumps() {
         // Counts jumps when player jumps and when player drops using accelerometer Y values
@@ -225,6 +303,9 @@ public class MoveScreenPlayer {
         }
     }
 
+    /**
+     *
+     */
     // Counts player squats
     private void countSquats() {
         squatStateTime ++;
@@ -282,31 +363,17 @@ public class MoveScreenPlayer {
         playerRunning = true;
     }
 
-    // For desktop testing
-    public void checkInput() {
-        Gdx.input.setInputProcessor(new InputAdapter() {
-
-            // Keyboard controls
-            @Override
-            public boolean keyDown(int keycode) {
-                if (keycode == UP && !playerMoving && playerBody.getPosition().x > 1.215f) {
-                    playerBody.applyLinearImpulse(new Vector2(4f, 6f),
-                            playerBody.getWorldCenter(), true);
-                    playerMoving = true;
-                }
-                if (keycode == SPACE) {
-                    countedJumps++;
-                }
-                return true;
-            }
-        });
-    }
-
+    /**
+     * @return
+     */
     // Returns counted jumps
     public int getCountedJumps() {
         return countedJumps/2;
     }
 
+    /**
+     * @return
+     */
     public int getMovesRequired() {
         return movesRequired;
     }
@@ -319,9 +386,6 @@ public class MoveScreenPlayer {
         playerSquatting = dodgeTrap;
     }
 
-    /**
-     *
-     */
     public void dispose() {
         playerJumpsheetTexture.dispose();
         playerRunsheetTexture.dispose();

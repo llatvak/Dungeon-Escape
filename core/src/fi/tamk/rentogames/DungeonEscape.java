@@ -56,7 +56,13 @@ public class DungeonEscape extends Game {
      *
      */
     public static boolean story = true;
+    /**
+     *
+     */
     private boolean jumpTutorials = false;
+    /**
+     *
+     */
     private boolean squatTutorials = false;
 
     /**
@@ -64,16 +70,34 @@ public class DungeonEscape extends Game {
      */
     public SpriteBatch batch;
 
+    /**
+     *
+     */
     private OrthographicCamera screenCamera;
+    /**
+     *
+     */
     private OrthographicCamera gameCamera;
 
+    /**
+     *
+     */
     private MapScreen mapScreen;
 
     private boolean mapScreenStatus;
     private boolean moveScreenStatus;
 
+    /**
+     *
+     */
     private int previousScreen;
+    /**
+     *
+     */
     private int activeScreen;
+    /**
+     *
+     */
     private final static int SPLASHSCREEN = 0;
     /**
      *
@@ -100,10 +124,19 @@ public class DungeonEscape extends Game {
      */
     public final static int SQUATSCREEN = 6;
 
+    /**
+     *
+     */
     private I18NBundle myBundle;
+    /**
+     *
+     */
     private Viewport gameViewport;
 
 
+    /**
+     *
+     */
     private int stepTotal; // renderissä
     private int oldStepTotal;
 
@@ -141,6 +174,9 @@ public class DungeonEscape extends Game {
         changeScreen(MAINMENU);
     }
 
+    /**
+     *
+     */
     private void createCameras() {
         screenCamera = new OrthographicCamera();
         screenCamera.setToOrtho(false, screenWidth, screenHeight);
@@ -149,14 +185,23 @@ public class DungeonEscape extends Game {
         gameCamera.setToOrtho(false, gameWidth, gameHeight);
     }
 
+    /**
+     * @return
+     */
     public Viewport getGameViewport() {
         return gameViewport;
     }
 
+    /**
+     * @return
+     */
     public OrthographicCamera getScreenCamera() {
         return this.screenCamera;
     }
 
+    /**
+     * @return
+     */
     public OrthographicCamera getGameCamera() {
         return this.gameCamera;
     }
@@ -171,6 +216,9 @@ public class DungeonEscape extends Game {
         myBundle = I18NBundle.createBundle(Gdx.files.internal(s3), locale, "UTF-8");
     }
 
+    /**
+     * @return
+     */
     public I18NBundle getMyBundle() {
         return myBundle;
     }
@@ -236,8 +284,14 @@ public class DungeonEscape extends Game {
         }
     }
 
+    /**
+     * @return
+     */
     public int getPreviousScreen() { return previousScreen; }
 
+    /**
+     * @param screen
+     */
     public void setPreviousScreen(int screen) {
         this.previousScreen = screen;
     }
@@ -249,14 +303,23 @@ public class DungeonEscape extends Game {
         this.moveScreenStatus = status;
     }
 
+    /**
+     * @return
+     */
     public SpriteBatch getBatch() {
         return batch;
     }
 
+    /**
+     * @return
+     */
     public int getActiveScreen() {
         return activeScreen;
     }
 
+    /**
+     *
+     */
     public void setStartLanguage() {
         if(Save.getLanguagePrefs().equals("MyBundle_fi_FI")) {
             setLanguage("fi", "FI", "MyBundle_fi_FI");
@@ -284,11 +347,21 @@ public class DungeonEscape extends Game {
         return jumpTutorials;
     }
 
+    /**
+     * @param jumpTutorials
+     */
     public void setJumpTutorials(boolean jumpTutorials) {
         this.jumpTutorials = jumpTutorials;
     }
+
+    /**
+     *
+     */
     private GetSteps stepGetter;
 
+    /**
+     * @param sg
+     */
     public void setGetSteps(GetSteps sg){
         stepGetter = sg;
     }
@@ -304,14 +377,6 @@ public class DungeonEscape extends Game {
 //        }
 //    }
 
-    @Override
-    public void dispose () {
-        batch.dispose();
-        GameAudio gameAudio = new GameAudio();
-        gameAudio.dispose();
-    }
-
-
     /**
      * @return
      */
@@ -319,7 +384,17 @@ public class DungeonEscape extends Game {
         return squatTutorials;
     }
 
+    /**
+     * @param squatTutorials
+     */
     public void setSquatTutorials(boolean squatTutorials) {
         this.squatTutorials = squatTutorials;
+    }
+
+    @Override
+    public void dispose () {
+        batch.dispose();
+        GameAudio gameAudio = new GameAudio();
+        gameAudio.dispose();
     }
 }
