@@ -331,7 +331,7 @@ public class MapScreen implements Screen {
         mapLevel.resetMap();
         mapLevel.createTiledMap();
         player.setMap();
-        player.spawn();
+        player.spawn(level);
         tiledMapRenderer = mapLevel.getTiledMapRenderer();
     }
 

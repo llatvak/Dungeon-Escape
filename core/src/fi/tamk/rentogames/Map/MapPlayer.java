@@ -159,8 +159,9 @@ public class MapPlayer extends Sprite {
         this.mapLevel = mapLevel;
         this.tiledMap = mapLevel.getCurrentMap();
 
-        spriteX = startingX;
-        spriteY = startingY;
+        spawn(Save.getCurrentLevel());
+//        spriteX = startingX;
+//        spriteY = startingY;
         setSize(spriteWidth, spriteHeight);
         setPosition(spriteX, spriteY);
         setTextures();
@@ -168,12 +169,40 @@ public class MapPlayer extends Sprite {
     }
 
     /**
-     * Sets players location to designated starting location.
+     * Sets players location to each levels starting location.
      */
-    public void spawn() {
-        spriteX = startingX;
-        spriteY = startingY;
-        setPosition(spriteX,spriteY);
+    public void spawn(int level) {
+
+        switch(level) {
+            case 1: spriteX = startingX;
+                    spriteY = startingY;
+                    break;
+            case 2: spriteX = startingX;
+                    spriteY = startingY;
+                    break;
+            case 3: spriteX = startingX;
+                    spriteY = startingY;
+                    break;
+            case 4: spriteX = startingX;
+                    spriteY = startingY;
+                    break;
+            case 5: spriteX = 2 * TILE_SIZE + 1f;
+                    spriteY = 3 * TILE_SIZE + 1f;
+                    break;
+            case 6: spriteX = 8 * TILE_SIZE + 1f;
+                    spriteY = 2 * TILE_SIZE + 1f;
+                    break;
+            case 7: spriteX = 7 * TILE_SIZE + 1f;
+                    spriteY = 13 * TILE_SIZE + 1f;
+                    break;
+            case 8: spriteX = 11 * TILE_SIZE + 1f;
+                    spriteY = 8 * TILE_SIZE + 1f;
+                    break;
+            case 9: spriteX = 2 * TILE_SIZE + 1f;
+                    spriteY = 14 * TILE_SIZE + 1f;
+                break;
+        }
+        setPosition(spriteX, spriteY);
     }
 
     /**

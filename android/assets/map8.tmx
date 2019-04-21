@@ -5,73 +5,70 @@
  </tileset>
  <layer id="1" name="Walls" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjZGBgYMKBBYFYCIiF8ahhBmJOIObCgRnQaHQ2CHNDzWDAIkeJGcQAZHW4zMDnDmQ5cszABmjpDkKAkBnExgsuM7DZNRBmUMMv9ApTQnGLyy58biRkBghLMjAkoNuNbgasjCAXg8oWAEfnBq4=
+   eJxjZGBgYMKBBYFYCIiF8ahhBmJOBsoA9yA2g4tEjMsMctwBM5MBjUZno2N0v6DLkWMGsUCSgaEBmxnIYYDNPbjcgm4GNrXkmsGARS8+QKw7iEkfxPiFFHegA1LNwJcO8JkBKyPIxaCyBQCB7Abi
   </data>
  </layer>
  <layer id="2" name="Road" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYKAtEEGjqWUGMeaJEIGJtRuXO4gBg8kMSsMDm5tIjZfhZAY9wpRUQK7dAwUA62oEiQ==
+   eJxjYBgF9AAiJGB8ZmBj41PHTwUzyHU7Nj4uNbjcgk2cWmYgu0cEiziheCHkX2IAtcwgNg0NRgAAXDcEmA==
   </data>
  </layer>
  <layer id="3" name="Keys" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYKAtkKGx+aOAemA0rkgHo2FGOQAA4QQAVQ==
+   eJxjYBgFgwHIDLQDRiggNtxH44d2AAColABV
   </data>
  </layer>
  <layer id="4" name="Story" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIKBAwAEhAAB
+   eJxjYBgFo4AwkB1oB4yCYQsASPAAHg==
   </data>
  </layer>
  <layer id="5" name="SquatTrap" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2BwAemBdsAooCsAADjUABw=
+   eJxjYBgFo4A2QHqgHTAKhgQAAD68ABw=
   </data>
  </layer>
  <layer id="6" name="JumpTrap" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYBg5QGqgHTDIwGh4UB+MhinpAADDDABP
+   eJxjYBgFo4A4IIWDPQpGASUAAH0sADU=
   </data>
  </layer>
  <layer id="12" name="VisualObjects" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYKA/4B8AO9GB7EA7YBSMglEABgCoUAAt
+   eJxjYBgFo2AUjIKBAwAEhAAB
   </data>
  </layer>
  <objectgroup color="#0de214" id="8" name="level-change">
-  <object id="2" x="802.667" y="112">
+  <object id="26" x="98" y="496">
    <point/>
   </object>
  </objectgroup>
  <objectgroup color="#e8e801" id="13" name="keys">
-  <object id="23" x="481.333" y="105.333">
+  <object id="23" x="862" y="360">
    <point/>
   </object>
-  <object id="24" x="797.333" y="496">
+  <object id="24" x="998" y="744">
    <point/>
   </object>
-  <object id="25" x="286.667" y="809.333">
+  <object id="25" x="348" y="752">
    <point/>
   </object>
  </objectgroup>
  <objectgroup color="#fd9a21" id="10" name="squat-trap">
-  <object id="29" x="798.667" y="622.667">
+  <object id="27" x="992" y="560">
    <point/>
   </object>
  </objectgroup>
  <objectgroup color="#ec182d" id="9" name="jump-trap">
-  <object id="26" x="541.333" y="234.667">
+  <object id="28" x="414" y="554">
    <point/>
   </object>
-  <object id="27" x="548" y="493.333">
-   <point/>
-  </object>
-  <object id="28" x="546.667" y="814.667">
+  <object id="29" x="224" y="554">
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="11" name="story-3">
-  <object id="30" x="732" y="236">
+ <objectgroup id="11" name="story-4">
+  <object id="30" x="158" y="552">
    <point/>
   </object>
  </objectgroup>
