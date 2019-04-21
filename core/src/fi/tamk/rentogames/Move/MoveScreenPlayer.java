@@ -20,7 +20,13 @@ import static com.badlogic.gdx.Input.Keys.SPACE;
 import static com.badlogic.gdx.Input.Keys.UP;
 
 /**
+ * Creates the player in Box2D world and holds information for it.
  *
+ * <p>
+ * Class to create the player and control the movement and actions with variables.
+ * Holds textures for different actions and uses animation when moving.
+ * Box2D body used as a main player in game, uses physics for jumping.
+ * </p>
  *
  * @author Lauri Latva-Kyyny
  * @author  Miko Kauhanen
@@ -61,6 +67,10 @@ public class MoveScreenPlayer {
 
 
     /**
+     * Constructor for creating player and animations.
+     *
+     *
+     *
      * @param w
      */
     public MoveScreenPlayer(World w) {

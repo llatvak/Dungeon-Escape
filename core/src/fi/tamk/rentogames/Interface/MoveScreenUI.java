@@ -104,9 +104,7 @@ public class MoveScreenUI {
         skipButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
-                for(int i=0; i<10; i++) {
-                    mapScreen.getMapPlayer().removeOneMovementPoint();
-                }
+                mapScreen.getMapPlayer().removeMultipleMovementPoints(5);
                 game.setScreen(mapScreen);
             }
         });

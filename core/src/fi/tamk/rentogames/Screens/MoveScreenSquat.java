@@ -21,15 +21,36 @@ import fi.tamk.rentogames.Move.MoveScreenMove;
  */
 public class MoveScreenSquat extends MoveScreenMove implements Screen {
 
+    /**
+     *
+     */
     private MoveScreenUI userInterface;
+    /**
+     *
+     */
     private MoveTutorials tutorials;
+    /**
+     *
+     */
     private Stage stage;
 
     // Arrow trap
+    /**
+     *
+     */
     private Texture arrowTexture;
+    /**
+     *
+     */
     private Rectangle arrowRect;
 
+    /**
+     *
+     */
     private boolean squatInitialized = true;
+    /**
+     *
+     */
     private boolean runInitialized = true;
 
     /**
@@ -41,6 +62,9 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
         onCreate();
     }
 
+    /**
+     *
+     */
     // Sets up the world for box2D and camera used
     private void onCreate() {
         userInterface = new MoveScreenUI(getGame(), getPlayer(), getMapScreen());
@@ -53,9 +77,6 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
         arrowRect = new Rectangle(getGame().gameWidth + arrowTexture.getWidth()/100f, 1.8f, arrowTexture.getWidth()/100f, arrowTexture.getHeight()/100f);
     }
 
-    /**
-     *
-     */
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
@@ -102,6 +123,9 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
         userInterface.updateCounterLabel();
     }
 
+    /**
+     *
+     */
     private void update() {
         // Player jumping and checking user input
         getPlayer().playerSquat();

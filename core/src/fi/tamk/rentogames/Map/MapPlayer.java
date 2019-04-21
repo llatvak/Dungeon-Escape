@@ -375,6 +375,19 @@ public class MapPlayer extends Sprite {
     }
 
     /**
+     * Removes multiple movement points at once.
+     *
+     * @param pointsToRemove amount of movement points to remove
+     */
+    public void removeMultipleMovementPoints(int pointsToRemove) {
+        movementPoints = movementPoints - pointsToRemove - 1;
+        if(movementPoints < 0) {
+            movementPoints = 0;
+        }
+        Save.saveMovementPoints(movementPoints);
+    }
+
+    /**
      * Checks if player has movement points available.
      */
     public void checkAllowedMoves() {
