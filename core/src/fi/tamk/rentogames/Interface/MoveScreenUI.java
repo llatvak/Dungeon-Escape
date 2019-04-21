@@ -3,11 +3,14 @@ package fi.tamk.rentogames.Interface;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 
 import fi.tamk.rentogames.DungeonEscape;
 import fi.tamk.rentogames.Move.MoveScreenPlayer;
@@ -104,10 +107,13 @@ public class MoveScreenUI {
         skipButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
-                for(int i=0; i<10; i++) {
-                    mapScreen.getMapPlayer().removeOneMovementPoint();
+                if(mapScreen.getMapPlayer().movementPoints < 6) {
+                    System.out.println(mapScreen.getMapPlayer().movementPoints);
+                    createSkipWarningWindow();
+                } else {
+                    mapScreen.getMapPlayer().removeMultipleMovementPoints(5);
+                    game.setScreen(mapScreen);
                 }
-                game.setScreen(mapScreen);
             }
         });
 
@@ -142,6 +148,38 @@ public class MoveScreenUI {
 
     public Stage getStage() {
         return this.stage;
+    }
+
+    private void createSkipWarningWindow() {
+        Table skipWarningTable = new Table();
+        final Dialog skipWarningWindow = new Dialog(game.getMyBundle().get("skiplabel"),skin );
+        Label createdText = new Label(game.getMyBundle().get("skipwarningtext"),skin);
+        createdText.setAlignment(Align.center);
+        createdText.setWrap(true);
+        TextButton confirmButton = new TextButton("OK!", skin );
+
+        skipWarningTable.setDebug(false);
+        skipWarningTable.row();
+        skipWarningTable.add(createdText).width(330);
+
+        final Table table = new Table();
+        table.setFillParent(true);
+
+        skipWarningWindow.setMovable(false);
+        skipWarningWindow.setModal(true);
+        skipWarningWindow.setSize(340,300);
+        skipWarningWindow.setPosition(game.screenWidth / 2 - skipWarningWindow.getWidth() / 2, 200);
+        skipWarningWindow.getContentTable().add(table);
+        skipWarningWindow.getContentTable().add(skipWarningTable);
+        skipWarningWindow.button(confirmButton);
+
+        confirmButton.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeEvent event, Actor actor){
+                skipWarningWindow.remove();
+            }
+        });
+        stage.addActor(skipWarningWindow);
     }
 
     public void dispose(){

@@ -19,15 +19,39 @@ import fi.tamk.rentogames.Move.MoveScreenMove;
  */
 public class MoveScreenJump extends MoveScreenMove implements Screen {
 
+    /**
+     *
+     */
     private MoveScreenUI userInterface;
+    /**
+     *
+     */
     private MoveTutorials tutorials;
+    /**
+     *
+     */
     private Stage stage;
 
+    /**
+     *
+     */
     private Texture spikeTexture;
     // Spike attributes
+    /**
+     *
+     */
     private float spikeX;
+    /**
+     *
+     */
     private float spikeY;
+    /**
+     *
+     */
     private float spikeWidth;
+    /**
+     *
+     */
     private float spikeHeight;
 
     /**
@@ -39,6 +63,9 @@ public class MoveScreenJump extends MoveScreenMove implements Screen {
         onCreate();
     }
 
+    /**
+     *
+     */
     // Sets up the world for box2D and camera used
     private void onCreate() {
         userInterface = new MoveScreenUI(getGame(), getPlayer(), getMapScreen());
@@ -98,6 +125,9 @@ public class MoveScreenJump extends MoveScreenMove implements Screen {
         userInterface.updateCounterLabel();
     }
 
+    /**
+     *
+     */
     private void update() {
         // Player jumping and checking user input
         getPlayer().playerJump();

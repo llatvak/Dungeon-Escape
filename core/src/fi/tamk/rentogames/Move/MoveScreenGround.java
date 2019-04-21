@@ -19,6 +19,9 @@ import com.badlogic.gdx.physics.box2d.World;
  * @version 1.0
  */
 public class MoveScreenGround {
+    /**
+     * Current game width to set up the width of the ground.
+     */
     private float gameWidth;
 
     /**
@@ -40,6 +43,16 @@ public class MoveScreenGround {
         groundBody.createFixture(getGroundShape(), 0.0f);
     }
 
+    /**
+     * Defines ground body type and sets position for it.
+     *
+     * <p>
+     * Ground's body is set to static so it doesn't move when another body collides with it.
+     * Uses the game screen width to set up the position for the ground.
+     * </p>
+     *
+     * @return box2D body to create a body with definition
+     */
     // Defines the ground body type and sets position
     private BodyDef getGroundBodyDef() {
         BodyDef myBodyDef = new BodyDef();
@@ -48,6 +61,15 @@ public class MoveScreenGround {
         return myBodyDef;
     }
 
+    /**
+     * Defines body shape and sets the size.
+     *
+     * <p>
+     * Sets body shape to polygon and also sets size for the box.
+     * </p>
+     *
+     * @return ground as a polygon shape
+     */
     // Sets ground body shape and size and returns the shape
     private PolygonShape getGroundShape() {
         PolygonShape groundBox = new PolygonShape();

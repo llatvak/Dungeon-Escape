@@ -29,21 +29,49 @@ import fi.tamk.rentogames.Screens.MapScreen;
 public abstract class MoveScreenMove implements Screen {
 
     // Current screen and game
+    /**
+     * Map screen that is received from main class to switch screens in game.
+     */
     private MapScreen mapScreen;
+    /**
+     * Current game received from main class used to access non-static methods.
+     */
     private DungeonEscape game;
 
     // Camera attributes
+    /**
+     * For debugging box2D body shapes.
+     *
+     * @see
+     */
     private Box2DDebugRenderer debugRenderer;
 
     // Textures
+    /**
+     * Background texture used in move screens.
+     *
+     * <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Box2DDebugRenderer.html"> https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Box2DDebugRenderer.html> </a>
+     */
     private Texture backgroundTexture;
 
     // World attributes
+    /**
+     * Box2D world to place box2D bodies.
+     */
     private static World world;
+    /**
+     * Static final boolean variable used for setting box2D body debugging on and off.
+     */
     private static final boolean DEBUG_PHYSICS = true;
+    /**
+     * Used in world stepping to set when to step to loop.
+     */
     private double accumulator = 0;
 
     // World objects
+    /**
+     * Player object in game, used to create Box2D body to world.
+     */
     private MoveScreenPlayer player;
 
 
@@ -52,7 +80,7 @@ public abstract class MoveScreenMove implements Screen {
      *
      * <p>
      * Receives the game and map screen screen from main class {@link DungeonEscape}.
-     * Map screen is used to switch the screen back and game is used to access
+     * Map screen is used to switch the screen back and game is used to access the game.
      * Uses screen interface to generate move screens.
      * Calls create method to create all variables needed to generate move screens.
      * </p>
@@ -67,6 +95,15 @@ public abstract class MoveScreenMove implements Screen {
         onCreate();
     }
 
+    /**
+     * Creates all common objects for move screens in game.
+     *
+     * <p>
+     * Creates world for box2D objects, such as player and ground.
+     * Sets the texture for background and screen's camera.
+     * Generates the font and music.
+     * </p>
+     */
     private void onCreate() {
         // Sets Box2D attributes, gravitation etc.
         world = new World(new Vector2(0, -9.8f), true);
@@ -78,11 +115,14 @@ public abstract class MoveScreenMove implements Screen {
         player = new MoveScreenPlayer(world);
         new MoveScreenGround(world, game.gameWidth);
 
+        // Sets the background texture
         backgroundTexture = new Texture(Gdx.files.internal("backgrounddungeon.png"));
 
+        // Uses main game camera to set up the screen's camera.
         game.getGameCamera().setToOrtho(false, game.gameWidth, game.gameHeight);
 
 
+        // Called when move screen comes visible and background music starts playing.
         GameAudio.playMusic("movescreenmusic");
         GameAudio.setMusicVolume("movescreenmusic", Save.getCurrentAudioSetting());
         GameAudio.loopMusic("movescreenmusic");
@@ -134,18 +174,39 @@ public abstract class MoveScreenMove implements Screen {
 
     }
 
+
+    /**
+     * Called when access to current game is wanted, only returns the game.
+     *
+     * @return current game to move screens when needed
+     */
     public DungeonEscape getGame() {
         return game;
     }
 
+    /**
+     * Returns background texture when called.
+     *
+     * @return background texture is in move screens
+     */
     public Texture getBackgroundTexture() {
         return backgroundTexture;
     }
 
+    /**
+     * Called when access to player is wanted.
+     *
+     * @return player character in move screen as a box2D body
+     */
     public MoveScreenPlayer getPlayer() {
         return player;
     }
 
+    /**
+     * Called from move screens to enable easy access for screen switching.
+     *
+     * @return map screen used when switching screens from move screen
+     */
     public MapScreen getMapScreen() {
         return mapScreen;
     }

@@ -19,16 +19,37 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
  */
 public class SplashScreen implements Screen {
 
+    /**
+     *
+     */
     private final DungeonEscape game;
+    /**
+     *
+     */
     private Stage stage;
 
     // Images
+    /**
+     *
+     */
     private Image rentoImg;
+    /**
+     *
+     */
     private Image tamkImg;
+    /**
+     *
+     */
     private Image tikoImg;
+    /**
+     *
+     */
     private Image msmlImg;
 
     //Test to count switching screen (does not reflect the actual runtime ATM)!
+    /**
+     *
+     */
     private float stateTime = 0;
 
     /**
@@ -121,6 +142,9 @@ public class SplashScreen implements Screen {
 
     }
 
+    /**
+     * @param delta
+     */
     private void update(float delta) {
         stage.act(delta);
         stateTime += delta;
