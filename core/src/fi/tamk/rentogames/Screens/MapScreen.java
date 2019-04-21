@@ -133,7 +133,6 @@ public class MapScreen implements Screen {
         if(Save.getStepAmount() > 0) {
             countPausedMovementpoints();
         }
-        //addMovementPointsOnRender();
     }
 
     /**
