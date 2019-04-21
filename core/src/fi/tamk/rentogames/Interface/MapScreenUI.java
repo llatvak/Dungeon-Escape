@@ -295,7 +295,7 @@ public class MapScreenUI {
                 if(onJump) {
                     mapScreen.goToJumpTrap();
                 }
-                player.addMovementPoints();
+                player.addOneMovementPoint();
             }
         });
 
@@ -309,6 +309,7 @@ public class MapScreenUI {
                 buttonsUp = false;
                 mapScreen.trapButtonsUp = false;
                 player.moveToPreviousTile();
+                player.addOneMovementPoint();
             }
         });
     }
