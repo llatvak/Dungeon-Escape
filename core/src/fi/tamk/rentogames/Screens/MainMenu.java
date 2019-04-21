@@ -24,40 +24,60 @@ import fi.tamk.rentogames.Framework.GameAudio;
 import fi.tamk.rentogames.Framework.Save;
 
 /**
+ * Creates main menu screen and all main menu user interface elements.
+ *
+ *<p>
+ * Creates main menu screen. Implements Screen to render and main menu elements.
+ * Creates buttons and windows to control game starting, changing languages,
+ * changing sound option, and viewing credits.
+ *</p>
  * @author Lauri Latva-Kyyny
  * @author  Miko Kauhanen
  * @version 1.0
  */
 public class MainMenu implements Screen {
 
-    private Stage stage;
+    /**
+     * Main game class
+     */
     private DungeonEscape game;
 
-    private  Texture background;
+    /**
+     * Stage for user interface elements
+     */
+    private Stage stage;
+
+    /**
+     * Scene2d UI skin
+     */
     private Skin skin;
 
     /**
-     *
+     * Background image
+     */
+    private Texture background;
+
+    /**
+     * Is new game button initialized
      */
     private static boolean resetButtonInitialized = false;
+
+    /**
+     * Is sound button initialized
+     */
     private boolean soundButtonInitialized = false;
 
 
     /**
-     * @param game
+     * Constructor for main menu. Receives main game object. Creates stage, background image and skin.
+     *
+     * @param game main game object
      */
     public MainMenu(DungeonEscape game) {
         this.game = game;
-        onCreate();
-    }
-
-    private void onCreate() {
-        background = new Texture("settings.png");
-
-        //atlas = new TextureAtlas("skin.atlas");
-        skin = new Skin( Gdx.files.internal("uiskin.json") );
-
         this.stage = new Stage(game.getGameViewport());
+        background = new Texture("settings.png");
+        skin = new Skin( Gdx.files.internal("uiskin.json") );
     }
 
     @Override
@@ -68,6 +88,11 @@ public class MainMenu implements Screen {
 
         Gdx.input.setInputProcessor(stage);
 
+        createTopButtons();
+        createMenuButtons();
+    }
+
+    private void createTopButtons() {
         //Create Table
         Table topTable = new Table();
 
@@ -83,7 +108,7 @@ public class MainMenu implements Screen {
         Texture finFlagTexture = new Texture("FIN.png");
         Texture engFlagTexture = new Texture("ENG.png");
 
-        //Create buttons
+        // Create buttons for languages info
         ImageButton FinFlag = new ImageButton(new TextureRegionDrawable(new TextureRegion(finFlagTexture)));
         ImageButton EngFlag = new ImageButton(new TextureRegionDrawable(new TextureRegion(engFlagTexture)));
         final ImageButton soundButton = new ImageButton(skin, "sound");
@@ -93,6 +118,14 @@ public class MainMenu implements Screen {
             soundButton.setChecked(true);
             soundButtonInitialized = true;
         }
+
+        //Add buttons to table
+        topTable.row().pad(10,5,0,5);
+        topTable.add(FinFlag).width(40).height(40).fillX();
+        topTable.add(EngFlag).width(40).height(40).fillX();
+        topTable.add(infoButton).right().width(40).height(40).fillX().expandX();
+        topTable.add(soundButton).right().width(40).height(40).fillX();
+        topTable.row().pad(10,5,0,5);
 
         //Add listeners to buttons
         FinFlag.addListener(new ChangeListener(){
@@ -142,28 +175,16 @@ public class MainMenu implements Screen {
             }
         });
 
-        //Add buttons to table
-        topTable.row().pad(10,5,0,5);
-        topTable.add(FinFlag).width(40).height(40).fillX();
-        topTable.add(EngFlag).width(40).height(40).fillX();
-        topTable.add(infoButton).right().width(40).height(40).fillX().expandX();
-        topTable.add(soundButton).right().width(40).height(40).fillX();
-        topTable.row().pad(10,5,0,5);
-
         //Add table to stage
         stage.addActor(topTable);
-
-        gameInit();
     }
 
-
-
-    private void gameInit() {
-        final Table mainTable = new Table();
+    private void createMenuButtons() {
+        final Table menuTable = new Table();
         final Table newGameTable = new Table();
-        mainTable.setFillParent(true);
-        mainTable.setDebug(false);
-        mainTable.center();
+        menuTable.setFillParent(true);
+        menuTable.setDebug(false);
+        menuTable.center();
 
         newGameTable.setFillParent(true);
         newGameTable.setDebug(false);
@@ -177,11 +198,23 @@ public class MainMenu implements Screen {
 
         newGameTable.add(cancelButton).pad(10,10,10,10).width(80);
         newGameTable.add(confirmButton).pad(10,10,10,10).width(80);
+
         newGameWindow.setMovable(false);
         newGameWindow.setModal(true);
         newGameWindow.setSize(200,150);
         newGameWindow.setPosition(game.screenWidth / 2 - newGameWindow.getWidth() / 2,  250f);
         newGameWindow.getContentTable().add(newGameTable);
+
+        menuTable.row().pad(0,0,20,0);
+        menuTable.add(playButton).width(200).height(70).fillX().colspan(2).padTop(50);
+
+        menuTable.row().pad(0,0,10,0);
+        menuTable.add(resetButton).right().colspan(2).width(200).height(50).fillX();
+        menuTable.row().pad(0,0,10,0);
+
+        menuTable.row().pad(10,0,0,0);
+        menuTable.add(exitButton).width(200).height(50).fillX().colspan(2);
+        menuTable.row().pad(10,0,30,0);
 
         playButton.addListener(new ChangeListener(){
             @Override
@@ -232,43 +265,36 @@ public class MainMenu implements Screen {
             }
         });
 
-        mainTable.row().pad(0,0,20,0);
-        mainTable.add(playButton).width(200).height(70).fillX().colspan(2).padTop(50);
-
-        mainTable.row().pad(0,0,10,0);
-        mainTable.add(resetButton).right().colspan(2).width(200).height(50).fillX();
-        mainTable.row().pad(0,0,10,0);
-
-        mainTable.row().pad(10,0,0,0);
-        mainTable.add(exitButton).width(200).height(50).fillX().colspan(2);
-        mainTable.row().pad(10,0,30,0);
-
-
-        stage.addActor(mainTable);
+        stage.addActor(menuTable);
     }
 
     private void createCreditsWindow() {
         Table creditsTable = new Table();
-        final Dialog creditsWindow = new Dialog("Created by:",skin );
+        final Dialog creditsWindow = new Dialog(game.getMyBundle().get("createdby"), skin);
+
         Texture rentoLogo = new Texture("rentologosmall.png");
         Image rentoImage = new Image(rentoLogo);
-        Label createdText = new Label(game.getMyBundle().get("createdtext"),skin);
-        createdText.setAlignment(Align.center);
-        createdText.setWrap(true);
-        Label extraText = new Label(game.getMyBundle().get("musicCredits"),skin);
+
+        Label creatorsText = new Label(game.getMyBundle().get("creatorstext"), skin);
+        creatorsText.setAlignment(Align.center);
+        creatorsText.setWrap(true);
+
+        Label extraText = new Label(game.getMyBundle().get("musicCredits"), skin);
         extraText.setWrap(true);
-        Label uiskinText = new Label(game.getMyBundle().get("uiskincredits"),skin);
+
+        Label uiskinText = new Label(game.getMyBundle().get("uiskincredits"), skin);
         uiskinText.setWrap(true);
+
         TextButton confirmButton = new TextButton("OK!", skin );
 
         creditsTable.setDebug(false);
         creditsTable.add(rentoImage).height(144).width(256);
         creditsTable.row();
-        creditsTable.add(createdText).width(330);
+        creditsTable.add(creatorsText).width(345);
         creditsTable.row();
-        creditsTable.add(extraText).width(330).padTop(40);
+        creditsTable.add(extraText).width(345).padTop(50);
         creditsTable.row();
-        creditsTable.add(uiskinText).width(330).padTop(40);
+        creditsTable.add(uiskinText).width(345).padTop(50);
 
         final ScrollPane scroller = new ScrollPane(creditsTable);
         final Table table = new Table();
@@ -277,7 +303,7 @@ public class MainMenu implements Screen {
 
         creditsWindow.setMovable(false);
         creditsWindow.setModal(true);
-        creditsWindow.setSize(340,620);
+        creditsWindow.setSize(360,640);
         creditsWindow.setPosition(game.screenWidth / 2 - creditsWindow.getWidth() / 2, 10);
         creditsWindow.getContentTable().add(table);
         creditsWindow.button(confirmButton);
@@ -293,11 +319,11 @@ public class MainMenu implements Screen {
 
 
     private void setLocaleFin() {
-        gameInit();
+        createMenuButtons();
     }
 
     private void setLocaleEng() {
-        gameInit();
+        createMenuButtons();
     }
 
     /**
