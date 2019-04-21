@@ -149,8 +149,6 @@ public class DungeonEscape extends Game {
 
     @Override
     public void create () {
-        System.out.println(Gdx.graphics.getWidth() +" x "+ Gdx.graphics.getHeight());
-
         setStartLanguage();
 
         createCameras();

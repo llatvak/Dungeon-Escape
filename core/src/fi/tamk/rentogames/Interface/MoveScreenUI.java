@@ -108,7 +108,6 @@ public class MoveScreenUI {
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
                 if(mapScreen.getMapPlayer().movementPoints < 6) {
-                    System.out.println(mapScreen.getMapPlayer().movementPoints);
                     createSkipWarningWindow();
                 } else {
                     mapScreen.getMapPlayer().removeMultipleMovementPoints(5);

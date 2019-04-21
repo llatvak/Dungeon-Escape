@@ -156,12 +156,10 @@ public class MainMenu implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 if(!soundButtonInitialized) {
-                    System.out.println("muted");
                     Save.saveAudioSettings(0f);
                     soundButtonInitialized = true;
                     playMenuAudio();
                 } else {
-                    System.out.println("unmuted");
                     Save.saveAudioSettings(0.2f);
                     soundButtonInitialized = false;
                     playMenuAudio();
@@ -193,7 +191,6 @@ public class MainMenu implements Screen {
 
         final TextButton playButton = new TextButton(game.getMyBundle().get("playbutton"), skin);
         final TextButton resetButton = new TextButton(game.getMyBundle().get("newgame"), skin);
-        final TextButton exitButton = new TextButton(game.getMyBundle().get("exitbutton"), skin);
         final TextButton confirmButton = new TextButton(game.getMyBundle().get("confirmbutton"), skin);
         final TextButton cancelButton = new TextButton(game.getMyBundle().get("cancelbutton"), skin);
         final Dialog newGameWindow = new Dialog(game.getMyBundle().get("confirmnewgame"), skin);
@@ -214,9 +211,6 @@ public class MainMenu implements Screen {
         menuTable.add(resetButton).right().colspan(2).width(200).height(50).fillX();
         menuTable.row().pad(0,0,10,0);
 
-        menuTable.row().pad(10,0,0,0);
-        menuTable.add(exitButton).width(200).height(50).fillX().colspan(2);
-        menuTable.row().pad(10,0,30,0);
 
         playButton.addListener(new ChangeListener(){
             @Override
@@ -253,14 +247,6 @@ public class MainMenu implements Screen {
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
                 newGameWindow.remove();
-            }
-        });
-
-
-        exitButton.addListener(new ChangeListener(){
-            @Override
-            public void changed(ChangeListener.ChangeEvent event, Actor actor) {
-                Gdx.app.exit();
             }
         });
 
