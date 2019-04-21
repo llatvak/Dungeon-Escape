@@ -128,7 +128,6 @@ public class MoveScreenUI {
         backButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
-                Gdx.app.log("Screen", "going to mapscreen");
                 mapScreen.getMapPlayer().moveToPreviousTile();
                 game.setScreen(mapScreen);
             }

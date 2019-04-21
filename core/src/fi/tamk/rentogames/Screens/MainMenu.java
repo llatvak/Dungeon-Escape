@@ -130,7 +130,6 @@ public class MainMenu implements Screen {
         FinFlag.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Gdx.app.log("Language", "Finnish");
                 game.setLanguage("fi", "FI", "MyBundle_fi_FI");
                 Save.saveLanguage("MyBundle_fi_FI");
                 setLocaleFin();
@@ -140,7 +139,6 @@ public class MainMenu implements Screen {
         EngFlag.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Gdx.app.log("Language", "English");
                 game.setLanguage("en", "US", "MyBundle_en_US");
                 Save.saveLanguage("MyBundle_en_US");
                 setLocaleEng();
@@ -150,8 +148,6 @@ public class MainMenu implements Screen {
         infoButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Gdx.app.log("Info", "pressed");
-
                 createCreditsWindow();
             }
         });
@@ -159,7 +155,6 @@ public class MainMenu implements Screen {
         soundButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Gdx.app.log("Sound", "pressed");
                 if(!soundButtonInitialized) {
                     System.out.println("muted");
                     Save.saveAudioSettings(0f);
@@ -244,8 +239,6 @@ public class MainMenu implements Screen {
         confirmButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
-
-                Gdx.app.log("Game", "Reset");
                 Save.saveCurrentLevel(1);
                 Save.saveMovementPoints(50);
                 Save.saveCurrentPlayerX(513f);

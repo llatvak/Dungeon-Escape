@@ -1,6 +1,5 @@
 package fi.tamk.rentogames.Map;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -51,7 +50,6 @@ public class MapLevel implements Disposable {
      *
      */
     public void resetMap(){
-        Gdx.app.log("MapLevel", "reset");
         // reset all the vars that should be reset before the next mapLevel
 
     }

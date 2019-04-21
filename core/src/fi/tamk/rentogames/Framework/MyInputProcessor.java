@@ -1,6 +1,5 @@
 package fi.tamk.rentogames.Framework;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.utils.Disposable;
@@ -52,7 +51,6 @@ public class MyInputProcessor implements InputProcessor, Disposable {
         }
 
         if(keycode == Input.Keys.BACK){
-            Gdx.app.log("Back", "going back");
             return true;
         }
         return true;

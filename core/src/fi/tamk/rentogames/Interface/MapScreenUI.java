@@ -167,7 +167,6 @@ public class MapScreenUI {
         backButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
-                Gdx.app.log("Button", "back");
                 if(!backButtonInitialized) {
                     game.setPreviousScreen(DungeonEscape.MAPSCREEN);
                     game.changeScreen(DungeonEscape.MAINMENU);
