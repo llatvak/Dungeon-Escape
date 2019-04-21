@@ -18,7 +18,7 @@ import fi.tamk.rentogames.Map.MapLevel;
 import fi.tamk.rentogames.Map.MapPlayer;
 
 /**
- * Brings together all the elements and renders map screen.
+ * Brings together and renders all the elements for map screen.
  *
  *<p>
  * Renders tiled map, story and tutorial windows, player character and user interface.
@@ -278,11 +278,7 @@ public class MapScreen implements Screen {
     }
 
     /**
-     * Saves current step amount
-     *
-     * <p>
-     * Saves step amount before pause
-     * </p>
+     * Saves current step amount before pause.
      */
     void saveStepsOnPause() {
         pauseSteps = stepTotal;
@@ -296,7 +292,8 @@ public class MapScreen implements Screen {
     }
 
     /**
-     * Counts delta between actual steps and steps while paused
+     * Counts delta between actual steps and steps while paused.
+     *
      * @return pause steps and actual steps difference
      */
     private int countStepsDeltaOnResume() {
@@ -364,8 +361,8 @@ public class MapScreen implements Screen {
      * Changes boolean to disallow player movement when on top of a trap.
      * </p>
      *
-     * @param onSquat if player is on squatting trap
-     * @param onJump if player is on jumping trap
+     * @param onSquat is player on squatting trap
+     * @param onJump is player on jumping trap
      */
     public void trapConfirm(final boolean onSquat, final boolean onJump) {
         trapButtonsUp = true;
@@ -419,7 +416,7 @@ public class MapScreen implements Screen {
      * @param tutorial current tutorial
      */
     public void createTutorial(int tutorial) {
-        mapTutorials.changeTutorialLabel(tutorial);
+        mapTutorials.createTutorial(tutorial);
     }
 
     @Override
@@ -446,7 +443,6 @@ public class MapScreen implements Screen {
 
     @Override
     public void hide() {
-        Gdx.app.log("Mapscreen", "hidden");
         userInterface.setBackButtonInitialized(true);
         GameAudio.stopMusic("mapscreenmusic");
     }
@@ -461,13 +457,11 @@ public class MapScreen implements Screen {
 
     @Override
     public void pause() {
-        Gdx.app.log("Mapscreen", "paused");
         saveStepsOnPause();
     }
 
     @Override
     public void resume() {
-        Gdx.app.log("Mapscreen", "resume");
         countAfterPauseMovementPoints();
     }
 

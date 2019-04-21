@@ -17,23 +17,50 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import fi.tamk.rentogames.DungeonEscape;
 
 /**
+ * Creates tutorial windows for map screen.
+ *
+ *<p>
+ * Creates map screen tutorial user interface that consist of pop-up windows with text and images.
+ * Defines their size, position and looks.
+ *</p>
+ *
  * @author Lauri Latva-Kyyny
  * @author  Miko Kauhanen
  * @version 1.0
  */
 public class MapTutorials {
 
+    /**
+     * Main game class.
+     */
     private DungeonEscape game;
-    private Skin skin;
-    private Label textLabel;
-    private String dialogTitle;
-    private Stage stage;
-
-    private float windowHeightPos = 90f;
 
     /**
-     * @param game
-     * @param userInterface
+     * Scene2d UI skin.
+     */
+    private Skin skin;
+
+    /**
+     * Stage for windows and buttons.
+     */
+    private Stage stage;
+
+    /**
+     * Text inside windows.
+     */
+    private Label textLabel;
+
+    /**
+     * Window title.
+     */
+    private String dialogTitle;
+
+    /**
+     * Constructor that receives main game and user interface for map screen.
+     * Creates skin and empty text for window. Gets stage from user interface.
+     *
+     * @param game main game object
+     * @param userInterface map screen interface object
      */
     public MapTutorials(DungeonEscape game, MapScreenUI userInterface) {
         this.skin = new Skin(Gdx.files.internal("uiskin.json"));
@@ -43,9 +70,15 @@ public class MapTutorials {
     }
 
     /**
-     * @param tutorial
+     * Creates new tutorial.
+     *
+     *<p>
+     * Creates a new tutorial window.
+     * Contents and window attributes depend on tutorial number given as parameter.
+     *</p>
+     * @param tutorial tutorial number
      */
-    public void changeTutorialLabel(int tutorial) {
+    public void createTutorial(int tutorial) {
         switch(tutorial) {
             case 1: createIntroTutorial();
                     createIntroTutorialWindow();
@@ -68,69 +101,68 @@ public class MapTutorials {
         }
     }
 
-    public void createIntroTutorial() {
+    private void createIntroTutorial() {
         dialogTitle = game.getMyBundle().get("mapintrotutorialtitle");
         textLabel.setText(game.getMyBundle().get("mapintrotutorialtext"));
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
 
-    public void createCharacterTutorial() {
+    private void createCharacterTutorial() {
         dialogTitle = game.getMyBundle().get("mapcharactertutorialtitle");
         textLabel.setText(game.getMyBundle().get("mapcharactertutorialtext"));
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
 
-    public void createKeysTutorial() {
+    private void createKeysTutorial() {
         dialogTitle = game.getMyBundle().get("mapkeystutorialtitle");
         textLabel.setText(game.getMyBundle().get("mapkeystutorialtext"));
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
 
-    public void createMovementPointsTutorial() {
+    private void createMovementPointsTutorial() {
         dialogTitle = game.getMyBundle().get("mappointstutorialtitle");
         textLabel.setText(game.getMyBundle().get("mappointstutorialtext"));
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
 
-    public void createStepsTutorial() {
+    private void createStepsTutorial() {
         dialogTitle = game.getMyBundle().get("mapstepstutorialtitle");
         textLabel.setText(game.getMyBundle().get("mapstepstutorialtext"));
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
 
-    public void createTrapsTutorial() {
+    private void createTrapsTutorial() {
         dialogTitle = game.getMyBundle().get("maptrapstutorialtitle");
         textLabel.setText(game.getMyBundle().get("maptrapstutorialtext"));
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
-    public void createTrapsTutorialTwo() {
+    private void createTrapsTutorialTwo() {
         dialogTitle = game.getMyBundle().get("maptrapstutorialtitletwo");
         textLabel.setText(game.getMyBundle().get("maptrapstutorialtexttwo"));
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
-    public void createGoalTutorial() {
+    private void createGoalTutorial() {
         dialogTitle = "Escape!";
         textLabel.setText("Now get going, the guards are coming. You must escape!"
         );
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
-    public void createNoKeysInfo() {
+    private void createNoKeysInfo() {
         dialogTitle = game.getMyBundle().get("mapnokeysinfotitle");
         textLabel.setText(game.getMyBundle().get("mapnokeysinfotext"));
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
 
-    public void createIntroTutorialWindow(){
-        Gdx.app.log("Tutorial", "intro");
+    private void createIntroTutorialWindow(){
         Table textTable = new Table();
 
         Dialog tutorialWindow = new Dialog(getDialogTitle(),skin );
@@ -157,8 +189,7 @@ public class MapTutorials {
         stage.addActor(tutorialWindow);
     }
 
-    public void createCharacterTutorialWindow(){
-        Gdx.app.log("Tutorial", "character movement");
+    private void createCharacterTutorialWindow(){
         Table textTable = new Table();
 
         Texture arrowTexture = new Texture("arrowup.png");
@@ -181,8 +212,7 @@ public class MapTutorials {
         stage.addActor(tutorialWindow);
     }
 
-    public void createKeysTutorialWindow(){
-        Gdx.app.log("Tutorial", "character movement");
+    private void createKeysTutorialWindow(){
         Table textTable = new Table();
         Texture keyTexture = new Texture("tutorialkeys.png");
         ImageButton keyImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(keyTexture)));
@@ -203,8 +233,7 @@ public class MapTutorials {
 
         stage.addActor(tutorialWindow);
     }
-    public void createMovementPointsTutorialWindow(){
-        Gdx.app.log("Tutorial", "movement points");
+    private void createMovementPointsTutorialWindow(){
         Table textTable = new Table();
         Texture movesArrowTexture = new Texture("tutorialmoves.png");
         ImageButton movesImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(movesArrowTexture)));
@@ -232,8 +261,7 @@ public class MapTutorials {
         });
         stage.addActor(tutorialWindow);
     }
-    public void createStepsTutorialWindow(){
-        Gdx.app.log("Tutorial", "steps");
+    private void createStepsTutorialWindow(){
         Table textTable = new Table();
         Texture stepsTexture = new Texture("tutorialsteps.png");
         ImageButton stepsImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(stepsTexture)));
@@ -254,8 +282,7 @@ public class MapTutorials {
 
         stage.addActor(tutorialWindow);
     }
-    public void createTrapsTutorialWindow(){
-        Gdx.app.log("Tutorial", "traps");
+    private void createTrapsTutorialWindow(){
         Table textTable = new Table();
         Texture trapOneTexture = new Texture("tutorialtrapspikes.png");
         Texture trapTwoTexture = new Texture("tutorialtraparrow.png");
@@ -273,7 +300,7 @@ public class MapTutorials {
         tutorialWindow.setMovable(false);
         tutorialWindow.setModal(true);
         tutorialWindow.setSize(300,270);
-        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, game.screenHeight / 2 - windowHeightPos - 150f);
+        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, game.screenHeight / 2 - 240f);
         tutorialWindow.getContentTable().add(textTable);
         tutorialWindow.button(confirmButton);
 
@@ -287,8 +314,7 @@ public class MapTutorials {
 
         stage.addActor(tutorialWindow);
     }
-    public void createTrapsTutorialWindowTwo(){
-        Gdx.app.log("Tutorial", "traps 2");
+    private void createTrapsTutorialWindowTwo(){
         Table textTable = new Table();
 
         Dialog tutorialWindow = new Dialog(getDialogTitle(),skin );
@@ -300,15 +326,14 @@ public class MapTutorials {
         tutorialWindow.setMovable(false);
         tutorialWindow.setModal(true);
         tutorialWindow.setSize(300,300);
-        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, game.screenHeight / 2 - windowHeightPos - 100f);
+        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, game.screenHeight / 2 - 190f);
         tutorialWindow.getContentTable().add(textTable);
         tutorialWindow.button(confirmButton);
 
         stage.addActor(tutorialWindow);
     }
 
-    public void createGoalTutorialWindow(){
-        Gdx.app.log("Tutorial", "goal");
+    private void createGoalTutorialWindow(){
         Table textTable = new Table();
 
         Dialog tutorialWindow = new Dialog(getDialogTitle(),skin );
@@ -320,15 +345,14 @@ public class MapTutorials {
         tutorialWindow.setMovable(false);
         tutorialWindow.setModal(true);
         tutorialWindow.setSize(300,190);
-        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, game.screenHeight / 2 - windowHeightPos);
+        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, game.screenHeight / 2 - 90f);
         tutorialWindow.getContentTable().add(textTable);
         tutorialWindow.button(confirmButton);
 
         stage.addActor(tutorialWindow);
     }
 
-    public void createNoKeysWindow(){
-        Gdx.app.log("Tutorial", "created");
+    private void createNoKeysWindow(){
         Table textTable = new Table();
         Texture keyTexture = new Texture("keyicon.png");
         ImageButton keyImageOne = new ImageButton(new TextureRegionDrawable(new TextureRegion(keyTexture)));
@@ -355,10 +379,10 @@ public class MapTutorials {
         stage.addActor(tutorialWindow);
     }
 
-    public String getDialogTitle() {
+    private String getDialogTitle() {
         return this.dialogTitle;
     }
-    public Label getLabel() {
+    private Label getLabel() {
         return this.textLabel;
     }
 

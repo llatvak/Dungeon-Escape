@@ -17,21 +17,47 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import fi.tamk.rentogames.DungeonEscape;
 
 /**
+ * Creates tutorial windows for move(exercise) screens.
+ *
+ * Creates move screen tutorial user interface that consist of pop-up windows with text and images.
+ *
  * @author Lauri Latva-Kyyny
- * @author  Miko Kauhanen
+ * @author Miko Kauhanen
  * @version 1.0
  */
 public class MoveTutorials {
 
+    /**
+     * Main game class
+     */
     private DungeonEscape game;
+
+    /**
+     * Scene2d UI skin
+     */
     private Skin skin;
-    private Label textLabel;
-    private String dialogTitle;
+
+    /**
+     * Stage for windows and buttons
+     */
     private Stage stage;
 
     /**
-     * @param game
-     * @param userInterface
+     * Text inside windows
+     */
+    private Label textLabel;
+
+    /**
+     * Window title
+     */
+    private String dialogTitle;
+
+    /**
+     * Constructor that receives main game and user interface for movement screen.
+     * Creates skin and empty text for window. Gets stage from user interface.
+     *
+     * @param game main game object
+     * @param userInterface move screen interface object
      */
     public MoveTutorials(DungeonEscape game, MoveScreenUI userInterface) {
         this.skin = new Skin(Gdx.files.internal("uiskin.json"));
@@ -41,7 +67,7 @@ public class MoveTutorials {
     }
 
     /**
-     *
+     * Creates tutorial text and window for jumping exercise when player is in spike trap.
      */
     public void createJumpTutorial() {
         createSpikesTutorial();
@@ -49,34 +75,47 @@ public class MoveTutorials {
     }
 
     /**
-     *
+     * Creates tutorial text and window for squatting exercise when player is in arrow trap.
      */
     public void createSquatTutorial() {
         createArrowTutorial();
         createArrowTutorialWindow();
     }
-    public void createSpikesTutorial() {
+
+    /**
+     * Receives tutorial text and title from locale file for jump exercise.
+     */
+    private void createSpikesTutorial() {
         dialogTitle = game.getMyBundle().get("movestutorialtitle");
         textLabel.setText(game.getMyBundle().get("jumptutorialtext"));
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
-    public void createArrowTutorial() {
+
+    /**
+     * Receives tutorial text and title from locale file for squat exercise.
+     */
+    private void createArrowTutorial() {
         dialogTitle = game.getMyBundle().get("movestutorialtitle");
         textLabel.setText(game.getMyBundle().get("squattutorialtext"));
-
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
-    public void createPhoneTutorial() {
+
+    /**
+     * Receives tutorial text and title from locale file for holding the phone correctly.
+     */
+    private void createPhoneTutorial() {
         dialogTitle = game.getMyBundle().get("phonetutorialtitle");
         textLabel.setText(game.getMyBundle().get("phonetutorialtext"));
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
 
-    public void createSpikesTutorialWindow(){
-        Gdx.app.log("Tutorial", "spikes");
+    /**
+     * Creates a window with table that holds the text and images and buttons for jumping trap tutorial.
+     */
+    private void createSpikesTutorialWindow(){
         Table textTable = new Table();
         Texture standTexture = new Texture("tutorialstand.png");
         Texture jumpTexture = new Texture("tutorialjump.png");
@@ -109,8 +148,10 @@ public class MoveTutorials {
         stage.addActor(tutorialWindow);
     }
 
-    public void createArrowTutorialWindow(){
-        Gdx.app.log("Tutorial", "arrow");
+    /**
+     * Creates a window with table that holds the text and images and buttons for squatting trap tutorial.
+     */
+    private void createArrowTutorialWindow(){
         Table textTable = new Table();
         Texture standTexture = new Texture("tutorialstand.png");
         Texture squatTexture = new Texture("tutorialsquat.png");
@@ -143,8 +184,10 @@ public class MoveTutorials {
         stage.addActor(tutorialWindow);
     }
 
-    public void createPhoneTutorialWindow(){
-        Gdx.app.log("Tutorial", "phone");
+    /**
+     * Creates a window with table that holds the text and images and buttons for phone tutorial.
+     */
+    private void createPhoneTutorialWindow(){
         Table textTable = new Table();
 
         Texture phoneTexture = new Texture("phone.png");
@@ -173,10 +216,10 @@ public class MoveTutorials {
         stage.addActor(tutorialWindow);
     }
 
-    public String getDialogTitle() {
+    private String getDialogTitle() {
         return this.dialogTitle;
     }
-    public Label getLabel() {
+    private Label getLabel() {
         return this.textLabel;
     }
 

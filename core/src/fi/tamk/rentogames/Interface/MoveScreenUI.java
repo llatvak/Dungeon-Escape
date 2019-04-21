@@ -41,12 +41,12 @@ public class MoveScreenUI {
     private MoveScreenPlayer player;
 
     /**
-     * Skin
+     * Scene2d UI skin
      */
     private Skin skin;
 
     /**
-     * Stage
+     * Stage for windows and buttons
      */
     private Stage stage;
 
@@ -57,7 +57,7 @@ public class MoveScreenUI {
     private TextButton skipButton;
 
     /**
-     * Labels
+     * Text for current exercise
      */
     private Label counterLabel;
     private Label exerciseLabel;
@@ -106,8 +106,10 @@ public class MoveScreenUI {
     /**
      * Sets user interface elements to screen.
      *
+     * <p>
      * Set buttons and labels sizes and positions and adds listeners to buttons.
      * Adds them stage as actors.
+     * </p>
      */
     public void createUI() {
         skipButton.setPosition(game.screenWidth - skipButton.getWidth() - 5, game.screenHeight - skipButton.getHeight() - 5);

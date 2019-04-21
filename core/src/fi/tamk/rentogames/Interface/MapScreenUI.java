@@ -47,17 +47,17 @@ public class MapScreenUI {
     private MapPlayer player;
 
     /**
-     * Skin
+     * Scene2d UI skin
      */
     private Skin skin;
 
     /**
-     * Stage
+     * Stage for windows and buttons
      */
     private Stage stage;
 
     /**
-     * Changes which color icon is showed next to movement points
+     * Changes which color icon is shown next to movement points
      */
     private boolean redMovesIcon = false;
     private boolean whitesMovesIcon = false;
@@ -67,9 +67,8 @@ public class MapScreenUI {
      */
     private ImageButton backButton;
     private ImageButton keyImage;
-    private ImageButton footmarkImage;
+    private ImageButton footMarkImage;
     private ImageButton movesImage;
-    private ImageButton movesOutImage;
     private ImageButton leftControlsImage;
     private ImageButton rightControlsImage;
     private ImageButton upControlsImage;
@@ -88,7 +87,7 @@ public class MapScreenUI {
     private Texture downArrowTexture;
 
     /**
-     * Labels
+     * Texts for UI elements
      */
     private Label stepLabel;
     private Label movesLabel;
@@ -127,7 +126,6 @@ public class MapScreenUI {
      *
      *<p>
      * Creates skin from assets. Creates all textures, buttons and labels used in the user interface.
-     *
      *</p>
      */
     private void onCreate() {
@@ -145,9 +143,8 @@ public class MapScreenUI {
         //Create buttons
         backButton = new ImageButton(skin, "left");
         keyImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(keyTexture)));
-        footmarkImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(footMarkTexture)));
+        footMarkImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(footMarkTexture)));
         movesImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(movesArrowTexture)));
-        movesOutImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(movesOutArrowTexture)));
         upControlsImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(upArrowTexture)));
         downControlsImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(downArrowTexture)));
         leftControlsImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(leftArrowTexture)));
@@ -162,9 +159,11 @@ public class MapScreenUI {
     /**
      * Sets user interface elements to screen.
      *
+     * <p>
      * Creates two tables to hold all UI elements. Set their sizes and positions and adds listeners to buttons.
      * One table holds all buttons and information elements. Other holds the controller buttons.
      * Adds tables to stage as actors.
+     * </p>
      */
     public void createUI() {
         //Create Table
@@ -230,7 +229,7 @@ public class MapScreenUI {
 
         //Add buttons to table
         topTable.add(backButton).left().width(35).height(35).pad(5,15,0,0);
-        topTable.add(footmarkImage).colspan(2).right().expandX().width(25).height(40).fillX().fillY().pad(5,5,0,0);
+        topTable.add(footMarkImage).colspan(2).right().expandX().width(25).height(40).fillX().fillY().pad(5,5,0,0);
 
         topTable.add(stepLabel).fillX().fillY().pad(5,0,0,5);
         topTable.row();
@@ -260,11 +259,13 @@ public class MapScreenUI {
     /**
      * Creates trap confirmation buttons.
      *
+     * <p>
      * Creates the buttons and label that show up when player is on top of a trap.
      * Set their sizes and positions and adds listeners to buttons.
+     * </p>
      *
-     * @param onSquat
-     * @param onJump
+     * @param onSquat is player on arrow trap
+     * @param onJump is player on spikes trap
      */
     public void createConfirmButtons(final boolean onSquat, final boolean onJump){
         buttonsUp = true;
@@ -330,15 +331,6 @@ public class MapScreenUI {
     }
 
     /**
-     * Are trap confim buttons up
-     *
-     * @return are buttons showing
-     */
-    public boolean isButtonUp() {
-        return buttonsUp;
-    }
-
-    /**
      * Changes movement point icon if no movement points remaining.
      */
     public void setOutOfMovesIcon() {
@@ -363,35 +355,39 @@ public class MapScreenUI {
     }
 
     /**
-     * Updates movement points amount on screen
+     * Updates movement points amount on screen.
      */
     public void updateMovesLabel() {
         movesLabel.setText("" + player.movementPoints);
     }
 
     /**
-     * Updates steps amount on screen
+     * Updates steps amount on screen.
      */
     public void updateStepsLabel() {
         stepLabel.setText("" + mapScreen.getStepTotal());
     }
 
     /**
-     * Updates keys amount on screen
+     * Updates keys amount on screen.
      */
     public void updateKeyLabel() {
         keyLabel.setText("" + mapScreen.getKeyAmount() + "/" + KEYS_NEEDED);
+    }
+
+    /**
+     * Are trap confim buttons up
+     *
+     * @return are buttons up
+     */
+    public boolean isButtonUp() {
+        return buttonsUp;
     }
 
     public Stage getStage() {
         return stage;
     }
 
-    /**
-     * Is back button initialized
-     *
-     * @param initialized is button initialized
-     */
     public void setBackButtonInitialized(boolean initialized) {
         backButtonInitialized = initialized;
     }

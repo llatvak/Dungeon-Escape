@@ -19,8 +19,10 @@ import fi.tamk.rentogames.DungeonEscape;
  *
  * Creates the windows for story content.
  *
- * Creates all the windows and story text inside the windows.
- * Set their size, position.
+ * <p>
+ * Creates story user interface including all the windows and story text
+ * and background images inside the windows. Defines their size, position and looks.
+ * </p>
  *
  * @author Lauri Latva-Kyyny
  * @author Miko Kauhanen
@@ -28,27 +30,38 @@ import fi.tamk.rentogames.DungeonEscape;
  */
 public class Story {
 
+    /**
+     * Main game class.
+     */
     private DungeonEscape game;
+
+    /**
+     * Scene2d UI skin.
+     */
     private Skin skin;
+
+    /**
+     * Stage for windows and buttons.
+     */
     private Stage stage;
 
     /**
-     * Text in window
+     * Text inside windows.
      */
     private Label textLabel;
 
     /**
-     * Background image
+     * Background image for windows.
      */
     private Texture storyBackground;
 
 
     /**
-     * Conctructor that receives main game and user interface.
+     * Constructor that receives main game and user interface.
      * Creates skin. Receives stage from user interface. Sets empty text to window.
      *
-     * @param game
-     * @param userInterface
+     * @param game main game object
+     * @param userInterface map screen user interface object
      */
     public Story(DungeonEscape game, MapScreenUI userInterface) {
         this.skin = new Skin(Gdx.files.internal("uiskin.json"));

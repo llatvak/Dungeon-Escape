@@ -51,7 +51,7 @@ public class DungeonEscape extends Game {
     /**
      *
      */
-    public static boolean tutorials = false;
+    public static boolean tutorials = true;
     /**
      *
      */
@@ -209,7 +209,6 @@ public class DungeonEscape extends Game {
             case JUMPSCREEN:
                 activeScreen = JUMPSCREEN;
                 MoveScreenJump moveScreenJump = new MoveScreenJump(this, mapScreen.getMapScreen());
-                //MoveScreenJump moveScreenJump = new MoveScreenJump(this, new MapScreen(this));
                 moveScreenStatus = true;
                 this.setScreen(moveScreenJump);
                 break;
@@ -231,7 +230,6 @@ public class DungeonEscape extends Game {
             case SQUATSCREEN:
                 activeScreen = SQUATSCREEN;
                 MoveScreenSquat moveScreenSquat = new MoveScreenSquat(this, mapScreen.getMapScreen());
-                //MoveScreenSquat moveScreenSquat = new MoveScreenSquat(this, new MapScreen(this));
                 moveScreenStatus = true;
                 this.setScreen(moveScreenSquat);
                 break;

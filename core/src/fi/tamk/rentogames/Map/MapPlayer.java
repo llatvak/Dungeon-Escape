@@ -34,7 +34,7 @@ public class MapPlayer extends Sprite {
     private MapScreen mapScreen;
 
     /**
-     * Tiled map
+     * Tiled map world
      */
     private TiledMap tiledMap;
 
@@ -132,7 +132,7 @@ public class MapPlayer extends Sprite {
     private boolean downRightCollision;
 
     /**
-     * Tiledmap layer names
+     * Tiled map layer names
      */
     private String jumpingTrap = "jump-trap";
     private String squatTrap = "squat-trap";
@@ -182,7 +182,7 @@ public class MapPlayer extends Sprite {
     }
 
     /**
-     * Sets sprite textures.
+     * Sets player sprite's textures.
      *
      *<p>
      * Sets textures for different directions. Sets first texture direction to up.
@@ -446,7 +446,11 @@ public class MapPlayer extends Sprite {
     }
 
     /**
-     * Checks if coordinate is free from walls.
+     * Checks if coordinate cell has walls.
+     *
+     * @param x coordinate in pixels
+     * @param y coordinate in pixels
+     * @return is cell free or not
      */
     private boolean isFree(float x, float y) {
 
@@ -523,6 +527,8 @@ public class MapPlayer extends Sprite {
      * Checks all tiled map layers if player sprite's rectangle overlaps any of the objects in given layer parameter.
      * If the collided object is the same as in given parameter acts accordingly to given circumstance.
      *</p>
+     *
+     * @param layer tiled map layer that is checked for collision
      */
     private void checkObjectCollision(String layer) {
         // Boolean values for stepping on up/down trap
@@ -617,6 +623,9 @@ public class MapPlayer extends Sprite {
 
     /**
      * Clears key sprite from tiled map when player collides with it.
+     *
+     * @param xCoord player' x coordinate
+     * @param yCoord player's y coordinate
      */
     private void clearKeys(float xCoord, float yCoord) {
         int indexX = (int) xCoord / TILE_SIZE;
