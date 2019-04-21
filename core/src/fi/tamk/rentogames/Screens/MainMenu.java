@@ -160,7 +160,7 @@ public class MainMenu implements Screen {
                     soundButtonInitialized = true;
                     playMenuAudio();
                 } else {
-                    Save.saveAudioSettings(0.2f);
+                    Save.saveAudioSettings(1f);
                     soundButtonInitialized = false;
                     playMenuAudio();
                 }
