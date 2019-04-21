@@ -32,7 +32,7 @@ public class MyService extends Service implements SensorEventListener, StepListe
 
     private final IBinder binder = new LocalBinder();
 
-    public class LocalBinder extends Binder {
+    class LocalBinder extends Binder {
         MyService getService() {
             // Return this instance of LocalService so clients can call public methods
             return MyService.this;
@@ -100,8 +100,7 @@ public class MyService extends Service implements SensorEventListener, StepListe
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        mAccelerometer = mSensorManager
-                .getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mSensorManager.registerListener(this, mAccelerometer,
                 SensorManager.SENSOR_DELAY_UI, new Handler());
         return START_STICKY;

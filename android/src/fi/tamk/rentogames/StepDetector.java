@@ -1,6 +1,6 @@
 package fi.tamk.rentogames;
 
-public class StepDetector {
+class StepDetector {
 
     private static final int ACCEL_RING_SIZE = 50;
     private static final int VEL_RING_SIZE = 10;
@@ -21,12 +21,12 @@ public class StepDetector {
 
     private StepListener listener;
 
-    public void registerListener(StepListener listener) {
+    void registerListener(StepListener listener) {
         this.listener = listener;
     }
 
 
-    public void updateAccel(long timeNs, float x, float y, float z) {
+    void updateAccel(long timeNs, float x, float y, float z) {
         float[] currentAccel = new float[3];
         currentAccel[0] = x;
         currentAccel[1] = y;
