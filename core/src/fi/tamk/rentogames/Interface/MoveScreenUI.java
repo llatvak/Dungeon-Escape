@@ -14,7 +14,7 @@ import fi.tamk.rentogames.Move.MoveScreenPlayer;
 import fi.tamk.rentogames.Screens.MapScreen;
 
 /**
- * Creates user interface for move screen
+ * Creates user interface for move screen.
  *
  * Creates the textures, buttons and labels for movement(exercise) screen.
  * Designates their size, position and functionality.
@@ -25,41 +25,28 @@ import fi.tamk.rentogames.Screens.MapScreen;
  */
 public class MoveScreenUI {
 
-    /**
-     * Main game
-     */
     private DungeonEscape game;
 
-    /**
-     * Map screen
-     */
     private MapScreen mapScreen;
 
-    /**
-     * Player
-     */
     private MoveScreenPlayer player;
 
-    /**
-     * Scene2d UI skin
-     */
     private Skin skin;
 
-    /**
-     * Stage for windows and buttons
-     */
     private Stage stage;
 
-    /**
-     * Buttons
-     */
     private ImageButton backButton;
+
     private TextButton skipButton;
+
+    /**
+     * Text for amount of exercises done
+     */
+    private Label counterLabel;
 
     /**
      * Text for current exercise
      */
-    private Label counterLabel;
     private Label exerciseLabel;
 
     /**

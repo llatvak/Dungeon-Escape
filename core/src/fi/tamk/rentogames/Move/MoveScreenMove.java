@@ -3,13 +3,11 @@ package fi.tamk.rentogames.Move;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 
 import fi.tamk.rentogames.DungeonEscape;
-import fi.tamk.rentogames.Framework.Fonts;
 import fi.tamk.rentogames.Framework.GameAudio;
 import fi.tamk.rentogames.Framework.Save;
 import fi.tamk.rentogames.Screens.MapScreen;
@@ -48,8 +46,6 @@ public abstract class MoveScreenMove implements Screen {
     // World objects
     private MoveScreenPlayer player;
 
-    // Fonts
-    private BitmapFont fontRoboto;
 
     /**
      * Constructor that receives the game and map screen {@link MapScreen}.
@@ -86,9 +82,6 @@ public abstract class MoveScreenMove implements Screen {
 
         game.getGameCamera().setToOrtho(false, game.gameWidth, game.gameHeight);
 
-        // Setting up fonts
-        Fonts fonts = new Fonts();
-        fontRoboto = fonts.createMediumFont();
 
         GameAudio.playMusic("movescreenmusic");
         GameAudio.setMusicVolume("movescreenmusic", Save.getCurrentAudioSetting());
@@ -153,10 +146,6 @@ public abstract class MoveScreenMove implements Screen {
         return player;
     }
 
-    public BitmapFont getFontRoboto() {
-        return fontRoboto;
-    }
-
     public MapScreen getMapScreen() {
         return mapScreen;
     }
@@ -192,7 +181,6 @@ public abstract class MoveScreenMove implements Screen {
         mapScreen.dispose();
         backgroundTexture.dispose();
         game.dispose();
-        fontRoboto.dispose();
         player.dispose();
         debugRenderer.dispose();
     }

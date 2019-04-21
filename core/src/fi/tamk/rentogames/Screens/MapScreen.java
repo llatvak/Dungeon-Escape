@@ -32,25 +32,17 @@ import fi.tamk.rentogames.Map.MapPlayer;
  */
 public class MapScreen implements Screen {
 
-    /**
-     * Main game class
-     */
     private DungeonEscape game;
 
-    /**
-     * Player character
-     */
     private MapPlayer player;
 
-    /**
-     * Tiled map level
-     */
     private MapLevel mapLevel;
 
-    /**
-     * User interface
-     */
     private MapScreenUI userInterface;
+
+    private Stage stage;
+
+    private OrthogonalTiledMapRenderer tiledMapRenderer;
 
     /**
      * Tutorial windows
@@ -61,16 +53,6 @@ public class MapScreen implements Screen {
      * Story windows
      */
     private Story story;
-
-    /**
-     * Stage for user interface elements
-     */
-    private Stage stage;
-
-    /**
-     * Renderer for tiled maps
-     */
-    private OrthogonalTiledMapRenderer tiledMapRenderer;
 
     /**
      * Total step amount

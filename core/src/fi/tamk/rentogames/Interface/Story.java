@@ -30,19 +30,10 @@ import fi.tamk.rentogames.DungeonEscape;
  */
 public class Story {
 
-    /**
-     * Main game class.
-     */
     private DungeonEscape game;
 
-    /**
-     * Scene2d UI skin.
-     */
     private Skin skin;
 
-    /**
-     * Stage for windows and buttons.
-     */
     private Stage stage;
 
     /**
@@ -54,7 +45,6 @@ public class Story {
      * Background image for windows.
      */
     private Texture storyBackground;
-
 
     /**
      * Constructor that receives main game and user interface.

@@ -30,19 +30,10 @@ import fi.tamk.rentogames.DungeonEscape;
  */
 public class MapTutorials {
 
-    /**
-     * Main game class.
-     */
     private DungeonEscape game;
 
-    /**
-     * Scene2d UI skin.
-     */
     private Skin skin;
 
-    /**
-     * Stage for windows and buttons.
-     */
     private Stage stage;
 
     /**

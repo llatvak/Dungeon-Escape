@@ -31,40 +31,17 @@ import static fi.tamk.rentogames.Screens.MapScreen.KEYS_NEEDED;
  */
 public class MapScreenUI {
 
-    /**
-     * Main game
-     */
     private DungeonEscape game;
 
-    /**
-     * Map screen
-     */
     private MapScreen mapScreen;
 
-    /**
-     * Player
-     */
     private MapPlayer player;
 
-    /**
-     * Scene2d UI skin
-     */
     private Skin skin;
 
-    /**
-     * Stage for windows and buttons
-     */
     private Stage stage;
 
-    /**
-     * Changes which color icon is shown next to movement points
-     */
-    private boolean redMovesIcon = false;
-    private boolean whitesMovesIcon = false;
-
-    /**
-     * Buttons
-     */
+    // Buttons
     private ImageButton backButton;
     private ImageButton keyImage;
     private ImageButton footMarkImage;
@@ -74,9 +51,7 @@ public class MapScreenUI {
     private ImageButton upControlsImage;
     private ImageButton downControlsImage;
 
-    /**
-     * Textures
-     */
+    // Textures
     private Texture keyTexture;
     private Texture footMarkTexture;
     private Texture movesArrowTexture;
@@ -86,12 +61,20 @@ public class MapScreenUI {
     private Texture upArrowTexture;
     private Texture downArrowTexture;
 
-    /**
-     * Texts for UI elements
-     */
+    //Text for UI elements
     private Label stepLabel;
     private Label movesLabel;
     private Label keyLabel;
+
+    /**
+     * Show red icon for movement points
+     */
+    private boolean redMovesIcon;
+
+    /**
+     * Show white icon for movement points
+     */
+    private boolean whitesMovesIcon;
 
     /**
      * Are trap confirmation buttons up

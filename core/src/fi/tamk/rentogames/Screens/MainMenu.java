@@ -37,19 +37,10 @@ import fi.tamk.rentogames.Framework.Save;
  */
 public class MainMenu implements Screen {
 
-    /**
-     * Main game class
-     */
     private DungeonEscape game;
 
-    /**
-     * Stage for user interface elements
-     */
     private Stage stage;
 
-    /**
-     * Scene2d UI skin
-     */
     private Skin skin;
 
     /**
@@ -66,7 +57,6 @@ public class MainMenu implements Screen {
      * Is sound button initialized
      */
     private boolean soundButtonInitialized = false;
-
 
     /**
      * Constructor for main menu. Receives main game object. Creates stage, background image and skin.

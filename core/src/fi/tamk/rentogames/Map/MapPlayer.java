@@ -28,19 +28,10 @@ import fi.tamk.rentogames.Screens.MapScreen;
 
 public class MapPlayer extends Sprite {
 
-    /**
-     * Map screen
-     */
     private MapScreen mapScreen;
 
-    /**
-     * Tiled map world
-     */
     private TiledMap tiledMap;
 
-    /**
-     * Tiled map level
-     */
     private MapLevel mapLevel;
 
     /**
@@ -55,19 +46,29 @@ public class MapPlayer extends Sprite {
     private float spriteHeight = 62f;
 
     /**
-     * Player's starting location
+     * Player's starting x location as
+     * (tile count) * (tile size in pixels) + (1 px to center sprite inside tile)
      */
     private float startingX = 8 * TILE_SIZE + 1f;
+
+    /**
+     * Player's starting y location as
+     * (tile count) * (tile size in pixels) + (1 px to center sprite inside tile)
+     */
     private float startingY = TILE_SIZE + 1f;
 
     /**
-     * Player's position
+     * Player's x position
      */
     private float spriteX;
+
+    /**
+     * Player's y position
+     */
     private float spriteY;
 
     /**
-     * Is player moving
+     * Is player's sprite moving
      */
     public boolean moving;
 
@@ -76,17 +77,14 @@ public class MapPlayer extends Sprite {
      */
     private String currentDirection;
 
-    /**
-     * Player directions
-     */
+    // Player directions
     private boolean goUp;
     private boolean goDown;
     private boolean goRight;
     private boolean goLeft;
 
-    /**
-     * Player textures for different directions
-     */
+
+    // Player textures for different directions
     private Texture playerDown;
     private Texture playerUp;
     private Texture playerRight;
@@ -113,7 +111,7 @@ public class MapPlayer extends Sprite {
     public boolean allowMovement;
 
     /**
-     * Sprite movement speed
+     * Sprite movement speed each frame
      */
     private float movementSpeed = 4f;
 
@@ -121,19 +119,16 @@ public class MapPlayer extends Sprite {
      * Distance moved in pixels
      */
     private float movedDistance;
+
     private float moveAmount = movementSpeed;
 
-    /**
-     * Collision checking
-     */
+    // Collision checking
     private boolean upLeftCollision;
     private boolean downLeftCollision;
     private boolean upRightCollision;
     private boolean downRightCollision;
 
-    /**
-     * Tiled map layer names
-     */
+    // Tiled map layer names
     private String jumpingTrap = "jump-trap";
     private String squatTrap = "squat-trap";
     private String levelChangeObject = "level-change";
