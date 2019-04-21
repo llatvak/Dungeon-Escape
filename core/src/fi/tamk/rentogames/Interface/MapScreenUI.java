@@ -20,7 +20,7 @@ import fi.tamk.rentogames.Screens.MapScreen;
 import static fi.tamk.rentogames.Screens.MapScreen.KEYS_NEEDED;
 
 /**
- * Creates user interface for map screen
+ * Creates user interface for map screen.
  *
  * Creates the textures, buttons and labels for map screen.
  * Designates their size, position and functionality.
@@ -67,22 +67,22 @@ public class MapScreenUI {
     private Label keyLabel;
 
     /**
-     * Show red icon for movement points
+     * Show red icon for movement points.
      */
     private boolean redMovesIcon;
 
     /**
-     * Show white icon for movement points
+     * Show white icon for movement points.
      */
     private boolean whitesMovesIcon;
 
     /**
-     * Are trap confirmation buttons up
+     * Are trap confirmation buttons up.
      */
     private boolean buttonsUp;
 
     /**
-     * Is back button initialized
+     * Is back button initialized.
      */
     private boolean backButtonInitialized = false;
 
@@ -360,7 +360,7 @@ public class MapScreenUI {
     }
 
     /**
-     * Are trap confim buttons up
+     * Are trap confirm buttons up.
      *
      * @return are buttons up
      */

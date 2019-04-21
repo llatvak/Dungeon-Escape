@@ -381,8 +381,8 @@ public class MapPlayer extends Sprite {
      */
     public void removeMultipleMovementPoints(int pointsToRemove) {
         movementPoints = movementPoints - pointsToRemove - 1;
-        if(movementPoints < 0) {
-            movementPoints = 0;
+        if(movementPoints <= 0) {
+            movementPoints = 1;
         }
         Save.saveMovementPoints(movementPoints);
     }
