@@ -66,7 +66,7 @@ public class MainMenu implements Screen {
     public MainMenu(DungeonEscape game) {
         this.game = game;
         this.stage = new Stage(game.getGameViewport());
-        background = new Texture("settings.png");
+        background = new Texture("menu.png");
         skin = new Skin( Gdx.files.internal("uiskin.json") );
     }
 
@@ -191,17 +191,17 @@ public class MainMenu implements Screen {
 
         final TextButton playButton = new TextButton(game.getMyBundle().get("playbutton"), skin);
         final TextButton resetButton = new TextButton(game.getMyBundle().get("newgame"), skin);
-        final TextButton confirmButton = new TextButton(game.getMyBundle().get("confirmbutton"), skin);
-        final TextButton cancelButton = new TextButton(game.getMyBundle().get("cancelbutton"), skin);
+        final TextButton confirmNewGameButton = new TextButton(game.getMyBundle().get("confirmbutton"), skin);
+        final TextButton cancelNewGameButton = new TextButton(game.getMyBundle().get("cancelbutton"), skin);
         final Dialog newGameWindow = new Dialog(game.getMyBundle().get("confirmnewgame"), skin);
 
-        newGameTable.add(cancelButton).pad(10,10,10,10).width(80);
-        newGameTable.add(confirmButton).pad(10,10,10,10).width(80);
+        newGameTable.add(cancelNewGameButton).pad(10,10,10,10).width(80);
+        newGameTable.add(confirmNewGameButton).pad(10,10,10,10).width(80);
 
         newGameWindow.setMovable(false);
         newGameWindow.setModal(true);
-        newGameWindow.setSize(200,150);
-        newGameWindow.setPosition(game.screenWidth / 2 - newGameWindow.getWidth() / 2,  250f);
+        newGameWindow.setSize(200,170);
+        newGameWindow.setPosition(game.screenWidth / 2 - newGameWindow.getWidth() / 2,  230f);
         newGameWindow.getContentTable().add(newGameTable);
 
         menuTable.row().pad(0,0,20,0);
@@ -230,7 +230,7 @@ public class MainMenu implements Screen {
             }
         });
 
-        confirmButton.addListener(new ChangeListener(){
+        confirmNewGameButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
                 Save.saveCurrentLevel(1);
@@ -243,7 +243,7 @@ public class MainMenu implements Screen {
             }
         });
 
-        cancelButton.addListener(new ChangeListener(){
+        cancelNewGameButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor) {
                 newGameWindow.remove();
