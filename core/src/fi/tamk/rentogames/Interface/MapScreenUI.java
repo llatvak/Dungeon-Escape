@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -85,6 +86,11 @@ public class MapScreenUI {
      * Is back button initialized.
      */
     private boolean backButtonInitialized = false;
+
+    /**
+     * Is info window for out of moves up
+     */
+    public boolean outOfMovesWindowUp;
 
     /**
      * Constructor that receives the main game object,  map screen object and player object.
@@ -312,6 +318,35 @@ public class MapScreenUI {
             }
         });
     }
+
+    public void createOutOfMovesWindow() {
+        outOfMovesWindowUp = true;
+        Table textTable = new Table();
+        Dialog infoWindow = new Dialog(game.getMyBundle().get("mapnomovementpointstitle"), skin );
+        Label outOfMovesLabel = new Label(game.getMyBundle().get("mapnomovementpointstext"), skin);
+        movesImage = new ImageButton(new TextureRegionDrawable(new TextureRegion(movesOutArrowTexture)));
+        TextButton confirmButton = new TextButton("OK!", skin );
+
+        textTable.setDebug(false);
+        textTable.add(outOfMovesLabel).width(250f).height(40f).left();
+       // textTable.row();
+        textTable.add(movesImage).width(35).height(35);
+
+        infoWindow.setMovable(false);
+        infoWindow.setModal(false);
+        infoWindow.setSize(320,150);
+        infoWindow.setPosition(game.screenWidth / 2 - infoWindow.getWidth() / 2, 370);
+        infoWindow.getContentTable().add(textTable);
+        infoWindow.button(confirmButton);
+
+        confirmButton.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeEvent event, Actor actor){
+            }
+        });
+        stage.addActor(infoWindow);
+    }
+
 
     /**
      * Changes movement point icon if no movement points remaining.

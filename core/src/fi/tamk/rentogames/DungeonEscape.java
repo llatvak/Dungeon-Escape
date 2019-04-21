@@ -366,17 +366,6 @@ public class DungeonEscape extends Game {
         stepGetter = sg;
     }
 
-    // Not used
-//    public void addSteps() {
-//        // Is map screen open
-//        if(mapScreenStatus) {
-//            // Is movement screen open
-//            if(!moveScreenStatus) {
-//                mapScreen.addStep();
-//            }
-//        }
-//    }
-
     /**
      * @return
      */

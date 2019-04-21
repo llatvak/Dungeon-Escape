@@ -170,9 +170,14 @@ public class MapScreen implements Screen {
         userInterface.updateKeyLabel();
 
         if(!player.allowMovement) {
+            if(!userInterface.outOfMovesWindowUp) {
+                userInterface.createOutOfMovesWindow();
+            }
             userInterface.setOutOfMovesIcon();
+
         } else {
             userInterface.setMovesIcon();
+            userInterface.outOfMovesWindowUp = false;
         }
     }
 
