@@ -14,16 +14,23 @@ import static com.badlogic.gdx.Input.Keys.SPACE;
 //        Gdx.input.setInputProcessor(inputProcessor);
 
 /**
+ * Class to control user inputs made in game.
+ *
  * @author Lauri Latva-Kyyny
  * @author  Miko Kauhanen
  * @version 1.0
  */
 public class MyInputProcessor implements InputProcessor, Disposable {
 
+    /**
+     * Map screen player {@link MapPlayer} used to control inputs in map screen.
+     */
     private MapPlayer player;
 
     /**
-     * @param player
+     * Controls the input happened in map screen.
+     *
+     * @param player player in map screen
      */
     public MyInputProcessor(MapPlayer player) {
         this.player = player;
