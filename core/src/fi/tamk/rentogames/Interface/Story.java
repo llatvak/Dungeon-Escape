@@ -47,6 +47,11 @@ public class Story {
     private Texture storyBackground;
 
     /**
+     * Is is the last door
+     */
+    private boolean gameEnd;
+
+    /**
      * Constructor that receives main game and user interface.
      * Creates skin. Receives stage from user interface. Sets empty text to window.
      *
@@ -79,6 +84,8 @@ public class Story {
                 break;
             case 5: createStoryFive();
                 break;
+            case 6: createGameEnd();
+                break;
         }
         createStoryWindow();
     }
@@ -108,6 +115,13 @@ public class Story {
         textLabel.setWrap(true);
         storyBackground = new Texture("story5.png");
     }
+    private void createGameEnd() {
+        textLabel.setText("Thanks for playing!");
+        textLabel.setWrap(true);
+        gameEnd = true;
+        storyBackground = new Texture("story-empty.png");
+    }
+
 
     private void createStoryWindow(){
         Table textTable = new Table();
@@ -130,7 +144,9 @@ public class Story {
         confirmButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-
+                if(gameEnd) {
+                    game.changeScreen(DungeonEscape.MAINMENU);
+                }
 
             }
         });

@@ -160,8 +160,6 @@ public class MapPlayer extends Sprite {
         this.tiledMap = mapLevel.getCurrentMap();
 
         spawn(Save.getCurrentLevel());
-//        spriteX = startingX;
-//        spriteY = startingY;
         setSize(spriteWidth, spriteHeight);
         setPosition(spriteX, spriteY);
         setTextures();
@@ -200,7 +198,10 @@ public class MapPlayer extends Sprite {
                     break;
             case 9: spriteX = 2 * TILE_SIZE + 1f;
                     spriteY = 14 * TILE_SIZE + 1f;
-                break;
+                    break;
+            case 10: spriteX = 8 * TILE_SIZE + 1f;
+                     spriteY = 2 * TILE_SIZE + 1f;
+                     break;
         }
         setPosition(spriteX, spriteY);
     }

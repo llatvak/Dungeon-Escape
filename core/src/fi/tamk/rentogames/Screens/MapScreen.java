@@ -304,11 +304,11 @@ public class MapScreen implements Screen {
      * </p>
      */
     public void changeLevel() {
-        if(Save.getCurrentLevel() < 7) {
+        if(Save.getCurrentLevel() < 10) {
             level = Save.getCurrentLevel() + 1;
             GameAudio.playSound("dooropensound", Save.getCurrentAudioSetting());
         } else {
-            level = 1;
+            story.createStoryPart(6);
             GameAudio.playSound("dooropensound", Save.getCurrentAudioSetting());
         }
         Save.saveCurrentLevel(level);
