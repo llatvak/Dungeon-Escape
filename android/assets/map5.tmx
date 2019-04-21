@@ -5,7 +5,7 @@
  </tileset>
  <layer id="1" name="Walls" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjZGBgYMKBBYFYCIiF8ahhBmJOIObCgUHyIMCIRw03ATO4oGbgk0c2Ax2QawY2fZSYgQ9Q6hd8ZhCrhx5mEAsImUFsfAxWMySJ8Dcl+YVeZsDKCHIxqGwBAOPOCXI=
+   eJydkksKwCAMRNXahbUubFe9/0VrQGGQfMTAgGJ8Zga9cy4Iqk1P06v0HE2p6RJE51Re6cmdEft7qLOfO+OdwRi9WGmT4WH+2nMY63lGiYH3tMK5NC84E60D7DnGPfXQncLkweWTYR8Z/9JeYnB+pLIYXA6zisFY/RfI4LxzvjUG6VvwrTEkz7Nv669bfat57Iqy+wE1NQlg
   </data>
  </layer>
  <layer id="2" name="Road" width="17" height="17">
@@ -35,7 +35,7 @@
  </layer>
  <layer id="12" name="VisualObjects" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYKAtYGNgaOCH0KNgFIyCUYABAISCAJw=
+   eJxjYKAtYGNgaOCH0HQBIPuwiFEF8CFoDDsoBdjcSEu/wMwm1zw+AnxKAS530TJMSAFIaYGqfh8Ivww0AAAa6QPA
   </data>
  </layer>
  <objectgroup color="#0de214" id="8" name="level-change">

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="17" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="16" nextobjectid="45">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="17" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="16" nextobjectid="46">
  <tileset firstgid="1" name="Dungeon-tileset" tilewidth="64" tileheight="64" tilecount="32" columns="8">
   <image source="Dungeon-tileset.png" width="512" height="256"/>
  </tileset>
  <layer id="1" name="Walls" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjZGBgYMKBBRkgQBiPGmYg5gRiLjyYAYnGBrihZmAD5JjBhUctOWbg8hM57sAXTjCMzQxC9hLjDmx+wuc/fPFCqhmE/EysX9DtxuUvfGGKbAYhfxHjDnR7B9IMdECqGchYkoEhAV8cgcwAlRFCFGBQ2QIA6VgG7A==
+   eJylk8ESQDAMREM5UD3g5O/8/1doh8ysTFfRzOxJvLVJeBFpiZyc1RR6fNSSUX89SzVEjUQe+mzNUetHRgPfbustYzA8zBx+MDBPblao1TAmue/jTaE3euoscUY2n8swvnigj/aw+wkFD2TgnDvix27VZRjMl92If2Cor6tg6AxL9/7EqMmid6Y5NpE95WL3rgz27ysvvW/3hXs7ABPSCQs=
   </data>
  </layer>
  <layer id="2" name="Road" width="17" height="17">
@@ -25,17 +25,17 @@
  </layer>
  <layer id="5" name="SquatTrap" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYBgF+ID0IDGDVmAwu20kg5EULwARTwBt
+   eJxjYBi+QHqQmDGYwXD331AFIyleAB+nAG0=
   </data>
  </layer>
  <layer id="6" name="JumpTrap" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYBi+QGqgHYAEpBgGl3uoCYarv8gFo+FBGgAAXksAgw==
+   eJxjYBgF9ABSUDwcwXD1F7lgNDxIAwD/LABp
   </data>
  </layer>
  <layer id="12" name="VisualObjects" width="17" height="17">
   <data encoding="base64" compression="zlib">
-   eJxjYBgZQHagHTAKRsEowAoAbTAAHg==
+   eJxjYMAN2BgYGqA0zQHMLiziVHGHLAV6KQG4/EVrs5DDDZsZ9IhTYgEhf9HKrfjS3FADQ9kvAGVBBYo=
   </data>
  </layer>
  <objectgroup color="#0de214" id="8" name="level-change">
@@ -61,17 +61,14 @@
   <object id="42" x="608" y="494">
    <point/>
   </object>
-  <object id="43" x="286" y="362">
+  <object id="44" x="284" y="304">
    <point/>
   </object>
-  <object id="44" x="284" y="304">
+  <object id="45" x="286.667" y="240">
    <point/>
   </object>
  </objectgroup>
  <objectgroup color="#ec182d" id="9" name="jump-trap">
-  <object id="36" x="284" y="238">
-   <point/>
-  </object>
   <object id="37" x="354" y="372">
    <point/>
   </object>
