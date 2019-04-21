@@ -47,7 +47,7 @@ public class DungeonEscape extends Game {
     /**
      *
      */
-    public static boolean testing = true;
+    public static boolean testing = false;
     /**
      *
      */
