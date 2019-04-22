@@ -32,39 +32,112 @@ import static fi.tamk.rentogames.Screens.MapScreen.KEYS_NEEDED;
  */
 public class MapScreenUI {
 
+    /**
+     * Main game {@link DungeonEscape} used to access all methods and variables there.
+     */
     private DungeonEscape game;
 
+    /**
+     * Map screen {@link MapScreen} used to access map screen's methods and variables.
+     */
     private MapScreen mapScreen;
 
+    /**
+     * Map player {@link MapPlayer} used to access map player's methods and variables.
+     */
     private MapPlayer player;
 
+    /**
+     * Skin used on windows and ui elements in map screen.
+     */
     private Skin skin;
 
+
+    /**
+     * Scene2D stage to set objects on, draw them and do actions.
+     */
     private Stage stage;
 
     // Buttons
+    /**
+     * Button for going back.
+     */
     private ImageButton backButton;
+    /**
+     * Button for key icon.
+     */
     private ImageButton keyImage;
+    /**
+     * Button for step icon.
+     */
     private ImageButton footMarkImage;
+    /**
+     * Button for move point icon.
+     */
     private ImageButton movesImage;
+    /**
+     * Button to press when moving left.
+     */
     private ImageButton leftControlsImage;
+    /**
+     * Button to press when moving right.
+     */
     private ImageButton rightControlsImage;
+    /**
+     * Button to press when moving up.
+     */
     private ImageButton upControlsImage;
+    /**
+     * Button to press when moving down.
+     */
     private ImageButton downControlsImage;
 
     // Textures
+    /**
+     * Key icon texture on map screen.
+     */
     private Texture keyTexture;
+    /**
+     * Step icon texture on map screen.
+     */
     private Texture footMarkTexture;
+    /**
+     * Move point icon texture on map screen.
+     */
     private Texture movesArrowTexture;
+    /**
+     * Move point icon when moves are over texture on map screen.
+     */
     private Texture movesOutArrowTexture;
+    /**
+     * Control texture on map screen for moving to left.
+     */
     private Texture leftArrowTexture;
+    /**
+     * Control texture on map screen for moving to right.
+     */
     private Texture rightArrowTexture;
+    /**
+     * Control texture on map screen for moving to up.
+     */
     private Texture upArrowTexture;
+    /**
+     * Control texture on map screen for moving to down.
+     */
     private Texture downArrowTexture;
 
     //Text for UI elements
+    /**
+     * Label text for step information in map screen user interface.
+     */
     private Label stepLabel;
+    /**
+     * Label text for move point information in map screen user interface.
+     */
     private Label movesLabel;
+    /**
+     * Label text for key information in map screen user interface.
+     */
     private Label keyLabel;
 
     /**
@@ -319,6 +392,15 @@ public class MapScreenUI {
         });
     }
 
+    /**
+     * Creates a window to inform player when move points are over.
+     *
+     * <p>
+     * Creates windows sets label and text to that windows.
+     * Adds buttons to confirm windows message and return to playing.
+     * Adds size, position and other windows specific information.
+     * </p>
+     */
     public void createOutOfMovesWindow() {
         outOfMovesWindowUp = true;
         Table textTable = new Table();
@@ -402,10 +484,20 @@ public class MapScreenUI {
         return buttonsUp;
     }
 
+    /**
+     * Returns scene2D stage that contains objects.
+     *
+     * @return stage that contains objects
+     */
     public Stage getStage() {
         return stage;
     }
 
+    /**
+     * Receives a boolean value to set if back button is pressed.
+     *
+     * @param initialized boolean value to tell if back button is pressed
+     */
     public void setBackButtonInitialized(boolean initialized) {
         backButtonInitialized = initialized;
     }
