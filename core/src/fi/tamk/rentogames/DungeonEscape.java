@@ -362,7 +362,6 @@ public class DungeonEscape extends Game {
         }
         return stepTotal;
     }
-
     /**
      * Interface variable to receive steps from service in android launcher.
      */

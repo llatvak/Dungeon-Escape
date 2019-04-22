@@ -161,6 +161,12 @@ public class MapScreen implements Screen {
 
         if(stepTotal > oldStepTotal) {
             userInterface.updateStepsLabel();
+            if(stepsAfterPointsAdd < player.STEPSTOMOVE) {
+                 stepsAfterPointsAdd = stepTotal - stepsDuringPointsAdd;
+            } else {
+                stepsAfterPointsAdd = 0;
+            }
+
         }
         checkKeyAmount();
         player.checkCollisions();
@@ -233,6 +239,8 @@ public class MapScreen implements Screen {
      * Only allows one movement point addition until one step is added.
      *</p>
      */
+    private int stepsAfterPointsAdd;
+
     private void addMovementPointsOnRender() {
         // Checks if total step amount is divisible by the amount needed to move
         if(stepTotal > 0) {
@@ -260,11 +268,14 @@ public class MapScreen implements Screen {
      *</p>
      */
     private void countAfterPauseMovementPoints() {
-        int stepsWhilePaused = countStepsDeltaOnResume();
+        int stepsWhilePaused = countStepsDeltaOnResume() + stepsAfterPointsAdd;
         int pointsToAdd;
 
         pointsToAdd = stepsWhilePaused / player.STEPSTOMOVE;
         player.addMovementPoints(pointsToAdd);
+        if(pointsToAdd > 0) {
+            stepsAfterPointsAdd = 0;
+        }
     }
 
     /**
