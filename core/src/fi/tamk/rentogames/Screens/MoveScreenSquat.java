@@ -15,6 +15,13 @@ import fi.tamk.rentogames.Interface.MoveTutorials;
 import fi.tamk.rentogames.Move.MoveScreenMove;
 
 /**
+ * Class for squat move screen in game.
+ *
+ * <p>
+ * Extends {@link MoveScreenMove} to inherit all common methods and variables for move screens.
+ * This class is used to control the data and actions happened in squat screen.
+ * </p>
+ *
  * @author Lauri Latva-Kyyny
  * @author  Miko Kauhanen
  * @version 1.0
@@ -22,40 +29,48 @@ import fi.tamk.rentogames.Move.MoveScreenMove;
 public class MoveScreenSquat extends MoveScreenMove implements Screen {
 
     /**
-     *
+     * Used to create user interface for squat screen.
      */
     private MoveScreenUI userInterface;
     /**
-     *
+     * Used to create tutorials for squat screen.
      */
     private MoveTutorials tutorials;
     /**
-     *
+     * Used to draw objects from stage in scene2D.
      */
     private Stage stage;
 
     // Arrow trap
     /**
-     *
+     * Texture for arrow in jump screen.
      */
     private Texture arrowTexture;
     /**
-     *
+     * Rectangle object to draw arrow texture on it.
      */
     private Rectangle arrowRect;
 
     /**
-     *
+     * Boolean value to check if player character is squatting in squat screen.
      */
     private boolean squatInitialized = true;
     /**
-     *
+     * Boolean value to check if player character is running in squat screen.
      */
     private boolean runInitialized = true;
 
     /**
-     * @param game
-     * @param mapScreen
+     * Constructor to create squat screen.
+     *
+     * <p>
+     * Receives the game from {@link DungeonEscape} and map screen to switch screen from {@link MapScreen}.
+     * Calls {@link MoveScreenMove} to use common methods and variables for move screens in game.
+     * Calls create method to create all squat screen specific information.
+     * </p>
+     *
+     * @param game game received from main class to get access to all methods
+     * @param mapScreen object to switch screens when squat is done
      */
     public MoveScreenSquat(DungeonEscape game, MapScreen mapScreen) {
         super(game, mapScreen);
@@ -63,7 +78,12 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
     }
 
     /**
+     * Method to create squat screen.
      *
+     * <p>
+     * Creates user interface from {@link MoveScreenUI} and tutorials from {@link MoveTutorials}.
+     * Sets stage in scene2D for user interface and sets arrow texture and rectangle as well as it's size and position.
+     * </p>
      */
     // Sets up the world for box2D and camera used
     private void onCreate() {
@@ -124,6 +144,16 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
     }
 
     /**
+     * Updates squat screen status.
+     *
+     * <p>
+     * Calls squat method from {@link fi.tamk.rentogames.Move.MoveScreenPlayer} to check if player squatted in real life.
+     * Moves arrow in screen when enough squats is done by player in real life.
+     * When arrow is in specific position sets player character to do squat animation and stay squatted till arrow passes.
+     * After that sets player character to run and sets run animation to character.
+     * Plays sound when player does squat or when player runs.
+     * Switches screen back to map screen when move screen's player is out of boundaries of the screen.
+     * </p>
      *
      */
     private void update() {

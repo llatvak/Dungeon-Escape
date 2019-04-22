@@ -13,6 +13,13 @@ import fi.tamk.rentogames.DungeonEscape;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
 /**
+ * Class to create and control effects in splash screen.
+ *
+ * <p>
+ * Creates splash screen using scene2D stage and sets all textures to the stage.
+ * Draws the stage and adds effect to them.
+ * </p>
+ *
  * @author Lauri Latva-Kyyny
  * @author  Miko Kauhanen
  * @version 1.0
@@ -20,40 +27,47 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 public class SplashScreen implements Screen {
 
     /**
-     *
+     * Game received from {@link DungeonEscape} to get access to all methods.
      */
     private final DungeonEscape game;
     /**
-     *
+     * Used to draw objects from stage in scene2D.
      */
     private Stage stage;
 
     // Images
     /**
-     *
+     * Image of rento games team logo.
      */
     private Image rentoImg;
     /**
-     *
+     * Image of Tampere University of Technology's logo.
      */
     private Image tamkImg;
     /**
-     *
+     * Image of Business Information Systems of TAMK logo.
      */
     private Image tikoImg;
     /**
-     *
+     * Image of What Makes Me Wanna Move -project logo.
      */
     private Image msmlImg;
 
     //Test to count switching screen (does not reflect the actual runtime ATM)!
     /**
-     *
+     * State time to count when to switch screens.
      */
     private float stateTime = 0;
 
     /**
-     * @param game
+     * Constructor to create splash screen.
+     *
+     * <p>
+     * Sets the game received from main class and using that game sets the viewport for screen.
+     * Creates all textures and makes and image of them.
+     * </p>
+     *
+     * @param game game received from {@link DungeonEscape} to get access to all methods
      */
     public SplashScreen(final DungeonEscape game) {
         // Using DungeonEscape class camera to set viewport to stage
@@ -143,7 +157,9 @@ public class SplashScreen implements Screen {
     }
 
     /**
-     * @param delta
+     * Updates splash screen to act and swap screens when effects in splash screen are done.
+     *
+     * @param delta delta time added to state time to count time passed
      */
     private void update(float delta) {
         stage.act(delta);

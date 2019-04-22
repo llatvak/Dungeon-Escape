@@ -14,6 +14,13 @@ import fi.tamk.rentogames.Interface.MoveTutorials;
 import fi.tamk.rentogames.Move.MoveScreenMove;
 
 /**
+ * Class for jump move screen in game.
+ *
+ * <p>
+ * Extends {@link MoveScreenMove} to inherit all common methods and variables for move screens.
+ * This class is used to control the data and actions happened in jump screen.
+ * </p>
+ *
  * @author Lauri Latva-Kyyny
  * @author  Miko Kauhanen
  * @version 1.0
@@ -21,43 +28,51 @@ import fi.tamk.rentogames.Move.MoveScreenMove;
 public class MoveScreenJump extends MoveScreenMove implements Screen {
 
     /**
-     *
+     * Used to create user interface for jump screen.
      */
     private MoveScreenUI userInterface;
     /**
-     *
+     * Used to create tutorials for jump screen.
      */
     private MoveTutorials tutorials;
     /**
-     *
+     * Used to draw objects from stage in scene2D.
      */
     private Stage stage;
 
     /**
-     *
+     * Texture for spike in jump screen.
      */
     private Texture spikeTexture;
     // Spike attributes
     /**
-     *
+     * Jump screen's spike x position.
      */
     private float spikeX;
     /**
-     *
+     * Jump screen's spike y position.
      */
     private float spikeY;
     /**
-     *
+     * Jump screen's spike width.
      */
     private float spikeWidth;
     /**
-     *
+     * Jump screen's spike height.
      */
     private float spikeHeight;
 
     /**
-     * @param game
-     * @param mapScreen
+     * Constructor to create jump screen.
+     *
+     * <p>
+     * Receives the game from {@link DungeonEscape} and map screen to switch screen from {@link MapScreen}.
+     * Calls {@link MoveScreenMove} to use common methods and variables for move screens in game.
+     * Calls create method to create all jump screen specific information.
+     * </p>
+     *
+     * @param game game received from main class to get access to all methods
+     * @param mapScreen object to switch screens when jump is done
      */
     public MoveScreenJump(DungeonEscape game, MapScreen mapScreen) {
         super(game, mapScreen);
@@ -65,6 +80,13 @@ public class MoveScreenJump extends MoveScreenMove implements Screen {
     }
 
     /**
+     * Method to create jump screen.
+     *
+     * <p>
+     * Creates user interface from {@link MoveScreenUI} and tutorials from {@link MoveTutorials}.
+     * Sets stage in scene2D for user interface and sets spike texture.
+     * Sets position and size to spike in jump screen.
+     * </p>
      *
      */
     // Sets up the world for box2D and camera used
@@ -127,6 +149,12 @@ public class MoveScreenJump extends MoveScreenMove implements Screen {
     }
 
     /**
+     * Updates jump screen status.
+     *
+     * <p>
+     * Calls jump method from {@link fi.tamk.rentogames.Move.MoveScreenPlayer} to check if player jumped in real life.
+     * Switches screen back to map screen when move screen's player is out of boundaries of the screen.
+     * </p>
      *
      */
     private void update() {

@@ -1,7 +1,6 @@
 package fi.tamk.rentogames.Move;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -15,9 +14,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import fi.tamk.rentogames.Framework.GameAudio;
 import fi.tamk.rentogames.Framework.Save;
 import fi.tamk.rentogames.Framework.Utils;
-
-import static com.badlogic.gdx.Input.Keys.SPACE;
-import static com.badlogic.gdx.Input.Keys.UP;
 
 /**
  * Creates the player in Box2D world and holds information for it.
@@ -35,87 +31,87 @@ import static com.badlogic.gdx.Input.Keys.UP;
 public class MoveScreenPlayer {
     // Box2D player body
     /**
-     *
+     * Player in move screen as a box2D body.
      */
     private Body playerBody;
 
     // player animation and texture
     /**
-     *
+     * Texture for player when idle.
      */
     private Texture playerIdleTexture;
     /**
-     *
+     * Player texture sheet when jumping.
      */
     private Texture playerJumpsheetTexture;
     /**
-     *
+     * Player texture sheet when running.
      */
     private Texture playerRunsheetTexture;
     /**
-     *
+     * Player texture sheet when squatting.
      */
     private Texture playerSquatsheetTexture;
 
     // Animations
     /**
-     *
+     * Jump animation as texture region.
      */
     private Animation<TextureRegion> jumpAnimation;
     /**
-     *
+     * Run animation as texture region.
      */
     private Animation<TextureRegion> runAnimation;
     /**
-     *
+     * Squat animation as texture region.
      */
     private Animation<TextureRegion> squatAnimation;
 
     /**
-     *
+     * State time used in animations.
      */
     private float stateTime;
 
     // Current frame textures
     /**
-     *
+     * Current texture frame used for printing specific texture.
      */
     private TextureRegion currentFrameTexture;
 
     //player jump variables
     /**
-     *
+     * Boolean value to check if player character already jumped.
      */
     private boolean playerJumped = false;
     /**
-     *
+     * Int value to count jumps user made in real life.
      */
     private int countedJumps = 0;
     /**
-     *
+     * Boolean value to check if player is moving.
      */
     private boolean playerMoving = false;
 
     /**
-     *
+     * Boolean value to tell if player is squatting.
      */
     private boolean playerSquatting = false;
     /**
-     *
+     * Boolean value to tell is player running currently.
      */
     private boolean playerRunning = false;
     /**
-     *
+     * Boolean value to tell if player is in air or not.
      */
     private boolean playerJumping = false;
 
     /**
-     *
+     * State time to stop squats from counting for specific time.
      */
     private int squatStateTime = 0;
 
     /**
-     *
+     * Moves required to pass trap in game.
      */
     private int movesRequired = 3;
 
@@ -123,9 +119,14 @@ public class MoveScreenPlayer {
     /**
      * Constructor for creating player and animations.
      *
+     * <p>
+     * Receives world from {@link MoveScreenMove} and puts a player body to it with and creates definition for it.
+     * Creates fixture to player and adds an idle texture.
+     * Creates all texture sheets used in animations.
+     * Creates all animations.
+     * </p>
      *
-     *
-     * @param w
+     * @param w receives a world to place box2D bodies in
      */
     public MoveScreenPlayer(World w) {
         // Creates body to world and gets definitions and fixtures to it
@@ -141,7 +142,9 @@ public class MoveScreenPlayer {
     }
 
     /**
-     * @return
+     * Creates player's body definition and type, also sets positions and returns that definition.
+     *
+     * @return body definition of move screen's player
      */
     // Defines the player body type and sets position
     private BodyDef getDefinitionOfBody() {
@@ -152,7 +155,9 @@ public class MoveScreenPlayer {
     }
 
     /**
-     * @return
+     * Creates a shape for player body and sets it to specific size and returns that.
+     *
+     * @return Return shape and size of the player in move screen
      */
     // Sets player body shape and size and returns the shape
     private PolygonShape getPlayerShape() {
@@ -162,7 +167,9 @@ public class MoveScreenPlayer {
     }
 
     /**
-     * @return
+     * Returns player body's x position
+     *
+     * @return player body's current x position
      */
     // Gets player X position and returns it
     public float getPlayerX() {
@@ -170,7 +177,9 @@ public class MoveScreenPlayer {
     }
 
     /**
-     * @return
+     * Returns player body's y position
+     *
+     * @return player body's current y position
      */
     // Gets player Y position and returns it
     public float getPlayerY() {
@@ -178,7 +187,9 @@ public class MoveScreenPlayer {
     }
 
     /**
-     * @param b
+     * Draws player current frame texture from texture sheets or player with idle texture.
+     *
+     * @param b sprite batch to draw player's texture
      */
     // Draws the player using current animation texture
     // Also draws the player on the player body in Box2D
@@ -194,7 +205,15 @@ public class MoveScreenPlayer {
     }
 
     /**
+     * Creates jump animation.
      *
+     * <p>
+     * Texture sheet row and column amount required to split the texture to specific size texture frames.
+     * Splits the jump texture sheet into 2D-array using split width and height values.
+     * Creates 1D-array and uses {@link Utils} class to transform 2D array of textures to 1D-array using rows and columns given.
+     * Creates the jump animation and set's duration for one frame and puts 1D-array of textures to texture region.
+     * Creates current frame texture from animation using state time and sets it to loop or not with boolean value.
+     * </p>
      */
     // Creates jump animation
     private void createJumpAnimation() {
@@ -215,7 +234,15 @@ public class MoveScreenPlayer {
     }
 
     /**
+     * Creates run animation.
      *
+     * <p>
+     * Texture sheet row and column amount required to split the texture to specific size texture frames.
+     * Splits the run texture sheet into 2D-array using split width and height values.
+     * Creates 1D-array and uses {@link Utils} class to transform 2D array of textures to 1D-array using rows and columns given.
+     * Creates the run animation and set's duration for one frame and puts 1D-array of textures to texture region.
+     * Creates current frame texture from animation using state time and sets it to loop or not with boolean value.
+     * </p>
      */
     // Creates run animation
     private void createRunAnimation() {
@@ -236,7 +263,15 @@ public class MoveScreenPlayer {
     }
 
     /**
+     * Creates squat animation.
      *
+     * <p>
+     * Texture sheet row and column amount required to split the texture to specific size texture frames.
+     * Splits the squat texture sheet into 2D-array using split width and height values.
+     * Creates 1D-array and uses {@link Utils} class to transform 2D array of textures to 1D-array using rows and columns given.
+     * Creates the squat animation and set's duration for one frame and puts 1D-array of textures to texture region.
+     * Creates current frame texture from animation using state time and sets it to loop or not with boolean value.
+     * </p>
      */
     // Creates squat animation
     private void createSquatAnimation() {
@@ -257,6 +292,20 @@ public class MoveScreenPlayer {
     }
 
     /**
+     * Method used to control data from player jumping in real life.
+     *
+     * <p>
+     * Updates state time by adding delta time to float variable.
+     * Sets linear velocity for player in move screen if x position under specific value.
+     * Calls method to count player's jumps made in real life.
+     * </p>
+     *
+     * <p>
+     * If player is in air and enough moves have been done sets and player is not moving currently,
+     * loops jump animation once and sets a linear impulse to create player body's jump using box2D physics.
+     * Plays sound when player has jumped and sets boolean values for next steps in move screen.
+     * Sets player to run and animation for player when move screen comes visible.
+     * </p>
      *
      */
     // Method for player jumping
@@ -288,7 +337,12 @@ public class MoveScreenPlayer {
     }
 
     /**
+     * Counts jumps player has made in real life.
      *
+     * <p>
+     * Using accelerometer Y-values counts player jumps when going up and down.
+     * Only counts jumps if player has not gone up or down.
+     * </p>
      */
     // Counts player jumps
     private void countJumps() {
@@ -304,7 +358,12 @@ public class MoveScreenPlayer {
     }
 
     /**
+     * Counts squats player has made in real life.
      *
+     * <p>
+     * Uses state time to control squat counting constantly.
+     * Counts squats if player has gone down and player has not jumped.
+     * </p>
      */
     // Counts player squats
     private void countSquats() {
@@ -324,6 +383,13 @@ public class MoveScreenPlayer {
     }
 
     /**
+     * Method used for to control data from player squatting in real life.
+     *
+     * <p>
+     * Updates state time by adding delta time to float variable.
+     * Sets linear velocity for player in move screen if x position under specific value.
+     * Calls method to count player's jumps made in real life.
+     * </p>
      *
      */
     public void playerSquat() {
@@ -346,7 +412,7 @@ public class MoveScreenPlayer {
     }
 
     /**
-     *
+     * Sets squat animation to dodge arrow trap in {@link fi.tamk.rentogames.Screens.MoveScreenSquat}
      */
     public void playerDodge() {
         currentFrameTexture = squatAnimation.getKeyFrame(stateTime, false);
@@ -354,7 +420,7 @@ public class MoveScreenPlayer {
     }
 
     /**
-     *
+     * Sets a linear x velocity to player and loops run animation when arrow is passed in {@link fi.tamk.rentogames.Screens.MoveScreenSquat}
      */
     // Method for running after arrow is passed
     public void playerRun() {
@@ -364,7 +430,9 @@ public class MoveScreenPlayer {
     }
 
     /**
-     * @return
+     * Returns counted jumps by dividing them by 2.
+     *
+     * @return squat amount in int value
      */
     // Returns counted jumps
     public int getCountedJumps() {
@@ -372,14 +440,18 @@ public class MoveScreenPlayer {
     }
 
     /**
-     * @return
+     * Returns required move amount that player has to do in real life.
+     *
+     * @return move amount for player to do in real life as int value
      */
     public int getMovesRequired() {
         return movesRequired;
     }
 
     /**
-     * @param dodgeTrap
+     * Sets player to squat using boolean value.
+     *
+     * @param dodgeTrap boolean value received from {@link fi.tamk.rentogames.Screens.MoveScreenSquat} to know when to squat
      */
     public void setPlayerSquat(boolean dodgeTrap) {
 
