@@ -32,16 +32,35 @@ import fi.tamk.rentogames.Map.MapPlayer;
  */
 public class MapScreen implements Screen {
 
+    /**
+     * Main class object {@link DungeonEscape} used to access all methods and variables there.
+     */
     private DungeonEscape game;
 
+
+    /**
+     * Map player {@link MapPlayer} object to access map player's methods and variables.
+     */
     private MapPlayer player;
 
+    /**
+     * Map level object {@link MapLevel} to access methods and variables for switching levels.
+     */
     private MapLevel mapLevel;
 
+    /**
+     * Map screen user interface class object {@link MapScreenUI} used to create user interface for map screen.
+     */
     private MapScreenUI userInterface;
 
+    /**
+     * Scene2D stage to set objects to stage and set actions for them and draw them.
+     */
     private Stage stage;
 
+    /**
+     * For rendering tiled map in orthogonal angle.
+     */
     private OrthogonalTiledMapRenderer tiledMapRenderer;
 
     /**
