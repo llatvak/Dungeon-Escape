@@ -149,4 +149,26 @@ public class Save {
         prefs = Gdx.app.getPreferences("dungeonescapegame");
         return prefs.getFloat("audioSetting", 1f);
     }
+
+    public static void saveShowJumpTutorial(boolean showTutorial) {
+        prefs = Gdx.app.getPreferences("dungeonescapegame");
+        prefs.putBoolean("jumptutorial", showTutorial);
+        prefs.flush();
+    }
+
+    public static boolean getShowJumpTutorial() {
+        prefs = Gdx.app.getPreferences("dungeonescapegame");
+        return prefs.getBoolean("jumptutorial", true);
+    }
+
+    public static void saveShowSquatTutorial(boolean showTutorial) {
+        prefs = Gdx.app.getPreferences("dungeonescapegame");
+        prefs.putBoolean("squattutorial", showTutorial);
+        prefs.flush();
+    }
+
+    public static boolean getShowSquatTutorial() {
+        prefs = Gdx.app.getPreferences("dungeonescapegame");
+        return prefs.getBoolean("squattutorial", true);
+    }
 }

@@ -56,14 +56,6 @@ public class DungeonEscape extends Game {
      *
      */
     public static boolean story = true;
-    /**
-     *
-     */
-    private boolean jumpTutorials = false;
-    /**
-     *
-     */
-    private boolean squatTutorials = false;
 
     /**
      *
@@ -341,20 +333,6 @@ public class DungeonEscape extends Game {
     }
 
     /**
-     * @return
-     */
-    public boolean isJumpTutorials() {
-        return jumpTutorials;
-    }
-
-    /**
-     * @param jumpTutorials
-     */
-    public void setJumpTutorials(boolean jumpTutorials) {
-        this.jumpTutorials = jumpTutorials;
-    }
-
-    /**
      *
      */
     private GetSteps stepGetter;
@@ -366,19 +344,6 @@ public class DungeonEscape extends Game {
         stepGetter = sg;
     }
 
-    /**
-     * @return
-     */
-    public boolean isSquatTutorials() {
-        return squatTutorials;
-    }
-
-    /**
-     * @param squatTutorials
-     */
-    public void setSquatTutorials(boolean squatTutorials) {
-        this.squatTutorials = squatTutorials;
-    }
 
     @Override
     public void dispose () {

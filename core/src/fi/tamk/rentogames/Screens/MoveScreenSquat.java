@@ -85,9 +85,9 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
         getGame().setMoveScreenStatus(true);
         userInterface.createUI();
 
-        if(DungeonEscape.tutorials && getGame().isSquatTutorials()) {
+        if(DungeonEscape.tutorials && Save.getShowSquatTutorial()) {
             tutorials.createSquatTutorial();
-            getGame().setSquatTutorials(false);
+            Save.saveShowSquatTutorial(false);
         }
     }
 

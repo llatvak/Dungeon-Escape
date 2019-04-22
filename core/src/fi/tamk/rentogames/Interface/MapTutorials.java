@@ -164,7 +164,7 @@ public class MapTutorials {
 
         tutorialWindow.setMovable(false);
         tutorialWindow.setModal(true);
-        tutorialWindow.setSize(320,330);
+        tutorialWindow.setSize(320,350);
         tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, 210);
         tutorialWindow.getContentTable().add(textTable);
         tutorialWindow.button(confirmButton);

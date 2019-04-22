@@ -93,7 +93,7 @@ public class MapPlayer extends Sprite {
     /**
      * Amount of steps needed to receive movement points
      */
-    public final int STEPSTOMOVE = 50;
+    public final int STEPSTOMOVE = 30;
 
     /**
      * Amount of movement points added when threshold is reached

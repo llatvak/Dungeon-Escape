@@ -237,6 +237,8 @@ public class MainMenu implements Screen {
                 Save.saveMovementPoints(40);
                 Save.saveCurrentPlayerX(513f);
                 Save.saveCurrentPlayerY(65f);
+                Save.saveShowJumpTutorial(true);
+                Save.saveShowSquatTutorial(true);
                 resetButtonInitialized = true;
                 newGameWindow.remove();
                 game.changeScreen(DungeonEscape.MAPSCREEN);
