@@ -1,5 +1,13 @@
 package fi.tamk.rentogames;
 
+/**
+ * Accepts updates from accelerometer sensor and deploys the filter to detect if a step has been covered by the user.
+ *
+ * @author Anu S Pillai
+ * @version 1.0
+ * @see <a href="http://www.gadgetsaint.com/android/create-pedometer-step-counter-android/">http://www.gadgetsaint.com/android/create-pedometer-step-counter-android/</a>
+ */
+
 class StepDetector {
 
     private static final int ACCEL_RING_SIZE = 50;

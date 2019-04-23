@@ -102,7 +102,6 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
         Gdx.input.setInputProcessor(stage);
         Gdx.input.setCatchBackKey(true);
         getMapScreen().saveStepsOnPause();
-        getGame().setMoveScreenStatus(true);
         userInterface.createUI();
 
         if(DungeonEscape.tutorials && Save.getShowSquatTutorial()) {
@@ -209,7 +208,6 @@ public class MoveScreenSquat extends MoveScreenMove implements Screen {
     public void hide() {
         GameAudio.stopMusic("movescreenmusic");
         getMapScreen().setPauseSteps();
-        getGame().setMoveScreenStatus(false);
     }
 
     @Override

@@ -150,23 +150,43 @@ public class Save {
         return prefs.getFloat("audioSetting", 1f);
     }
 
+    /**
+     * Saves current setting for showing tutorial on jump screen.
+     *
+     * @param showTutorial is tutorial shown
+     */
     public static void saveShowJumpTutorial(boolean showTutorial) {
         prefs = Gdx.app.getPreferences("dungeonescapegame");
         prefs.putBoolean("jumptutorial", showTutorial);
         prefs.flush();
     }
 
+    /**
+     * Returns current setting for showing tutorial on jump screen.
+     *
+     * @return is tutorial shown
+     */
     public static boolean getShowJumpTutorial() {
         prefs = Gdx.app.getPreferences("dungeonescapegame");
         return prefs.getBoolean("jumptutorial", true);
     }
 
+    /**
+     * Saves current setting for showing tutorial on squat screen.
+     *
+     * @param showTutorial is tutorial shown
+     */
     public static void saveShowSquatTutorial(boolean showTutorial) {
         prefs = Gdx.app.getPreferences("dungeonescapegame");
         prefs.putBoolean("squattutorial", showTutorial);
         prefs.flush();
     }
 
+    /**
+     * Returns current setting for showing tutorial on squat screen.
+     *
+     * @return is tutorial shown
+     */
     public static boolean getShowSquatTutorial() {
         prefs = Gdx.app.getPreferences("dungeonescapegame");
         return prefs.getBoolean("squattutorial", true);

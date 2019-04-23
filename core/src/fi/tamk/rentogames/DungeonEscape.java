@@ -86,9 +86,6 @@ public class DungeonEscape extends Game {
      */
     private MapScreen mapScreen;
 
-    private boolean mapScreenStatus;
-    private boolean moveScreenStatus;
-
     /**
      * Previous screen in int value.
      */
@@ -105,10 +102,6 @@ public class DungeonEscape extends Game {
      * Main menu screen for switch cases.
      */
     public final static int MAINMENU = 1;
-    /**
-     *
-     */
-    public final static int SETTINGSSCREEN = 2;
     /**
      * Map screen for switch cases
      */
@@ -135,16 +128,10 @@ public class DungeonEscape extends Game {
      */
     private Viewport gameViewport;
 
-
     /**
      * Current step amount total player has walked in real life.
      */
-    private int stepTotal; // renderissä
-    private int oldStepTotal;
-
-    public DungeonEscape() {
-        // :D
-    }
+    private int stepTotal;
 
     @Override
     public void create () {
@@ -261,14 +248,12 @@ public class DungeonEscape extends Game {
             case MAPSCREEN:
                 activeScreen = MAPSCREEN;
                 mapScreen = new MapScreen(this);
-                mapScreenStatus = true;
                 this.setScreen(mapScreen);
                 break;
 
             case JUMPSCREEN:
                 activeScreen = JUMPSCREEN;
                 MoveScreenJump moveScreenJump = new MoveScreenJump(this, mapScreen.getMapScreen());
-                moveScreenStatus = true;
                 this.setScreen(moveScreenJump);
                 break;
 
@@ -289,7 +274,6 @@ public class DungeonEscape extends Game {
             case SQUATSCREEN:
                 activeScreen = SQUATSCREEN;
                 MoveScreenSquat moveScreenSquat = new MoveScreenSquat(this, mapScreen.getMapScreen());
-                moveScreenStatus = true;
                 this.setScreen(moveScreenSquat);
                 break;
         }
@@ -309,15 +293,6 @@ public class DungeonEscape extends Game {
      */
     public void setPreviousScreen(int screen) {
         this.previousScreen = screen;
-    }
-
-    /**
-     * Sets the status of move screen to tell if move screen is on or off.
-     *
-     * @param status boolean value to set the status of the move screen
-     */
-    public void setMoveScreenStatus(boolean status) {
-        this.moveScreenStatus = status;
     }
 
     /**
@@ -341,7 +316,7 @@ public class DungeonEscape extends Game {
     /**
      * Sets language of the game, default english but uses string values to check when to switch.
      */
-    public void setStartLanguage() {
+    private void setStartLanguage() {
         if(Save.getLanguagePrefs().equals("MyBundle_fi_FI")) {
             setLanguage("fi", "FI", "MyBundle_fi_FI");
         } else if(Save.getLanguagePrefs().equals("MyBundle_en_US")) {
@@ -372,10 +347,9 @@ public class DungeonEscape extends Game {
      *
      * @param sg interface of step counting service
      */
-    public void setGetSteps(GetSteps sg){
+    void setGetSteps(GetSteps sg){
         stepGetter = sg;
     }
-
 
     @Override
     public void dispose () {

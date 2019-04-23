@@ -37,22 +37,6 @@ public class MyInputProcessor implements InputProcessor, Disposable {
     }
 
     public boolean keyDown (int keycode) {
-//        if(!player.moving && player.allowMovement && keycode == UP) {
-//            player.setUpMove();
-//        }
-//
-//        if(!player.moving && player.allowMovement && keycode == DOWN) {
-//            player.setDownMove();
-//        }
-//
-//        if(!player.moving && player.allowMovement && keycode == LEFT) {
-//            player.setLeftMove();
-//        }
-//
-//        if(!player.moving && player.allowMovement && keycode == RIGHT) {
-//            player.setRightMove();
-//        }
-
         if(keycode == SPACE) {
             player.addMovementPoints();
         }
@@ -72,22 +56,6 @@ public class MyInputProcessor implements InputProcessor, Disposable {
     }
 
     public boolean touchDown (int x, int y, int pointer, int button) {
-//        int screenWidthHalf = Gdx.graphics.getWidth() / 2;
-//        int screenHeightHalf = Gdx.graphics.getHeight() / 2;
-//
-//        if(!player.moving && player.allowMovement && y < screenHeightHalf - 45) {
-//            player.setUpMove();
-//        }
-//        if(!player.moving && player.allowMovement && y > screenHeightHalf + 45) {
-//            player.setDownMove();
-//        }
-//        if(!player.moving && player.allowMovement && x < screenWidthHalf - 45  ) {
-//            player.setLeftMove();
-//        }
-//        if(!player.moving && player.allowMovement && x > screenWidthHalf + 45) {
-//            player.setRightMove();
-//        }
-//
         return false;
     }
 

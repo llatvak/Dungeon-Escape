@@ -23,6 +23,13 @@ import com.badlogic.gdx.utils.Json;
 
 import fi.tamk.rentogames.Framework.GetSteps;
 
+/**
+ * Class that creates a notification to keep pedometer running in the background.
+ *
+ * @author Aleksi Kervinen
+ * @author Pasi Mäkitalo
+ * @version 1.0
+ */
 public class MyService extends Service implements SensorEventListener, StepListener, GetSteps {
 
     private StepDetector simpleStepDetector;

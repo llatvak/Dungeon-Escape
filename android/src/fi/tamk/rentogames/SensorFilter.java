@@ -1,5 +1,12 @@
 package fi.tamk.rentogames;
 
+/**
+ * Algorithm to filter out values that has close approximation to steps.
+ *
+ * @author Anu S Pillai
+ * @version 1.0
+ * @see <a href="http://www.gadgetsaint.com/android/create-pedometer-step-counter-android/">http://www.gadgetsaint.com/android/create-pedometer-step-counter-android/</a>
+ */
 public class SensorFilter {
 
     private SensorFilter() {
