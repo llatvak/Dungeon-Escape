@@ -64,12 +64,12 @@ public class MoveScreenUI {
     private TextButton skipButton;
 
     /**
-     * Text for amount of exercises done
+     * Text for amount of exercises done.
      */
     private Label counterLabel;
 
     /**
-     * Text for current exercise
+     * Text for current exercise.
      */
     private Label exerciseLabel;
 
@@ -199,7 +199,7 @@ public class MoveScreenUI {
     }
 
     /**
-     * Updates jump or squat count label
+     * Updates jump or squat count label.
      */
     public void updateCounterLabel() {
         counterLabel.setText("" + player.getCountedJumps() + "/" + player.getMovesRequired());
