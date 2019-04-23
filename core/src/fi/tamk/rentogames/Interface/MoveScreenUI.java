@@ -28,18 +28,39 @@ import fi.tamk.rentogames.Screens.MapScreen;
  */
 public class MoveScreenUI {
 
+    /**
+     * Main class object {@link DungeonEscape} used to access all methods and variables there.
+     */
     private DungeonEscape game;
 
+    /**
+     * Map screen {@link MapScreen} used to access map screen's methods and variables.
+     */
     private MapScreen mapScreen;
 
+    /**
+     * Map player {@link MoveScreenPlayer} object to access map player's methods and variables.
+     */
     private MoveScreenPlayer player;
 
+    /**
+     * Skin used on windows and ui elements in map screen.
+     */
     private Skin skin;
 
+    /**
+     * Scene2D stage to set objects to stage and set actions for them and draw them.
+     */
     private Stage stage;
 
+    /**
+     * Button for going back.
+     */
     private ImageButton backButton;
 
+    /**
+     * Button for skipping movement screen.
+     */
     private TextButton skipButton;
 
     /**
@@ -138,16 +159,13 @@ public class MoveScreenUI {
     }
 
     /**
-     * Updates jump or squat count label
+     * Creates warning window when skipping movement screen.
+     *
+     * <p>
+     * Set buttons and labels sizes and positions and adds listeners to buttons.
+     * Adds them stage as actors.
+     * </p>
      */
-    public void updateCounterLabel() {
-        counterLabel.setText("" + player.getCountedJumps() + "/" + player.getMovesRequired());
-    }
-
-    public Stage getStage() {
-        return this.stage;
-    }
-
     private void createSkipWarningWindow() {
         Table skipWarningTable = new Table();
         final Dialog skipWarningWindow = new Dialog(game.getMyBundle().get("skiplabel"),skin );
@@ -178,6 +196,17 @@ public class MoveScreenUI {
             }
         });
         stage.addActor(skipWarningWindow);
+    }
+
+    /**
+     * Updates jump or squat count label
+     */
+    public void updateCounterLabel() {
+        counterLabel.setText("" + player.getCountedJumps() + "/" + player.getMovesRequired());
+    }
+
+    public Stage getStage() {
+        return this.stage;
     }
 
     public void dispose(){

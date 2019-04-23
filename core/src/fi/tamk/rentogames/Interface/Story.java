@@ -30,10 +30,19 @@ import fi.tamk.rentogames.DungeonEscape;
  */
 public class Story {
 
+    /**
+     * Main game {@link DungeonEscape} used to access all methods and variables there.
+     */
     private DungeonEscape game;
 
+    /**
+     * Skin used on windows and ui elements.
+     */
     private Skin skin;
 
+    /**
+     * Scene2D stage to set objects on, draw them and do actions.
+     */
     private Stage stage;
 
     /**
@@ -47,7 +56,7 @@ public class Story {
     private Texture storyBackground;
 
     /**
-     * Is is the last door
+     * Is is the last door.
      */
     private boolean gameEnd;
 
@@ -67,9 +76,12 @@ public class Story {
     }
 
     /**
+     * Changes the story text and background image inside the window.
+     *
+     * <p>
      * Changes the story text and background image inside the window according to parameter.
      * Afterwards creates the window with this text and image.
-     *
+     *</p>
      * @param tutorial tutorial part
      */
     public void createStoryPart(int tutorial) {
@@ -90,31 +102,54 @@ public class Story {
         createStoryWindow();
     }
 
+    /**
+     * Sets text and background image for first story window.
+     */
     private void createStoryOne() {
         textLabel.setText(game.getMyBundle().get("story1"));
         textLabel.setWrap(true);
         storyBackground = new Texture("story1.png");
     }
+
+    /**
+     * Sets text and background image for second story window.
+     */
     private void createStoryTwo() {
         textLabel.setText(game.getMyBundle().get("story2"));
         textLabel.setWrap(true);
         storyBackground = new Texture("story2.png");
     }
+
+    /**
+     * Sets text and background image for third story window.
+     */
     private void createStoryThree() {
         textLabel.setText(game.getMyBundle().get("story3"));
         textLabel.setWrap(true);
         storyBackground = new Texture("story3.png");
     }
+
+    /**
+     * Sets text and background image for fourth story window.
+     */
     private void createStoryFour() {
         textLabel.setText(game.getMyBundle().get("story4"));
         textLabel.setWrap(true);
         storyBackground = new Texture("story4.png");
     }
+
+    /**
+     * Sets text and background image for fifth story window.
+     */
     private void createStoryFive() {
         textLabel.setText(game.getMyBundle().get("story5"));
         textLabel.setWrap(true);
         storyBackground = new Texture("story5.png");
     }
+
+    /**
+     * Sets text and background image for game ending window.
+     */
     private void createGameEnd() {
         textLabel.setText(game.getMyBundle().get("ending"));
         textLabel.setWrap(true);
@@ -122,7 +157,15 @@ public class Story {
         storyBackground = new Texture("story-empty.png");
     }
 
-
+    /**
+     * Creates a window for stories.
+     *
+     * <p>
+     * Creates windows sets text and background image to that window.
+     * Adds buttons to confirm windows message and return to playing.
+     * Sets size, position. When at game ending window, returns player to main menu.
+     * </p>
+     */
     private void createStoryWindow(){
         Table textTable = new Table();
 

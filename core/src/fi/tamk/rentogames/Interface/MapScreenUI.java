@@ -52,7 +52,6 @@ public class MapScreenUI {
      */
     private Skin skin;
 
-
     /**
      * Scene2D stage to set objects on, draw them and do actions.
      */

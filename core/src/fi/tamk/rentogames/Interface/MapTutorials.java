@@ -30,10 +30,19 @@ import fi.tamk.rentogames.DungeonEscape;
  */
 public class MapTutorials {
 
+    /**
+     * Main game {@link DungeonEscape} used to access all methods and variables there.
+     */
     private DungeonEscape game;
 
+    /**
+     * Skin used on windows and ui elements.
+     */
     private Skin skin;
 
+    /**
+     * Scene2D stage to set objects on, draw them and do actions.
+     */
     private Stage stage;
 
     /**
@@ -83,15 +92,15 @@ public class MapTutorials {
             case 4: createTrapsTutorial();
                     createTrapsTutorialWindow();
                 break;
-            case 5: createGoalTutorial();
-                    createGoalTutorialWindow();
-                break;
             case 6: createNoKeysInfo();
                     createNoKeysWindow();
                 break;
         }
     }
 
+    /**
+     * Sets text and title for intro tutorial.
+     */
     private void createIntroTutorial() {
         dialogTitle = game.getMyBundle().get("mapintrotutorialtitle");
         textLabel.setText(game.getMyBundle().get("mapintrotutorialtext"));
@@ -99,6 +108,10 @@ public class MapTutorials {
         textLabel.setWidth(100);
     }
 
+
+    /**
+     * Sets text and title for character movement tutorial.
+     */
     private void createCharacterTutorial() {
         dialogTitle = game.getMyBundle().get("mapcharactertutorialtitle");
         textLabel.setText(game.getMyBundle().get("mapcharactertutorialtext"));
@@ -106,6 +119,9 @@ public class MapTutorials {
         textLabel.setWidth(100);
     }
 
+    /**
+     * Sets text and title for keys tutorial.
+     */
     private void createKeysTutorial() {
         dialogTitle = game.getMyBundle().get("mapkeystutorialtitle");
         textLabel.setText(game.getMyBundle().get("mapkeystutorialtext"));
@@ -113,6 +129,9 @@ public class MapTutorials {
         textLabel.setWidth(100);
     }
 
+    /**
+     * Sets text and title for movement points tutorial.
+     */
     private void createMovementPointsTutorial() {
         dialogTitle = game.getMyBundle().get("mappointstutorialtitle");
         textLabel.setText(game.getMyBundle().get("mappointstutorialtext"));
@@ -120,6 +139,9 @@ public class MapTutorials {
         textLabel.setWidth(100);
     }
 
+    /**
+     * Sets text and title for pedometer tutorial.
+     */
     private void createStepsTutorial() {
         dialogTitle = game.getMyBundle().get("mapstepstutorialtitle");
         textLabel.setText(game.getMyBundle().get("mapstepstutorialtext"));
@@ -127,25 +149,29 @@ public class MapTutorials {
         textLabel.setWidth(100);
     }
 
+    /**
+     * Sets text and title for first traps tutorial.
+     */
     private void createTrapsTutorial() {
         dialogTitle = game.getMyBundle().get("maptrapstutorialtitle");
         textLabel.setText(game.getMyBundle().get("maptrapstutorialtext"));
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
+
+    /**
+     * Sets text and title for second traps tutorial.
+     */
     private void createTrapsTutorialTwo() {
         dialogTitle = game.getMyBundle().get("maptrapstutorialtitletwo");
         textLabel.setText(game.getMyBundle().get("maptrapstutorialtexttwo"));
         textLabel.setWrap(true);
         textLabel.setWidth(100);
     }
-    private void createGoalTutorial() {
-        dialogTitle = "Escape!";
-        textLabel.setText("Now get going, the guards are coming. You must escape!"
-        );
-        textLabel.setWrap(true);
-        textLabel.setWidth(100);
-    }
+
+    /**
+     * Sets text and title for no keys tutorial.
+     */
     private void createNoKeysInfo() {
         dialogTitle = game.getMyBundle().get("mapnokeysinfotitle");
         textLabel.setText(game.getMyBundle().get("mapnokeysinfotext"));
@@ -153,6 +179,15 @@ public class MapTutorials {
         textLabel.setWidth(100);
     }
 
+    /**
+     * Creates a window for intro tutorial.
+     *
+     * <p>
+     * Creates windows sets label and text to that window.
+     * Adds buttons to confirm windows message and return to playing.
+     * Sets size, position and other windows specific information.
+     * </p>
+     */
     private void createIntroTutorialWindow(){
         Table textTable = new Table();
 
@@ -180,6 +215,15 @@ public class MapTutorials {
         stage.addActor(tutorialWindow);
     }
 
+    /**
+     * Creates a window for character tutorial.
+     *
+     * <p>
+     * Creates windows sets label and text to that window.
+     * Adds buttons to confirm windows message and return to playing.
+     * Sets size, position and other windows specific information.
+     * </p>
+     */
     private void createCharacterTutorialWindow(){
         Table textTable = new Table();
 
@@ -203,6 +247,15 @@ public class MapTutorials {
         stage.addActor(tutorialWindow);
     }
 
+    /**
+     * Creates a window for keys tutorial.
+     *
+     * <p>
+     * Creates windows sets label and text to that window.
+     * Adds buttons to confirm windows message and return to playing.
+     * Sets size, position and other windows specific information.
+     * </p>
+     */
     private void createKeysTutorialWindow(){
         Table textTable = new Table();
         Texture keyTexture = new Texture("tutorialkeys.png");
@@ -224,6 +277,16 @@ public class MapTutorials {
 
         stage.addActor(tutorialWindow);
     }
+
+    /**
+     * Creates a window for movement points tutorial.
+     *
+     * <p>
+     * Creates windows sets label and text to that window.
+     * Adds buttons to confirm windows message and return to playing.
+     * Sets size, position and other windows specific information.
+     * </p>
+     */
     private void createMovementPointsTutorialWindow(){
         Table textTable = new Table();
         Texture movesArrowTexture = new Texture("tutorialmoves.png");
@@ -252,6 +315,16 @@ public class MapTutorials {
         });
         stage.addActor(tutorialWindow);
     }
+
+    /**
+     * Creates a window for pedometer tutorial.
+     *
+     * <p>
+     * Creates windows sets label and text to that window.
+     * Adds buttons to confirm windows message and return to playing.
+     * Sets size, position and other windows specific information.
+     * </p>
+     */
     private void createStepsTutorialWindow(){
         Table textTable = new Table();
         Texture stepsTexture = new Texture("tutorialsteps.png");
@@ -273,6 +346,16 @@ public class MapTutorials {
 
         stage.addActor(tutorialWindow);
     }
+
+    /**
+     * Creates a window for first traps tutorial.
+     *
+     * <p>
+     * Creates windows sets label and text to that window.
+     * Adds buttons to confirm windows message and return to playing.
+     * Sets size, position and other windows specific information.
+     * </p>
+     */
     private void createTrapsTutorialWindow(){
         Table textTable = new Table();
         Texture trapOneTexture = new Texture("tutorialtrapspikes.png");
@@ -305,6 +388,16 @@ public class MapTutorials {
 
         stage.addActor(tutorialWindow);
     }
+
+    /**
+     * Creates a window for second traps tutorial.
+     *
+     * <p>
+     * Creates windows sets label and text to that window.
+     * Adds buttons to confirm windows message and return to playing.
+     * Sets size, position and other windows specific information.
+     * </p>
+     */
     private void createTrapsTutorialWindowTwo(){
         Table textTable = new Table();
 
@@ -324,25 +417,15 @@ public class MapTutorials {
         stage.addActor(tutorialWindow);
     }
 
-    private void createGoalTutorialWindow(){
-        Table textTable = new Table();
-
-        Dialog tutorialWindow = new Dialog(getDialogTitle(),skin );
-        TextButton confirmButton = new TextButton("OK!", skin );
-
-        textTable.setDebug(false);
-        textTable.add(getLabel()).width(270f).height(90f).left();
-
-        tutorialWindow.setMovable(false);
-        tutorialWindow.setModal(true);
-        tutorialWindow.setSize(300,190);
-        tutorialWindow.setPosition(game.screenWidth / 2 - tutorialWindow.getWidth() / 2, game.screenHeight / 2 - 90f);
-        tutorialWindow.getContentTable().add(textTable);
-        tutorialWindow.button(confirmButton);
-
-        stage.addActor(tutorialWindow);
-    }
-
+    /**
+     * Creates a window for no keys info.
+     *
+     * <p>
+     * Creates windows sets label and text to that window.
+     * Adds buttons to confirm windows message and return to playing.
+     * Sets size, position and other windows specific information.
+     * </p>
+     */
     private void createNoKeysWindow(){
         Table textTable = new Table();
         Texture keyTexture = new Texture("keyicon.png");
